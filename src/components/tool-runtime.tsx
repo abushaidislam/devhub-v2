@@ -192,7 +192,11 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 						<RotateCcw size={14} />
 						Reset
 					</button>
-					<button onClick={copy} disabled={!output || !!image}>
+					<button
+						onClick={copy}
+						disabled={!output || !!image}
+						aria-label={copied ? "Copied to clipboard" : "Copy output to clipboard"}
+					>
 						{copied ? <Check size={14} /> : <Copy size={14} />}
 						Copy
 					</button>
