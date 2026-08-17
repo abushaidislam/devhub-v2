@@ -13,3 +13,6 @@ test-results
 dist
 out
 .env
+
+# TypeScript incremental build cache
+*.tsbuildinfo
