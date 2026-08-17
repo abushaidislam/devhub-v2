@@ -1,0 +1,107 @@
+# Changelog
+
+## [0.4.0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.3.1...v0.4.0) (2026-07-27)
+
+
+### Features
+
+* add safe saved-recipe transfer ([f96ee6a](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f96ee6a5be3e1be90ee47df787a3c8132dbb30d5))
+
+## [0.3.1](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.3.0...v0.3.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* type saved recipe create mock argument ([f8f2fa4](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f8f2fa4db7cda89ed5127b631e63bec3ef4f9d30))
+
+## [0.3.0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.2.0...v0.3.0) (2026-07-27)
+
+
+### Features
+
+* add bounded saved recipe storage ([a200b1d](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/a200b1df7ceff953a919018eb67fee87677a9edd))
+* add curated built-in workflow recipes ([8225c36](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/8225c362bb3cc35351d1b739b786780fab287d34))
+* add curated built-in workflow recipes ([2e11cbb](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/2e11cbb26e5fa6b1f1014fcd38b4b4fdb3c2bb52))
+* add dedicated favorites workspace ([a4279d7](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/a4279d7370349d687f6887ac6298a7ba4fee5ac3))
+* add deterministic recommended next actions on tool pages (ADR-015) ([0b8524a](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/0b8524a42cb56cba901681fbb967c0a0699f7314))
+* add deterministic smart input detection ([e85de09](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/e85de09ea525d0d264123d01700c8788ed0f9a47))
+* add deterministic smart input detection ([fcf674c](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/fcf674c30027f60fd545c7b78009a3b0c82ce30c))
+* add in-memory saved recipe runner ([44d8859](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/44d885970ed3b28f1acc2c18e42db51b8b58e242))
+* add independent core tool engines ([e2a54bd](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/e2a54bd5731e3cdb2458b9672bfb4d43bdbcb164))
+* add independent core tool engines ([f85542e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f85542e07df5ab55fe1c6b43191c8c4c9d7c005a))
+* add LLM discovery and strengthen technical SEO ([53486be](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/53486bea13869f48e0cb3929c6bce4e11b82d727))
+* add local favorites workspace import and export (ADR-014) ([27d8cde](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/27d8cdef17d5937e8355740d766e4355206cf996))
+* add local saved recipe workspace ([37fc5ad](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/37fc5ad8afb246e443a2ee77b6a6071e66ee4f46))
+* add one-click saved recipe reruns ([3852054](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/38520545608e5adaac4ac8c33866d51444c4aff2))
+* add privacy-controlled recent history ([2ac3820](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/2ac382049268a158f5928bef4635b30df16e9ca4))
+* add private recent history storage ([f1657fc](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f1657fc749e1d5b3821aea9bcd75b355708f1298))
+* add saved recipe workspace UI ([85654ed](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/85654ed44adbdfb63d377ebb44e7f39a4ca76eeb))
+* add sequential local workflow runner ([a6eb568](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/a6eb56880f9c99c0497af75a6ef44a31469b1008))
+* add sequential local workflow runner ([83ea3bf](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/83ea3bf31ba10d0a7114e6f5109b57cad0777b1a))
+* add typed design system and SEO foundation ([e1fd214](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/e1fd21430a4d8f93ae9fe4b5eb5082295e4899f7))
+* add Vercel-style switch control ([97e6b5a](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/97e6b5a45a031e6e32a4649132c91a829f40ff4e))
+* add Vercel-style toolkit dashboard ([fea2d11](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/fea2d11f10f1f57c6a8aaed538a041189d729215))
+* add Vercel-style toolkit dashboard ([19ca740](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/19ca7406928838ecfc52f83335f7d93c01978375))
+* add versioned workflow schema validation ([b1fc7ec](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/b1fc7ec0c40de2f23a07031411b04ab6385db837))
+* add versioned workflow schema validation ([f8357a9](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f8357a9a61fe2345a17a253e34300e28af9e8d5a))
+* add workflow compatibility diagnostics ([0785dd8](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/0785dd8e3c83bd3b68665eb03decb90a0341c900))
+* add workflow compatibility preflight ([f092602](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f092602b9a0e0ab0d53646b959111beec6723c97))
+* adopt the D. brand mark for logo, favicon, and app icons ([#37](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/issues/37)) ([e98ae9e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/e98ae9e132474dd9a5645194aeda24a47950b123))
+* apply content hierarchy on merged detection ([fa6d40f](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/fa6d40f3a5ddc362205e6f49c46c5723b54c76f1))
+* build premium responsive toolkit experience ([8f1bf99](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/8f1bf998d08650860421640506c8981abe72d312))
+* connect core engines to reusable tool runtime ([3de1a91](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/3de1a91cf9c8ae24e8b457f580863e0ab7f42a7e))
+* connect recent history workspace ([c513293](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/c513293ba29f4086c3ccac41eb822b583f7e58d3))
+* deterministic recommended next actions on tool pages (Phase 1, ADR-015) ([5b44a1e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/5b44a1e99aa9d0c37a78a97fd581a5d2a2feba04))
+* implement core tools with unified dashboard shell ([73d964d](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/73d964d97a16f4fead4ae7889cec13cbb89b5f86))
+* instrument privacy-safe activation and retention events (ADR-017) ([#38](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/issues/38)) ([66ec8bb](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/66ec8bb0f96434d605c9c905b50e9ee0de2eb0f8))
+* introduce typed engine registry and value types (Phase 2, ADR-018) ([4aed085](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/4aed085e871609632525aef00f173cb48d43b311))
+* introduce typed engine registry and value types (Phase 2, ADR-018) ([ec178c1](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/ec178c1a50f8271e75b88a0e650ff3bf881b75e8))
+* link recipe workspace in app shell ([3dacad1](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/3dacad1c5b47f8ea23addf133ec14f3535e1f3d0))
+* local favorites/workspace import and export (Phase 1, ADR-014) ([8bf192c](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/8bf192cdfcc0e136fb397681018ac000a52858c9))
+* make smart input detector keyboard-first and hand samples to opened tools ([fcddf55](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/fcddf55b84fd8cc13a9fabfe89b9462533278816))
+* make smart input detector keyboard-first and hand samples to tools ([8992d49](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/8992d49317fb65ffebf6d625093b0b808713bdcf))
+* move workspace titles into topbar ([99bb276](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/99bb276cb81894a7b8123cf10246fe92ca6535dd))
+* present history as activity rows ([86990c2](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/86990c23b3f5d0f0c25fb181bf4afa627171b506))
+* publish public trust routes ([bccfabc](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/bccfabc3e81e7431db002e489ac104c24c8b273c))
+* publish public trust routes ([11af7f0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/11af7f065746eee16e505e920224ee057dfaeffb))
+* PWA install and validated offline app shell (Phase 1, ADR-016) ([#34](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/issues/34)) ([f0786c9](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f0786c9d8092d9b636c549d57dc8be3a4299827a))
+* refine Vercel typography and add persistent favorites ([11504cf](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/11504cf94a7df60043b6004b8713ad92dcf537c2))
+* strengthen application content hierarchy ([0128af7](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/0128af72ba7ff9adba01e568260f3c366c6f6d43))
+* turn dashboard into favorite-enabled all-tools home ([74ce279](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/74ce27970851fc945226ebe06da41e79a7c6ba9f))
+
+
+### Bug Fixes
+
+* **a11y:** give topbar search button an accessible name ([77a6e1f](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/77a6e1f9cfdd49b64bda567a906d190a7b93c066))
+* **a11y:** let tool card links use their visible text as accessible name ([20c865c](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/20c865c5a77719c77728a1de071df93dceb4fa1e))
+* **a11y:** raise muted text contrast on tool cards to WCAG AA ([178f645](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/178f6458e060cccd32a2d89aaf5762902a0bed4c))
+* **a11y:** resolve Lighthouse accessibility failures on dashboard (button-name, contrast, label mismatch) ([907b239](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/907b23936aaebadcd19cb1a4831e357eb21bb9d7))
+* authenticate releases with repository secret ([bbb14a4](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/bbb14a42a4c7cd0c3d910c8d89175b7bc32d0742))
+* center workspace content when sidebar is collapsed ([3d01f4e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/3d01f4efa53d00677680f4d3eabb62bf256e3360))
+* connect dashboard search trigger to command palette ([f486663](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f48666320b5e1b53b7406792ff9c22ad8cd44cc3))
+* correct SHA-256 regression test assertion in engine-registry.test.ts ([1c1a98a](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/1c1a98aa5a794d0858baf209e6c8fd8134d0a520))
+* flatten all-tools dashboard grid ([30afabc](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/30afabc9fe6489b4cc85ff5bea183ebcdfe7f77f))
+* harden Base64 and JWT decoding ([63f8ee6](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/63f8ee602901e75e8c8a5202c8d8d2a93b2ff95a))
+* harden Base64 and JWT decoding ([8827c99](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/8827c99cc9308da5402877a2742b4b3004cb8d25))
+* harden local history and agent context ([fbe9775](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/fbe977530beb5b856e86fdb36d84a3b467548c43))
+* harden Markdown and regex processing ([febacb5](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/febacb55db4ed3ea3499959fecc9fd257a58c98f))
+* harden Markdown and regex processing ([4daedf2](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/4daedf2cd57efa479e983c40977039eea53a0cf8))
+* hoist router mock so detector tests run under vitest ([81dabc0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/81dabc09f4b1190a4e8caa362d17f612f3db7230))
+* isolate browser and unit test environments ([94f4c97](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/94f4c9768254b4a9f409d0eda50f1568b376d986))
+* make command search functional and strengthen sidebar navigation ([8cdf6ee](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/8cdf6ee70f8925426e11cff67cebf9461626da52))
+* normalize tool workspace spacing ([882012e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/882012edcdcde6f94c53954c81e64a4c173b64f9))
+* rebuild sidebar with Vercel-style hierarchy ([af936c6](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/af936c68704359ef3bfe8ebee3a5b8deef63f871))
+* remove duplicate dashboard command controls ([594ea71](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/594ea713ed4a099e41933a5e097583af4de8f7c4))
+* remove exact SHA-256 test vector; use length + hex pattern only ([3e721e1](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/3e721e1d93fb2ad904e0429ebb345c288ec1c92b))
+* remove remaining inactive command control ([887f657](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/887f6578e3959b90f90d55d2de825ad939ced710))
+* repair trust route build gate ([054a241](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/054a241c4e1034ebe720eefdb736d1abb18cde32))
+* replace HTML entity with Unicode char in JSX (&[#9679](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/issues/9679); is invalid in JSX) ([bee2c1b](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/bee2c1b64589f66c603a54f63de503e89e6eca7c))
+* restore accessible tool card link names ([d661a56](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/d661a56945d5920f09530754d2079318c8c2dd90))
+* restore tool card accessible names ([8776751](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/87767517026f540b8033d22951e59d3e26e05e1e))
+* run Vitest in the test environment ([4e19aab](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/4e19aab76dc8cc885cf09d0b54234e9daa942d6e))
+* simplify sidebar hierarchy and prioritize tools ([8c39cc5](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/8c39cc528b052e37e23517299460934be3f73feb))
+* unify dashboard and tool navigation shell ([3b7c7e5](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/3b7c7e598df098d85819c866d4c24fa027435f4a))
+
+## Changelog
+
+All notable changes are recorded here. Release Please updates this file from merged Conventional Commit messages.

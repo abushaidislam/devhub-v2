@@ -1,0 +1,41 @@
+name: Release artifacts
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  artifacts:
+    name: Validate and attach release artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate package and release metadata
+        run: npm run release:validate
+
+      - name: Run release quality gate
+        run: npm run check
+
+      - name: Build package artifact
+        run: npm pack --ignore-scripts
+
+      - name: Attach package artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" ./*.tgz --clobber

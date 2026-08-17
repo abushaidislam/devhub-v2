@@ -1,0 +1,68 @@
+{
+  "name": "devhub-toolkit-v2",
+  "version": "0.4.0",
+  "private": true,
+  "description": "A free, local-first developer workflow workspace.",
+  "license": "MIT",
+  "homepage": "https://devhub-toolkit-v2.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sayed-Saa-new/devhub-toolkit-v2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sayed-Saa-new/devhub-toolkit-v2/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "prebuild": "npm run context:check && npm run test",
+    "build": "next build",
+    "start": "next start",
+    "preview": "next build && next start -p ${PORT:-8080}",
+    "preview:fast": "next start -p ${PORT:-8080}",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "context:check": "node scripts/check-context.mjs",
+    "release:validate": "node scripts/validate-release.mjs",
+    "test": "cross-env NODE_ENV=test vitest run",
+    "test:watch": "cross-env NODE_ENV=test vitest",
+    "test:coverage": "cross-env NODE_ENV=test vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "check": "npm run typecheck && npm run lint && npm run build",
+    "build:dev": "cross-env LOVABLE_STATIC_EXPORT=1 next build && rm -rf dist && cp -r out dist"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.5.0",
+    "lucide-react": "^0.468.0",
+    "next": "^15.5.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "^1.54.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.0",
+    "@types/node": "^22.0.0",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@vitest/coverage-v8": "^3.2.4",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.5.0",
+    "jsdom": "^26.1.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.0",
+    "vite": "^6.1.0",
+    "vitest": "^3.2.4"
+  }
+}

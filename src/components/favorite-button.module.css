@@ -1,0 +1,1 @@
+.button{height:36px;display:flex;align-items:center;gap:7px;padding:0 11px;border:1px solid #303030;border-radius:6px;background:#090909;color:#888;font-size:11px}.button:hover{border-color:#505050;background:#141414;color:#fff}.button[data-active=true]{border-color:#4a4a4a;background:#181818;color:#fff}.button:focus-visible{outline:2px solid #fff;outline-offset:2px}

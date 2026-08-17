@@ -1,0 +1,7 @@
+.offline{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:32px 20px;text-align:center;background:#000}
+.badge{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#ff8a7d;border:1px solid #303030;border-radius:999px;padding:4px 10px;background:#090909;margin:0}
+.offline h1{font-size:22px;font-weight:650;color:#fff;margin:0}
+.copy{max-width:440px;font-size:13px;line-height:1.6;color:#b5b5b5;margin:0}
+.action{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid #404040;border-radius:6px;background:#111;color:#d0d0d0;font-size:12px;font-weight:600;text-decoration:none}
+.action:hover{border-color:#666;background:#191919;color:#fff}
+.action:focus-visible{outline:2px solid #fff;outline-offset:2px}

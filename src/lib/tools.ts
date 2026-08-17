@@ -1,0 +1,29 @@
+import {Braces,Binary,KeyRound,Fingerprint,Regex,QrCode,Palette,FileCode2,Hash,Database,Clock3,Link2,CalendarClock,CaseSensitive,Type,GitCompare,Table,FileJson,FileSpreadsheet,Binary as BinaryIcon,Code2,KeySquare,ListTree,type LucideIcon} from "lucide-react";
+export type Tool={slug:string;name:string;description:string;category:string;icon:LucideIcon;featured?:boolean;status?:"ready"|"soon"};
+export const tools:Tool[]=[
+{slug:"json-formatter",name:"JSON Formatter",description:"Format, validate and inspect JSON instantly.",category:"Formatters",icon:Braces,featured:true,status:"ready"},
+{slug:"base64",name:"Base64",description:"Encode and decode text locally.",category:"Converters",icon:Binary,featured:true,status:"ready"},
+{slug:"jwt-decoder",name:"JWT Decoder",description:"Inspect token headers and payloads safely.",category:"Security",icon:KeyRound,featured:true,status:"ready"},
+{slug:"uuid-generator",name:"UUID Generator",description:"Generate secure UUIDs in bulk.",category:"Generators",icon:Fingerprint,featured:true,status:"ready"},
+{slug:"regex-tester",name:"Regex Tester",description:"Test expressions with live match details.",category:"Text",icon:Regex,featured:true,status:"ready"},
+{slug:"qr-generator",name:"QR Generator",description:"Create crisp, customizable QR codes.",category:"Generators",icon:QrCode,featured:true,status:"ready"},
+{slug:"color-converter",name:"Color Converter",description:"Convert HEX, RGB and HSL colors.",category:"Design",icon:Palette,status:"ready"},
+{slug:"markdown-preview",name:"Markdown Preview",description:"Write and preview safe Markdown side by side.",category:"Editors",icon:FileCode2,status:"ready"},
+{slug:"hash-generator",name:"Hash Generator",description:"Generate SHA hashes locally with Web Crypto.",category:"Security",icon:Hash,status:"ready"},
+{slug:"sql-formatter",name:"SQL Formatter",description:"Make common SQL statements readable.",category:"Formatters",icon:Database,status:"ready"},
+{slug:"cron-parser",name:"Cron Parser",description:"Translate five-field cron expressions.",category:"Reference",icon:Clock3,status:"ready"},
+{slug:"url-encoder",name:"URL Encoder",description:"Encode and decode URL components safely.",category:"Converters",icon:Link2,status:"ready"},
+{slug:"timestamp-converter",name:"Timestamp Converter",description:"Convert Unix timestamps and ISO dates locally.",category:"Converters",icon:CalendarClock,status:"ready"},
+{slug:"case-converter",name:"Case Converter",description:"Switch text between camel, snake, kebab and title case.",category:"Text",icon:CaseSensitive,status:"ready"},
+{slug:"slug-generator",name:"Slug Generator",description:"Turn any heading into a clean URL slug.",category:"Text",icon:Type,status:"ready"},
+{slug:"text-diff",name:"Text Diff",description:"Compare two text versions line by line.",category:"Text",icon:GitCompare,status:"ready"},
+{slug:"text-stats",name:"Text Statistics",description:"Count characters, words, lines and reading time.",category:"Text",icon:FileCode2,status:"ready"},
+{slug:"json-to-csv",name:"JSON to CSV",description:"Convert a JSON array of objects into CSV rows.",category:"Converters",icon:Table,status:"ready"},
+{slug:"csv-to-json",name:"CSV to JSON",description:"Turn CSV with a header row into structured JSON.",category:"Converters",icon:FileSpreadsheet,status:"ready"},
+{slug:"json-to-yaml",name:"JSON to YAML",description:"Render JSON as readable YAML locally.",category:"Converters",icon:FileJson,status:"ready"},
+{slug:"number-base",name:"Number Base Converter",description:"Convert between decimal, hex, octal and binary.",category:"Converters",icon:BinaryIcon,status:"ready"},
+{slug:"html-entities",name:"HTML Entities",description:"Encode and decode HTML entities safely.",category:"Text",icon:Code2,status:"ready"},
+{slug:"query-parser",name:"Query String Parser",description:"Break a URL query string into structured parameters.",category:"Text",icon:ListTree,status:"ready"},
+{slug:"password-generator",name:"Password Generator",description:"Generate strong passwords with Web Crypto randomness.",category:"Security",icon:KeySquare,status:"ready"}
+];
+export const categories=[...new Set(tools.map(tool=>tool.category))];export function getTool(slug:string){return tools.find(tool=>tool.slug===slug)}

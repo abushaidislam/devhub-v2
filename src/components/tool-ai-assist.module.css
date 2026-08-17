@@ -1,0 +1,17 @@
+.assist{border-top:1px solid #303030;padding:14px;display:grid;gap:10px;background:#0a0a0a}
+.head{display:flex;align-items:center;gap:8px;color:#d0d0d0;font-size:12px;font-weight:650}
+.head small{color:#8f8f8f;font-size:11px;font-weight:500}
+.gate{margin:0;color:#9a9a9a;font-size:12px;font-weight:500}
+.gate a{color:#fff;text-decoration:underline}
+.consent{display:flex;align-items:flex-start;gap:8px;color:#b5b5b5;font-size:12px;font-weight:500;line-height:1.5}
+.consent input{margin-top:2px;accent-color:#fff}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.actions button{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:1px solid #3a3a3a;border-radius:6px;background:#0e0e0e;color:#d0d0d0;font-size:12px;font-weight:600}
+.actions button:hover:not(:disabled){border-color:#5a5a5a;background:#151515;color:#fff}
+.actions button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.actions button:disabled{opacity:.4}
+.result{border:1px solid #303030;border-radius:8px;padding:12px;background:#0e0e0e;color:#d8d8d8;font-size:12.5px;line-height:1.65;white-space:pre-wrap}
+.error{margin:0;color:#ff8a7d;font-size:12px;font-weight:500}
+.spin{animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin{animation:none}}
