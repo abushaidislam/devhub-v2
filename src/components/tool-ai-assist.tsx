@@ -13,13 +13,15 @@ export function ToolAiAssist({
   slug,
   input,
   error,
+  operation,
 }: {
   slug: string;
   input: string;
   error?: string;
+  operation?: string;
 }) {
   const { config, configured } = useAiConfig();
-  const [consent, setConsent] = useState(false);
+  const [consent, setConsent] = useState(true);
   const [pending, setPending] = useState<"assist" | "error" | undefined>();
   const [answer, setAnswer] = useState<string>();
   const [failure, setFailure] = useState<string>();
@@ -27,7 +29,8 @@ export function ToolAiAssist({
   useEffect(() => {
     setAnswer(undefined);
     setFailure(undefined);
-  }, [slug]);
+    setConsent(Boolean(config));
+  }, [config, slug]);
 
   const destination = config ? describeDestination(config) : undefined;
 
@@ -36,15 +39,24 @@ export function ToolAiAssist({
     setPending("assist");
     setAnswer(undefined);
     setFailure(undefined);
-    const result = await assistWithInput({ engineId: slug, input, config });
+    const result = await assistWithInput({
+      engineId: slug,
+      input,
+      operation,
+      error,
+      config,
+    });
     setPending(undefined);
-    setConsent(false);
+    setConsent(Boolean(config));
     if (result.ok) setAnswer(result.answer);
     else setFailure(result.error);
   }
 
   async function runExplain() {
-    if (!config || !error) return;
+    // Error explanations are also browser-to-provider requests. Keep them
+    // behind the same explicit consent gate as input analysis so unchecking
+    // the disclosure checkbox reliably prevents *all* outbound requests.
+    if (!config || !consent || !error) return;
     setPending("error");
     setAnswer(undefined);
     setFailure(undefined);
@@ -85,9 +97,9 @@ export function ToolAiAssist({
               onChange={(event) => setConsent(event.target.checked)}
             />
             <span>
-              Send this tool&apos;s name and the current input (first 1200
-              characters){destination ? ` to ${destination}` : ""}. Remove
-              anything private first.
+              Allow AI to analyze this tool&apos;s context, operation, input, and
+              local error (up to 1200 characters){destination ? ` with ${destination}` : ""}.
+              Nothing is sent until you click Analyze.
             </span>
           </label>
 
@@ -102,12 +114,12 @@ export function ToolAiAssist({
               ) : (
                 <Sparkles size={14} />
               )}
-              {pending === "assist" ? "Asking…" : "Run AI on this input"}
+              {pending === "assist" ? "Analyzing…" : "Analyze this input"}
             </button>
             <button
               type="button"
               onClick={runExplain}
-              disabled={!error || Boolean(pending)}
+              disabled={!consent || !error || Boolean(pending)}
               title={
                 error
                   ? "Sends only the tool name and the error message"

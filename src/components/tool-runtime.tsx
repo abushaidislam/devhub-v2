@@ -52,6 +52,34 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 
 	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities"].includes(slug);
 	const preview = slug === "markdown-preview";
+	const operation = useMemo(() => {
+		if (slug === "regex-tester") return `test the input text against this regular expression pattern: ${aux}`;
+		if (slug === "hash-generator") return `${option} hash`;
+		if (slug === "base64" || slug === "url-encoder") return option;
+		const operations: Record<string, string> = {
+			"json-formatter": "format and validate JSON",
+			"jwt-decoder": "decode the JWT header and payload (signature is not verified)",
+			"uuid-generator": "generate the requested number of cryptographically secure UUIDs",
+			"qr-generator": "generate a QR code from the input text",
+			"color-converter": "parse and convert a color value between HEX, RGB, and HSL",
+			"markdown-preview": "render the input as safe Markdown preview",
+			"sql-formatter": "format common SQL into readable, indented statements",
+			"cron-parser": "interpret the five-field cron expression and explain its schedule",
+			"timestamp-converter": "convert a Unix timestamp or ISO date",
+			"case-converter": "convert text between supported casing styles",
+			"slug-generator": "convert the heading into a URL-friendly slug",
+			"text-diff": "compare the two text versions line by line",
+			"text-stats": "calculate text statistics such as characters, words, and reading time",
+			"json-to-csv": "convert a JSON array of objects into CSV rows",
+			"csv-to-json": "convert a header-based CSV document into JSON",
+			"json-to-yaml": "convert valid JSON into readable YAML",
+			"number-base": "convert the number between decimal, hexadecimal, octal, and binary bases",
+			"html-entities": "encode or decode HTML entities",
+			"query-parser": "parse URL query parameters into structured key-value pairs",
+			"password-generator": "generate a strong random password of the requested length",
+		};
+		return operations[slug] ?? "analyze and transform input";
+	}, [aux.length, option, slug]);
 
 	useEffect(() => {
 		const sample = consumeDetectionHandoff(slug);
@@ -229,7 +257,12 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 				</section>
 			</div>
 
-			<ToolAiAssist slug={slug} input={input} error={error || undefined} />
+			<ToolAiAssist
+				slug={slug}
+				input={input}
+				error={error || undefined}
+				operation={operation}
+			/>
 		</div>
 	);
 }
