@@ -2,11 +2,11 @@
 
 ## Working branch
 
-- `main` — includes the v0.4.0 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
+- `main` — includes the v0.5.0 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
 
 ## Stable branch state
 
-- `main` includes automated release metadata at `v0.4.0`.
+- `main` includes automated release metadata at `v0.5.0`.
 - Production: `https://devhub-toolkit-v2.vercel.app`
 
 ## Current delivery
