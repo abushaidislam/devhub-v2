@@ -2,7 +2,7 @@
  * Engine registry (ADR-018).
  *
  * Each entry wraps an existing pure engine function from tool-engines.ts into
- * the typed ToolEngine contract. All 12 tools are registered here; the map is
+ * the typed ToolEngine contract. All 24 tools are registered here; the map is
  * the single source of truth for which engines exist at runtime.
  *
  * Pure engine functions must not import React (enforced by tool-engines.ts).

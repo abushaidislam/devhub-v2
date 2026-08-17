@@ -20,6 +20,7 @@
 | `/favorites` | Favorite-only local workspace | Noindex |
 | `/recent` | Opt-in local tool-visit activity | Noindex |
 | `/recipes` | Local saved workflow definitions | Noindex |
+| `/assistant` | BYOK AI workflow planner and error explainer | Noindex |
 | `/tools` | Canonical public tool directory | Index |
 | `/tools/[slug]` | Interactive and canonical tool workspace | Index |
 | `/categories/[slug]` | Category discovery page | Index |
@@ -157,8 +158,34 @@ src/lib/workflows/compatibility.ts
 src/lib/workflows/runner.ts
 src/lib/workflows/built-in-recipes.ts
 src/lib/workflows/storage.ts
+src/lib/workflows/transfer.ts      — recipe export/import (devhub-recipe format)
 src/lib/workflows/use-saved-recipes.ts
 ```
+
+Saved-recipe transfer (ADR + RECIPE-TRANSFER.md):
+- Export/import uses a bounded local JSON file: `format: "devhub-recipe"`, version 1, size-capped at 32 KB.
+- The file declares `containsUserInputs: false` and contains only metadata + validated engine steps.
+- No upload, no hosted share service, no new network path.
+- Workspace transfer (favorites) similarly uses `format: "devhub-workspace"`, version 1, favorite slugs only.
+
+## AI assistance modules
+
+BYOK, browser-only, no DevHub server:
+
+```text
+src/lib/ai/provider-config.ts    — presets (OpenAI, OpenRouter, Ollama, custom) + localStorage
+src/lib/ai/client.ts             — direct browser → provider /chat/completions
+src/lib/ai/catalog.ts            — registry-derived planner/explainer prompts
+src/lib/ai/planner.ts            — natural language → validated workflow proposal
+src/lib/ai/explain-error.ts      — bounded error explanation (tool id + 400-char msg)
+src/lib/ai/assist-tool.ts        — inline per-tool assist with 1200-char input cap
+src/lib/ai/use-ai-config.ts
+```
+
+Runtime UI surfaces:
+- `/assistant` page: provider settings + workflow planner + error explainer.
+- `ToolAiAssist` panel inside every `ToolRuntime` instance: bounded input snippet + per-request consent checkbox naming the destination model/host before any request is sent.
+- Consent resets per action; nothing is sent automatically.
 
 ## Performance rules
 

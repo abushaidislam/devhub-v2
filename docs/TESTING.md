@@ -39,7 +39,7 @@ npx playwright install chromium
 
 ## Current automated coverage
 
-Engine tests cover all 12 current engine paths, including validation and security boundaries for Base64/JWT, Markdown, and Regex processing.
+Engine tests cover all 24 current engine paths, including validation and security boundaries for Base64/JWT, Markdown, and Regex processing.
 
 Component and storage tests cover favorites, command navigation, tool execution, local history, deterministic detection, workflow compatibility, and saved recipe behavior.
 

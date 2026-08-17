@@ -57,6 +57,18 @@ This registry is the only source of truth for tool identity. Never create a sepa
 10. SQL Formatter
 11. Cron Parser
 12. URL Encoder
+13. Timestamp Converter
+14. Case Converter
+15. Slug Generator
+16. Text Diff
+17. Text Statistics
+18. JSON to CSV
+19. CSV to JSON
+20. JSON to YAML
+21. Number Base Converter
+22. HTML Entities
+23. Query String Parser
+24. Password Generator
 
 ## Adding or modifying a tool
 

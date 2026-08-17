@@ -11,8 +11,11 @@ DevHub uses a restrained Vercel-inspired application language. The goal is consi
 
 ## Typography
 
-- Sans: Geist
-- Monospace: Geist Mono
+- Sans: Geist (self-hosted via `next/font/google`, CSS variable `--font-geist`, fallback `-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`)
+- Monospace: Geist Mono (CSS variable `--font-geist-mono`, fallback `"SFMono-Regular", Consolas, monospace`)
+- Friendly CSS variables: `--sans: var(--font-geist, Arial), sans-serif`; `--mono: var(--font-geist-mono, Menlo), monospace`
+- Font-feature-settings: `"rlig" 1, "calt" 1, "ss01" 1, "ss06" 1` on body
+- Body: `-webkit-font-smoothing: antialiased`, base 14–15px / 1.5
 - Primary navigation: 14px / 20px, weight 500
 - Active navigation: weight 600
 - Category navigation: 14px / 20px, weight 500
@@ -22,6 +25,26 @@ DevHub uses a restrained Vercel-inspired application language. The goal is consi
 - Page title: 13px / 18px, weight 600, centered in the application topbar
 - Primary content titles: 12–16px, weight 600–650
 - Meaningful descriptions: 11–12px, weight 450–500
+- Landing hero H1: `clamp(52px, 7vw, 92px)`, line-height .98
+- Landing/section H2: 36px, line-height 1.15
+
+### Letter-spacing register (Geist Vercel/Geist register: 14px / 20px / -0.3px)
+
+| Element | Value |
+| --- | --- |
+| Body text | `-0.011em` (body) / `-0.012em` (vercel-typography.css) |
+| Desktop nav, buttons, search, cards, tabs, sidebar, filter, crumbs, page title | `-0.3px` |
+| Hero H1 | `-0.065em` |
+| Page-hero H1 | `-0.05em` |
+| Section H2 | `-0.03em` / `-.035em` |
+| H1 (generic) | `-0.045em` |
+| H3, H4 | `-0.018em` |
+| Tool card titles | `-0.005em` |
+| Paragraph body | `-0.006em` |
+| Uppercase monospace label/badge | `+0.05em … +0.12em` |
+| kbd/code/pre/mono metadata | `0` (natural mono tracking) |
+
+Headings H1–H4 use `text-wrap: balance`. Body uses the default. Uppercase monospace labels appear only in conjunction with explicit weight 500–700.
 
 Do not globally increase font weight to solve contrast. Emphasis must follow information hierarchy.
 
@@ -201,6 +224,85 @@ Every interactive control requires:
 - Mobile/touch target validation
 
 Avoid inactive decorative buttons. If a control is visible, it must work or be explicitly disabled with an explanation.
+
+## Motion and animation
+
+Design principle: fast, subtle, Vercel/Geist-style feedback — never decorative motion that obscures content or makes the UI feel laggy.
+
+### Global tokens
+
+| Token | Value | Purpose |
+| --- | --- | --- |
+| `--ease` | `cubic-bezier(.4, 0, .2, 1)` | Standard ease-out (material register) |
+| `--dur` | `.16s` / 150–200ms | Hover, focus, and color transitions |
+
+These tokens are declared in `src/app/globals.css` and reused by every module. Do not introduce a second standard easing or base duration.
+
+### Universal transition targets
+
+The following elements receive the same uniform transition on `background-color`, `border-color`, `color`, `opacity`, `transform`, and `box-shadow`:
+
+- Links, buttons, `.button`, `.icon-button`
+- Search and filter triggers
+- Category tabs and sidebar rows
+- Tool cards, section links, category list rows
+
+### Hover and press feedback
+
+| Element | Hover | Active / Press |
+| --- | --- | --- |
+| `.button` / `.icon-button` | Surface `#0e0e0e → #151515`, border `#3a3a3a → #5a5a5a`, text → white | `transform: scale(.985)` |
+| Tool card (dashboard grid) | Surface `#090909 → #0d0d0d`, border `#303030 → #555`, `translateY(-2px)`, soft 8–28px shadow | – |
+| Tool card (landing grid) | `translateY(-1px)`, border `#555`, inset highlight + shadow | `:focus-within` adds full white border + outer ring |
+| Primary / category sidebar row | Background `#151515`, `translateX(2px)` (desktop) | Left 2px `#ededed` light-bar + inset box-shadow on active |
+| Category list row | Background `#080808`, chevron `translateX(4px)` on landing, arrow `translateX(2px)` in activity | – |
+| Switch thumb | Thumb translate 14px, track bg/border flip | – |
+| Sidebar footer icon | `translateY(-1px)` | – |
+| Tool arrow / card chevron | `opacity: 1`, `translate(2px,-2px)` | – |
+
+### Page and section reveals
+
+All reveals are enabled only when `@media (prefers-reduced-motion: no-preference)`:
+
+| Animation | Keyframe | Duration | Stagger | Where |
+| --- | --- | --- | --- | --- |
+| `dh-rise` | `opacity 0→1`, `translateY(8px)→0` | 500ms | `.05s` step (hero children) | Landing hero inner |
+| `dh-reveal` | `opacity 0→1`, `translateY(12px)→0` | 450–550ms | `.04s` step (tool cards 1–6) | Page hero, sections, CTA, footer, tool grids |
+| `sidebar-enter` | `opacity 0→1`, `translateX(-6px)→0` | 380ms | `.05s`–`.28s` across sidebar blocks | Workspace sidebar header, nav, divider, scroll children, footer |
+| `palette-in` | `opacity 0→1`, `translateY(-6px) scale(.985) → 1` | 180ms | None | Command-palette dialog on open |
+
+### Ambient and status animations
+
+| Animation | Shape | Duration | Notes |
+| --- | --- | --- | --- |
+| `dh-pulse` | Box-shadow halo on the status dot | 2400ms, infinite | Hero "Local-only" green dot (uses `#52d273`) |
+| `dh-glow` | Hero radial blur: `opacity .45→.8`, `scale .92→1.06` | 8000ms, infinite alternate | Hero backdrop glow |
+| `spin` | `rotate(360deg)` linear | 900ms, infinite | Loader2 spinners in AI planner / inline AI assist panels |
+| `scroll-progress-fill` | `transform` linear | 12ms per frame | Fixed page scroll progress bar |
+
+### Scroll and scrollbar
+
+- `html { scroll-behavior: smooth }` (opt-out via reduced motion).
+- Global scrollbar: `scrollbar-width: thin`, thumb `#3f3f46`, hover `#71717a`, padding-box clip + 3px transparent border + 999px radius.
+- Sidebar scrollbar: width 4px, thumb `#3a3a3a` (independent of the global style).
+- Sidebar category chevron: `rotate(0) → rotate(90deg)` on `<details open>` via `.chevron` at 150ms.
+
+### Command palette extras
+
+- Backdrop blur at 6–12px with a dark `#000a/0b` overlay.
+- Result-row arrow icon is hidden by default (`opacity: 0`, `translateX(-3px)`) and revealed on hover / `aria-selected`.
+
+### Reduced-motion policy
+
+Every keyframe, transition, and smooth-scroll behavior has a `@media (prefers-reduced-motion: reduce)` override that sets:
+
+- `animation: none !important` on keyframe targets.
+- `transition: none !important` on all transitioned properties.
+- `scroll-behavior: auto !important`.
+- Hover `transform`s on sidebar rows, tool cards, and footer icons are disabled.
+- Loader2 `spin` animations on spinners are disabled.
+
+Never add motion that does not have a matching reduced-motion override.
 
 ## Responsive rules
 
