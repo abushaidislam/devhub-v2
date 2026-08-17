@@ -36,16 +36,16 @@ describe("ai provider config", () => {
     expect(result.ok).toBe(false);
   });
 
-  it("supports the Gemini AI Studio OpenAI-compatible preset", () => {
+  it("supports the Gemini AI Studio preset", () => {
     expect(createDefaultAiConfig("gemini")).toMatchObject({
       providerId: "gemini",
-      baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
-      model: "gemini-2.5-flash",
+      baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+      model: "gemini-flash-latest",
     });
     expect(validateAiConfig({
       providerId: "gemini",
-      baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
-      model: "gemini-2.5-flash",
+      baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+      model: "gemini-flash-latest",
       apiKey: "gemini-test-key",
     }).ok).toBe(true);
   });

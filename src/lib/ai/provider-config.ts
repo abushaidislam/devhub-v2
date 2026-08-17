@@ -48,8 +48,8 @@ export const AI_PROVIDER_PRESETS: readonly AiProviderPreset[] = [
   {
     id: "gemini",
     label: "Google Gemini (AI Studio)",
-    baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
-    defaultModel: "gemini-2.5-flash",
+    baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+    defaultModel: "gemini-flash-latest",
     hosted: true,
     keyRequired: true,
     hint: "Use a Gemini API key from Google AI Studio. Free-tier quota applies.",
@@ -144,6 +144,12 @@ export function validateAiConfig(
   if (apiKey.length > 400) {
     return { ok: false, error: "API key looks too long to be valid." };
   }
+  if (preset.id === "gemini" && apiKey.length > 40 && apiKey.length % 2 === 0) {
+    const midpoint = apiKey.length / 2;
+    if (apiKey.slice(0, midpoint) === apiKey.slice(midpoint)) {
+      return { ok: false, error: "This Gemini API key appears to be pasted twice. Keep only one key." };
+    }
+  }
 
   return {
     ok: true,
@@ -175,7 +181,12 @@ export function readAiConfig(): AiProviderConfig | undefined {
     if (!raw) return undefined;
     const parsed: unknown = JSON.parse(raw);
     const result = validateAiConfig(parsed);
-    return result.ok ? result.value : undefined;
+    if (!result.ok) return undefined;
+    // Keep older saved Gemini setups working as model aliases change.
+    if (result.value.providerId === "gemini" && result.value.model === "gemini-2.5-flash") {
+      return { ...result.value, model: "gemini-flash-latest" };
+    }
+    return result.value;
   } catch {
     return undefined;
   }

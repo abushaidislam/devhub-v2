@@ -45,18 +45,29 @@ export async function requestCompletion({
   signal,
   maxOutputTokens = 700,
 }: AiRequest): Promise<AiResponse> {
+  const isGemini = config.providerId === "gemini";
+  const baseUrl = config.baseUrl.replace(/\/+$/, "");
+  // Older saved Gemini settings used Google's OpenAI-compatibility suffix.
+  // Strip it so existing settings transparently migrate to the native API.
+  const geminiBaseUrl = baseUrl.replace(/\/openai$/, "");
+  const endpoint = isGemini
+    ? `${geminiBaseUrl}/models/${encodeURIComponent(config.model)}:generateContent`
+    : `${baseUrl}/chat/completions`;
   const headers: Record<string, string> = {
     "content-type": "application/json",
   };
-  if (config.apiKey) headers.authorization = `Bearer ${config.apiKey}`;
+  if (config.apiKey) {
+    if (isGemini) headers["x-goog-api-key"] = config.apiKey;
+    else headers.authorization = `Bearer ${config.apiKey}`;
+  }
 
-  let response: Response;
-  try {
-    response = await fetch(`${config.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers,
-      signal,
-      body: JSON.stringify({
+  const body = isGemini
+    ? {
+        systemInstruction: { parts: [{ text: system }] },
+        contents: [{ role: "user", parts: [{ text: user }] }],
+        generationConfig: { temperature: 0, maxOutputTokens },
+      }
+    : {
         model: config.model,
         temperature: 0,
         max_tokens: maxOutputTokens,
@@ -64,7 +75,15 @@ export async function requestCompletion({
           { role: "system", content: system },
           { role: "user", content: user },
         ],
-      }),
+      };
+
+  let response: Response;
+  try {
+    response = await fetch(endpoint, {
+      method: "POST",
+      headers,
+      signal,
+      body: JSON.stringify(body),
     });
   } catch (error) {
     if (signal?.aborted) return { ok: false, error: "Request cancelled." };
@@ -78,7 +97,23 @@ export async function requestCompletion({
   }
 
   if (!response.ok) {
-    return { ok: false, error: messageForStatus(response.status) };
+    let detail = "";
+    try {
+      const errorPayload = (await response.clone().json()) as {
+        error?: { message?: unknown };
+      };
+      if (typeof errorPayload.error?.message === "string") {
+        detail = errorPayload.error.message.trim();
+      }
+    } catch {
+      /* Some providers return an empty or non-JSON error body. */
+    }
+    return {
+      ok: false,
+      error: detail
+        ? `${messageForStatus(response.status)} ${detail}`
+        : messageForStatus(response.status),
+    };
   }
 
   let payload: unknown;
@@ -88,11 +123,28 @@ export async function requestCompletion({
     return { ok: false, error: "The provider returned an unreadable response." };
   }
 
-  const text = extractText(payload);
+  const text = isGemini ? extractGeminiText(payload) : extractText(payload);
   if (!text) {
     return { ok: false, error: "The provider returned an empty response." };
   }
   return { ok: true, text };
+}
+
+function extractGeminiText(payload: unknown): string | undefined {
+  if (!payload || typeof payload !== "object") return undefined;
+  const candidates = (payload as { candidates?: unknown }).candidates;
+  if (!Array.isArray(candidates) || candidates.length === 0) return undefined;
+  const parts = (candidates[0] as { content?: { parts?: unknown } }).content?.parts;
+  if (!Array.isArray(parts)) return undefined;
+  const joined = parts
+    .map((part) =>
+      part && typeof part === "object" && typeof (part as { text?: unknown }).text === "string"
+        ? (part as { text: string }).text
+        : "",
+    )
+    .join("")
+    .trim();
+  return joined || undefined;
 }
 
 function extractText(payload: unknown): string | undefined {

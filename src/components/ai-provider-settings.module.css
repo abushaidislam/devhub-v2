@@ -149,6 +149,7 @@
   font-size: 12px;
   font-family: var(--mono);
 }
+.connected{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #285248;border-radius:9px;background:linear-gradient(90deg,#071b17,#0a0d0c)}.connectedIcon{width:34px;height:34px;display:grid;place-items:center;flex:none;border:1px solid #286253;border-radius:8px;color:#63d68a}.connectedCopy{min-width:0;display:grid;gap:2px;flex:1}.connectedCopy strong{color:#e8fff3;font-size:13px}.connectedCopy span{color:#c4e8d2;font:500 11px var(--mono)}.connectedCopy small{overflow:hidden;color:#7fb497;font-size:11px;text-overflow:ellipsis;white-space:nowrap}.connectedActions{display:flex;gap:7px}.connectedActions button{display:flex;align-items:center;gap:5px;height:30px;padding:0 9px;border:1px solid #31574b;border-radius:6px;background:#0b1915;color:#b8d9c6;font-size:11px;font-weight:500}.connectedActions button:hover{border-color:#63d68a;background:#11261d;color:#e8fff3}.connectedActions button:disabled{opacity:.45}@media(max-width:480px){.connected{align-items:flex-start;flex-wrap:wrap}.connectedCopy{flex-basis:calc(100% - 48px)}.connectedCopy small{white-space:normal}.connectedActions{width:100%;padding-left:46px}.connectedActions button{flex:1;justify-content:center}}
 @media (max-width: 720px) {
   .providers,
   .grid {
