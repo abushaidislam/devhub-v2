@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/abushaidislam/devhub-v2/compare/v0.4.0...v0.5.0) (2026-08-17)
+
+
+### Features
+
+* **ai-assist:** add tool context to AI assistance ([3cc91ca](https://github.com/abushaidislam/devhub-v2/commit/3cc91ca44a4dae5845a56c9049069fd18715d59d))
+* **ai:** support native Gemini and settings UI ([710037e](https://github.com/abushaidislam/devhub-v2/commit/710037eb3337c21f5478fa13da36df69a738d251))
+
 ## [0.4.0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.3.1...v0.4.0) (2026-07-27)
 
 
