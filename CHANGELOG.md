@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/abushaidislam/devhub-v2/compare/v0.6.0...v0.6.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* **e2e:** resolve strict mode violations and locator ambiguities ([2fe68e4](https://github.com/abushaidislam/devhub-v2/commit/2fe68e4d77302ee41b6b78649e42e61781434dfa))
+
 ## [0.6.0](https://github.com/abushaidislam/devhub-v2/compare/v0.5.0...v0.6.0) (2026-08-17)
 
 
