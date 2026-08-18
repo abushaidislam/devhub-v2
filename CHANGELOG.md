@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/abushaidislam/devhub-v2/compare/v0.6.1...v0.6.2) (2026-08-18)
+
+
+### Bug Fixes
+
+* **ux:** add accessible copy button state and button types ([b393712](https://github.com/abushaidislam/devhub-v2/commit/b393712997f264fa7eac7a9effc4a3727f1a169f))
+
 ## [0.6.1](https://github.com/abushaidislam/devhub-v2/compare/v0.6.0...v0.6.1) (2026-08-18)
 
 
