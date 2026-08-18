@@ -30,7 +30,7 @@ Current product principles:
 - `/recent` is an opt-in local activity workspace. It stores at most 50 tool slugs and visit timestamps in IndexedDB; it never stores tool input/output.
 - `src/lib/detection.ts` detects JSON, JWT, URL, Base64, SQL, cron, six-digit HEX, and Markdown without persistence or network calls.
 - Command palette supports search and keyboard navigation.
-- Workflow chaining, recipes, recommended next actions, and AI orchestration are planned, not implemented.
+- Workflow chaining, saved recipes, recommended next actions, and BYOK AI assistance are implemented; browser extension, VS Code extension, and CLI distribution remain planned.
 
 ## Mandatory startup sequence
 

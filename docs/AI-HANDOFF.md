@@ -2,11 +2,11 @@
 
 ## Working branch
 
-- `main` — includes the v0.5.0 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
+- `main` — includes the v0.6.2 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
 
 ## Stable branch state
 
-- `main` includes automated release metadata at `v0.5.0`.
+- `main` includes automated release metadata at `v0.6.2`.
 - Production: `https://devhub-toolkit-v2.vercel.app`
 
 ## Current delivery
@@ -87,7 +87,7 @@ All Phases 0–3 are implemented. Phase 4 (Distribution) is planned but not star
 
 - AI requests are not yet cancellable mid-flight and are not streamed.
 - No URL or hosted share link exists; recipe exchange uses the bounded local JSON file.
-- `npm.lock` is committed; `bun.lock` is also present. Reproducible installs use `npm ci` via CI.
+- `package-lock.json` is committed; `bun.lock` is also present. Reproducible installs use `npm ci` via CI.
 - Imported recipes are additive and may duplicate an existing recipe; import does not auto-deduplicate names.
 
 ## Next recommended task

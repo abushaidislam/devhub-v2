@@ -1,49 +1,49 @@
 # Changelog
 
-## [0.6.2](https://github.com/abushaidislam/devhub-v2/compare/v0.6.1...v0.6.2) (2026-08-18)
+## [0.6.2](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.6.1...v0.6.2) (2026-08-18)
 
 
 ### Bug Fixes
 
-* **ux:** add accessible copy button state and button types ([b393712](https://github.com/abushaidislam/devhub-v2/commit/b393712997f264fa7eac7a9effc4a3727f1a169f))
+* **ux:** add accessible copy button state and button types ([b393712](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/b393712997f264fa7eac7a9effc4a3727f1a169f))
 
-## [0.6.1](https://github.com/abushaidislam/devhub-v2/compare/v0.6.0...v0.6.1) (2026-08-18)
+## [0.6.1](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.6.0...v0.6.1) (2026-08-18)
 
 
 ### Bug Fixes
 
-* **e2e:** resolve strict mode violations and locator ambiguities ([2fe68e4](https://github.com/abushaidislam/devhub-v2/commit/2fe68e4d77302ee41b6b78649e42e61781434dfa))
+* **e2e:** resolve strict mode violations and locator ambiguities ([2fe68e4](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/2fe68e4d77302ee41b6b78649e42e61781434dfa))
 
-## [0.6.0](https://github.com/abushaidislam/devhub-v2/compare/v0.5.0...v0.6.0) (2026-08-17)
+## [0.6.0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.5.0...v0.6.0) (2026-08-17)
 
 
 ### Features
 
-* add devhub-v2 ECC bundle ([4d69dc5](https://github.com/abushaidislam/devhub-v2/commit/4d69dc529eafba388152d7f291a2b4620cefa803))
-* add devhub-v2 ECC bundle (.agents/skills/devhub-v2/agents/openai.yaml) ([144941a](https://github.com/abushaidislam/devhub-v2/commit/144941a1bcf727c4d5fd3faa23c93eeb1c725c12))
-* add devhub-v2 ECC bundle (.agents/skills/devhub-v2/SKILL.md) ([86ad07b](https://github.com/abushaidislam/devhub-v2/commit/86ad07b0960839cb1d1d5f0dfdc8450197e736d8))
-* add devhub-v2 ECC bundle (.claude/ecc-tools.json) ([105cf00](https://github.com/abushaidislam/devhub-v2/commit/105cf0033aa6bb4ab7870e75583a528a502f4549))
-* add devhub-v2 ECC bundle (.claude/homunculus/instincts/inherited/devhub-v2-instincts.yaml) ([6f93e14](https://github.com/abushaidislam/devhub-v2/commit/6f93e14e31c508917637dedccf3506f39493bb50))
-* add devhub-v2 ECC bundle (.claude/identity.json) ([ed7382e](https://github.com/abushaidislam/devhub-v2/commit/ed7382e0b37f4744ae306125963edac25a6b4029))
-* add devhub-v2 ECC bundle (.claude/skills/devhub-v2/SKILL.md) ([d017a74](https://github.com/abushaidislam/devhub-v2/commit/d017a74d339448b8238f43755738f8010e69c168))
-* add devhub-v2 ECC bundle (.codex/AGENTS.md) ([e21c776](https://github.com/abushaidislam/devhub-v2/commit/e21c77673edabcb2e18545fcd61865cd8e7f0d42))
-* add devhub-v2 ECC bundle (.codex/agents/docs-researcher.toml) ([76204ba](https://github.com/abushaidislam/devhub-v2/commit/76204ba060eca52cb00b43912e9f0dc42b55d673))
-* add devhub-v2 ECC bundle (.codex/agents/explorer.toml) ([90ae90e](https://github.com/abushaidislam/devhub-v2/commit/90ae90e2f4cc55705810711e3397f7c73ca30678))
-* add devhub-v2 ECC bundle (.codex/agents/reviewer.toml) ([3bb9183](https://github.com/abushaidislam/devhub-v2/commit/3bb9183cb440c5c117914a2424cb8fb3c45fc77d))
-* add devhub-v2 ECC bundle (.codex/config.toml) ([0b6e6f3](https://github.com/abushaidislam/devhub-v2/commit/0b6e6f38dcbc75b0ab6540f8eb9473f2317e64e3))
+* add devhub-v2 ECC bundle ([4d69dc5](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/4d69dc529eafba388152d7f291a2b4620cefa803))
+* add devhub-v2 ECC bundle (.agents/skills/devhub-v2/agents/openai.yaml) ([144941a](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/144941a1bcf727c4d5fd3faa23c93eeb1c725c12))
+* add devhub-v2 ECC bundle (.agents/skills/devhub-v2/SKILL.md) ([86ad07b](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/86ad07b0960839cb1d1d5f0dfdc8450197e736d8))
+* add devhub-v2 ECC bundle (.claude/ecc-tools.json) ([105cf00](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/105cf0033aa6bb4ab7870e75583a528a502f4549))
+* add devhub-v2 ECC bundle (.claude/homunculus/instincts/inherited/devhub-v2-instincts.yaml) ([6f93e14](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/6f93e14e31c508917637dedccf3506f39493bb50))
+* add devhub-v2 ECC bundle (.claude/identity.json) ([ed7382e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/ed7382e0b37f4744ae306125963edac25a6b4029))
+* add devhub-v2 ECC bundle (.claude/skills/devhub-v2/SKILL.md) ([d017a74](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/d017a74d339448b8238f43755738f8010e69c168))
+* add devhub-v2 ECC bundle (.codex/AGENTS.md) ([e21c776](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/e21c77673edabcb2e18545fcd61865cd8e7f0d42))
+* add devhub-v2 ECC bundle (.codex/agents/docs-researcher.toml) ([76204ba](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/76204ba060eca52cb00b43912e9f0dc42b55d673))
+* add devhub-v2 ECC bundle (.codex/agents/explorer.toml) ([90ae90e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/90ae90e2f4cc55705810711e3397f7c73ca30678))
+* add devhub-v2 ECC bundle (.codex/agents/reviewer.toml) ([3bb9183](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/3bb9183cb440c5c117914a2424cb8fb3c45fc77d))
+* add devhub-v2 ECC bundle (.codex/config.toml) ([0b6e6f3](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/0b6e6f38dcbc75b0ab6540f8eb9473f2317e64e3))
 
 
 ### Performance Improvements
 
-* optimize real-time smart input detection with O(1) fast guards ([f7cfe2e](https://github.com/abushaidislam/devhub-v2/commit/f7cfe2e494d98f7e05f9a78f88458af86b272d4f))
+* optimize real-time smart input detection with O(1) fast guards ([f7cfe2e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/f7cfe2e494d98f7e05f9a78f88458af86b272d4f))
 
-## [0.5.0](https://github.com/abushaidislam/devhub-v2/compare/v0.4.0...v0.5.0) (2026-08-17)
+## [0.5.0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.4.0...v0.5.0) (2026-08-17)
 
 
 ### Features
 
-* **ai-assist:** add tool context to AI assistance ([3cc91ca](https://github.com/abushaidislam/devhub-v2/commit/3cc91ca44a4dae5845a56c9049069fd18715d59d))
-* **ai:** support native Gemini and settings UI ([710037e](https://github.com/abushaidislam/devhub-v2/commit/710037eb3337c21f5478fa13da36df69a738d251))
+* **ai-assist:** add tool context to AI assistance ([3cc91ca](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/3cc91ca44a4dae5845a56c9049069fd18715d59d))
+* **ai:** support native Gemini and settings UI ([710037e](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/commit/710037eb3337c21f5478fa13da36df69a738d251))
 
 ## [0.4.0](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.3.1...v0.4.0) (2026-07-27)
 
