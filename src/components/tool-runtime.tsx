@@ -188,15 +188,20 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 							)}
 						</select>
 					)}
-					<button onClick={reset}>
+					<button type="button" onClick={reset}>
 						<RotateCcw size={14} />
 						Reset
 					</button>
-					<button onClick={copy} disabled={!output || !!image}>
+					<button
+						type="button"
+						onClick={copy}
+						disabled={!output || !!image}
+						aria-label={copied ? "Copied output to clipboard" : "Copy output to clipboard"}
+					>
 						{copied ? <Check size={14} /> : <Copy size={14} />}
 						Copy
 					</button>
-					<button className={styles.run} onClick={run}>
+					<button type="button" className={styles.run} onClick={run}>
 						<Play size={14} />
 						Run
 					</button>
