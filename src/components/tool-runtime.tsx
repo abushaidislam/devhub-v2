@@ -49,6 +49,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [error, setError] = useState("");
 	const [image, setImage] = useState("");
 	const [copied, setCopied] = useState(false);
+	const [isRunning, setIsRunning] = useState(false);
 
 	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities"].includes(slug);
 	const preview = slug === "markdown-preview";
@@ -114,8 +115,11 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	}
 
 	async function run() {
+		if (isRunning) return;
+		setIsRunning(true);
 		setError("");
 		setImage("");
+		setOutput("");
 		try {
 			const engine = getEngine(slug);
 			if (!engine) throw new Error("Tool engine not found.");
@@ -141,11 +145,13 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			);
 			setMeta("Invalid input");
 			trackActivationEvent({name: "tool_run_failed", tool: slug});
+		} finally {
+			setIsRunning(false);
 		}
 	}
 
 	async function copy() {
-		if (!output || image) return;
+		if (!output || image || isRunning) return;
 		await navigator.clipboard.writeText(output);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 1200);
@@ -161,16 +167,17 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	}
 
 	return (
-		<div className={styles.runtime}>
+		<div className={styles.runtime} aria-busy={isRunning}>
 			<div className={styles.toolbar}>
 				<div>
-					<span className={styles.local}>{"\u25cf"} Local processing</span>
-					<small>No input is sent to a server.</small>
+					<span className={styles.local}>{"\u25cf"} {isRunning ? "Processing locally…" : "Local processing"}</span>
+					<small>{isRunning ? "Working on this input…" : "No input is sent to a server."}</small>
 				</div>
 				<div>
 					{needsMode && (
-						<select
-							aria-label="Operation"
+<select
+								disabled={isRunning}
+								aria-label="Operation"
 							value={option}
 							onChange={(event) => setOption(event.target.value)}
 						>
@@ -188,22 +195,22 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 							)}
 						</select>
 					)}
-					<button type="button" onClick={reset}>
+					<button type="button" onClick={reset} disabled={isRunning}>
 						<RotateCcw size={14} />
 						Reset
 					</button>
 					<button
 						type="button"
 						onClick={copy}
-						disabled={!output || !!image}
+						disabled={!output || !!image || isRunning}
 						aria-label={copied ? "Copied output to clipboard" : "Copy output to clipboard"}
 					>
 						{copied ? <Check size={14} /> : <Copy size={14} />}
 						Copy
 					</button>
-					<button type="button" className={styles.run} onClick={run}>
-						<Play size={14} />
-						Run
+					<button type="button" className={styles.run} onClick={run} disabled={isRunning} aria-busy={isRunning}>
+<Play size={14} />
+							{isRunning ? "Running…" : "Run"}
 					</button>
 				</div>
 			</div>
@@ -212,8 +219,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 				<label className={styles.pattern}>
 					<span>Pattern</span>
 					<input
-						value={aux}
-						onChange={(event) => setAux(event.target.value)}
+value={aux}
+							disabled={isRunning}
+							onChange={(event) => setAux(event.target.value)}
 						placeholder="Regular expression"
 					/>
 				</label>
@@ -227,8 +235,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 					</header>
 					<textarea
 						aria-label={placeholder}
-						value={input}
-						onChange={(event) => setInput(event.target.value)}
+value={input}
+							disabled={isRunning}
+							onChange={(event) => setInput(event.target.value)}
 						placeholder={placeholder}
 					/>
 				</section>
@@ -236,12 +245,19 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 					<header>
 						<span>Output</span>
 						<small className={error ? styles.errorText : ""}>
-							{error || meta}
+							{isRunning ? "Processing locally…" : error || meta}
 						</small>
 					</header>
 					<div className={styles.output}>
 						{error ? (
-							<div className={styles.error}>{error}</div>
+							<div className={styles.error} role="alert">
+								<strong>Could not process this input.</strong>
+								<span>{error}</span>
+								<div>
+									<button type="button" onClick={run}>Try again</button>
+									<button type="button" onClick={reset}>Reset sample</button>
+								</div>
+							</div>
 						) : image ? (
 							<div className={styles.qr}>
 								<img src={image} alt="Generated QR code" />
@@ -256,7 +272,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 								dangerouslySetInnerHTML={{__html: output}}
 							/>
 						) : (
-							<pre>{output || "Run the tool to see the output."}</pre>
+							<pre>{isRunning ? "Processing locally…" : output || "Add an input and run this tool to see the output."}</pre>
 						)}
 					</div>
 				</section>
