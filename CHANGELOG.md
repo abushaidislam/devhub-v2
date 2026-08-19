@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/abushaidislam/devhub-v2/compare/v0.6.2...v0.7.0) (2026-08-19)
+
+
+### Features
+
+* **ui:** inline AI assist panel, command palette polish, and design updates ([93032ea](https://github.com/abushaidislam/devhub-v2/commit/93032ea0f6bb00ec79cb986ae188cc53c277907d))
+
 ## [0.6.2](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/compare/v0.6.1...v0.6.2) (2026-08-18)
 
 
