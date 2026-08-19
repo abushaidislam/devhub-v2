@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import {useEffect, useMemo, useState} from "react";
 import {Check, Copy, Download, Play, RotateCcw} from "lucide-react";
 import {consumeDetectionHandoff} from "@/lib/detection-handoff";
@@ -80,7 +81,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			"password-generator": "generate a strong random password of the requested length",
 		};
 		return operations[slug] ?? "analyze and transform input";
-	}, [aux.length, option, slug]);
+	}, [aux, option, slug]);
 
 	useEffect(() => {
 		const sample = consumeDetectionHandoff(slug);
@@ -260,7 +261,7 @@ value={input}
 							</div>
 						) : image ? (
 							<div className={styles.qr}>
-								<img src={image} alt="Generated QR code" />
+								<Image src={image} alt="Generated QR code" width={256} height={256} unoptimized />
 								<a href={image} download="devhub-qr.png">
 									<Download size={14} />
 									Download PNG

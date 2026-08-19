@@ -46,3 +46,5 @@ body{letter-spacing:-.011em;-webkit-font-smoothing:antialiased}
 #main-content:focus{outline:none}
 
 :root{--content-max:1220px;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-7:32px;--surface-0:#050505;--surface-1:#090909;--surface-2:#111;--border-subtle:#292929;--border-strong:#3a3a3a;--text-primary:#ededed;--text-secondary:#b5b5b5;--text-muted:#9a9a9a;--status-local:#50e3c2}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important;transition-delay:0s!important}}
