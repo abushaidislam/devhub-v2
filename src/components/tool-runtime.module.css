@@ -11,3 +11,9 @@
 .toolbar button,.toolbar select,.pattern input{min-height:36px}
 @media(max-width:780px){.toolbar{align-items:flex-start;flex-direction:column;gap:12px}.toolbar>div:last-child{width:100%;flex-wrap:wrap}.toolbar>div:last-child button,.toolbar>div:last-child select{flex:1 1 auto}.panels textarea,.output,.qr{min-height:260px}}
 @media(max-width:480px){.toolbar{padding:12px}.toolbar>div:last-child{gap:8px}.toolbar>div:last-child button,.toolbar>div:last-child select{min-height:44px}.pattern{align-items:stretch;flex-direction:column;gap:7px}.pattern input{min-height:44px}.panels textarea{min-height:220px}.error{padding:18px}}
+
+.toolbar .run{min-width:104px;justify-content:center}
+.panels section>header>span{color:var(--text-primary);font-size:13px;font-weight:650}
+.panels section>header>small{color:var(--text-muted);font-size:11px}
+.output pre{min-height:100%;margin:0;color:#d9d9d9;line-height:1.7;overflow-wrap:anywhere;white-space:pre-wrap}
+.output:has(pre:only-child){background:#070707}

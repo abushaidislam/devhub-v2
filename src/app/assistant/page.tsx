@@ -3,7 +3,7 @@ import { AiProviderSettings } from "@/components/ai-provider-settings";
 import { DashboardShell } from "@/components/dashboard-shell";
 import { ErrorExplainer } from "@/components/error-explainer";
 import { WorkflowPlanner } from "@/components/workflow-planner";
-import { LifeBuoy, ShieldCheck, Sparkles, Workflow } from "lucide-react";
+import { ArrowRight, LifeBuoy, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import styles from "./assistant.module.css";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function AssistantPage() {
           <div>
             <span className={styles.eyebrow}><Sparkles size={13} /> AI workspace</span>
             <h1>Think through the work.<br /><span>Keep control of the data.</span></h1>
-            <p>Optional AI tools for planning workflows and understanding errors, powered by your own provider and stored locally.</p>
+            <p>Optional AI tools for planning workflows and understanding errors, powered by your own provider and stored locally.</p><div className={styles.heroActions}><a className={styles.primaryAction} href="#assistant-step-provider">Configure provider <ArrowRight size={14} /></a><a className={styles.secondaryAction} href="#assistant-step-plan">See workflow planning</a></div>
           </div>
           <div className={styles.localBadge}><span /> BYOK · local-first</div>
         </header>
