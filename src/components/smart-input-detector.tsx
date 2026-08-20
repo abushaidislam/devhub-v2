@@ -7,6 +7,8 @@ import {detectInput,DETECTION_INPUT_LIMIT} from "@/lib/detection";
 import {setDetectionHandoff} from "@/lib/detection-handoff";
 import {getTool} from "@/lib/tools";
 import styles from "./smart-input-detector.module.css";
+import { Badge, StatusDot } from "./ui/badge";
+import { Button } from "./ui/button";
 
 const sampleInputs=[
 	{label:"JSON",value:'{\n  "service": "devhub",\n  "ready": true\n}'},
@@ -73,26 +75,26 @@ export function SmartInputDetector(){
 				<h2 id="smart-detect-title">Smart input detection</h2>
 				<p>Paste data to find the best matching local tool.</p>
 			</div>
-			<span><ShieldCheck size={13}/>Local only</span>
+			<Badge className={styles.localBadge} variant="teal" size="sm" icon={<StatusDot status="success" />}><ShieldCheck size={13} aria-hidden="true" />Local only</Badge>
 		</header>
 		<div className={styles.inputWrap}>
 			<label htmlFor="smart-detect-input">Input to detect</label>
 			<div className={styles.field}>
 				<textarea id="smart-detect-input" ref={textareaRef} value={input} onChange={event=>applyInput(event.target.value)} onKeyDown={onTextareaKeyDown} placeholder="Paste JSON, JWT, URL, Base64, SQL, cron, HEX, or Markdown…"/>
 				<small>{input.length.toLocaleString("en-US")} / {DETECTION_INPUT_LIMIT.toLocaleString("en-US")}</small>
-				{input&&<button type="button" aria-label="Clear detected input" onClick={clearInput}><X size={14}/></button>}
+				{input&&<Button className={styles.clearButton} type="button" variant="tertiary" size="tiny" shape="square" aria-label="Clear detected input" onClick={clearInput} prefix={<X size={14}/>} />}
 			</div>
 			<div className={styles.footerRow}>
 				{input?(trimmed?<p className={styles.warning} role="status">Input was trimmed to {DETECTION_INPUT_LIMIT.toLocaleString("en-US")} characters.</p>:null):<div className={styles.samples} role="group" aria-label="Example inputs">
 					<span>Try</span>
-					{sampleInputs.map(sample=><button key={sample.label} type="button" onClick={()=>{applyInput(sample.value);textareaRef.current?.focus()}}>{sample.label}</button>)}
+					{sampleInputs.map(sample=><Button key={sample.label} type="button" variant="secondary" size="small" shape="rounded" onClick={()=>{applyInput(sample.value);textareaRef.current?.focus()}}>{sample.label}</Button>)}
 				</div>}
 				<p className={styles.hints}><kbd>/</kbd> focus<span>·</span><kbd>Esc</kbd> clear<span>·</span><kbd>⌘/Ctrl</kbd>+<kbd>Enter</kbd> top match</p>
 			</div>
 		</div>
 		<p className={styles.srOnly} role="status">{matchSummary}</p>
 		<div className={styles.results}>
-			{hasQuery?detections.length?<ul>{detections.slice(0,4).map(detection=>{const tool=getTool(detection.slug);if(!tool)return null;const Icon=tool.icon;return <li key={detection.slug}><Link href={`/tools/${tool.slug}`} onClick={()=>handOff(detection.slug)}><span className={styles.toolIcon}><Icon size={16}/></span><span><strong>{tool.name}</strong><small>{detection.reason}</small></span><em title="Heuristic match, not validation">{Math.round(detection.confidence*100)}%</em><ArrowUpRight size={14}/></Link></li>})}</ul>:<p className={styles.empty}>No confident match. Try a larger or more structured sample.</p>:<p className={styles.empty}>Nothing is stored or sent. Detection runs as you type.</p>}
+			{hasQuery?detections.length?<ul>{detections.slice(0,4).map(detection=>{const tool=getTool(detection.slug);if(!tool)return null;const Icon=tool.icon;return <li key={detection.slug}><Link href={`/tools/${tool.slug}`} onClick={()=>handOff(detection.slug)}><span className={styles.toolIcon}><Icon size={16}/></span><span><strong>{tool.name}</strong><small>{detection.reason}</small></span><Badge variant={detection.confidence >= .8 ? "green" : "gray"} size="sm" title="Heuristic match, not validation">{Math.round(detection.confidence*100)}%</Badge><ArrowUpRight size={14}/></Link></li>})}</ul>:<p className={styles.empty}>No confident match. Try a larger or more structured sample.</p>:<p className={styles.empty}>Nothing is stored or sent. Detection runs as you type.</p>}
 		</div>
 	</section>;
 }

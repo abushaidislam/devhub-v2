@@ -141,3 +141,35 @@ The P1 files are currently modified/untracked on the feature branch because the 
 ### Recommended next task
 
 Review remaining ad-hoc controls in `dashboard-shell.module.css`, `smart-input-detector.module.css`, dashboard context-count pills, and dashboard card metadata. Migrate those consumers to the P1 Button, SearchInput, Badge, StatusDot, and material presets without changing product behavior or privacy claims.
+
+
+## Latest P2 dashboard design-system handoff
+
+### Branch and scope
+
+The current dashboard migration work is on `feat/p2-dashboard-geist`, branched from the P1 component branch. This scope covers the dashboard shell, responsive drawer controls, detector panel, dashboard card grid, dashboard context count, and lowercase label cleanup.
+
+### P2 completed
+
+- Migrated DashboardShell mobile menu, drawer close, sidebar collapse, landing-page, and GitHub actions to the shared Button/ButtonLink primitives while preserving focus restoration and Escape-to-close behavior.
+- Tokenized dashboard shell sidebar, topbar, drawer backdrop, active rows, focus outlines, and responsive touch-target states.
+- Migrated SmartInputDetector local-only status to Badge plus StatusDot, sample chips and clear action to Button, confidence percentages to Badge, and panel/result materials to shared semantic tokens.
+- Migrated DashboardToolGrid category metadata to Badge and the separate favorite toggle to Button without nesting interactive controls inside the card link.
+- Migrated the dashboard total count to Badge and tokenized its context-row material.
+- Removed all `text-transform: uppercase` declarations from the P2 dashboard shell, detector, dashboard-card, and dashboard-count styles.
+- Updated `docs/DESIGN-SYSTEM.md` with the P2 workspace migration contracts and invariants.
+
+### Validation
+
+- `npm run test`: **35 test files and 205 tests passed**.
+- `npm run build`: passed after fixing the shared Button native `prefix` prop type collision; TypeScript compiled, Next.js generated 54 static pages, and build traces finalized.
+- `git diff --check`: passed with expected Windows LF/CRLF normalization warnings.
+- Source audit: P2 shell, detector, dashboard card, and dashboard count styles each contain **0 uppercase-transform declarations**.
+
+### Review notes
+
+The P2 implementation is present on the feature branch but remains modified in the working tree because the remote commit shell timed out. No deployment or push was performed. Before merge, stage the P2 files and commit them with a focused conventional commit, then perform a visual desktop/mobile pass for the drawer, detector textarea, card favorite control, and keyboard focus rings.
+
+### Remaining design-system consumers
+
+The next migration wave can cover RecentWorkspace, SavedRecipeWorkspace, assistant-page sections, and remaining ad-hoc dashboard context rows. These should reuse the existing P1 Button, SearchInput, Badge, StatusDot, and material presets rather than introducing additional local primitives.

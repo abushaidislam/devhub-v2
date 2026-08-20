@@ -1,1 +1,8 @@
 .intro{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid #292929}.intro>div{display:flex;align-items:center;gap:16px}.intro :global(.label){color:#c7c7c7;font-weight:700}.intro p{margin:0;color:#b5b5b5;font-size:12px;font-weight:500}.total{height:30px;display:flex;align-items:center;padding:0 9px;border:1px solid #3a3a3a;border-radius:6px;background:#0d0d0d;color:#b5b5b5;font:600 10px var(--font-geist-mono)}@media(max-width:680px){.intro,.intro>div{align-items:flex-start;flex-direction:column;gap:7px}.total{display:none}}
+
+
+/* P2 shared Badge migration */
+.intro{border-bottom-color:var(--border-subtle)}
+.intro :global(.label){color:var(--text-primary)}
+.intro p{color:var(--text-secondary)}
+.total{height:30px;border-color:var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-1);color:var(--text-secondary);font:var(--font-weight-semibold) var(--font-size-meta)/1 var(--mono)}
