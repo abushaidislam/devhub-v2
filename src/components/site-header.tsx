@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Github, Search } from "lucide-react";
 import { Logo } from "./logo";
+import { ButtonLink } from "./ui/button";
 
 export function SiteHeader() {
   return (
@@ -18,10 +19,15 @@ export function SiteHeader() {
             <span>Search tools</span>
             <kbd>⌘K</kbd>
           </Link>
-          <a className="icon-button" href="https://github.com/Sayed-Saa-new/devhub-toolkit-v2" aria-label="GitHub repository">
-            <Github size={17} />
-          </a>
-          <Link className="button primary" href="/dashboard">Open toolkit</Link>
+          <ButtonLink
+            href="https://github.com/Sayed-Saa-new/devhub-toolkit-v2"
+            variant="tertiary"
+            size="medium"
+            shape="square"
+            aria-label="GitHub repository"
+            prefix={<Github size={17} />}
+          />
+          <ButtonLink href="/dashboard" variant="default">Open toolkit</ButtonLink>
         </div>
       </div>
     </header>
