@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.0](https://github.com/abushaidislam/devhub-v2/compare/v0.8.0...v0.9.0) (2026-08-20)
+
+
+### Features
+
+* **ui:** add P1 Geist UI components and migrate usage ([36a1ddf](https://github.com/abushaidislam/devhub-v2/commit/36a1ddf93f45d92e54e9d932080e35b3d8db9113))
+* **ui:** add P1 Geist UI components and migrate usage ([30a7f5f](https://github.com/abushaidislam/devhub-v2/commit/30a7f5f90d8f3e409d349fe63e56fe299bf807c7))
+
 ## [0.8.0](https://github.com/abushaidislam/devhub-v2/compare/v0.7.0...v0.8.0) (2026-08-20)
 
 
