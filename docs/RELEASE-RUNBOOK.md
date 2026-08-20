@@ -9,7 +9,7 @@ The repository uses Release Please on `main`. Conventional Commit messages deter
 - `!` or a `BREAKING CHANGE:` footer creates a major release.
 - Other commit types are included when relevant but do not force a version bump.
 
-After eligible work lands on `main`, the release workflow opens or refreshes a release pull request. That pull request updates `package.json`, `.release-please-manifest.json`, and `CHANGELOG.md`. Merging it creates the version tag and GitHub release. The release event then runs the full quality gate and attaches the npm package tarball to the GitHub release.
+After eligible work lands on `main`, the release workflow first runs the release metadata, typecheck, lint, unit/component test, production build, and Playwright E2E gates. Only after those gates pass does it open or refresh a release pull request. That pull request updates `package.json`, `.release-please-manifest.json`, and `CHANGELOG.md`. Merging it creates the version tag and GitHub release. The release event checks out the exact tag, reruns the full quality gate, creates the npm package tarball, generates `SHA256SUMS.txt`, creates an artifact attestation, and attaches the package plus checksum to the GitHub release.
 
 The application remains `private: true`; automation creates a GitHub release artifact and does not publish to the npm registry.
 
@@ -48,12 +48,14 @@ A successful release has:
 2. A GitHub release whose notes come from the generated changelog.
 3. GitHub-provided source archives.
 4. A `devhub-toolkit-v2-<version>.tgz` artifact attached by the release-artifacts workflow.
+5. A `SHA256SUMS.txt` file for verifying the package checksum.
+6. An artifact attestation visible from the Actions/release security metadata.
 
 ## Failure and rollback
 
 If preparation fails, confirm `RELEASE_PAT` exists, has not expired, is authorized for this repository, and has Contents and Pull requests read/write permissions. Then rerun the failed workflow. No tag or public release exists yet.
 
-If artifact creation fails after the release is published, keep the tag, fix the workflow on `main`, and rerun the failed job. The upload uses `--clobber`, so retrying replaces a partial artifact safely.
+If artifact creation fails after the release is published, keep the tag, fix the workflow on `main`, and rerun the failed job. The workflow checks out the immutable release tag and uses `npm ci`, so retries rebuild the same tagged source with the committed lockfile. The upload uses `--clobber` only for deterministic assets generated from that exact tag.
 
 If the tagged source itself is invalid:
 
