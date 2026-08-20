@@ -354,3 +354,16 @@ Use `.material-base`, `.material-small`, `.material-medium`, `.material-large`, 
 ### Current consumers
 
 The shared header uses `ButtonLink`, tool cards use `Badge` for lifecycle metadata, and the tools page uses `SearchInput` for query, clear, and Escape behavior. The command palette now consumes the shared material, radius, typography, and lowercase metadata tokens.
+
+
+## P2 workspace migration
+
+The dashboard shell and primary dashboard workspace now consume the shared P1 primitives while preserving existing route, state, and privacy behavior.
+
+`DashboardShell` uses the shared Button and ButtonLink primitives for mobile drawer close, menu, sidebar collapse, landing-page, and GitHub actions. The existing focus restoration remains intact: opening the drawer focuses its close control, closing it restores focus to the menu control, and Escape closes the drawer. Desktop and mobile touch-target rules remain in force.
+
+`SmartInputDetector` now uses Badge and StatusDot for its local-only disclosure and confidence levels, Button for sample chips and the clear action, and semantic P2 surface tokens for its textarea, results, empty state, and keyboard hints. The detector remains local-only, bounded, deterministic, and keyboard-operable; Escape still clears and returns focus, while Cmd/Ctrl+Enter still opens the top match.
+
+`DashboardToolGrid` uses Badge for category metadata and Button for the separate favorite control. The favorite control remains outside the card link so interactive elements are not nested. Default, hover, focus-within, active favorite, empty, starter-chip, tablet, and mobile states remain explicit.
+
+The dashboard context count now uses Badge, and the shell, detector, dashboard cards, and dashboard count no longer contain uppercase text-transform declarations. Technical acronyms in visible content remain semantically uppercase where appropriate.
