@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/abushaidislam/devhub-v2/compare/v0.7.0...v0.8.0) (2026-08-20)
+
+
+### Features
+
+* **homepage:** add workflow preview and trust strip ([4d51ac0](https://github.com/abushaidislam/devhub-v2/commit/4d51ac051fadb1522d01d8035e9cb8a8c57c45b1))
+
 ## [0.7.0](https://github.com/abushaidislam/devhub-v2/compare/v0.6.2...v0.7.0) (2026-08-19)
 
 
