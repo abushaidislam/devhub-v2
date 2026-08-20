@@ -14,8 +14,9 @@ concurrency:
 
 jobs:
   release-please:
-    name: Prepare or publish semantic release
+    name: Validate and prepare semantic release
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - name: Require release credential
         env:
@@ -25,6 +26,32 @@ jobs:
             echo "RELEASE_PAT is not configured as a repository Actions secret."
             exit 1
           fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate release configuration
+        run: npm run release:validate
+
+      - name: Run release quality gate
+        run: npm run check
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run release E2E gate
+        run: npm run test:e2e
+        env:
+          CI: true
 
       - name: Run Release Please
         uses: googleapis/release-please-action@v4

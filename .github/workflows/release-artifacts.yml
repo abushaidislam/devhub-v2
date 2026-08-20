@@ -6,24 +6,33 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: release-artifacts-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
 
 jobs:
   artifacts:
     name: Validate and attach release artifacts
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - name: Checkout release tag
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Validate package and release metadata
         run: npm run release:validate
@@ -31,11 +40,27 @@ jobs:
       - name: Run release quality gate
         run: npm run check
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run release E2E gate
+        run: npm run test:e2e
+        env:
+          CI: true
+
       - name: Build package artifact
         run: npm pack --ignore-scripts
 
-      - name: Attach package artifact
+      - name: Create artifact checksums
+        run: sha256sum ./*.tgz > SHA256SUMS.txt
+
+      - name: Generate artifact attestation
+        uses: actions/attest@v4
+        with:
+          subject-path: ./*.tgz
+
+      - name: Attach package and checksums
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
-        run: gh release upload "$TAG" ./*.tgz --clobber
+        run: gh release upload "$TAG" ./*.tgz SHA256SUMS.txt --clobber

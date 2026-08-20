@@ -268,7 +268,7 @@ All reveals are enabled only when `@media (prefers-reduced-motion: no-preference
 | --- | --- | --- | --- | --- |
 | `dh-rise` | `opacity 0→1`, `translateY(8px)→0` | 500ms | `.05s` step (hero children) | Landing hero inner |
 | `dh-reveal` | `opacity 0→1`, `translateY(12px)→0` | 450–550ms | `.04s` step (tool cards 1–6) | Page hero, sections, CTA, footer, tool grids |
-| `sidebar-enter` | `opacity 0→1`, `translateX(-6px)→0` | 380ms | `.05s`–`.28s` across sidebar blocks | Workspace sidebar header, nav, divider, scroll children, footer |
+| Sidebar route stability | No mount animation; active, hover, and category-chevron transitions only | `.15s`–`.16s` | None | Workspace sidebar across route changes |
 | `palette-in` | `opacity 0→1`, `translateY(-6px) scale(.985) → 1` | 180ms | None | Command-palette dialog on open |
 
 ### Ambient and status animations
