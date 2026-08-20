@@ -1,2 +1,68 @@
-"use client"; import {useMemo,useState} from "react"; import {Search,SlidersHorizontal} from "lucide-react"; import {categories,tools} from "@/lib/tools"; import {ToolCard} from "./tool-card";
-export function ToolSearch(){const [query,setQuery]=useState("");const [category,setCategory]=useState("All");const filtered=useMemo(()=>tools.filter(t=>(category==="All"||t.category===category)&&`${t.name} ${t.description} ${t.category}`.toLowerCase().includes(query.toLowerCase())),[query,category]);return <><div className="tool-controls"><label className="search-field"><Search size={17}/><span className="sr-only">Search tools</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by name, task or category…"/><kbd>⌘K</kbd></label><button className="filter-button" type="button"><SlidersHorizontal size={16}/> Filter</button></div><div className="category-tabs" role="tablist" aria-label="Tool categories">{["All",...categories].map(item=><button key={item} role="tab" aria-selected={category===item} onClick={()=>setCategory(item)}>{item}{item==="All"&&<span>{tools.length}</span>}</button>)}</div>{filtered.length?<div className="tools-grid">{filtered.map(t=><ToolCard key={t.slug} tool={t}/>)}</div>:<div className="empty-state"><Search size={22}/><h2>No matching tools</h2><p>Try a broader search or another category.</p></div>}</>}
+"use client";
+
+import { useMemo, useState } from "react";
+import { SlidersHorizontal } from "lucide-react";
+import { categories, tools } from "@/lib/tools";
+import { Badge } from "./ui/badge";
+import { SearchInput } from "./ui/search-input";
+import { ToolCard } from "./tool-card";
+
+export function ToolSearch() {
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const filtered = useMemo(
+    () =>
+      tools.filter(
+        (tool) =>
+          (category === "All" || tool.category === category) &&
+          `${tool.name} ${tool.description} ${tool.category}`
+            .toLowerCase()
+            .includes(query.toLowerCase()),
+      ),
+    [query, category],
+  );
+
+  return (
+    <>
+      <div className="tool-controls">
+        <SearchInput
+          id="tool-search"
+          className="tool-search-input"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search by name, task or category…"
+          aria-label="Search tools"
+          clearable
+          onClear={() => setQuery("")}
+        />
+        <button className="filter-button" type="button">
+          <SlidersHorizontal size={16} aria-hidden="true" />
+          Filter
+        </button>
+      </div>
+      <div className="category-tabs" role="tablist" aria-label="Tool categories">
+        {["All", ...categories].map((item) => (
+          <button
+            key={item}
+            role="tab"
+            aria-selected={category === item}
+            onClick={() => setCategory(item)}
+          >
+            {item}
+            {item === "All" ? <Badge variant="gray" size="sm">{tools.length}</Badge> : null}
+          </button>
+        ))}
+      </div>
+      {filtered.length ? (
+        <div className="tools-grid">
+          {filtered.map((tool) => <ToolCard key={tool.slug} tool={tool} />)}
+        </div>
+      ) : (
+        <div className="empty-state">
+          <h2>No matching tools</h2>
+          <p>Try a broader search or another category.</p>
+        </div>
+      )}
+    </>
+  );
+}

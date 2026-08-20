@@ -1,0 +1,22 @@
+.root{display:grid;gap:6px;min-width:0}
+.label{color:var(--text-secondary);font-size:var(--font-size-label-sm);font-weight:var(--font-weight-semibold)}
+.field{display:flex;align-items:center;gap:9px;min-width:0;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-1);color:var(--text-secondary);transition:background-color var(--dur) var(--ease),border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.field:focus-within{border-color:var(--border-active);box-shadow:0 0 0 3px var(--accent-muted)}
+.field:hover{border-color:var(--border-hover)}
+.field input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--text-primary);font:inherit}
+.field input::placeholder{color:var(--text-tertiary)}
+.field input::-webkit-search-cancel-button{display:none}
+.prefix{display:inline-flex;align-items:center;justify-content:center;flex:none;margin-left:12px;color:var(--text-tertiary)}
+.small{min-height:32px;font-size:var(--font-size-label-sm)}
+.medium{min-height:36px;font-size:var(--font-size-label-md)}
+.large{min-height:44px;font-size:var(--font-size-copy-md)}
+.shortcut{display:inline-flex;align-items:center;justify-content:center;flex:none;margin-right:9px;border:1px solid var(--border-subtle);border-radius:5px;background:var(--surface-active);padding:2px 6px;color:var(--text-secondary);font:var(--font-weight-semibold) var(--font-size-meta)/1 var(--mono)}
+.clear{display:inline-grid;place-items:center;flex:none;width:24px;height:24px;border:0;border-radius:5px;background:transparent;color:var(--text-tertiary);cursor:pointer}
+.clear:hover{background:var(--surface-hover);color:var(--text-primary)}
+.clear:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+.field:has(input:disabled){cursor:not-allowed;opacity:.55}
+.field input:disabled{cursor:not-allowed}
+.invalid{border-color:#9b2c2c}
+.invalid:focus-within{box-shadow:0 0 0 3px #ef6b7322}
+.error{margin:0;color:#ffb4b4;font-size:var(--font-size-copy-sm);line-height:var(--line-height-copy-tight)}
+@media(prefers-reduced-motion:reduce){.field{transition:none}}

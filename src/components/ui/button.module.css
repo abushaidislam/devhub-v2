@@ -1,0 +1,26 @@
+.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:0 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:var(--font-size-label-md);font-weight:var(--font-weight-medium);line-height:1;text-decoration:none;cursor:pointer;transition:background-color var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease),opacity var(--dur) var(--ease),transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.button:hover:not(:disabled){transform:translateY(-1px)}
+.button:active:not(:disabled){transform:translateY(0) scale(.985)}
+.button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.button:disabled{cursor:not-allowed;opacity:.55}
+.default{background:var(--text-primary);border-color:var(--text-primary);color:#000}
+.default:hover:not(:disabled){background:#fff;border-color:#fff}
+.secondary{background:var(--surface-1);border-color:var(--border);color:var(--text-primary)}
+.secondary:hover:not(:disabled){background:var(--surface-hover);border-color:var(--border-hover)}
+.tertiary{border-color:transparent;background:transparent;color:var(--text-secondary)}
+.tertiary:hover:not(:disabled){background:var(--surface-hover);color:var(--text-primary)}
+.error{background:#3b1212;border-color:#6f2222;color:#ffb4b4}
+.error:hover:not(:disabled){background:#541818;border-color:#9b2c2c}
+.warning{background:#3a2b0a;border-color:#725510;color:#f6d58a}
+.warning:hover:not(:disabled){background:#4d390d;border-color:#9a7318}
+.tiny{min-height:28px;padding:0 9px;font-size:var(--font-size-meta)}
+.small{min-height:32px;padding:0 11px;font-size:var(--font-size-label-sm)}
+.medium{min-height:36px}
+.large{min-height:44px;padding:0 18px;font-size:var(--font-size-label-md)}
+.rounded{border-radius:var(--radius-pill)}
+.square{padding-inline:0;aspect-ratio:1}
+.circle{padding-inline:0;aspect-ratio:1;border-radius:50%}
+.icon{display:inline-flex;align-items:center;justify-content:center;flex:none}
+.content{display:inline-flex;align-items:center;justify-content:center}
+.loading{cursor:wait}
+@media(prefers-reduced-motion:reduce){.button{transition:none}}

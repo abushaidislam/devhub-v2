@@ -63,3 +63,14 @@ body{letter-spacing:-.011em;-webkit-font-smoothing:antialiased}
 .type-label-md{font-size:var(--font-size-label-md);line-height:1.35;font-weight:var(--font-weight-medium)}
 .type-label-sm{font-size:var(--font-size-label-sm);line-height:var(--line-height-meta);font-weight:var(--font-weight-semibold);letter-spacing:var(--tracking-label)}
 .type-mono-sm{font:var(--font-size-mono-sm)/var(--line-height-copy) var(--mono)}
+
+
+/* P1 Geist material presets */
+.material-base{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-0)}
+.material-small{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-1)}
+.material-medium{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface-2)}
+.material-large{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface-2);box-shadow:0 8px 24px -12px #0000009e}
+.material-tooltip{border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-2);box-shadow:0 8px 24px -12px #0000009e}
+.material-menu{border:1px solid var(--border-strong);border-radius:var(--radius-lg);background:var(--surface-2);box-shadow:0 16px 48px -20px #000}
+.material-modal{border:1px solid var(--border-strong);border-radius:var(--radius-lg);background:var(--surface-2);box-shadow:0 28px 100px #000}
+.material-fullscreen{border:1px solid var(--border-strong);border-radius:16px;background:var(--surface-2);box-shadow:0 32px 120px #000}

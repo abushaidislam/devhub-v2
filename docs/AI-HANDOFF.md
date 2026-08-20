@@ -108,3 +108,36 @@ Keep the BYOK boundary: never ship a DevHub-hosted key and never send full tool 
 - Require compatibility preflight and an explicit Run action after import.
 - Do not add hosted sharing or analytics payloads for recipe definitions.
 - `src/lib/tools.ts` is the canonical tool inventory; never create a parallel list.
+
+
+## Latest UI/design-system handoff — P0/P1
+
+### Branch and scope
+
+The current UI foundation work is on `feat/p1-geist-components`, branched from `feat/p0-geist-foundation`. P0 introduced semantic color, radius, typography, line-height, tracking, and weight tokens in `src/app/globals.css`, plus formal `.type-*` roles and the lowercase label direction. P1 extends that foundation with reusable Geist-inspired component primitives.
+
+### P1 completed
+
+- Added material presets in `src/app/globals.css`: base, small, medium, large, tooltip, menu, modal, and fullscreen surfaces.
+- Added `src/components/ui/button.tsx` and `button.module.css` with Button/ButtonLink variants, sizes, shapes, prefix/suffix slots, disabled behavior, loading state, and visible focus treatment.
+- Added `src/components/ui/search-input.tsx` and `search-input.module.css` with shortcut, clear, Escape-to-clear, focus-within, disabled, and error states.
+- Added `src/components/ui/badge.tsx` and `badge.module.css` with semantic color variants, contrast modes, sizes, and StatusDot states.
+- Migrated the shared header CTA and GitHub action to ButtonLink, tool lifecycle metadata to Badge, and the tools-page search/filter surface to SearchInput and Badge.
+- Updated command-palette material, metadata, result selection, and lowercase token usage.
+- Added focused component coverage in `src/components/ui/__tests__/p1-components.test.tsx`.
+- Updated `docs/DESIGN-SYSTEM.md` with the P1 component contracts and required states.
+
+### Validation
+
+- `npm run test`: **35 test files and 205 tests passed**.
+- `npm run build`: **passed** after fixing the ButtonLink `prefix` prop collision; Next.js compiled, type-checked, generated 54 static pages, and finalized build traces.
+- `git diff --check`: passed; only expected LF/CRLF normalization warnings remain on Windows.
+- Source verification found **0 remaining `text-transform: uppercase` declarations** in the shared stylesheet and command palette.
+
+### Review notes
+
+The P1 files are currently modified/untracked on the feature branch because the remote commit shell timed out; the implementation itself is present and validated. Before merge, stage and commit the P1 files with a focused conventional commit, then run the repository’s documented release checks and perform desktop/mobile keyboard review for the new controls.
+
+### Recommended next task
+
+Review remaining ad-hoc controls in `dashboard-shell.module.css`, `smart-input-detector.module.css`, dashboard context-count pills, and dashboard card metadata. Migrate those consumers to the P1 Button, SearchInput, Badge, StatusDot, and material presets without changing product behavior or privacy claims.

@@ -329,3 +329,28 @@ Never add motion that does not have a matching reduced-motion override.
 ## Change control
 
 Any intentional change to the tokens, hierarchy, focus treatment, or geometry above must update this file in the same PR and include before/after screenshots when the visual behavior changes.
+
+
+## P1 shared component primitives
+
+P1 introduces reusable primitives for surfaces and high-frequency controls. CSS Modules own component-specific styling, while the shared semantic tokens remain in `src/app/globals.css`.
+
+### Material presets
+
+Use `.material-base`, `.material-small`, `.material-medium`, `.material-large`, `.material-tooltip`, `.material-menu`, `.material-modal`, and `.material-fullscreen` for bounded surfaces. These presets use the semantic surface, border, radius, and shadow tokens instead of literal per-component materials.
+
+### Button and ButtonLink
+
+`src/components/ui/button.tsx` provides `Button` and `ButtonLink` with `default`, `secondary`, `tertiary`, `error`, and `warning` variants; `tiny`, `small`, `medium`, and `large` sizes; optional `rounded`, `square`, and `circle` shapes; prefix/suffix icon slots; visible focus; disabled behavior; and an explicit loading state with `aria-busy`.
+
+### SearchInput
+
+`src/components/ui/search-input.tsx` provides small, medium, and large search fields with a visible focus-within boundary, optional label, keyboard shortcut hint, clear action, Escape-to-clear behavior, disabled styling, and an error message exposed with `role="alert"`.
+
+### Badge and StatusDot
+
+`src/components/ui/badge.tsx` provides semantic Badge colors (`gray`, `blue`, `green`, `teal`, `purple`, `amber`, `red`, and `pink`), low/inverted contrast modes, three sizes, and optional icons. `StatusDot` provides neutral, info, success, warning, and error states; a visible status label should accompany a dot when the status carries meaning.
+
+### Current consumers
+
+The shared header uses `ButtonLink`, tool cards use `Badge` for lifecycle metadata, and the tools page uses `SearchInput` for query, clear, and Escape behavior. The command palette now consumes the shared material, radius, typography, and lowercase metadata tokens.
