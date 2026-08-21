@@ -150,3 +150,12 @@ The tool-page context row was redesigned on branch `feat/compact-context-row` to
 The previous layout used a larger separated category-and-description block with 16px internal gap and 18px bottom padding. The new layout keeps the same category and description information but presents it as `category / description` on one restrained line, aligns FavoriteButton on the right, uses shared P0 semantic tokens, and wraps the description beneath the category on narrow screens. The tool title remains in the topbar and breadcrumb, avoiding repetition in the row.
 
 Validation: `npm run build` passed, including the prebuild test suite with **35 test files and 205 tests**, TypeScript checking, static generation of **54 pages**, and build trace finalization. The redesign has not been committed or pushed yet.
+
+
+## Latest ToolRuntime Geist handoff
+
+ToolRuntime was updated on the current `feat/compact-context-row` working branch. The implementation reuses shared Button and Badge primitives for Reset, Copy, Run, retry, reset-sample, and local-processing status. Runtime surfaces now consume semantic P0 tokens for borders, fills, radii, typography, focus rings, and motion while preserving the existing engine registry, detection handoff, analytics events, clipboard behavior, QR download behavior, Markdown rendering, and local-first disclosure.
+
+Focused validation passed: ToolRuntime and detection-handoff tests passed with **6 tests**. The complete production build then passed with **35 test files and 205 tests**, TypeScript checking, static generation of **54 pages**, and build trace finalization. The shared Button type was corrected to omit the native string `prefix` attribute so ReactNode icon prefixes type-check correctly.
+
+The ToolRuntime changes are not committed or pushed yet. Before review, perform a visual desktop/mobile pass on the toolbar, mode selector, editor split, QR result, and error actions; then commit this focused runtime change separately from the context-row work.

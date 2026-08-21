@@ -361,3 +361,10 @@ The shared header uses `ButtonLink`, tool cards use `Badge` for lifecycle metada
 Tool pages use a compact context strip above the runtime rather than a large standalone description panel. The row presents the category as a compact mono label, a subtle `/` divider, and the tool description as secondary copy. The FavoriteButton remains aligned to the right as the only action in the row.
 
 Desktop behavior keeps the category, divider, and description on one line with ellipsis for unusually long descriptions. Mobile behavior wraps the description beneath the category line while preserving readable line height and the existing favorite action. The row uses the shared border, text, label, mono, and spacing tokens; it does not repeat the tool title because the title already appears in the application topbar and breadcrumb.
+
+
+## ToolRuntime Geist migration
+
+The ToolRuntime now reuses the shared Button and Badge primitives for runtime actions and local-processing status. Reset, Copy, Run, retry, and reset-sample controls inherit the established default, secondary, error, loading, disabled, focus, and mobile touch-target states. The local-only disclosure uses a semantic success/warning dot and remains visible while processing.
+
+The runtime container, toolbar, mode selector, pattern field, editor panels, output surface, QR result, Markdown preview, and error state now use the shared semantic surface, border, radius, typography, focus, and motion tokens. Input remains bright Geist Mono content, output remains readable mono content, and processing errors retain explicit text plus action controls rather than relying on color alone. The engine registry, detection handoff, analytics events, clipboard behavior, download behavior, and local-first disclosure are unchanged.

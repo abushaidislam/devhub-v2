@@ -20,7 +20,7 @@ type CommonProps = {
 };
 
 export type ButtonProps = CommonProps &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "prefix"> & {
     children?: ReactNode;
   };
 
