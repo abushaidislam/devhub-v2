@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import {ArrowUpRight, Heart} from "lucide-react";
-import {tools} from "@/lib/tools";
-import {useFavorites} from "@/lib/use-favorites";
+import { ArrowUpRight, Heart } from "lucide-react";
+import { tools } from "@/lib/tools";
+import { useFavorites } from "@/lib/use-favorites";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 import styles from "./dashboard-tool-grid.module.css";
 
-export function DashboardToolGrid({favoritesOnly = false}: {favoritesOnly?: boolean}) {
-  const {favorites, toggle} = useFavorites();
+export function DashboardToolGrid({ favoritesOnly = false }: { favoritesOnly?: boolean }) {
+  const { favorites, toggle } = useFavorites();
   const visibleTools = favoritesOnly ? tools.filter((tool) => favorites.includes(tool.slug)) : tools;
   const starterTools = tools.filter((tool) => tool.featured).slice(0, 3);
 
@@ -36,11 +38,24 @@ export function DashboardToolGrid({favoritesOnly = false}: {favoritesOnly?: bool
           <article key={tool.slug} className={styles.card}>
             <Link href={`/tools/${tool.slug}`} aria-label={`Open ${tool.name}`}>
               <span className={styles.icon}><Icon size={19} /></span>
-              <div><strong>{tool.name}</strong><p>{tool.description}</p><small>{tool.category}<ArrowUpRight size={12} /></small></div>
+              <div>
+                <strong>{tool.name}</strong>
+                <p>{tool.description}</p>
+                <span className={styles.meta}><Badge variant="gray" size="sm">{tool.category}</Badge><ArrowUpRight size={12} aria-hidden="true" /></span>
+              </div>
             </Link>
-            <button type="button" data-active={active} aria-pressed={active} aria-label={active ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`} onClick={() => toggle(tool.slug)}>
-              <Heart size={15} fill={active ? "currentColor" : "none"} />
-            </button>
+            <Button
+              className={styles.favoriteButton}
+              type="button"
+              variant="tertiary"
+              size="small"
+              shape="square"
+              data-active={active}
+              aria-pressed={active}
+              aria-label={active ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
+              onClick={() => toggle(tool.slug)}
+              prefix={<Heart size={15} fill={active ? "currentColor" : "none"} />}
+            />
           </article>
         );
       })}

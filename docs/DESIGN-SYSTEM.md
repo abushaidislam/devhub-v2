@@ -356,15 +356,14 @@ Use `.material-base`, `.material-small`, `.material-medium`, `.material-large`, 
 The shared header uses `ButtonLink`, tool cards use `Badge` for lifecycle metadata, and the tools page uses `SearchInput` for query, clear, and Escape behavior. The command palette now consumes the shared material, radius, typography, and lowercase metadata tokens.
 
 
-## Compact tool context row
+## P2 workspace migration
 
-Tool pages use a compact context strip above the runtime rather than a large standalone description panel. The row presents the category as a compact mono label, a subtle `/` divider, and the tool description as secondary copy. The FavoriteButton remains aligned to the right as the only action in the row.
+The dashboard shell and primary dashboard workspace now consume the shared P1 primitives while preserving existing route, state, and privacy behavior.
 
-Desktop behavior keeps the category, divider, and description on one line with ellipsis for unusually long descriptions. Mobile behavior wraps the description beneath the category line while preserving readable line height and the existing favorite action. The row uses the shared border, text, label, mono, and spacing tokens; it does not repeat the tool title because the title already appears in the application topbar and breadcrumb.
+`DashboardShell` uses the shared Button and ButtonLink primitives for mobile drawer close, menu, sidebar collapse, landing-page, and GitHub actions. The existing focus restoration remains intact: opening the drawer focuses its close control, closing it restores focus to the menu control, and Escape closes the drawer. Desktop and mobile touch-target rules remain in force.
 
+`SmartInputDetector` now uses Badge and StatusDot for its local-only disclosure and confidence levels, Button for sample chips and the clear action, and semantic P2 surface tokens for its textarea, results, empty state, and keyboard hints. The detector remains local-only, bounded, deterministic, and keyboard-operable; Escape still clears and returns focus, while Cmd/Ctrl+Enter still opens the top match.
 
-## ToolRuntime Geist migration
+`DashboardToolGrid` uses Badge for category metadata and Button for the separate favorite control. The favorite control remains outside the card link so interactive elements are not nested. Default, hover, focus-within, active favorite, empty, starter-chip, tablet, and mobile states remain explicit.
 
-The ToolRuntime now reuses the shared Button and Badge primitives for runtime actions and local-processing status. Reset, Copy, Run, retry, and reset-sample controls inherit the established default, secondary, error, loading, disabled, focus, and mobile touch-target states. The local-only disclosure uses a semantic success/warning dot and remains visible while processing.
-
-The runtime container, toolbar, mode selector, pattern field, editor panels, output surface, QR result, Markdown preview, and error state now use the shared semantic surface, border, radius, typography, focus, and motion tokens. Input remains bright Geist Mono content, output remains readable mono content, and processing errors retain explicit text plus action controls rather than relying on color alone. The engine registry, detection handoff, analytics events, clipboard behavior, download behavior, and local-first disclosure are unchanged.
+The dashboard context count now uses Badge, and the shell, detector, dashboard cards, and dashboard count no longer contain uppercase text-transform declarations. Technical acronyms in visible content remain semantically uppercase where appropriate.

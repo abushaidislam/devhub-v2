@@ -1,9 +1,5 @@
 import Link from "next/link";
-import type {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ReactNode,
-} from "react";
+import { forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode } from "react";
 import styles from "./button.module.css";
 
 type ButtonVariant = "default" | "secondary" | "tertiary" | "error" | "warning";
@@ -24,18 +20,21 @@ export type ButtonProps = CommonProps &
     children?: ReactNode;
   };
 
-export function Button({
-  children,
-  className,
-  variant = "default",
-  size = "medium",
-  shape,
-  loading = false,
-  prefix,
-  suffix,
-  disabled,
-  ...props
-}: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    children,
+    className,
+    variant = "default",
+    size = "medium",
+    shape,
+    loading = false,
+    prefix,
+    suffix,
+    disabled,
+    ...props
+  },
+  ref,
+) {
   const classes = [
     styles.button,
     styles[variant],
@@ -50,6 +49,7 @@ export function Button({
   return (
     <button
       {...props}
+      ref={ref}
       className={classes}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
@@ -59,9 +59,9 @@ export function Button({
       {suffix ? <span className={styles.icon} aria-hidden="true">{suffix}</span> : null}
     </button>
   );
-}
+});
 
-export type ButtonLinkProps = CommonProps &
+type ButtonLinkProps = CommonProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children" | "href" | "prefix"> & {
     href: string;
     children?: ReactNode;

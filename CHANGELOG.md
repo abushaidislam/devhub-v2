@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.0](https://github.com/abushaidislam/devhub-v2/compare/v0.9.0...v0.10.0) (2026-08-20)
+
+
+### Features
+
+* migrate dashboard to Geist primitives ([49753bd](https://github.com/abushaidislam/devhub-v2/commit/49753bdebc5da4d754836ac0398fa2c3745be361))
+* migrate dashboard to Geist primitives ([39f7d38](https://github.com/abushaidislam/devhub-v2/commit/39f7d38c0e3de6a114fdea5c65fce2ccb64badc2))
+
 ## [0.9.0](https://github.com/abushaidislam/devhub-v2/compare/v0.8.0...v0.9.0) (2026-08-20)
 
 
