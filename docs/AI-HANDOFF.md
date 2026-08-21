@@ -141,3 +141,12 @@ The P1 files are currently modified/untracked on the feature branch because the 
 ### Recommended next task
 
 Review remaining ad-hoc controls in `dashboard-shell.module.css`, `smart-input-detector.module.css`, dashboard context-count pills, and dashboard card metadata. Migrate those consumers to the P1 Button, SearchInput, Badge, StatusDot, and material presets without changing product behavior or privacy claims.
+
+
+## Latest compact context-row handoff
+
+The tool-page context row was redesigned on branch `feat/compact-context-row` to follow a more compact Geist-like information hierarchy. The implementation is in `src/app/tools/[slug]/page.tsx` and `tool-page.module.css`.
+
+The previous layout used a larger separated category-and-description block with 16px internal gap and 18px bottom padding. The new layout keeps the same category and description information but presents it as `category / description` on one restrained line, aligns FavoriteButton on the right, uses shared P0 semantic tokens, and wraps the description beneath the category on narrow screens. The tool title remains in the topbar and breadcrumb, avoiding repetition in the row.
+
+Validation: `npm run build` passed, including the prebuild test suite with **35 test files and 205 tests**, TypeScript checking, static generation of **54 pages**, and build trace finalization. The redesign has not been committed or pushed yet.

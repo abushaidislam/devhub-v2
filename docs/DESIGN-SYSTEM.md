@@ -354,3 +354,10 @@ Use `.material-base`, `.material-small`, `.material-medium`, `.material-large`, 
 ### Current consumers
 
 The shared header uses `ButtonLink`, tool cards use `Badge` for lifecycle metadata, and the tools page uses `SearchInput` for query, clear, and Escape behavior. The command palette now consumes the shared material, radius, typography, and lowercase metadata tokens.
+
+
+## Compact tool context row
+
+Tool pages use a compact context strip above the runtime rather than a large standalone description panel. The row presents the category as a compact mono label, a subtle `/` divider, and the tool description as secondary copy. The FavoriteButton remains aligned to the right as the only action in the row.
+
+Desktop behavior keeps the category, divider, and description on one line with ellipsis for unusually long descriptions. Mobile behavior wraps the description beneath the category line while preserving readable line height and the existing favorite action. The row uses the shared border, text, label, mono, and spacing tokens; it does not repeat the tool title because the title already appears in the application topbar and breadcrumb.
