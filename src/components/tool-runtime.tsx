@@ -2,6 +2,8 @@
 import Image from "next/image";
 import {useEffect, useMemo, useState} from "react";
 import {Check, Copy, Download, Play, RotateCcw} from "lucide-react";
+import {Badge, StatusDot} from "./ui/badge";
+import {Button} from "./ui/button";
 import {consumeDetectionHandoff} from "@/lib/detection-handoff";
 import {getEngine} from "@/lib/engine-registry";
 import {trackActivationEvent} from "@/lib/analytics";
@@ -171,7 +173,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		<div className={styles.runtime} aria-busy={isRunning}>
 			<div className={styles.toolbar}>
 				<div>
-					<span className={styles.local}>{"\u25cf"} {isRunning ? "Processing locally…" : "Local processing"}</span>
+					<Badge className={styles.localBadge} variant="teal" size="sm" icon={<StatusDot status={isRunning ? "warning" : "success"} />}><span className={styles.local}>{isRunning ? "Processing locally…" : "Local processing"}</span></Badge>
 					<small>{isRunning ? "Working on this input…" : "No input is sent to a server."}</small>
 				</div>
 				<div>
@@ -196,23 +198,23 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 							)}
 						</select>
 					)}
-					<button type="button" onClick={reset} disabled={isRunning}>
-						<RotateCcw size={14} />
-						Reset
-					</button>
-					<button
-						type="button"
-						onClick={copy}
-						disabled={!output || !!image || isRunning}
-						aria-label={copied ? "Copied output to clipboard" : "Copy output to clipboard"}
-					>
-						{copied ? <Check size={14} /> : <Copy size={14} />}
-						Copy
-					</button>
-					<button type="button" className={styles.run} onClick={run} disabled={isRunning} aria-busy={isRunning}>
-<Play size={14} />
-							{isRunning ? "Running…" : "Run"}
-					</button>
+<Button type="button" onClick={reset} disabled={isRunning} variant="secondary" size="small" prefix={<RotateCcw size={14} />}>
+							Reset
+						</Button>
+<Button
+							type="button"
+							onClick={copy}
+							disabled={!output || !!image || isRunning}
+							aria-label={copied ? "Copied output to clipboard" : "Copy output to clipboard"}
+							variant="secondary"
+							size="small"
+							prefix={copied ? <Check size={14} /> : <Copy size={14} />}
+						>
+							Copy
+						</Button>
+<Button type="button" className={styles.run} onClick={run} disabled={isRunning} aria-busy={isRunning} variant="default" size="small" loading={isRunning} prefix={<Play size={14} />}>
+								Run
+							</Button>
 				</div>
 			</div>
 
@@ -255,8 +257,8 @@ value={input}
 								<strong>Could not process this input.</strong>
 								<span>{error}</span>
 								<div>
-									<button type="button" onClick={run}>Try again</button>
-									<button type="button" onClick={reset}>Reset sample</button>
+<Button type="button" onClick={run} variant="error" size="small">Try again</Button>
+										<Button type="button" onClick={reset} variant="secondary" size="small">Reset sample</Button>
 								</div>
 							</div>
 						) : image ? (
