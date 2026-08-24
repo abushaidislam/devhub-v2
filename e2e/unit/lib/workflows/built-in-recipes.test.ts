@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { validateWorkflowCompatibility } from "../compatibility";
+import { validateWorkflowCompatibility } from "@/lib/workflows/compatibility";
 import {
   builtInRecipes,
   getBuiltInRecipe,
-} from "../built-in-recipes";
-import { runWorkflow } from "../runner";
-import { WORKFLOW_SCHEMA_VERSION } from "../types";
+} from "@/lib/workflows/built-in-recipes";
+import { runWorkflow } from "@/lib/workflows/runner";
+import { WORKFLOW_SCHEMA_VERSION } from "@/lib/workflows/types";
 
 describe("built-in workflow recipes", () => {
   it("provides a small curated registry with unique stable IDs", () => {

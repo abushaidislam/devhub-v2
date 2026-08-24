@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import { buildEngineCatalog, buildPlannerUserPrompt } from "../catalog";
-import { parsePlannerResponse, planWorkflow } from "../planner";
-import { createDefaultAiConfig } from "../provider-config";
+import { buildEngineCatalog, buildPlannerUserPrompt } from "@/lib/ai/catalog";
+import { parsePlannerResponse, planWorkflow } from "@/lib/ai/planner";
+import { createDefaultAiConfig } from "@/lib/ai/provider-config";
 
 const config = { ...createDefaultAiConfig("openai"), apiKey: "key" };
 

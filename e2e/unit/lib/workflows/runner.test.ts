@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import { getEngine } from "../../engine-registry";
-import { WORKFLOW_SCHEMA_VERSION, type Workflow } from "../types";
-import { runWorkflow } from "../runner";
+import { getEngine } from "@/lib/engine-registry";
+import { WORKFLOW_SCHEMA_VERSION, type Workflow } from "@/lib/workflows/types";
+import { runWorkflow } from "@/lib/workflows/runner";
 
 const textWorkflow: Workflow = {
   version: WORKFLOW_SCHEMA_VERSION,

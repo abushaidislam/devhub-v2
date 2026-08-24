@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { assistWithInput, buildAssistUserPrompt } from "../assist-tool";
-import { createDefaultAiConfig } from "../provider-config";
+import { assistWithInput, buildAssistUserPrompt } from "@/lib/ai/assist-tool";
+import { createDefaultAiConfig } from "@/lib/ai/provider-config";
 
 const config = { ...createDefaultAiConfig("openai"), apiKey: "key" };
 

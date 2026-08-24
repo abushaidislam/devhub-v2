@@ -1,6 +1,6 @@
 import {describe, expect, it} from "vitest";
-import {engines, getEngine} from "../engine-registry";
-import {tools} from "../tools";
+import {engines, getEngine} from "@/lib/engine-registry";
+import {tools} from "@/lib/tools";
 
 // ---------------------------------------------------------------------------
 // Coverage: registry must mirror the tool registry exactly

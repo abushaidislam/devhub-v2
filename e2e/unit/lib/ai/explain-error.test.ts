@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { buildErrorPayload, explainToolError } from "../explain-error";
-import { AI_ERROR_MESSAGE_LIMIT, createDefaultAiConfig } from "../provider-config";
+import { buildErrorPayload, explainToolError } from "@/lib/ai/explain-error";
+import { AI_ERROR_MESSAGE_LIMIT, createDefaultAiConfig } from "@/lib/ai/provider-config";
 
 const config = { ...createDefaultAiConfig("openai"), apiKey: "key" };
 

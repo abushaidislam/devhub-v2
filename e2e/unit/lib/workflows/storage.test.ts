@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { builtInRecipes } from "../built-in-recipes";
+import { builtInRecipes } from "@/lib/workflows/built-in-recipes";
 import {
   createSavedRecipe,
   listSavedRecipes,
@@ -8,7 +8,7 @@ import {
   SAVED_RECIPE_LIMIT,
   SAVED_RECIPE_NAME_LIMIT,
   validateSavedRecipeDraft,
-} from "../storage";
+} from "@/lib/workflows/storage";
 
 const builtIn = builtInRecipes[0]!;
 const validDraft = {

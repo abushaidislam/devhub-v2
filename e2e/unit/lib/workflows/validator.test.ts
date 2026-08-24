@@ -3,8 +3,8 @@ import {
   MAX_WORKFLOW_STEPS,
   WORKFLOW_SCHEMA_VERSION,
   type Workflow,
-} from "../types";
-import { validateWorkflow } from "../validator";
+} from "@/lib/workflows/types";
+import { validateWorkflow } from "@/lib/workflows/validator";
 
 const validWorkflow: Workflow = {
   version: WORKFLOW_SCHEMA_VERSION,

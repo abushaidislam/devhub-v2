@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { builtInRecipes } from "../built-in-recipes";
+import { builtInRecipes } from "@/lib/workflows/built-in-recipes";
 import {
   buildRecipeTransfer,
   parseRecipeTransfer,
@@ -8,7 +8,7 @@ import {
   RECIPE_TRANSFER_VERSION,
   recipeTransferFilename,
   serializeRecipeTransfer,
-} from "../transfer";
+} from "@/lib/workflows/transfer";
 
 const builtIn = builtInRecipes[0]!;
 const draft = {

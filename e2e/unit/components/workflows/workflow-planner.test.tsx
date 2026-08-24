@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { WorkflowPlanner } from "../workflow-planner";
+import { WorkflowPlanner } from "@/components/workflow-planner";
 import { saveAiConfig } from "@/lib/ai/provider-config";
 
 describe("WorkflowPlanner", () => {

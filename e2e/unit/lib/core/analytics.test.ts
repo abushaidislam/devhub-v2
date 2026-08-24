@@ -1,6 +1,6 @@
 import {describe,expect,it} from "vitest";
-import {GLOBAL_EVENTS,sanitizeActivationEvent,TOOL_EVENTS,trackActivationEvent,type ActivationEvent} from "../analytics";
-import {tools} from "../tools";
+import {GLOBAL_EVENTS,sanitizeActivationEvent,TOOL_EVENTS,trackActivationEvent,type ActivationEvent} from "@/lib/analytics";
+import {tools} from "@/lib/tools";
 
 const slug=tools[0].slug;
 

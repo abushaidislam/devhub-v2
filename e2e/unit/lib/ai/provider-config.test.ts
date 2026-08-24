@@ -7,7 +7,7 @@ import {
   readAiConfig,
   saveAiConfig,
   validateAiConfig,
-} from "../provider-config";
+} from "@/lib/ai/provider-config";
 
 describe("ai provider config", () => {
   it("creates provider defaults", () => {
