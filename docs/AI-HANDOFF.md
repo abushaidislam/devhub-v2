@@ -392,3 +392,22 @@ Each new tool has a pure bounded engine, typed registry entry, sample input, met
 The new engines intentionally avoid third-party dependencies and network requests. YAML formatting is conservative around indentation, XML formatting validates a single well-formed root, Markdown linting reports bounded line-based rules, URL parsing returns structured components, gitignore generation combines deduplicated built-in templates, and JSON-to-TypeScript emits inferred interfaces/types.
 
 The branch was validated with context check, 36 Vitest files and 228 tests, TypeScript validation, production generation of 60 static pages, lint with zero errors and six pre-existing warnings, and `git diff --check`. A fresh manual visual check of new routes remained blocked by an unavailable browser receiver; prior shared-runtime visual QA remains valid.
+
+
+## Motion token and transition polish checkpoint — August 2026
+
+### Scope completed
+
+Applied the installed `transitions-dev` and `transitions-polish` guidance to the shared web UI without adding a dependency or changing product behavior. Added semantic duration, easing, distance, scale, and blur tokens to `src/app/globals.css`; tokenized the landing-page reveals and stagger offsets; aligned workspace drawer/sidebar and topbar control timing; polished dashboard tool-card lift and metadata-arrow feedback; and refined ToolRuntime controls, selector chevron motion, and Markdown Preview tabs. Added reduced-motion overrides for the new dashboard-card and tab motion. Updated the motion section of `docs/DESIGN-SYSTEM.md` to document the semantic token scale and the no-layout-shift accessibility contract.
+
+### Validation
+
+The changed-file summary reports six modified files: `src/app/globals.css`, `src/components/dashboard-shell.module.css`, `src/components/dashboard-tool-grid.module.css`, `src/components/tool-runtime.module.css`, `docs/DESIGN-SYSTEM.md`, and `docs/AI-HANDOFF.md`. Native Windows TypeScript validation passed after running `npm ci --ignore-scripts --no-audit --no-fund` to repair the incomplete local dependency installation. The full unit suite passed with 36 files and 228 tests. ESLint completed with 0 errors and 5 pre-existing warnings. The production build compiled successfully, passed type/lint checks, generated 60 static pages, reached final page optimization, and left a valid `.next/BUILD_ID` artifact; the remote bridge timed out before returning the final shell marker, so the final build exit code should be reconfirmed before merge.
+
+### Review notes
+
+No new route, network request, persistence behavior, processing logic, or runtime dependency was introduced. The focused branch `feat/polish-transitions` is active with the six intended files modified. Before merging, reconfirm the build exit code and perform desktop/mobile keyboard and reduced-motion review at the repository’s documented viewport sizes.
+
+### Next step
+
+Reconfirm the final build exit code, perform the desktop/mobile keyboard and reduced-motion review, then commit the focused visual change on `feat/polish-transitions`.

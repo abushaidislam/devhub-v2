@@ -252,7 +252,7 @@ Design principle: fast, subtle, Vercel/Geist-style feedback — never decorative
 | `--ease` | `cubic-bezier(.4, 0, .2, 1)` | Standard ease-out (material register) |
 | `--dur` | `.16s` / 150–200ms | Hover, focus, and color transitions |
 
-These tokens are declared in `src/app/globals.css` and reused by every module. Do not introduce a second standard easing or base duration.
+These tokens are declared in `src/app/globals.css` and reused by every module. Do not introduce a second standard easing or base duration. The stylesheet also exposes semantic transition tokens: `--duration-micro` (80ms), `--duration-quick` (150ms), `--duration-fast` (250ms), `--duration-medium` (350ms), `--duration-slow` (400ms), and `--duration-very-slow` (500ms), alongside usage-specific easing, distance, scale, and blur tokens. Use the semantic token that matches the interaction rather than choosing the nearest raw value.
 
 ### Universal transition targets
 
@@ -318,7 +318,7 @@ Every keyframe, transition, and smooth-scroll behavior has a `@media (prefers-re
 - Hover `transform`s on sidebar rows, tool cards, and footer icons are disabled.
 - Loader2 `spin` animations on spinners are disabled.
 
-Never add motion that does not have a matching reduced-motion override.
+Never add motion that does not have a matching reduced-motion override. New card, shell, runtime-control, tab, and reveal motion must remain subtle, avoid layout shift, and use the semantic token scale above.
 
 ## Responsive rules
 
