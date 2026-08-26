@@ -332,3 +332,21 @@ Updated `docs/DESIGN-SYSTEM.md` with the button tier, hover, active, focus, disa
 Removed accidental overlap between legacy and premium button styles. Runtime toolbar and Run-button legacy visual overrides were reduced to layout-only rules, runtime error actions now have one semantic red-control owner, Assistant primary/secondary actions are consolidated into one block, duplicate dashboard shell migration blocks were removed, and the old dashboard card focus outline was removed in favor of the premium favorite focus halo. Global landing CTA classes now own their premium primary/secondary treatment without a competing flat hover rule.
 
 Validation after cleanup: `git diff --check`, typecheck, lint, 36 test files / 210 tests, and production build all passed. The live production preview on port 3004 rendered the dashboard with consistent premium control surfaces. No product behavior or data boundary changed.
+
+## Favorite heart icon checkpoint
+
+### Scope completed
+
+Replaced the filled Lucide star/heart treatment in the standalone `FavoriteButton` and dashboard card favorite controls with the reusable `src/components/ui/animated-heart.tsx` component. The default state is outline-only (`fill="none"`), the selected state uses `fill="currentColor"`, and a real favorite toggle runs a restrained Heroicons Animated-style scale sequence. The wrapper is decorative with `aria-hidden="true"`; the parent button continues to own the accessible label, `aria-pressed` state, persistence, and toggle behavior.
+
+Added the `motion` dependency and attribution for the MIT Heroicons Animated reference. Added regression assertions for outline/filled SVG states and retained favorite persistence coverage. The empty favorites illustration remains decorative and unchanged.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- Focused favorite/dashboard tests: 4 passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- Full E2E desktop/mobile suite: 8 passed, 2 skipped.
+- Live production preview: default favorite confirmed `fill="none"`; selected favorite confirmed `fill="currentColor"`; a real click sampled at 100ms showed an active scale transform (`matrix(1.15305, 0, 0, 1.15305, 0, 0)`).
+- Repository remains local-first; no favorite persistence or product behavior changed.
