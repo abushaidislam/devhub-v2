@@ -326,3 +326,9 @@ Updated `docs/DESIGN-SYSTEM.md` with the button tier, hover, active, focus, disa
 - Live dashboard review: smart-input sample controls, card favorite actions, search controls, and shell controls show the premium dark treatment.
 - Live Assistant review: primary and secondary actions preserve hierarchy; provider, workflow, and error actions render with updated surfaces and states.
 - A temporary preview failure was traced to the known concurrent Next.js `.next` build-manifest race; a clean preview on a separate port rendered successfully.
+
+## Button cascade cleanup checkpoint
+
+Removed accidental overlap between legacy and premium button styles. Runtime toolbar and Run-button legacy visual overrides were reduced to layout-only rules, runtime error actions now have one semantic red-control owner, Assistant primary/secondary actions are consolidated into one block, duplicate dashboard shell migration blocks were removed, and the old dashboard card focus outline was removed in favor of the premium favorite focus halo. Global landing CTA classes now own their premium primary/secondary treatment without a competing flat hover rule.
+
+Validation after cleanup: `git diff --check`, typecheck, lint, 36 test files / 210 tests, and production build all passed. The live production preview on port 3004 rendered the dashboard with consistent premium control surfaces. No product behavior or data boundary changed.
