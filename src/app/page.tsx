@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { ToolCard } from "@/components/tool-card";
 import { categories, tools } from "@/lib/tools";
 import { LandingCtaSection } from "@/components/landing-cta-section";
+import { SiteFooter } from "@/components/site-footer";
 
 export default function HomePage() {
   const featured = tools.filter((tool) => tool.featured).slice(0, 6);
