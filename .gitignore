@@ -16,3 +16,4 @@ out
 
 # TypeScript incremental build cache
 *.tsbuildinfo
+artifacts
