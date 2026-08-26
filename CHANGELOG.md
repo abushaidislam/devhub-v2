@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.2](https://github.com/abushaidislam/devhub-v2/compare/v0.13.1...v0.13.2) (2026-08-26)
+
+
+### Bug Fixes
+
+* prevent repeated dropdown chevrons ([52cb97e](https://github.com/abushaidislam/devhub-v2/commit/52cb97e3a3835d5ac2e8bb6e33c58f8297b4f06a))
+
 ## [0.13.1](https://github.com/abushaidislam/devhub-v2/compare/v0.13.0...v0.13.1) (2026-08-26)
 
 
