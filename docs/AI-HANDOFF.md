@@ -266,3 +266,44 @@ The change is visual and behavior-preserving; no new dependency, processing logi
 ### Next step
 
 Review and push `feat/global-dropdown-style` through the normal pull-request flow when ready.
+
+
+## Dropdown cascade fix checkpoint
+
+### Scope completed
+
+Refined `feat/global-dropdown-style` after reproducing a repeated-chevron issue in Chromium. The runtime module no longer applies legacy `.toolbar select` rules to the native dropdown, preventing the higher-specificity cascade from overriding the control geometry. Both the runtime operation selector and the Assistant error-tool selector now render one wrapper-based CSS chevron instead of a `background-image`, while keeping their context-local layout and native `<select>` behavior.
+
+The design-system wording now documents the context-local approach and the browser-specific option-menu limitation rather than implying a global selector. Temporary visual-review notes were used during QA and should remain untracked.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- `npm run test:e2e`: 8 passed and 2 skipped across Chromium desktop and mobile projects after installing the missing Playwright browser binary.
+- Browser review: runtime dropdown shows one clean chevron and a readable native option menu; Assistant Tool dropdown shows the same single-chevron treatment within its own full-width form layout.
+
+### Review notes
+
+An initial Assistant preview failure was unrelated to the UI change: running the development server concurrently with `next build` raced on `.next` build-manifest files. The preview was restarted cleanly on a separate port for verification.
+
+
+## Premium dropdown polish checkpoint
+
+### Scope completed
+
+Refined the context-local dropdown styles in `src/components/tool-runtime.module.css` and `src/components/workflow-planner.module.css`. Runtime and Assistant dropdowns now use a restrained dark vertical gradient, inset highlight, shallow depth shadow, brighter hover border and chevron, tactile active state, layered keyboard focus halo, dark native-menu hint via `color-scheme: dark`, and muted disabled chevron behavior. The Assistant disabled-chevron selector was kept scoped to the wrapper pseudo-element.
+
+Updated `docs/DESIGN-SYSTEM.md` with the premium hover, active, focus, and disabled-state contract. No global dropdown selector, dependency, processing behavior, or persistence behavior was added.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- Live preview on `/tools/base64`: dark gradient, inset/depth shadow, single chevron, and native option menu verified.
+- Programmatic focus check: `:focus-visible` active with white outline, 3px offset, bright border, and layered focus shadow.
+- Existing Playwright desktop/mobile validation remains green at 8 passed and 2 skipped.

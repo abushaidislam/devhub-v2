@@ -141,14 +141,15 @@ Use the shared `Switch` component for binary settings instead of native checkbox
 
 ### Dropdowns
 
-Native dropdowns use a shared dark control treatment so the closed field and browser-managed option menu feel consistent across tool runtimes and AI forms. Use the semantic `--select-selected` token for the selected option, preserve native keyboard navigation, and provide a visible chevron without relying on the browser’s default arrow.
+Native dropdowns use context-local dark control treatments so each web surface can fit its own layout while still following the same visual principles. Use the semantic `--select-selected` token for the selected option, preserve native keyboard navigation, and render a single positioned chevron outside the `<select>` background to avoid browser-specific repeated-arrow artifacts.
 
-- Surface: `--surface-1` with `--border-strong`, 6px radius, and a subtle one-pixel inset highlight.
+- Surface: a restrained dark vertical gradient over `--surface-1` with `--border-strong`, 6px radius, a one-pixel inset highlight, and a shallow shadow for depth.
 - Label/value: `--text-primary`, 13px, semibold; reserve trailing space for the chevron.
-- Hover: `--surface-hover` and `--border-hover` with a brighter chevron.
-- Focus: a 2px white outline with a 2px offset and a bright border.
+- Hover: a slightly lifted dark gradient, `#686868` border, brighter chevron, and restrained shadow; do not apply hover styling when disabled.
+- Active/press: `--surface-active` with an inset shadow so the control feels tactile without shifting layout.
+- Focus: a 2px white outline with a 3px offset, bright border, inset highlight, and a soft outer halo; keyboard focus must remain clearly distinct from hover.
 - Selected option: `--select-selected` with white text; option menus retain a dark surface where the browser allows styling.
-- Disabled: approximately 45% opacity, `not-allowed` cursor, and no hover treatment.
+- Disabled: approximately 45% opacity, `not-allowed` cursor, muted chevron, and no hover treatment.
 - Touch target: 44px minimum height below 480px; the field must remain full-width inside stacked form labels.
 
 ## Tool cards
