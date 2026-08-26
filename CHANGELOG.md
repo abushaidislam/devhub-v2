@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.13.4](https://github.com/abushaidislam/devhub-v2/compare/v0.13.3...v0.13.4) (2026-08-26)
+
+
+### Bug Fixes
+
+* animate favorite heart state ([2639335](https://github.com/abushaidislam/devhub-v2/commit/26393357aabcdf66557a8934efe63c5fde3ecc28))
+* keep active favorite button dark ([489f84a](https://github.com/abushaidislam/devhub-v2/commit/489f84a326bc95d67b0296a447014d765774197c))
+* keep active favorite button dark ([72d7489](https://github.com/abushaidislam/devhub-v2/commit/72d7489729ee3bc0f6e07eeb3fe767127d627add))
+
 ## [0.13.3](https://github.com/abushaidislam/devhub-v2/compare/v0.13.2...v0.13.3) (2026-08-26)
 
 
