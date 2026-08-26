@@ -350,3 +350,9 @@ Added the `motion` dependency and attribution for the MIT Heroicons Animated ref
 - Full E2E desktop/mobile suite: 8 passed, 2 skipped.
 - Live production preview: default favorite confirmed `fill="none"`; selected favorite confirmed `fill="currentColor"`; a real click sampled at 100ms showed an active scale transform (`matrix(1.15305, 0, 0, 1.15305, 0, 0)`).
 - Repository remains local-first; no favorite persistence or product behavior changed.
+
+## Vercel frozen-lockfile repair checkpoint
+
+Vercel was failing before compilation because `package.json` contained `motion@^13.1.1` while `pnpm-lock.yaml` did not. Regenerated the lockfile with pnpm 10.34.5, matching Vercel’s detected package-manager family; the diff adds the motion dependency graph without unrelated version churn. Added `pnpm-workspace.yaml` build approvals for `esbuild`, `sharp`, and `unrs-resolver` so non-interactive pnpm installs can run required native build scripts safely.
+
+Validation completed with the Vercel-compatible path: `npx pnpm@10.34.5 install --frozen-lockfile` passed, production build passed with 54 generated pages, 36 unit-test files / 210 tests passed, and desktop/mobile E2E passed with 8 passed and 2 skipped. The branch remains clean after commit and push.
