@@ -2,7 +2,7 @@
 
 ## Working branch
 
-- `main` — includes the v0.6.2 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
+- `feat/markdown-preview-upgrade` — includes the v0.13.0 baseline, Markdown Preview upgrades, layout fixes, and the first batch expansion to 30 local tools.
 
 ## Stable branch state
 
@@ -40,7 +40,7 @@ All Phases 0–3 are implemented. Phase 4 (Distribution) is planned but not star
 **Phase 2 — Workflow differentiation**
 
 - Typed `ToolEngine` interface (`src/lib/engine-types.ts`) with `ToolValueType = "text" | "json" | "binary" | "image"`, sensitivity `local | network | ai`.
-- Engine registry (`src/lib/engine-registry.ts`) mapping all 24 tool slugs to processing logic.
+- Engine registry (`src/lib/engine-registry.ts`) mapping all 30 tool slugs to processing logic.
 - Versioned workflow schema (`Workflow = { version: 1; steps[] }`), 1–50 step limit.
 - `validateWorkflow` and `validateWorkflowCompatibility` preflight.
 - Sequential `runWorkflow` runner with per-step metadata, warnings, duration, `AbortSignal` cancellation.
@@ -242,3 +242,14 @@ The change preserves the existing 44px favorite touch target, accessible `aria-l
 ### Next step
 
 Push the focused branch and open a review request when ready.
+
+
+## First batch developer tools checkpoint
+
+The first proposed batch was scoped against the canonical registry. Timestamp Converter and Text Diff already existed, so they were retained rather than duplicated. Six genuinely new local-first tools were added: YAML Formatter, XML Formatter, Markdown Linter, URL Parser, Gitignore Generator, and JSON to TypeScript.
+
+Each new tool has a pure bounded engine, typed registry entry, sample input, metadata, safe user-facing errors, and automatic route/navigation/sitemap participation through `src/lib/tools.ts`. Smart detection now recognizes YAML, XML, common gitignore patterns, URL parsing candidates, Markdown lint candidates, and JSON-to-TypeScript candidates. Curated next-action pairings connect the new tools to existing workflows.
+
+The new engines intentionally avoid third-party dependencies and network requests. YAML formatting is conservative around indentation, XML formatting validates a single well-formed root, Markdown linting reports bounded line-based rules, URL parsing returns structured components, gitignore generation combines deduplicated built-in templates, and JSON-to-TypeScript emits inferred interfaces/types.
+
+Validation completed for this batch: full Vitest suite, typecheck, lint, production build, and responsive layout rules passed. Automated coverage passed 36 test files and 228 tests; lint reported only six repository warnings and zero errors. My Browser was unavailable for a fresh new-tool screenshot, so visual validation for the new routes remains the only manual follow-up; prior Markdown Preview desktop QA and the shared runtime layout checks remain valid.

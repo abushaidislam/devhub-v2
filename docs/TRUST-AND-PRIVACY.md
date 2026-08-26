@@ -14,7 +14,7 @@ The UI must show the classification before execution for network/AI operations.
 
 ## Current state
 
-The current 24 tools are intended to run locally in the browser. Verify this classification whenever a dependency or implementation changes. Vercel Analytics must never receive tool input/output.
+The current 30 tools are intended to run locally in the browser. The new YAML, XML, Markdown lint, URL parsing, gitignore generation, and JSON-to-TypeScript engines use only in-memory browser processing. Verify this classification whenever a dependency or implementation changes. Vercel Analytics must never receive tool input/output.
 
 Recent history is opt-in and local-only. It stores tool slugs and visit timestamps in IndexedDB, never tool input/output, and retains at most 50 entries. Disabling retention stops new records; Clear history deletes stored entries. If browser storage is unavailable, history remains disabled and fails closed.
 

@@ -11,12 +11,18 @@ function segment(value: unknown) {
 describe("smart input detection", () => {
   it.each([
     ['{"ready":true}', "json-formatter"],
+    ['{"ready":true}', "json-to-typescript"],
     [`${segment({ alg: "HS256" })}.${segment({ sub: "devhub" })}.signature`, "jwt-decoder"],
     ["https://devhub.tools/path?q=json", "url-encoder"],
+    ["https://devhub.tools/path?q=json", "url-parser"],
+    ["name: DevHub\nfeatures:\n  - local\n  - fast", "yaml-formatter"],
+    ["<root><item>DevHub</item></root>", "xml-formatter"],
+    ["node_modules/\n.env\n.next/", "gitignore-generator"],
     ["SELECT id FROM users WHERE active = true", "sql-formatter"],
     ["0 9 * * 1", "cron-parser"],
     ["#ff00aa", "color-converter"],
     ["# Title\n\n- one\n- two", "markdown-preview"],
+    ["# Title\n\n- one\n- two", "markdown-linter"],
     ["RGV2SHVi", "base64"],
   ])("detects %s", (input, slug) => {
     expect(detectInput(input).some((result) => result.slug === slug)).toBe(true);

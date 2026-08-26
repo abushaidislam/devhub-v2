@@ -2,7 +2,7 @@
  * Engine registry (ADR-018).
  *
  * Each entry wraps an existing pure engine function from tool-engines.ts into
- * the typed ToolEngine contract. All 24 tools are registered here; the map is
+ * the typed ToolEngine contract. All 30 tools are registered here; the map is
  * the single source of truth for which engines exist at runtime.
  *
  * Pure engine functions must not import React (enforced by tool-engines.ts).
@@ -32,8 +32,14 @@ import {
 	slugify,
 	testRegex,
 	transformBase64,
-	transformUrl,
-} from "./tool-engines";
+		transformUrl,
+		formatYaml,
+		formatXml,
+		lintMarkdown,
+		parseUrl,
+		generateGitignore,
+		jsonToTypescript,
+	} from "./tool-engines";
 import type {ToolEngine, ToolResult} from "./engine-types";
 
 // ---------------------------------------------------------------------------
@@ -333,17 +339,59 @@ const engineList: ToolEngine[] = [
 			return makeJson(r.output, r.meta);
 		},
 	},
-	{
-		id: "password-generator",
-		accepts: ["text"],
-		produces: "text",
-		sensitivity: "local",
-		async run(input) {
-			const r = generatePassword(input.value);
-			return makeText(r.output, r.meta);
+		{
+			id: "password-generator",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input) {
+				const r = generatePassword(input.value);
+				return makeText(r.output, r.meta);
+			},
 		},
-	},
-];
+		{
+			id: "yaml-formatter",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input) { const r = formatYaml(input.value); return makeText(r.output, r.meta); },
+		},
+		{
+			id: "xml-formatter",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input) { const r = formatXml(input.value); return makeText(r.output, r.meta); },
+		},
+		{
+			id: "markdown-linter",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input) { const r = lintMarkdown(input.value); return makeText(r.output, r.meta); },
+		},
+		{
+			id: "url-parser",
+			accepts: ["text"],
+			produces: "json",
+			sensitivity: "local",
+			async run(input) { const r = parseUrl(input.value); return makeJson(r.output, r.meta); },
+		},
+		{
+			id: "gitignore-generator",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input) { const r = generateGitignore(input.value); return makeText(r.output, r.meta); },
+		},
+		{
+			id: "json-to-typescript",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input) { const r = jsonToTypescript(input.value); return makeText(r.output, r.meta); },
+		},
+	];
 
 const engineMap = new Map(engineList.map((e) => [e.id, e]));
 

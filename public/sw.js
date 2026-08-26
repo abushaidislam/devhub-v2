@@ -37,8 +37,14 @@ const PRECACHE_PATHS=[
 	"/tools/number-base",
 	"/tools/html-entities",
 	"/tools/query-parser",
-	"/tools/password-generator",
-	"/favicon.png",
+		"/tools/password-generator",
+		"/tools/yaml-formatter",
+		"/tools/xml-formatter",
+		"/tools/markdown-linter",
+		"/tools/url-parser",
+		"/tools/gitignore-generator",
+		"/tools/json-to-typescript",
+		"/favicon.png",
 	"/icon.png",
 	"/icon-maskable.png"
 ];

@@ -20,7 +20,7 @@ Current product principles:
 ## Current verified state
 
 - Next.js 15 App Router, React 19, strict TypeScript.
-- 24 registered local-first tools in `src/lib/tools.ts`.
+- 30 registered local-first tools in `src/lib/tools.ts`.
 - Tool logic in `src/lib/tool-engines.ts`.
 - Shared client runtime in `src/components/tool-runtime.tsx`.
 - Vercel-inspired app shell in `src/components/dashboard-shell.tsx` with centered semantic page titles.
@@ -28,7 +28,7 @@ Current product principles:
 - `/dashboard` is the flat All Tools workspace with deterministic smart input detection.
 - `/favorites` is a dedicated favorites workspace.
 - `/recent` is an opt-in local activity workspace. It stores at most 50 tool slugs and visit timestamps in IndexedDB; it never stores tool input/output.
-- `src/lib/detection.ts` detects JSON, JWT, URL, Base64, SQL, cron, six-digit HEX, and Markdown without persistence or network calls.
+- `src/lib/detection.ts` detects JSON, JWT, URL, URL components, Base64, SQL, cron, six-digit HEX, YAML, XML, gitignore patterns, Markdown, Markdown lint candidates, and JSON-to-TypeScript candidates without persistence or network calls.
 - Command palette supports search and keyboard navigation.
 - Workflow chaining, saved recipes, recommended next actions, and BYOK AI assistance are implemented; browser extension, VS Code extension, and CLI distribution remain planned.
 

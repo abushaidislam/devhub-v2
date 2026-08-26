@@ -24,6 +24,12 @@ export const tools:Tool[]=[
 {slug:"number-base",name:"Number Base Converter",description:"Convert between decimal, hex, octal and binary.",category:"Converters",icon:BinaryIcon,status:"ready"},
 {slug:"html-entities",name:"HTML Entities",description:"Encode and decode HTML entities safely.",category:"Text",icon:Code2,status:"ready"},
 {slug:"query-parser",name:"Query String Parser",description:"Break a URL query string into structured parameters.",category:"Text",icon:ListTree,status:"ready"},
-{slug:"password-generator",name:"Password Generator",description:"Generate strong passwords with Web Crypto randomness.",category:"Security",icon:KeySquare,status:"ready"}
+{slug:"password-generator",name:"Password Generator",description:"Generate strong passwords with Web Crypto randomness.",category:"Security",icon:KeySquare,status:"ready"},
+{slug:"yaml-formatter",name:"YAML Formatter",description:"Format and validate common YAML indentation locally.",category:"Formatters",icon:FileJson,status:"ready"},
+{slug:"xml-formatter",name:"XML Formatter",description:"Pretty-print and validate well-formed XML locally.",category:"Formatters",icon:FileCode2,status:"ready"},
+{slug:"markdown-linter",name:"Markdown Linter",description:"Find common Markdown structure and style issues.",category:"Editors",icon:ListTree,status:"ready"},
+{slug:"url-parser",name:"URL Parser",description:"Inspect URL parts, query parameters, and fragments.",category:"Converters",icon:Link2,status:"ready"},
+{slug:"gitignore-generator",name:"Gitignore Generator",description:"Generate focused .gitignore rules for common stacks.",category:"Generators",icon:GitCompare,status:"ready"},
+{slug:"json-to-typescript",name:"JSON to TypeScript",description:"Generate readable TypeScript interfaces from JSON.",category:"Converters",icon:Type,status:"ready"}
 ];
 export const categories=[...new Set(tools.map(tool=>tool.category))];export function getTool(slug:string){return tools.find(tool=>tool.slug===slug)}

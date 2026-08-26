@@ -69,6 +69,14 @@ This registry is the only source of truth for tool identity. Never create a sepa
 22. HTML Entities
 23. Query String Parser
 24. Password Generator
+25. YAML Formatter
+26. XML Formatter
+27. Markdown Linter
+28. URL Parser
+29. Gitignore Generator
+30. JSON to TypeScript
+
+The proposed Timestamp Converter and Text Diff tools already existed in the registry and were retained rather than duplicated.
 
 ## Adding or modifying a tool
 

@@ -42,8 +42,14 @@ const defaults: Record<string, string> = {
 	"number-base": "255",
 	"html-entities": '<a href="/tools">Tools & more</a>',
 	"query-parser": "https://devhub.dev/tools?q=json&tag=local&tag=fast",
-	"password-generator": "20",
-};
+		"password-generator": "20",
+		"yaml-formatter": "name: DevHub\nfeatures:\n  - local\n  - fast",
+		"xml-formatter": "<project><name>DevHub</name><private>true</private></project>",
+		"markdown-linter": "# DevHub\n\n\n### Skipped heading\n\n[Empty link]()",
+		"url-parser": "https://devhub.dev/tools?tag=local&tag=fast#readme",
+		"gitignore-generator": "node\nnext\nvscode\nenv",
+		"json-to-typescript": '{\n  "name": "DevHub",\n  "tools": ["json", "yaml"]\n}',
+	};
 
 export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const initial = defaults[slug] ?? "";
@@ -90,8 +96,14 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			"number-base": "convert the number between decimal, hexadecimal, octal, and binary bases",
 			"html-entities": "encode or decode HTML entities",
 			"query-parser": "parse URL query parameters into structured key-value pairs",
-			"password-generator": "generate a strong random password of the requested length",
-		};
+				"password-generator": "generate a strong random password of the requested length",
+				"yaml-formatter": "format and validate common YAML indentation",
+				"xml-formatter": "pretty-print and validate well-formed XML",
+				"markdown-linter": "find common Markdown structure and style issues",
+				"url-parser": "inspect URL parts, query parameters, and fragments",
+				"gitignore-generator": "generate .gitignore rules for selected stacks",
+				"json-to-typescript": "generate TypeScript interfaces from JSON",
+			};
 		return operations[slug] ?? "analyze and transform input";
 	}, [aux, option, slug]);
 

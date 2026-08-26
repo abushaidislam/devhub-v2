@@ -111,8 +111,13 @@ describe("output type tags", () => {
 			"hash-generator",
 			"sql-formatter",
 			"cron-parser",
-			"url-encoder",
-		];
+				"url-encoder",
+				"yaml-formatter",
+				"xml-formatter",
+				"markdown-linter",
+				"gitignore-generator",
+				"json-to-typescript",
+			];
 		const inputs: Record<string, string> = {
 			base64: "hello",
 			"uuid-generator": "1",
@@ -121,8 +126,13 @@ describe("output type tags", () => {
 			"hash-generator": "abc",
 			"sql-formatter": "select id from users",
 			"cron-parser": "0 9 * * 1",
-			"url-encoder": "hello world",
-		};
+				"url-encoder": "hello world",
+				"yaml-formatter": "name: DevHub\nfeatures:\n  - local",
+				"xml-formatter": "<root><name>DevHub</name></root>",
+				"markdown-linter": "# Hello",
+				"gitignore-generator": "node",
+				"json-to-typescript": '{"name":"DevHub"}',
+			};
 		const options: Record<string, unknown> = {
 			base64: {mode: "encode"},
 			"hash-generator": {algorithm: "SHA-256"},
