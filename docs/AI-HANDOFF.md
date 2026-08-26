@@ -242,3 +242,27 @@ The change preserves the existing 44px favorite touch target, accessible `aria-l
 ### Next step
 
 Push the focused branch and open a review request when ready.
+
+
+## Global dropdown styling checkpoint
+
+### Scope completed
+
+Created the focused `feat/global-dropdown-style` branch and updated both native dropdown consumers: the runtime operation selector in `src/components/tool-runtime.tsx` and the AI error tool selector in `src/components/error-explainer.tsx`. Both now use a polished dark control treatment with a custom chevron, semantic surface/border/text tokens, selected-option color, visible focus ring, hover and disabled states, native keyboard behavior, and 44px mobile sizing. The shared `--select-selected` token and dropdown contract were added to `src/app/globals.css` and `docs/DESIGN-SYSTEM.md`.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js compiled, type-checked, generated 54 static pages, and finalized build traces.
+- `git diff --check`: passed.
+- Desktop browser review of `/tools/hash-generator`: closed and open native dropdown states are aligned, readable, dark-themed, and show the selected SHA-256 option with a blue highlight.
+
+### Review notes
+
+The change is visual and behavior-preserving; no new dependency, processing logic, network call, or persistence behavior was added. The native option menu remains browser-rendered, so exact option-menu rendering may vary slightly by browser while the closed control and accessibility behavior remain consistent.
+
+### Next step
+
+Review and push `feat/global-dropdown-style` through the normal pull-request flow when ready.
