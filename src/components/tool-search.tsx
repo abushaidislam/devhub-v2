@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
 import { categories, tools } from "@/lib/tools";
 import { Badge } from "./ui/badge";
 import { SearchInput } from "./ui/search-input";
@@ -35,10 +34,6 @@ export function ToolSearch() {
           clearable
           onClear={() => setQuery("")}
         />
-        <button className="filter-button" type="button">
-          <SlidersHorizontal size={16} aria-hidden="true" />
-          Filter
-        </button>
       </div>
       <div className="category-tabs" role="tablist" aria-label="Tool categories">
         {["All", ...categories].map((item) => (
