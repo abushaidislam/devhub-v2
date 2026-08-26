@@ -27,9 +27,10 @@
 .sectionLabel{color:var(--text-tertiary);text-transform:none;letter-spacing:var(--tracking-label)}
 .sidebar footer{border-top-color:var(--border);background:var(--surface-0)}
 .topbar{border-bottom-color:var(--border);background:#000e}
-.topbar button,.home,.search{border-color:var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-1);color:var(--text-secondary);transition:background-color var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-.topbar button:hover,.home:hover,.search:hover{border-color:var(--border-hover);background:var(--surface-hover);color:var(--text-primary)}
+.topbar button,.home,.search{border-color:var(--border-strong);border-radius:var(--radius-sm);background:linear-gradient(180deg,#111 0%,var(--surface-1) 100%);color:var(--text-secondary);box-shadow:inset 0 1px #ffffff14,0 1px 2px #0009;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.topbar button:hover,.home:hover,.search:hover{border-color:#686868;background:linear-gradient(180deg,#181818 0%,#101010 100%);color:var(--text-primary);box-shadow:inset 0 1px #ffffff1c,0 7px 18px -14px #000;transform:translateY(-1px)}
+.topbar button:active,.home:active,.search:active{transform:translateY(0) scale(.985);box-shadow:inset 0 2px 4px #0008,0 1px 1px #000}
 .search kbd{border-color:var(--border-subtle);background:var(--surface-active);color:var(--text-secondary)}
 .backdrop{background:#000b}
-.primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible,.topbar button:focus-visible,.home:focus-visible,.search:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+.primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible,.topbar button:focus-visible,.home:focus-visible,.search:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;box-shadow:inset 0 0 0 1px #ffffff4a,0 0 0 4px #ffffff1f,0 8px 20px -14px #fff5}
 @media(max-width:480px){.menu,.collapse,.workspaceSwitcher>button,.topActions button,.topActions a,.sidebar footer a{min-width:44px;min-height:44px}}

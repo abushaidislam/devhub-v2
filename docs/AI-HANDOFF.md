@@ -307,3 +307,22 @@ Updated `docs/DESIGN-SYSTEM.md` with the premium hover, active, focus, and disab
 - Live preview on `/tools/base64`: dark gradient, inset/depth shadow, single chevron, and native option menu verified.
 - Programmatic focus check: `:focus-visible` active with white outline, 3px offset, bright border, and layered focus shadow.
 - Existing Playwright desktop/mobile validation remains green at 8 passed and 2 skipped.
+
+## Project-wide button polish checkpoint
+
+### Scope completed
+
+Extended the Encode/Decode-style premium control language across the web button families without flattening hierarchy. The shared `Button`/`ButtonLink` primitive now provides dark gradient secondary controls, white gradient primary controls, variant-aware error and warning surfaces, hover lift, tactile press feedback, layered keyboard focus halos, and disabled-state treatment. Local native button families in the Assistant, provider settings, workflow planner, runtime toolbar, tool assist, workspace transfer, recent workspace, recipe runner, saved recipes, dashboard cards, smart-input detector, dashboard shell, favorite control, and command palette close action were updated to match the same system. Menu rows, switches, navigation active states, and primary CTAs retain their specialized semantics.
+
+Updated `docs/DESIGN-SYSTEM.md` with the button tier, hover, active, focus, disabled, and primary-action contracts. No product behavior, network request, persistence, or dependency changes were made.
+
+### Validation
+
+- `git diff --check`: passed.
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- Live dashboard review: smart-input sample controls, card favorite actions, search controls, and shell controls show the premium dark treatment.
+- Live Assistant review: primary and secondary actions preserve hierarchy; provider, workflow, and error actions render with updated surfaces and states.
+- A temporary preview failure was traced to the known concurrent Next.js `.next` build-manifest race; a clean preview on a separate port rendered successfully.

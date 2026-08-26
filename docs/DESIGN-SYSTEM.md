@@ -133,10 +133,12 @@ Use the shared `Switch` component for binary settings instead of native checkbox
 
 ### Buttons and form controls
 
-- Secondary controls use a `#0e0e0e` surface, `#3a3a3a` border, and `#d0d0d0` text.
-- Hover raises the surface to `#151515`, border to `#5a5a5a`, and text to white.
-- Primary run actions use a white surface, black text, and weight 650.
-- Disabled controls remain visible at approximately 40–45% opacity.
+- Secondary controls use a restrained dark vertical gradient over `--surface-1`, `--border-strong`, `--text-primary`, a one-pixel inset highlight, and a shallow depth shadow.
+- Hover raises the surface to a lighter dark gradient, brightens the border to approximately `#686868`, lifts by one pixel, and adds a restrained shadow; disabled controls do not receive hover treatment.
+- Active/press controls use a compact scale and inset shadow to feel tactile without causing layout shift.
+- Primary run and CTA actions retain a white-to-soft-white gradient, black text, a bright border, and the strongest visual hierarchy.
+- Every keyboard-operable button uses a 2px white `:focus-visible` outline with a 3px offset plus an inset highlight and soft outer halo.
+- Disabled controls remain visible at approximately 40–45% opacity and use a `not-allowed` cursor where applicable.
 - Inputs must expose a visible `:focus-visible` or `:focus-within` boundary, not only a caret.
 
 ### Dropdowns
