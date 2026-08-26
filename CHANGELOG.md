@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.0](https://github.com/abushaidislam/devhub-v2/compare/v0.10.0...v0.11.0) (2026-08-26)
+
+
+### Features
+
+* upgrade-markdown-preview-tool ([44c453d](https://github.com/abushaidislam/devhub-v2/commit/44c453dd0efe6626cfab0ae08b7da9717ff58e0c))
+
+
+### Bug Fixes
+
+* compact-markdown-preview-switch ([ef71207](https://github.com/abushaidislam/devhub-v2/commit/ef7120719178f372a09cd6b3247b0b5b54688f3c))
+
 ## [0.10.0](https://github.com/abushaidislam/devhub-v2/compare/v0.9.0...v0.10.0) (2026-08-20)
 
 
