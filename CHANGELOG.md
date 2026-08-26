@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.12.0](https://github.com/abushaidislam/devhub-v2/compare/v0.11.0...v0.12.0) (2026-08-26)
+
+
+### Features
+
+* add data-driven landing cta block ([3990f42](https://github.com/abushaidislam/devhub-v2/commit/3990f4219072fac2da761f959379cd3b44ba806c))
+* add data-driven landing CTA block ([15548dc](https://github.com/abushaidislam/devhub-v2/commit/15548dca5807513d3fb77413e105b27ef0c55470))
+* refresh landing page experience ([834eee0](https://github.com/abushaidislam/devhub-v2/commit/834eee04e73ff0a08fb030c5a138bc9d25af67d8))
+
 ## [0.11.0](https://github.com/abushaidislam/devhub-v2/compare/v0.10.0...v0.11.0) (2026-08-26)
 
 
