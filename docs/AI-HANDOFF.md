@@ -381,3 +381,14 @@ Public tools and trust/documentation pages emit route-specific Open Graph metada
 ### Validation
 
 `npm run context:check`, `npm run typecheck`, `npm run lint`, `npm run test` (36 files, 210 passed), `npm run build` (54 static pages), `CI=1 npm run test:e2e` (8 passed, 2 intentionally skipped), `npm run release:validate`, and `git diff --check` pass. Local endpoint checks confirm current-host canonical tags, robots, sitemap, noindex application routes, and a valid Open Graph image response.
+
+
+## First batch developer tools checkpoint
+
+The first proposed batch was scoped against the canonical registry. Timestamp Converter and Text Diff already existed, so they were retained rather than duplicated. Six genuinely new local-first tools were added: YAML Formatter, XML Formatter, Markdown Linter, URL Parser, Gitignore Generator, and JSON to TypeScript.
+
+Each new tool has a pure bounded engine, typed registry entry, sample input, metadata, safe user-facing errors, and automatic route/navigation/sitemap participation through `src/lib/tools.ts`. Smart detection recognizes YAML, XML, common gitignore patterns, URL parsing candidates, Markdown lint candidates, and JSON-to-TypeScript candidates. Curated next-action pairings connect the new tools to existing workflows.
+
+The new engines intentionally avoid third-party dependencies and network requests. YAML formatting is conservative around indentation, XML formatting validates a single well-formed root, Markdown linting reports bounded line-based rules, URL parsing returns structured components, gitignore generation combines deduplicated built-in templates, and JSON-to-TypeScript emits inferred interfaces/types.
+
+The branch was validated with context check, 36 Vitest files and 228 tests, TypeScript validation, production generation of 60 static pages, lint with zero errors and six pre-existing warnings, and `git diff --check`. A fresh manual visual check of new routes remained blocked by an unavailable browser receiver; prior shared-runtime visual QA remains valid.
