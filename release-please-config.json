@@ -5,7 +5,13 @@
       "release-type": "node",
       "package-name": "devhub-toolkit-v2",
       "changelog-path": "CHANGELOG.md",
-      "include-component-in-tag": false
+      "include-component-in-tag": false,
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "README.md"
+        }
+      ]
     }
   }
 }

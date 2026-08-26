@@ -6,7 +6,16 @@ const readJson = async (path) => JSON.parse(await readFile(path, "utf8"));
 const packageJson = await readJson("package.json");
 const releaseConfig = await readJson("release-please-config.json");
 const manifest = await readJson(".release-please-manifest.json");
+const readme = await readFile("README.md", "utf8");
 const rootConfig = releaseConfig.packages?.["."];
+const readmeReleaseMatch = readme.match(
+  /\*\*Current release:\*\* <!-- x-release-please-version --> `v(\d+\.\d+\.\d+)`/,
+);
+const readmeExtraFile = rootConfig?.["extra-files"]?.some(
+  (file) =>
+    file === "README.md" ||
+    (file?.type === "generic" && file?.path === "README.md"),
+);
 
 assert.match(packageJson.name, /^[a-z0-9][a-z0-9._-]*$/, "package name must be npm-safe");
 assert.match(packageJson.version, /^\d+\.\d+\.\d+$/, "package version must be SemVer");
@@ -19,5 +28,12 @@ assert.ok(packageJson.bugs?.url, "issue tracker URL is required");
 assert.equal(rootConfig?.["release-type"], "node", "root release must use the node strategy");
 assert.equal(rootConfig?.["package-name"], packageJson.name, "release package name must match package.json");
 assert.equal(manifest["."], packageJson.version, "release manifest and package.json versions must match");
+assert.equal(readmeExtraFile, true, "README.md must be configured as a Release Please extra file");
+assert.ok(readmeReleaseMatch, "README must contain the Release Please current-release marker");
+assert.equal(
+  readmeReleaseMatch?.[1],
+  packageJson.version,
+  "README current release and package.json versions must match",
+);
 
 console.log(`Release configuration is valid for ${packageJson.name}@${packageJson.version}.`);
