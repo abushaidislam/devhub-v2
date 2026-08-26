@@ -22,7 +22,7 @@ const defaults: Record<string, string> = {
 		"eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJkZXZodWIiLCJyb2xlIjoiZGV2ZWxvcGVyIn0.",
 	"uuid-generator": "5",
 	"regex-tester": "Ship faster with DevHub. DevHub keeps tools focused.",
-	"qr-generator": "https://devhub-toolkit-v2.vercel.app",
+	"qr-generator": "https://devlove.flinkeo.online",
 	"color-converter": "#5E9FE8",
 "markdown-preview":
 			"# DevHub Markdown Preview\n\n**Developer tools**, engineered for speed.\n\n> A fast, local-first workspace for everyday transformations.\n\n- [x] Private by default\n- [x] Live preview\n- [ ] Share the workflow\n\n| Feature | Status |\n| :--- | ---: |\n| Tables | Ready |\n| HTML export | Ready |\n\n```ts\nconst local = true;\n```",

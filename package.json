@@ -4,13 +4,13 @@
   "private": true,
   "description": "A free, local-first developer workflow workspace.",
   "license": "MIT",
-  "homepage": "https://devhub-toolkit-v2.vercel.app",
+  "homepage": "https://devlove.flinkeo.online",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sayed-Saa-new/devhub-toolkit-v2.git"
+    "url": "git+https://github.com/abushaidislam/devhub-v2.git"
   },
   "bugs": {
-    "url": "https://github.com/Sayed-Saa-new/devhub-toolkit-v2/issues"
+    "url": "https://github.com/abushaidislam/devhub-v2/issues"
   },
   "engines": {
     "node": ">=22"
