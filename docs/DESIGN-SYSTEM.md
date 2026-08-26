@@ -133,11 +133,26 @@ Use the shared `Switch` component for binary settings instead of native checkbox
 
 ### Buttons and form controls
 
-- Secondary controls use a `#0e0e0e` surface, `#3a3a3a` border, and `#d0d0d0` text.
-- Hover raises the surface to `#151515`, border to `#5a5a5a`, and text to white.
-- Primary run actions use a white surface, black text, and weight 650.
-- Disabled controls remain visible at approximately 40–45% opacity.
+- Secondary controls use a restrained dark vertical gradient over `--surface-1`, `--border-strong`, `--text-primary`, a one-pixel inset highlight, and a shallow depth shadow.
+- Hover raises the surface to a lighter dark gradient, brightens the border to approximately `#686868`, lifts by one pixel, and adds a restrained shadow; disabled controls do not receive hover treatment.
+- Active/press controls use a compact scale and inset shadow to feel tactile without causing layout shift.
+- Primary run and CTA actions retain a white-to-soft-white gradient, black text, a bright border, and the strongest visual hierarchy.
+- Every keyboard-operable button uses a 2px white `:focus-visible` outline with a 3px offset plus an inset highlight and soft outer halo.
+- Disabled controls remain visible at approximately 40–45% opacity and use a `not-allowed` cursor where applicable.
 - Inputs must expose a visible `:focus-visible` or `:focus-within` boundary, not only a caret.
+
+### Dropdowns
+
+Native dropdowns use context-local dark control treatments so each web surface can fit its own layout while still following the same visual principles. Use the semantic `--select-selected` token for the selected option, preserve native keyboard navigation, and render a single positioned chevron outside the `<select>` background to avoid browser-specific repeated-arrow artifacts.
+
+- Surface: a restrained dark vertical gradient over `--surface-1` with `--border-strong`, 6px radius, a one-pixel inset highlight, and a shallow shadow for depth.
+- Label/value: `--text-primary`, 13px, semibold; reserve trailing space for the chevron.
+- Hover: a slightly lifted dark gradient, `#686868` border, brighter chevron, and restrained shadow; do not apply hover styling when disabled.
+- Active/press: `--surface-active` with an inset shadow so the control feels tactile without shifting layout.
+- Focus: a 2px white outline with a 3px offset, bright border, inset highlight, and a soft outer halo; keyboard focus must remain clearly distinct from hover.
+- Selected option: `--select-selected` with white text; option menus retain a dark surface where the browser allows styling.
+- Disabled: approximately 45% opacity, `not-allowed` cursor, muted chevron, and no hover treatment.
+- Touch target: 44px minimum height below 480px; the field must remain full-width inside stacked form labels.
 
 ## Tool cards
 
@@ -163,6 +178,7 @@ Use the shared `Switch` component for binary settings instead of native checkbox
 - Markdown headings use white text and weight 700; inline code uses a raised dark surface and bright text.
 - Processing errors use `#ff8a7d` and must remain readable without relying on color alone.
 - Runtime actions retain all hover, focus, disabled, and mobile overflow states.
+- Input and output/preview panes use a draggable vertical splitter on desktop. The input pane is constrained to 25–75% of the available width; pointer dragging, Arrow/Home/End keyboard controls, and double-click reset to an equal split are supported. The splitter has a visible focus treatment and is hidden below 780px, where the panes stack vertically.
 
 ## Detector panel
 
@@ -325,6 +341,18 @@ Never add motion that does not have a matching reduced-motion override.
 - Pair confidence, status, success, and error colors with text.
 - Respect reduced motion.
 - Maintain WCAG AA contrast for body/navigation text.
+
+## Landing footer
+
+The landing page footer is a distinct, high-contrast conversion and navigation surface. It uses a two-part hierarchy: a focused CTA masthead on the left and three grouped navigation columns on the right at desktop widths; below 900px the groups stack beneath the CTA, and below 620px they use a two-column layout with Trust spanning the full width.
+
+- Footer surface: `#050505` with a `#292929` top rule; use the existing content width and responsive page padding.
+- The local-first status chip pairs the green status dot with visible text; never rely on color alone for privacy or processing claims.
+- The primary CTA is a functional link to `/dashboard`, with a 44px+ touch target, visible hover/active feedback, and a two-pixel keyboard focus ring.
+- Navigation is a semantic `<nav aria-label="Footer navigation">` with sequential headings and real internal links. External GitHub navigation opens in a new tab with `rel="noreferrer"`.
+- The lower metadata row pairs the DevHub mark with the existing privacy boundary: deterministic tools run in the browser and input history is not stored by default.
+- Footer links reveal a subtle arrow on hover but remain fully readable and operable without hover. All reveals and transforms have a reduced-motion override.
+- Validate at 1440×900, 1024×768, and 390×844 for no horizontal overflow, visible focus, readable contrast, and preserved link access.
 
 ## Change control
 

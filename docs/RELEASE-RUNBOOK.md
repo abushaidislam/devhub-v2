@@ -9,9 +9,13 @@ The repository uses Release Please on `main`. Conventional Commit messages deter
 - `!` or a `BREAKING CHANGE:` footer creates a major release.
 - Other commit types are included when relevant but do not force a version bump.
 
-After eligible work lands on `main`, the release workflow first runs the release metadata, typecheck, lint, unit/component test, production build, and Playwright E2E gates. Only after those gates pass does it open or refresh a release pull request. That pull request updates `package.json`, `.release-please-manifest.json`, and `CHANGELOG.md`. Merging it creates the version tag and GitHub release. The release event checks out the exact tag, reruns the full quality gate, creates the npm package tarball, generates `SHA256SUMS.txt`, creates an artifact attestation, and attaches the package plus checksum to the GitHub release.
+After eligible work lands on `main`, the release workflow first runs the release metadata, typecheck, lint, unit/component test, production build, and Playwright E2E gates. Only after those gates pass does it open or refresh a release pull request. That pull request updates `package.json`, `.release-please-manifest.json`, `CHANGELOG.md`, and the annotated current-release line in `README.md`. Merging it creates the version tag and GitHub release. The release event checks out the exact tag, reruns the full quality gate, creates the npm package tarball, generates `SHA256SUMS.txt`, creates an artifact attestation, and attaches the package plus checksum to the GitHub release.
 
 The application remains `private: true`; automation creates a GitHub release artifact and does not publish to the npm registry.
+
+## README version synchronization
+
+The root README declares the current release using the `x-release-please-version` marker. Release Please treats `README.md` as a generic extra file, so every generated release pull request updates the documented version together with `package.json` and the release manifest. `npm run release:validate` checks both the marker and version equality, preventing a release from passing CI while README metadata is stale.
 
 ## Release credential
 

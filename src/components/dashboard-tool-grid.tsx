@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Heart } from "lucide-react";
+import { AnimatedHeart } from "./ui/animated-heart";
 import { tools } from "@/lib/tools";
 import { useFavorites } from "@/lib/use-favorites";
 import { Badge } from "./ui/badge";
@@ -54,7 +55,7 @@ export function DashboardToolGrid({ favoritesOnly = false }: { favoritesOnly?: b
               aria-pressed={active}
               aria-label={active ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
               onClick={() => toggle(tool.slug)}
-              prefix={<Heart size={15} fill={active ? "currentColor" : "none"} />}
+              prefix={<AnimatedHeart filled={active} size={17} />}
             />
           </article>
         );

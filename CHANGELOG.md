@@ -1,5 +1,69 @@
 # Changelog
 
+## [0.13.5](https://github.com/abushaidislam/devhub-v2/compare/v0.13.4...v0.13.5) (2026-08-26)
+
+
+### Bug Fixes
+
+* audit responsive navigation and tool filters ([9767d9a](https://github.com/abushaidislam/devhub-v2/commit/9767d9aa45cfd6b6060d30c15a5ace777f198dfe))
+* audit responsive navigation and tool filters ([0606dd6](https://github.com/abushaidislam/devhub-v2/commit/0606dd6b1dcf374726780c29b728e5f48dab5fd1))
+* **seo:** align canonical origin and public discovery ([e1e60c4](https://github.com/abushaidislam/devhub-v2/commit/e1e60c445349110137af77ed9774534511434465))
+
+## [0.13.4](https://github.com/abushaidislam/devhub-v2/compare/v0.13.3...v0.13.4) (2026-08-26)
+
+
+### Bug Fixes
+
+* animate favorite heart state ([2639335](https://github.com/abushaidislam/devhub-v2/commit/26393357aabcdf66557a8934efe63c5fde3ecc28))
+* keep active favorite button dark ([489f84a](https://github.com/abushaidislam/devhub-v2/commit/489f84a326bc95d67b0296a447014d765774197c))
+* keep active favorite button dark ([72d7489](https://github.com/abushaidislam/devhub-v2/commit/72d7489729ee3bc0f6e07eeb3fe767127d627add))
+
+## [0.13.3](https://github.com/abushaidislam/devhub-v2/compare/v0.13.2...v0.13.3) (2026-08-26)
+
+
+### Bug Fixes
+
+* consolidate button style cascade ([93e4621](https://github.com/abushaidislam/devhub-v2/commit/93e46216162b61576037f32ce5487df4b6f11bde))
+* consolidate button style cascade ([d8cf0fd](https://github.com/abushaidislam/devhub-v2/commit/d8cf0fd87e8f868ad631ca9c11190f41eee6e4ea))
+
+## [0.13.2](https://github.com/abushaidislam/devhub-v2/compare/v0.13.1...v0.13.2) (2026-08-26)
+
+
+### Bug Fixes
+
+* prevent repeated dropdown chevrons ([52cb97e](https://github.com/abushaidislam/devhub-v2/commit/52cb97e3a3835d5ac2e8bb6e33c58f8297b4f06a))
+
+## [0.13.1](https://github.com/abushaidislam/devhub-v2/compare/v0.13.0...v0.13.1) (2026-08-26)
+
+
+### Bug Fixes
+
+* sync README release version in CI ([74c1627](https://github.com/abushaidislam/devhub-v2/commit/74c1627d870fe0b3c5ba76edfa80b2ccebc1af2f))
+* sync README release version in CI ([24e8bed](https://github.com/abushaidislam/devhub-v2/commit/24e8bedfef818d3f6840377de1cff372e049faba))
+
+## [0.13.0](https://github.com/abushaidislam/devhub-v2/compare/v0.12.2...v0.13.0) (2026-08-26)
+
+
+### Features
+
+* add landing footer, splitter and QA scripts ([c339541](https://github.com/abushaidislam/devhub-v2/commit/c3395414f6f41a6c32726f171decfd35ddc97bee))
+* add resizable tool runtime panels ([ac5a711](https://github.com/abushaidislam/devhub-v2/commit/ac5a71195a093d4181e490fa7fd06b955c73a4ab))
+* add site footer component and integrate to homepage ([a379485](https://github.com/abushaidislam/devhub-v2/commit/a37948587d522e229d15ae30bd80d8a908045cab))
+
+## [0.12.2](https://github.com/abushaidislam/devhub-v2/compare/v0.12.1...v0.12.2) (2026-08-26)
+
+
+### Bug Fixes
+
+* center icon-only controls ([cc67550](https://github.com/abushaidislam/devhub-v2/commit/cc67550439afd2ca66c34391972f9d74e7aa5512))
+
+## [0.12.1](https://github.com/abushaidislam/devhub-v2/compare/v0.12.0...v0.12.1) (2026-08-26)
+
+
+### Bug Fixes
+
+* clarify landing page trust affordances ([bf621fd](https://github.com/abushaidislam/devhub-v2/commit/bf621fd8c863f7773fd4f4c750dc71d9594ea373))
+
 ## [0.12.0](https://github.com/abushaidislam/devhub-v2/compare/v0.11.0...v0.12.0) (2026-08-26)
 
 

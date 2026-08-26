@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Changelog",
   description: "Verified DevHub product changes.",
   alternates: {canonical: "/changelog"},
+  openGraph: { type: "website", url: "/changelog", title: "Changelog — DevHub", description: "Verified DevHub product changes." },
 };
 
 export default function Page() {

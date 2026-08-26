@@ -29,7 +29,7 @@
 | `/llms-full.txt` | Expanded machine-readable context | Text discovery |
 | `/robots.txt`, `/sitemap.xml`, `/manifest.webmanifest` | SEO and install surfaces | Infrastructure |
 
-`src/lib/tools.ts` drives tool routes, category derivation, metadata, sitemap entries, dashboard cards, command search, sidebar navigation, and LLM discovery output.
+`src/lib/tools.ts` drives all 30 tool routes, category derivation, metadata, sitemap entries, dashboard cards, command search, sidebar navigation, and LLM discovery output.
 
 ## Runtime flow
 
@@ -52,7 +52,7 @@ Ephemeral dashboard input
   → optional single-use in-memory handoff to the opened tool
 ```
 
-Detection is synchronous, deterministic, local-only, capped at 100,000 characters, and never stores or transmits the sample. Explicit opens may hand the sample to the target tool through `src/lib/detection-handoff.ts`; the handoff is consumed once and never written to persistent storage or a URL.
+Detection is synchronous, deterministic, local-only, capped at 100,000 characters, and never stores or transmits the sample. It includes structure heuristics for JSON, JWT, URLs, YAML, XML, gitignore rules, Markdown, and schema-generation candidates. Explicit opens may hand the sample to the target tool through `src/lib/detection-handoff.ts`; the handoff is consumed once and never written to persistent storage or a URL.
 
 ## Server/client boundaries
 

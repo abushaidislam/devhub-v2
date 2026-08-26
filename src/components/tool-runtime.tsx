@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent} from "react";
 import {Check, Copy, Download, Play, RotateCcw} from "lucide-react";
 import {Badge, StatusDot} from "./ui/badge";
 import {Button} from "./ui/button";
@@ -11,6 +11,10 @@ import {ToolAiAssist} from "./tool-ai-assist";
 import {Switch} from "./switch";
 import styles from "./tool-runtime.module.css";
 
+const MIN_PANEL_PERCENT = 25;
+const MAX_PANEL_PERCENT = 75;
+const PANEL_STEP = 5;
+
 const defaults: Record<string, string> = {
 	"json-formatter": '{\n  "name": "DevHub",\n  "ready": true\n}',
 	base64: "Developer tools, engineered for speed.",
@@ -18,7 +22,7 @@ const defaults: Record<string, string> = {
 		"eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJkZXZodWIiLCJyb2xlIjoiZGV2ZWxvcGVyIn0.",
 	"uuid-generator": "5",
 	"regex-tester": "Ship faster with DevHub. DevHub keeps tools focused.",
-	"qr-generator": "https://devhub-toolkit-v2.vercel.app",
+	"qr-generator": "https://devlove.flinkeo.online",
 	"color-converter": "#5E9FE8",
 "markdown-preview":
 			"# DevHub Markdown Preview\n\n**Developer tools**, engineered for speed.\n\n> A fast, local-first workspace for everyday transformations.\n\n- [x] Private by default\n- [x] Live preview\n- [ ] Share the workflow\n\n| Feature | Status |\n| :--- | ---: |\n| Tables | Ready |\n| HTML export | Ready |\n\n```ts\nconst local = true;\n```",
@@ -38,8 +42,14 @@ const defaults: Record<string, string> = {
 	"number-base": "255",
 	"html-entities": '<a href="/tools">Tools & more</a>',
 	"query-parser": "https://devhub.dev/tools?q=json&tag=local&tag=fast",
-	"password-generator": "20",
-};
+		"password-generator": "20",
+		"yaml-formatter": "name: DevHub\nfeatures:\n  - local\n  - fast",
+		"xml-formatter": "<project><name>DevHub</name><private>true</private></project>",
+		"markdown-linter": "# DevHub\n\n\n### Skipped heading\n\n[Empty link]()",
+		"url-parser": "https://devhub.dev/tools?tag=local&tag=fast#readme",
+		"gitignore-generator": "node\nnext\nvscode\nenv",
+		"json-to-typescript": '{\n  "name": "DevHub",\n  "tools": ["json", "yaml"]\n}',
+	};
 
 export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const initial = defaults[slug] ?? "";
@@ -54,6 +64,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [image, setImage] = useState("");
 	const [copied, setCopied] = useState(false);
 	const [isRunning, setIsRunning] = useState(false);
+	const [inputPanelPercent, setInputPanelPercent] = useState(50);
+	const [isResizing, setIsResizing] = useState(false);
+	const panelsRef = useRef<HTMLDivElement>(null);
 
 	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities"].includes(slug);
 		const preview = slug === "markdown-preview";
@@ -83,8 +96,14 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			"number-base": "convert the number between decimal, hexadecimal, octal, and binary bases",
 			"html-entities": "encode or decode HTML entities",
 			"query-parser": "parse URL query parameters into structured key-value pairs",
-			"password-generator": "generate a strong random password of the requested length",
-		};
+				"password-generator": "generate a strong random password of the requested length",
+				"yaml-formatter": "format and validate common YAML indentation",
+				"xml-formatter": "pretty-print and validate well-formed XML",
+				"markdown-linter": "find common Markdown structure and style issues",
+				"url-parser": "inspect URL parts, query parameters, and fragments",
+				"gitignore-generator": "generate .gitignore rules for selected stacks",
+				"json-to-typescript": "generate TypeScript interfaces from JSON",
+			};
 		return operations[slug] ?? "analyze and transform input";
 	}, [aux, option, slug]);
 
@@ -191,6 +210,57 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			URL.revokeObjectURL(href);
 		}
 
+		function updatePanelSize(clientX: number) {
+			const panels = panelsRef.current;
+			if (!panels) return;
+			const bounds = panels.getBoundingClientRect();
+			if (!bounds.width) return;
+			const percentage = ((clientX - bounds.left) / bounds.width) * 100;
+			setInputPanelPercent(
+				Math.round(Math.min(Math.max(percentage, MIN_PANEL_PERCENT), MAX_PANEL_PERCENT)),
+			);
+		}
+
+		function handleSplitterPointerDown(event: PointerEvent<HTMLDivElement>) {
+			if (window.matchMedia("(max-width: 780px)").matches) return;
+			event.preventDefault();
+			event.currentTarget.setPointerCapture?.(event.pointerId);
+			setIsResizing(true);
+			updatePanelSize(event.clientX);
+		}
+
+		function handleSplitterPointerUp(event: PointerEvent<HTMLDivElement>) {
+			if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+				event.currentTarget.releasePointerCapture(event.pointerId);
+			}
+			setIsResizing(false);
+		}
+
+		function handleSplitterKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+			if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+				event.preventDefault();
+				setInputPanelPercent((value) => Math.max(MIN_PANEL_PERCENT, value - PANEL_STEP));
+			} else if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+				event.preventDefault();
+				setInputPanelPercent((value) => Math.min(MAX_PANEL_PERCENT, value + PANEL_STEP));
+			} else if (event.key === "Home") {
+				event.preventDefault();
+				setInputPanelPercent(MIN_PANEL_PERCENT);
+			} else if (event.key === "End") {
+				event.preventDefault();
+				setInputPanelPercent(MAX_PANEL_PERCENT);
+			}
+		}
+
+		useEffect(() => {
+			if (!isResizing) return;
+			const previousUserSelect = document.body.style.userSelect;
+			document.body.style.userSelect = "none";
+			return () => {
+				document.body.style.userSelect = previousUserSelect;
+			};
+		}, [isResizing]);
+
 		function reset() {
 		setInput(initial);
 		setAux(slug === "regex-tester" ? "DevHub" : "");
@@ -216,27 +286,30 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 								</Button>
 							</div>
 						)}
-						{needsMode && (
-<select
-								disabled={isRunning}
-								aria-label="Operation"
-							value={option}
-							onChange={(event) => setOption(event.target.value)}
-						>
-							{slug === "hash-generator" ? (
-								<>
-									<option>SHA-1</option>
-									<option>SHA-256</option>
-									<option>SHA-512</option>
-								</>
-							) : (
-								<>
-									<option value="encode">Encode</option>
-									<option value="decode">Decode</option>
-								</>
+							{needsMode && (
+								<div className={styles.selectField}>
+									<select
+										className={styles.select}
+										disabled={isRunning}
+										aria-label="Operation"
+										value={option}
+										onChange={(event) => setOption(event.target.value)}
+									>
+										{slug === "hash-generator" ? (
+											<>
+												<option>SHA-1</option>
+												<option>SHA-256</option>
+												<option>SHA-512</option>
+											</>
+										) : (
+											<>
+												<option value="encode">Encode</option>
+												<option value="decode">Decode</option>
+											</>
+										)}
+									</select>
+								</div>
 							)}
-						</select>
-					)}
 <Button type="button" onClick={reset} disabled={isRunning} variant="secondary" size="small" prefix={<RotateCcw size={14} />}>
 							Reset
 						</Button>
@@ -269,8 +342,14 @@ value={aux}
 				</label>
 			)}
 
-			<div className={styles.panels}>
-				<section>
+				<div
+					ref={panelsRef}
+					className={styles.panels}
+					style={{
+						"--input-panel-size": `${inputPanelPercent}%`,
+					} as CSSProperties}
+				>
+					<section>
 					<header>
 						<span>Input</span>
 						<small>{input.length} characters</small>
@@ -282,9 +361,30 @@ value={input}
 							onChange={(event) => setInput(event.target.value)}
 						placeholder={placeholder}
 					/>
-				</section>
-				<section>
-						<header className={preview ? styles.previewHeader : ""}>
+					</section>
+					<div
+						className={styles.splitter}
+						role="separator"
+						aria-label="Resize input and output panels"
+						aria-orientation="vertical"
+						aria-valuemin={MIN_PANEL_PERCENT}
+						aria-valuemax={MAX_PANEL_PERCENT}
+						aria-valuenow={inputPanelPercent}
+						aria-valuetext={`${inputPanelPercent}% input, ${100 - inputPanelPercent}% output`}
+						tabIndex={0}
+						onKeyDown={handleSplitterKeyDown}
+						onPointerDown={handleSplitterPointerDown}
+						onPointerMove={(event) => {
+							if (isResizing) updatePanelSize(event.clientX);
+						}}
+						onPointerUp={handleSplitterPointerUp}
+						onPointerCancel={handleSplitterPointerUp}
+						onDoubleClick={() => setInputPanelPercent(50)}
+						data-resizing={isResizing}
+						title="Drag to resize. Use arrow keys for precise adjustments. Double-click to reset."
+					/>
+					<section>
+							<header className={preview ? styles.previewHeader : ""}>
 							<span>{preview ? "Markdown preview" : "Output"}</span>
 							{preview && !error && output && (
 								<div className={styles.previewModes} role="tablist" aria-label="Markdown output view">
