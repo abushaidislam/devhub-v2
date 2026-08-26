@@ -217,39 +217,28 @@ The old generic landing CTA was replaced with the new centered badge, highlighte
 Publish the feature branch through the repository's preferred review/deployment flow after confirming the CTA copy and visual density on 390px mobile and 1440px desktop.
 
 
-## Landing footer UX redesign checkpoint
+## Favorite icon UX fix checkpoint
 
 ### Scope completed
 
-Added `src/components/site-footer.tsx` and `src/components/site-footer.module.css`, replacing the former inline landing footer with a semantic, responsive footer inspired by the provided Footer15 direction and grounded in the DevHub design system. The new footer includes a local-first status chip, a focused dashboard CTA, grouped Workspace/Explore/Trust navigation, a privacy boundary note, the canonical GitHub destination, and a compact brand metadata row. It remains a Server Component and uses the existing Lucide dependency; no new package was added.
-
-The footer is mobile-first, uses the established content-width and semantic color tokens, exposes visible focus states and 44px+ primary CTA sizing, preserves internal `next/link` navigation, opens GitHub in a separate tab with `rel="noreferrer"`, and disables reveal/transform motion under `prefers-reduced-motion`. Added `src/components/__tests__/site-footer.test.tsx` for landmark, heading, and destination coverage. Updated `docs/DESIGN-SYSTEM.md` with the landing-footer contract and QA requirements.
-
-### Validation so far
-
-- `npm run typecheck`: passed.
-- Vitest suite: 36 test files and 208 tests passed.
-
-### Remaining validation
-
-Run lint and production build, perform visual review at 1440×900, 1024×768, and 390×844, then commit the focused branch once checks pass.
-
-
-## Resizable runtime panels checkpoint
-
-### Scope completed
-
-Added an accessible desktop splitter between the shared ToolRuntime input textarea and output/preview pane. The divider supports pointer dragging with a 25–75% input-width clamp, keyboard adjustment with Arrow/Home/End keys, double-click reset to an equal split, visible hover/active/focus states, and automatic hiding below the existing 780px stacked-panel breakpoint. The implementation remains local-only and does not change tool processing, persistence, or network behavior. Added focused component coverage for keyboard resizing and documented the runtime interaction contract in `docs/DESIGN-SYSTEM.md`.
+- Updated `src/components/ui/button.tsx` so `Button` and `ButtonLink` omit the empty content wrapper when they are icon-only controls. This keeps the flex layout centered instead of shifting the icon toward the prefix side.
+- Added regression coverage in `src/components/ui/__tests__/p1-components.test.tsx` for icon-only buttons and links.
 
 ### Validation
 
-- Focused ToolRuntime Vitest suite: 6 tests passed.
-- Full Vitest suite: 36 test files and 209 tests passed on rerun.
-- TypeScript validation: passed.
-- ESLint: 0 errors and 5 pre-existing warnings.
-- `npx next build`: production compilation passed, but static export later failed on unrelated `/favorites` page/test instability in the Windows-mounted workspace.
-- Desktop visual review confirmed the side-by-side runtime layout at the local JSON Formatter route; mobile and keyboard behavior remain covered by the responsive CSS and component test.
+- Focused Vitest coverage: 2 files, 8 tests passed.
+- Full Vitest suite: 35 files, 208 tests passed.
+- TypeScript, lint, and production build passed; lint reported only the repository's existing unused-parameter warnings.
+- Playwright desktop and mobile flows: 8 passed, 2 skipped.
 
 ### Review notes
 
-Preserve the existing in-progress footer UX changes in the working tree. The splitter is limited to the shared runtime layout and should be reviewed at 1440×900, 1024×768, and 390×844, including keyboard focus and reduced-motion behavior.
+The change preserves the existing 44px favorite touch target, accessible `aria-label`, `aria-pressed` state, hover treatment, focus ring, and active state. No product behavior or persistence logic changed.
+
+### Working branch
+
+- `fix/favorite-icon-ux`
+
+### Next step
+
+Push the focused branch and open a review request when ready.
