@@ -102,3 +102,16 @@
 .panels section>header>small{flex:0 0 auto;white-space:nowrap}
 .panels textarea{width:100%;min-width:0;box-sizing:border-box}
 @media(max-width:780px){.panels{grid-template-columns:1fr}.panels section>header{gap:8px}}
+
+
+/* Resizable input/output divider. The divider is hidden when panels stack on mobile. */
+.panels{grid-template-columns:minmax(320px,var(--input-panel-size,50%)) 8px minmax(0,1fr)}
+.panels section:nth-of-type(2){border-left:0}
+.splitter{position:relative;z-index:1;min-width:8px;cursor:col-resize;touch-action:none;background:var(--surface-0);transition:background-color var(--dur) var(--ease)}
+.splitter::after{content:"";position:absolute;top:50%;left:2px;width:4px;height:48px;transform:translateY(-50%);border-radius:999px;background:var(--border-strong);transition:background-color var(--dur) var(--ease),height var(--dur) var(--ease)}
+.splitter:hover,.splitter[data-resizing="true"]{background:var(--surface-active)}
+.splitter:hover::after,.splitter[data-resizing="true"]::after{height:64px;background:var(--border-hover)}
+.splitter:focus-visible{outline:2px solid var(--focus-ring);outline-offset:-2px;background:var(--surface-active)}
+.splitter:focus-visible::after{background:var(--focus-ring)}
+@media(max-width:780px){.panels{grid-template-columns:1fr}.panels section:nth-of-type(2){border-left:0;border-top:1px solid var(--border)}.splitter{display:none}}
+@media(prefers-reduced-motion:reduce){.splitter,.splitter::after{transition:none}}

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent} from "react";
 import {Check, Copy, Download, Play, RotateCcw} from "lucide-react";
 import {Badge, StatusDot} from "./ui/badge";
 import {Button} from "./ui/button";
@@ -10,6 +10,10 @@ import {trackActivationEvent} from "@/lib/analytics";
 import {ToolAiAssist} from "./tool-ai-assist";
 import {Switch} from "./switch";
 import styles from "./tool-runtime.module.css";
+
+const MIN_PANEL_PERCENT = 25;
+const MAX_PANEL_PERCENT = 75;
+const PANEL_STEP = 5;
 
 const defaults: Record<string, string> = {
 	"json-formatter": '{\n  "name": "DevHub",\n  "ready": true\n}',
@@ -54,6 +58,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [image, setImage] = useState("");
 	const [copied, setCopied] = useState(false);
 	const [isRunning, setIsRunning] = useState(false);
+	const [inputPanelPercent, setInputPanelPercent] = useState(50);
+	const [isResizing, setIsResizing] = useState(false);
+	const panelsRef = useRef<HTMLDivElement>(null);
 
 	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities"].includes(slug);
 		const preview = slug === "markdown-preview";
@@ -191,6 +198,57 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			URL.revokeObjectURL(href);
 		}
 
+		function updatePanelSize(clientX: number) {
+			const panels = panelsRef.current;
+			if (!panels) return;
+			const bounds = panels.getBoundingClientRect();
+			if (!bounds.width) return;
+			const percentage = ((clientX - bounds.left) / bounds.width) * 100;
+			setInputPanelPercent(
+				Math.round(Math.min(Math.max(percentage, MIN_PANEL_PERCENT), MAX_PANEL_PERCENT)),
+			);
+		}
+
+		function handleSplitterPointerDown(event: PointerEvent<HTMLDivElement>) {
+			if (window.matchMedia("(max-width: 780px)").matches) return;
+			event.preventDefault();
+			event.currentTarget.setPointerCapture?.(event.pointerId);
+			setIsResizing(true);
+			updatePanelSize(event.clientX);
+		}
+
+		function handleSplitterPointerUp(event: PointerEvent<HTMLDivElement>) {
+			if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+				event.currentTarget.releasePointerCapture(event.pointerId);
+			}
+			setIsResizing(false);
+		}
+
+		function handleSplitterKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+			if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+				event.preventDefault();
+				setInputPanelPercent((value) => Math.max(MIN_PANEL_PERCENT, value - PANEL_STEP));
+			} else if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+				event.preventDefault();
+				setInputPanelPercent((value) => Math.min(MAX_PANEL_PERCENT, value + PANEL_STEP));
+			} else if (event.key === "Home") {
+				event.preventDefault();
+				setInputPanelPercent(MIN_PANEL_PERCENT);
+			} else if (event.key === "End") {
+				event.preventDefault();
+				setInputPanelPercent(MAX_PANEL_PERCENT);
+			}
+		}
+
+		useEffect(() => {
+			if (!isResizing) return;
+			const previousUserSelect = document.body.style.userSelect;
+			document.body.style.userSelect = "none";
+			return () => {
+				document.body.style.userSelect = previousUserSelect;
+			};
+		}, [isResizing]);
+
 		function reset() {
 		setInput(initial);
 		setAux(slug === "regex-tester" ? "DevHub" : "");
@@ -269,8 +327,14 @@ value={aux}
 				</label>
 			)}
 
-			<div className={styles.panels}>
-				<section>
+				<div
+					ref={panelsRef}
+					className={styles.panels}
+					style={{
+						"--input-panel-size": `${inputPanelPercent}%`,
+					} as CSSProperties}
+				>
+					<section>
 					<header>
 						<span>Input</span>
 						<small>{input.length} characters</small>
@@ -282,9 +346,30 @@ value={input}
 							onChange={(event) => setInput(event.target.value)}
 						placeholder={placeholder}
 					/>
-				</section>
-				<section>
-						<header className={preview ? styles.previewHeader : ""}>
+					</section>
+					<div
+						className={styles.splitter}
+						role="separator"
+						aria-label="Resize input and output panels"
+						aria-orientation="vertical"
+						aria-valuemin={MIN_PANEL_PERCENT}
+						aria-valuemax={MAX_PANEL_PERCENT}
+						aria-valuenow={inputPanelPercent}
+						aria-valuetext={`${inputPanelPercent}% input, ${100 - inputPanelPercent}% output`}
+						tabIndex={0}
+						onKeyDown={handleSplitterKeyDown}
+						onPointerDown={handleSplitterPointerDown}
+						onPointerMove={(event) => {
+							if (isResizing) updatePanelSize(event.clientX);
+						}}
+						onPointerUp={handleSplitterPointerUp}
+						onPointerCancel={handleSplitterPointerUp}
+						onDoubleClick={() => setInputPanelPercent(50)}
+						data-resizing={isResizing}
+						title="Drag to resize. Use arrow keys for precise adjustments. Double-click to reset."
+					/>
+					<section>
+							<header className={preview ? styles.previewHeader : ""}>
 							<span>{preview ? "Markdown preview" : "Output"}</span>
 							{preview && !error && output && (
 								<div className={styles.previewModes} role="tablist" aria-label="Markdown output view">
