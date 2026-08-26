@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.13.0](https://github.com/abushaidislam/devhub-v2/compare/v0.12.2...v0.13.0) (2026-08-26)
+
+
+### Features
+
+* add landing footer, splitter and QA scripts ([c339541](https://github.com/abushaidislam/devhub-v2/commit/c3395414f6f41a6c32726f171decfd35ddc97bee))
+* add resizable tool runtime panels ([ac5a711](https://github.com/abushaidislam/devhub-v2/commit/ac5a71195a093d4181e490fa7fd06b955c73a4ab))
+* add site footer component and integrate to homepage ([a379485](https://github.com/abushaidislam/devhub-v2/commit/a37948587d522e229d15ae30bd80d8a908045cab))
+
 ## [0.12.2](https://github.com/abushaidislam/devhub-v2/compare/v0.12.1...v0.12.2) (2026-08-26)
 
 
