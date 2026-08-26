@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.13.5](https://github.com/abushaidislam/devhub-v2/compare/v0.13.4...v0.13.5) (2026-08-26)
+
+
+### Bug Fixes
+
+* audit responsive navigation and tool filters ([9767d9a](https://github.com/abushaidislam/devhub-v2/commit/9767d9aa45cfd6b6060d30c15a5ace777f198dfe))
+* audit responsive navigation and tool filters ([0606dd6](https://github.com/abushaidislam/devhub-v2/commit/0606dd6b1dcf374726780c29b728e5f48dab5fd1))
+* **seo:** align canonical origin and public discovery ([e1e60c4](https://github.com/abushaidislam/devhub-v2/commit/e1e60c445349110137af77ed9774534511434465))
+
 ## [0.13.4](https://github.com/abushaidislam/devhub-v2/compare/v0.13.3...v0.13.4) (2026-08-26)
 
 
