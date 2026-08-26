@@ -356,3 +356,9 @@ Added the `motion` dependency and attribution for the MIT Heroicons Animated ref
 Vercel was failing before compilation because `package.json` contained `motion@^13.1.1` while `pnpm-lock.yaml` did not. Regenerated the lockfile with pnpm 10.34.5, matching Vercel’s detected package-manager family; the diff adds the motion dependency graph without unrelated version churn. Added `pnpm-workspace.yaml` build approvals for `esbuild`, `sharp`, and `unrs-resolver` so non-interactive pnpm installs can run required native build scripts safely.
 
 Validation completed with the Vercel-compatible path: `npx pnpm@10.34.5 install --frozen-lockfile` passed, production build passed with 54 generated pages, 36 unit-test files / 210 tests passed, and desktop/mobile E2E passed with 8 passed and 2 skipped. The branch remains clean after commit and push.
+
+## Favorite active-surface correction checkpoint
+
+The active favorite state no longer turns the entire button white. Dashboard card and tool-page favorite controls now retain the dark premium gradient, while the selected heart remains filled and white through `currentColor`. Active hover keeps the same dark surface with brighter border/depth, so the heart is the only white selected visual rather than a white icon button.
+
+Validation: pnpm frozen install, typecheck, focused favorite/dashboard tests (4 passed), lint, unit suite (36 files / 210 tests), and production build (54 pages) passed. Live dashboard verification confirmed selected background `linear-gradient(rgb(24, 24, 24), rgb(16, 16, 16))`, white control color, `fill="currentColor"`, and the same dark surface on hover.
