@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.13.1](https://github.com/abushaidislam/devhub-v2/compare/v0.13.0...v0.13.1) (2026-08-26)
+
+
+### Bug Fixes
+
+* sync README release version in CI ([74c1627](https://github.com/abushaidislam/devhub-v2/commit/74c1627d870fe0b3c5ba76edfa80b2ccebc1af2f))
+* sync README release version in CI ([24e8bed](https://github.com/abushaidislam/devhub-v2/commit/24e8bedfef818d3f6840377de1cff372e049faba))
+
 ## [0.13.0](https://github.com/abushaidislam/devhub-v2/compare/v0.12.2...v0.13.0) (2026-08-26)
 
 
