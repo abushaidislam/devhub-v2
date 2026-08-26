@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.2](https://github.com/abushaidislam/devhub-v2/compare/v0.12.1...v0.12.2) (2026-08-26)
+
+
+### Bug Fixes
+
+* center icon-only controls ([cc67550](https://github.com/abushaidislam/devhub-v2/commit/cc67550439afd2ca66c34391972f9d74e7aa5512))
+
 ## [0.12.1](https://github.com/abushaidislam/devhub-v2/compare/v0.12.0...v0.12.1) (2026-08-26)
 
 
