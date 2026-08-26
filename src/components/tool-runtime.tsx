@@ -8,6 +8,7 @@ import {consumeDetectionHandoff} from "@/lib/detection-handoff";
 import {getEngine} from "@/lib/engine-registry";
 import {trackActivationEvent} from "@/lib/analytics";
 import {ToolAiAssist} from "./tool-ai-assist";
+import {Switch} from "./switch";
 import styles from "./tool-runtime.module.css";
 
 const defaults: Record<string, string> = {
@@ -19,8 +20,8 @@ const defaults: Record<string, string> = {
 	"regex-tester": "Ship faster with DevHub. DevHub keeps tools focused.",
 	"qr-generator": "https://devhub-toolkit-v2.vercel.app",
 	"color-converter": "#5E9FE8",
-	"markdown-preview":
-		"# DevHub\n\n**Developer tools**, engineered for speed.\n\n- Private\n- Fast\n- Keyboard-first",
+"markdown-preview":
+			"# DevHub Markdown Preview\n\n**Developer tools**, engineered for speed.\n\n> A fast, local-first workspace for everyday transformations.\n\n- [x] Private by default\n- [x] Live preview\n- [ ] Share the workflow\n\n| Feature | Status |\n| :--- | ---: |\n| Tables | Ready |\n| HTML export | Ready |\n\n```ts\nconst local = true;\n```",
 	"hash-generator": "DevHub Toolkit",
 	"sql-formatter":
 		"select id, name from users where active = true and role = 'developer' order by name",
@@ -55,8 +56,10 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [isRunning, setIsRunning] = useState(false);
 
 	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities"].includes(slug);
-	const preview = slug === "markdown-preview";
-	const operation = useMemo(() => {
+		const preview = slug === "markdown-preview";
+		const [livePreview, setLivePreview] = useState(preview);
+		const [markdownView, setMarkdownView] = useState<"preview" | "html">("preview");
+		const operation = useMemo(() => {
 		if (slug === "regex-tester") return `test the input text against this regular expression pattern: ${aux}`;
 		if (slug === "hash-generator") return `${option} hash`;
 		if (slug === "base64" || slug === "url-encoder") return option;
@@ -117,13 +120,13 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		return undefined;
 	}
 
-	async function run() {
-		if (isRunning) return;
+		async function run({silent = false}: {silent?: boolean} = {}) {
+			if (isRunning) return;
 		setIsRunning(true);
 		setError("");
 		setImage("");
-		setOutput("");
-		try {
+			if (!silent) setOutput("");
+			try {
 			const engine = getEngine(slug);
 			if (!engine) throw new Error("Tool engine not found.");
 			const result = await engine.run(
@@ -139,7 +142,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			}
 			setOutput(result.output.value);
 			setMeta(description);
-			trackActivationEvent({name: "tool_run_succeeded", tool: slug});
+				if (!silent) trackActivationEvent({name: "tool_run_succeeded", tool: slug});
 		} catch (reason) {
 			setError(
 				reason instanceof Error
@@ -147,20 +150,48 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 					: "Unable to process this input.",
 			);
 			setMeta("Invalid input");
-			trackActivationEvent({name: "tool_run_failed", tool: slug});
+				if (!silent) trackActivationEvent({name: "tool_run_failed", tool: slug});
 		} finally {
 			setIsRunning(false);
 		}
 	}
 
-	async function copy() {
+		useEffect(() => {
+			if (!preview || !livePreview) return;
+			if (!input.trim()) {
+				setOutput("");
+				setError("");
+				setMeta("Ready");
+				return;
+			}
+			const timer = window.setTimeout(() => {
+				void run({silent: true});
+			}, 220);
+			return () => window.clearTimeout(timer);
+		// `run` is intentionally omitted: the effect is keyed to the latest input and mode state.
+		// Re-running when the function identity changes would create a live-render loop.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [input, livePreview, preview]);
+
+		async function copy() {
 		if (!output || image || isRunning) return;
 		await navigator.clipboard.writeText(output);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 1200);
 	}
 
-	function reset() {
+		function downloadMarkdownHtml() {
+			if (!output || !preview) return;
+			const documentHtml = `<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1" />\n<title>Markdown export</title>\n</head>\n<body>\n${output}\n</body>\n</html>`;
+			const href = URL.createObjectURL(new Blob([documentHtml], {type: "text/html;charset=utf-8"}));
+			const link = document.createElement("a");
+			link.href = href;
+			link.download = "markdown-preview.html";
+			link.click();
+			URL.revokeObjectURL(href);
+		}
+
+		function reset() {
 		setInput(initial);
 		setAux(slug === "regex-tester" ? "DevHub" : "");
 		setOutput("");
@@ -177,7 +208,15 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 					<small>{isRunning ? "Working on this input…" : "No input is sent to a server."}</small>
 				</div>
 				<div>
-					{needsMode && (
+						{preview && (
+							<div className={styles.markdownControls} role="group" aria-label="Markdown preview controls">
+								<Switch checked={livePreview} onCheckedChange={setLivePreview} label="Live preview" disabled={isRunning} />
+								<Button type="button" onClick={downloadMarkdownHtml} disabled={!output || isRunning} variant="secondary" size="small" prefix={<Download size={14} />}>
+									Export HTML
+								</Button>
+							</div>
+						)}
+						{needsMode && (
 <select
 								disabled={isRunning}
 								aria-label="Operation"
@@ -205,14 +244,14 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 							type="button"
 							onClick={copy}
 							disabled={!output || !!image || isRunning}
-							aria-label={copied ? "Copied output to clipboard" : "Copy output to clipboard"}
+							aria-label={copied ? "Copied output to clipboard" : preview ? "Copy rendered HTML to clipboard" : "Copy output to clipboard"}
 							variant="secondary"
 							size="small"
 							prefix={copied ? <Check size={14} /> : <Copy size={14} />}
 						>
-							Copy
-						</Button>
-<Button type="button" className={styles.run} onClick={run} disabled={isRunning} aria-busy={isRunning} variant="default" size="small" loading={isRunning} prefix={<Play size={14} />}>
+								{preview ? "Copy HTML" : "Copy"}
+							</Button>
+<Button type="button" className={styles.run} onClick={() => void run()} disabled={isRunning} aria-busy={isRunning} variant="default" size="small" loading={isRunning} prefix={<Play size={14} />}>
 								Run
 							</Button>
 				</div>
@@ -245,8 +284,14 @@ value={input}
 					/>
 				</section>
 				<section>
-					<header>
-						<span>Output</span>
+						<header className={preview ? styles.previewHeader : ""}>
+							<span>{preview ? "Markdown preview" : "Output"}</span>
+							{preview && !error && output && (
+								<div className={styles.previewModes} role="tablist" aria-label="Markdown output view">
+									<button type="button" role="tab" aria-selected={markdownView === "preview"} className={markdownView === "preview" ? styles.activeTab : ""} onClick={() => setMarkdownView("preview")}>Preview</button>
+									<button type="button" role="tab" aria-selected={markdownView === "html"} className={markdownView === "html" ? styles.activeTab : ""} onClick={() => setMarkdownView("html")}>HTML</button>
+								</div>
+							)}
 						<small className={error ? styles.errorText : ""}>
 							{isRunning ? "Processing locally…" : error || meta}
 						</small>
@@ -257,7 +302,7 @@ value={input}
 								<strong>Could not process this input.</strong>
 								<span>{error}</span>
 								<div>
-<Button type="button" onClick={run} variant="error" size="small">Try again</Button>
+<Button type="button" onClick={() => void run()} variant="error" size="small">Try again</Button>
 										<Button type="button" onClick={reset} variant="secondary" size="small">Reset sample</Button>
 								</div>
 							</div>
@@ -269,12 +314,14 @@ value={input}
 									Download PNG
 								</a>
 							</div>
-						) : preview && output ? (
-							<div
-								className={styles.markdown}
-								dangerouslySetInnerHTML={{__html: output}}
-							/>
-						) : (
+							) : preview && output && markdownView === "preview" ? (
+								<div
+									className={styles.markdown}
+									dangerouslySetInnerHTML={{__html: output}}
+								/>
+							) : preview && output ? (
+								<pre className={styles.htmlOutput}>{output}</pre>
+							) : (
 							<pre>{isRunning ? "Processing locally…" : output || "Add an input and run this tool to see the output."}</pre>
 						)}
 					</div>
