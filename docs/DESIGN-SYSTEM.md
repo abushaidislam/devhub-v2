@@ -163,6 +163,7 @@ Use the shared `Switch` component for binary settings instead of native checkbox
 - Markdown headings use white text and weight 700; inline code uses a raised dark surface and bright text.
 - Processing errors use `#ff8a7d` and must remain readable without relying on color alone.
 - Runtime actions retain all hover, focus, disabled, and mobile overflow states.
+- Input and output/preview panes use a draggable vertical splitter on desktop. The input pane is constrained to 25–75% of the available width; pointer dragging, Arrow/Home/End keyboard controls, and double-click reset to an equal split are supported. The splitter has a visible focus treatment and is hidden below 780px, where the panes stack vertically.
 
 ## Detector panel
 
@@ -325,6 +326,18 @@ Never add motion that does not have a matching reduced-motion override.
 - Pair confidence, status, success, and error colors with text.
 - Respect reduced motion.
 - Maintain WCAG AA contrast for body/navigation text.
+
+## Landing footer
+
+The landing page footer is a distinct, high-contrast conversion and navigation surface. It uses a two-part hierarchy: a focused CTA masthead on the left and three grouped navigation columns on the right at desktop widths; below 900px the groups stack beneath the CTA, and below 620px they use a two-column layout with Trust spanning the full width.
+
+- Footer surface: `#050505` with a `#292929` top rule; use the existing content width and responsive page padding.
+- The local-first status chip pairs the green status dot with visible text; never rely on color alone for privacy or processing claims.
+- The primary CTA is a functional link to `/dashboard`, with a 44px+ touch target, visible hover/active feedback, and a two-pixel keyboard focus ring.
+- Navigation is a semantic `<nav aria-label="Footer navigation">` with sequential headings and real internal links. External GitHub navigation opens in a new tab with `rel="noreferrer"`.
+- The lower metadata row pairs the DevHub mark with the existing privacy boundary: deterministic tools run in the browser and input history is not stored by default.
+- Footer links reveal a subtle arrow on hover but remain fully readable and operable without hover. All reveals and transforms have a reduced-motion override.
+- Validate at 1440×900, 1024×768, and 390×844 for no horizontal overflow, visible focus, readable contrast, and preserved link access.
 
 ## Change control
 
