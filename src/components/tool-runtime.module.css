@@ -86,3 +86,10 @@
 .markdown-image{display:inline-flex;border:1px dashed var(--border-hover);border-radius:var(--radius-sm);background:var(--surface-0);padding:2px 6px;color:var(--text-secondary);font:12px/1.5 var(--mono)}
 @media(max-width:780px){.markdown{padding:22px 20px}.previewHeader{align-items:flex-start!important;flex-wrap:wrap}.previewHeader>span{flex-basis:100%}}
 @media(max-width:480px){.markdownControls{width:100%}.markdownControls>*{flex:1 1 auto;justify-content:center}.markdown{padding:20px 16px}.markdown h1{font-size:24px}.markdown h2{font-size:20px}.markdown table{display:block;overflow-x:auto;white-space:nowrap}}
+
+/* The shared Switch lives inside the runtime toolbar, whose generic button rules otherwise stretch it. */
+.toolbar .markdownControls button[role="switch"]{width:32px;min-width:32px!important;height:18px;min-height:18px!important;flex:0 0 32px;padding:0;border:1px solid #3a3a3a;border-radius:999px;background:#1f1f1f;color:transparent;box-shadow:none}
+.toolbar .markdownControls button[role="switch"]:hover:not(:disabled){border-color:#555;background:#252525;color:transparent}
+.toolbar .markdownControls button[role="switch"]:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;border-color:var(--focus-ring)}
+.toolbar .markdownControls button[role="switch"][aria-checked="true"]{border-color:#ededed;background:#ededed}
+@media(max-width:780px){.toolbar .markdownControls button[role="switch"]{width:32px;min-width:32px;max-width:32px;min-height:18px;flex:0 0 32px}}
