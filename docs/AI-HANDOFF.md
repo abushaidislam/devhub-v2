@@ -194,3 +194,24 @@ The next migration wave can cover RecentWorkspace, SavedRecipeWorkspace, assista
 ### Privacy boundary
 
 Markdown remains local-only. The renderer escapes raw HTML, does not fetch remote images, does not persist input/output, and the HTML export is generated as a local Blob download.
+
+
+## Latest landing CTA block checkpoint
+
+### Scope completed
+
+Added `src/components/landing-cta-section.tsx` and its CSS module, adapting the user-provided CTASection pattern to DevHub. The block preserves the existing black/Vercel-inspired theme, Geist typography, focus treatment, and responsive behavior. Its proof row uses canonical project data from `src/lib/tools.ts` rather than fabricated testimonials or metrics: 24 registered tools, 24 ready tools, local browser execution, and 8 categories.
+
+The old generic landing CTA was replaced with the new centered badge, highlighted two-line heading, supporting copy, functional dashboard/tools links, and verified product-facts row. No new dependency was added because the existing Lucide icon and ButtonLink patterns already satisfy the component needs. The referenced Watermelon registry URL currently returns HTML 404 content, so the provided CTA source was implemented independently from the user attachment while keeping its intended structure.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository's pre-existing warnings only.
+- `npm test`: 35 test files and 207 tests passed.
+- `npm run build`: passed; Next.js compiled, type-checked, generated 54 static pages, and finalized build traces.
+- Local preview confirmed the original hero and landing sections remain unchanged and the new CTA block renders before the footer.
+
+### Next recommended task
+
+Publish the feature branch through the repository's preferred review/deployment flow after confirming the CTA copy and visual density on 390px mobile and 1440px desktop.
