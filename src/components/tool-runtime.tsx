@@ -274,27 +274,30 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 								</Button>
 							</div>
 						)}
-						{needsMode && (
-<select
-								disabled={isRunning}
-								aria-label="Operation"
-							value={option}
-							onChange={(event) => setOption(event.target.value)}
-						>
-							{slug === "hash-generator" ? (
-								<>
-									<option>SHA-1</option>
-									<option>SHA-256</option>
-									<option>SHA-512</option>
-								</>
-							) : (
-								<>
-									<option value="encode">Encode</option>
-									<option value="decode">Decode</option>
-								</>
+							{needsMode && (
+								<div className={styles.selectField}>
+									<select
+										className={styles.select}
+										disabled={isRunning}
+										aria-label="Operation"
+										value={option}
+										onChange={(event) => setOption(event.target.value)}
+									>
+										{slug === "hash-generator" ? (
+											<>
+												<option>SHA-1</option>
+												<option>SHA-256</option>
+												<option>SHA-512</option>
+											</>
+										) : (
+											<>
+												<option value="encode">Encode</option>
+												<option value="decode">Decode</option>
+											</>
+										)}
+									</select>
+								</div>
 							)}
-						</select>
-					)}
 <Button type="button" onClick={reset} disabled={isRunning} variant="secondary" size="small" prefix={<RotateCcw size={14} />}>
 							Reset
 						</Button>

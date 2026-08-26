@@ -65,19 +65,22 @@ export function ErrorExplainer() {
       <form onSubmit={submit} className={styles.form}>
         <label htmlFor={`${fieldId}-tool`}>
           <span>Tool</span>
-          <select
-            id={`${fieldId}-tool`}
-            value={engineId}
-            disabled={!configured}
-            onChange={(event) => setEngineId(event.target.value)}
-          >
-            {engines.map((engine) => (
-              <option key={engine.id} value={engine.id}>
-                {tools.find((tool) => tool.slug === engine.id)?.name ??
-                  engine.id}
-              </option>
-            ))}
-          </select>
+          <span className={styles.selectField}>
+            <select
+              className={styles.select}
+              id={`${fieldId}-tool`}
+              value={engineId}
+              disabled={!configured}
+              onChange={(event) => setEngineId(event.target.value)}
+            >
+              {engines.map((engine) => (
+                <option key={engine.id} value={engine.id}>
+                  {tools.find((tool) => tool.slug === engine.id)?.name ??
+                    engine.id}
+                </option>
+              ))}
+            </select>
+          </span>
         </label>
 
         <label htmlFor={`${fieldId}-message`}>

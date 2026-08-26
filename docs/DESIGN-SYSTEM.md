@@ -139,6 +139,18 @@ Use the shared `Switch` component for binary settings instead of native checkbox
 - Disabled controls remain visible at approximately 40–45% opacity.
 - Inputs must expose a visible `:focus-visible` or `:focus-within` boundary, not only a caret.
 
+### Dropdowns
+
+Native dropdowns use a shared dark control treatment so the closed field and browser-managed option menu feel consistent across tool runtimes and AI forms. Use the semantic `--select-selected` token for the selected option, preserve native keyboard navigation, and provide a visible chevron without relying on the browser’s default arrow.
+
+- Surface: `--surface-1` with `--border-strong`, 6px radius, and a subtle one-pixel inset highlight.
+- Label/value: `--text-primary`, 13px, semibold; reserve trailing space for the chevron.
+- Hover: `--surface-hover` and `--border-hover` with a brighter chevron.
+- Focus: a 2px white outline with a 2px offset and a bright border.
+- Selected option: `--select-selected` with white text; option menus retain a dark surface where the browser allows styling.
+- Disabled: approximately 45% opacity, `not-allowed` cursor, and no hover treatment.
+- Touch target: 44px minimum height below 480px; the field must remain full-width inside stacked form labels.
+
 ## Tool cards
 
 - Use one flat grid on All Tools; categories remain metadata and sidebar navigation.
