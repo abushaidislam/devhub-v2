@@ -2,12 +2,12 @@
 
 ## Working branch
 
-- `feat/markdown-preview-upgrade` — includes the v0.13.0 baseline, Markdown Preview upgrades, layout fixes, and the first batch expansion to 30 local tools.
+- `main` — includes the v0.6.2 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
 
 ## Stable branch state
 
 - `main` includes automated release metadata at `v0.6.2`.
-- Production: `https://devhub-toolkit-v2.vercel.app`
+- Production: `https://devlove.flinkeo.online`
 
 ## Current delivery
 
@@ -40,7 +40,7 @@ All Phases 0–3 are implemented. Phase 4 (Distribution) is planned but not star
 **Phase 2 — Workflow differentiation**
 
 - Typed `ToolEngine` interface (`src/lib/engine-types.ts`) with `ToolValueType = "text" | "json" | "binary" | "image"`, sensitivity `local | network | ai`.
-- Engine registry (`src/lib/engine-registry.ts`) mapping all 30 tool slugs to processing logic.
+- Engine registry (`src/lib/engine-registry.ts`) mapping all 24 tool slugs to processing logic.
 - Versioned workflow schema (`Workflow = { version: 1; steps[] }`), 1–50 step limit.
 - `validateWorkflow` and `validateWorkflowCompatibility` preflight.
 - Sequential `runWorkflow` runner with per-step metadata, warnings, duration, `AbortSignal` cancellation.
@@ -244,12 +244,151 @@ The change preserves the existing 44px favorite touch target, accessible `aria-l
 Push the focused branch and open a review request when ready.
 
 
+## Global dropdown styling checkpoint
+
+### Scope completed
+
+Created the focused `feat/global-dropdown-style` branch and updated both native dropdown consumers: the runtime operation selector in `src/components/tool-runtime.tsx` and the AI error tool selector in `src/components/error-explainer.tsx`. Both now use a polished dark control treatment with a custom chevron, semantic surface/border/text tokens, selected-option color, visible focus ring, hover and disabled states, native keyboard behavior, and 44px mobile sizing. The shared `--select-selected` token and dropdown contract were added to `src/app/globals.css` and `docs/DESIGN-SYSTEM.md`.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js compiled, type-checked, generated 54 static pages, and finalized build traces.
+- `git diff --check`: passed.
+- Desktop browser review of `/tools/hash-generator`: closed and open native dropdown states are aligned, readable, dark-themed, and show the selected SHA-256 option with a blue highlight.
+
+### Review notes
+
+The change is visual and behavior-preserving; no new dependency, processing logic, network call, or persistence behavior was added. The native option menu remains browser-rendered, so exact option-menu rendering may vary slightly by browser while the closed control and accessibility behavior remain consistent.
+
+### Next step
+
+Review and push `feat/global-dropdown-style` through the normal pull-request flow when ready.
+
+
+## Dropdown cascade fix checkpoint
+
+### Scope completed
+
+Refined `feat/global-dropdown-style` after reproducing a repeated-chevron issue in Chromium. The runtime module no longer applies legacy `.toolbar select` rules to the native dropdown, preventing the higher-specificity cascade from overriding the control geometry. Both the runtime operation selector and the Assistant error-tool selector now render one wrapper-based CSS chevron instead of a `background-image`, while keeping their context-local layout and native `<select>` behavior.
+
+The design-system wording now documents the context-local approach and the browser-specific option-menu limitation rather than implying a global selector. Temporary visual-review notes were used during QA and should remain untracked.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- `npm run test:e2e`: 8 passed and 2 skipped across Chromium desktop and mobile projects after installing the missing Playwright browser binary.
+- Browser review: runtime dropdown shows one clean chevron and a readable native option menu; Assistant Tool dropdown shows the same single-chevron treatment within its own full-width form layout.
+
+### Review notes
+
+An initial Assistant preview failure was unrelated to the UI change: running the development server concurrently with `next build` raced on `.next` build-manifest files. The preview was restarted cleanly on a separate port for verification.
+
+
+## Premium dropdown polish checkpoint
+
+### Scope completed
+
+Refined the context-local dropdown styles in `src/components/tool-runtime.module.css` and `src/components/workflow-planner.module.css`. Runtime and Assistant dropdowns now use a restrained dark vertical gradient, inset highlight, shallow depth shadow, brighter hover border and chevron, tactile active state, layered keyboard focus halo, dark native-menu hint via `color-scheme: dark`, and muted disabled chevron behavior. The Assistant disabled-chevron selector was kept scoped to the wrapper pseudo-element.
+
+Updated `docs/DESIGN-SYSTEM.md` with the premium hover, active, focus, and disabled-state contract. No global dropdown selector, dependency, processing behavior, or persistence behavior was added.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- Live preview on `/tools/base64`: dark gradient, inset/depth shadow, single chevron, and native option menu verified.
+- Programmatic focus check: `:focus-visible` active with white outline, 3px offset, bright border, and layered focus shadow.
+- Existing Playwright desktop/mobile validation remains green at 8 passed and 2 skipped.
+
+## Project-wide button polish checkpoint
+
+### Scope completed
+
+Extended the Encode/Decode-style premium control language across the web button families without flattening hierarchy. The shared `Button`/`ButtonLink` primitive now provides dark gradient secondary controls, white gradient primary controls, variant-aware error and warning surfaces, hover lift, tactile press feedback, layered keyboard focus halos, and disabled-state treatment. Local native button families in the Assistant, provider settings, workflow planner, runtime toolbar, tool assist, workspace transfer, recent workspace, recipe runner, saved recipes, dashboard cards, smart-input detector, dashboard shell, favorite control, and command palette close action were updated to match the same system. Menu rows, switches, navigation active states, and primary CTAs retain their specialized semantics.
+
+Updated `docs/DESIGN-SYSTEM.md` with the button tier, hover, active, focus, disabled, and primary-action contracts. No product behavior, network request, persistence, or dependency changes were made.
+
+### Validation
+
+- `git diff --check`: passed.
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- Live dashboard review: smart-input sample controls, card favorite actions, search controls, and shell controls show the premium dark treatment.
+- Live Assistant review: primary and secondary actions preserve hierarchy; provider, workflow, and error actions render with updated surfaces and states.
+- A temporary preview failure was traced to the known concurrent Next.js `.next` build-manifest race; a clean preview on a separate port rendered successfully.
+
+## Button cascade cleanup checkpoint
+
+Removed accidental overlap between legacy and premium button styles. Runtime toolbar and Run-button legacy visual overrides were reduced to layout-only rules, runtime error actions now have one semantic red-control owner, Assistant primary/secondary actions are consolidated into one block, duplicate dashboard shell migration blocks were removed, and the old dashboard card focus outline was removed in favor of the premium favorite focus halo. Global landing CTA classes now own their premium primary/secondary treatment without a competing flat hover rule.
+
+Validation after cleanup: `git diff --check`, typecheck, lint, 36 test files / 210 tests, and production build all passed. The live production preview on port 3004 rendered the dashboard with consistent premium control surfaces. No product behavior or data boundary changed.
+
+## Favorite heart icon checkpoint
+
+### Scope completed
+
+Replaced the filled Lucide star/heart treatment in the standalone `FavoriteButton` and dashboard card favorite controls with the reusable `src/components/ui/animated-heart.tsx` component. The default state is outline-only (`fill="none"`), the selected state uses `fill="currentColor"`, and a real favorite toggle runs a restrained Heroicons Animated-style scale sequence. The wrapper is decorative with `aria-hidden="true"`; the parent button continues to own the accessible label, `aria-pressed` state, persistence, and toggle behavior.
+
+Added the `motion` dependency and attribution for the MIT Heroicons Animated reference. Added regression assertions for outline/filled SVG states and retained favorite persistence coverage. The empty favorites illustration remains decorative and unchanged.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- Focused favorite/dashboard tests: 4 passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- Full E2E desktop/mobile suite: 8 passed, 2 skipped.
+- Live production preview: default favorite confirmed `fill="none"`; selected favorite confirmed `fill="currentColor"`; a real click sampled at 100ms showed an active scale transform (`matrix(1.15305, 0, 0, 1.15305, 0, 0)`).
+- Repository remains local-first; no favorite persistence or product behavior changed.
+
+## Vercel frozen-lockfile repair checkpoint
+
+Vercel was failing before compilation because `package.json` contained `motion@^13.1.1` while `pnpm-lock.yaml` did not. Regenerated the lockfile with pnpm 10.34.5, matching Vercel’s detected package-manager family; the diff adds the motion dependency graph without unrelated version churn. Added `pnpm-workspace.yaml` build approvals for `esbuild`, `sharp`, and `unrs-resolver` so non-interactive pnpm installs can run required native build scripts safely.
+
+Validation completed with the Vercel-compatible path: `npx pnpm@10.34.5 install --frozen-lockfile` passed, production build passed with 54 generated pages, 36 unit-test files / 210 tests passed, and desktop/mobile E2E passed with 8 passed and 2 skipped. The branch remains clean after commit and push.
+
+## Favorite active-surface correction checkpoint
+
+The active favorite state no longer turns the entire button white. Dashboard card and tool-page favorite controls now retain the dark premium gradient, while the selected heart remains filled and white through `currentColor`. Active hover keeps the same dark surface with brighter border/depth, so the heart is the only white selected visual rather than a white icon button.
+
+Validation: pnpm frozen install, typecheck, focused favorite/dashboard tests (4 passed), lint, unit suite (36 files / 210 tests), and production build (54 pages) passed. Live dashboard verification confirmed selected background `linear-gradient(rgb(24, 24, 24), rgb(16, 16, 16))`, white control color, `fill="currentColor"`, and the same dark surface on hover.
+## Project-wide UI audit checkpoint
+Audited all 41 application routes represented by the route inventory, including the landing page, workspace pages, category pages, all generated tool pages, assistant, recipes, recent, favorites, and policy/documentation pages at 1280×900 desktop and 412×915 mobile sizes. The final machine audit covered 82 route/viewport combinations: all returned HTTP 200, no page errors, no document-level horizontal overflow, no visible interactive element outside the viewport, no empty buttons, no genuinely unnamed form controls, and no non-decorative images missing alt text. Visual contact-sheet review found the shared shell, public reading pages, dashboard cards, assistant sections, and stacked mobile tool editor layouts consistent.
+
+Two real issues were fixed during the audit. The closed mobile navigation drawer is now inert and `aria-hidden` while off-canvas, preventing keyboard focus from reaching hidden links while preserving open/close focus return. The tools index no longer shows a dead Filter button with no handler; the category filters remain visible and now wrap on narrow screens instead of extending beyond the viewport.
+
+Validation after the audit fixes: typecheck passed; lint passed with the repository’s existing warnings and zero errors; full unit suite passed with 36 files / 210 tests; production build passed and generated 54 pages; existing desktop/mobile E2E passed with 8 passed and 2 skipped; focused mobile navigation check confirmed correct focus return to `Open navigation`; final route audit reported 0 genuine issue rows.
+
+
+## SEO canonical and discoverability fix checkpoint — August 2026
+
+### Scope
+
+Branch `fix/seo-canonical-domain` updates the canonical origin fallback to `https://devlove.flinkeo.online`, refreshes package/README/handoff links, points source links to `https://github.com/abushaidislam/devhub-v2`, and removes the retired hostname from LLM discovery routes and the QR sample. Public header, homepage, landing CTA, and footer actions now favor the indexable `/tools` directory while preserving `/dashboard` as the workspace route.
+
+Public tools and trust/documentation pages emit route-specific Open Graph metadata. Favorites, recent, and offline noindex routes declare explicit canonicals. The canonical tool registry contains unique meta descriptions and visible tool-specific SEO guidance, and category pages render category-specific explanatory copy. The route-level SEO contract remains registry-driven and no new parallel tool inventory was introduced. The Open Graph image route now returns a valid 1200×630 PNG.
+
+### Validation
+
+`npm run context:check`, `npm run typecheck`, `npm run lint`, `npm run test` (36 files, 210 passed), `npm run build` (54 static pages), `CI=1 npm run test:e2e` (8 passed, 2 intentionally skipped), `npm run release:validate`, and `git diff --check` pass. Local endpoint checks confirm current-host canonical tags, robots, sitemap, noindex application routes, and a valid Open Graph image response.
+
+
 ## First batch developer tools checkpoint
 
 The first proposed batch was scoped against the canonical registry. Timestamp Converter and Text Diff already existed, so they were retained rather than duplicated. Six genuinely new local-first tools were added: YAML Formatter, XML Formatter, Markdown Linter, URL Parser, Gitignore Generator, and JSON to TypeScript.
 
-Each new tool has a pure bounded engine, typed registry entry, sample input, metadata, safe user-facing errors, and automatic route/navigation/sitemap participation through `src/lib/tools.ts`. Smart detection now recognizes YAML, XML, common gitignore patterns, URL parsing candidates, Markdown lint candidates, and JSON-to-TypeScript candidates. Curated next-action pairings connect the new tools to existing workflows.
+Each new tool has a pure bounded engine, typed registry entry, sample input, metadata, safe user-facing errors, and automatic route/navigation/sitemap participation through `src/lib/tools.ts`. Smart detection recognizes YAML, XML, common gitignore patterns, URL parsing candidates, Markdown lint candidates, and JSON-to-TypeScript candidates. Curated next-action pairings connect the new tools to existing workflows.
 
 The new engines intentionally avoid third-party dependencies and network requests. YAML formatting is conservative around indentation, XML formatting validates a single well-formed root, Markdown linting reports bounded line-based rules, URL parsing returns structured components, gitignore generation combines deduplicated built-in templates, and JSON-to-TypeScript emits inferred interfaces/types.
 
-Validation completed for this batch: full Vitest suite, typecheck, lint, production build, and responsive layout rules passed. Automated coverage passed 36 test files and 228 tests; lint reported only six repository warnings and zero errors. My Browser was unavailable for a fresh new-tool screenshot, so visual validation for the new routes remains the only manual follow-up; prior Markdown Preview desktop QA and the shared runtime layout checks remain valid.
+The branch was validated with context check, 36 Vitest files and 228 tests, TypeScript validation, production generation of 60 static pages, lint with zero errors and six pre-existing warnings, and `git diff --check`. A fresh manual visual check of new routes remained blocked by an unavailable browser receiver; prior shared-runtime visual QA remains valid.

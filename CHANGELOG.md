@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.13.4](https://github.com/abushaidislam/devhub-v2/compare/v0.13.3...v0.13.4) (2026-08-26)
+
+
+### Bug Fixes
+
+* animate favorite heart state ([2639335](https://github.com/abushaidislam/devhub-v2/commit/26393357aabcdf66557a8934efe63c5fde3ecc28))
+* keep active favorite button dark ([489f84a](https://github.com/abushaidislam/devhub-v2/commit/489f84a326bc95d67b0296a447014d765774197c))
+* keep active favorite button dark ([72d7489](https://github.com/abushaidislam/devhub-v2/commit/72d7489729ee3bc0f6e07eeb3fe767127d627add))
+
+## [0.13.3](https://github.com/abushaidislam/devhub-v2/compare/v0.13.2...v0.13.3) (2026-08-26)
+
+
+### Bug Fixes
+
+* consolidate button style cascade ([93e4621](https://github.com/abushaidislam/devhub-v2/commit/93e46216162b61576037f32ce5487df4b6f11bde))
+* consolidate button style cascade ([d8cf0fd](https://github.com/abushaidislam/devhub-v2/commit/d8cf0fd87e8f868ad631ca9c11190f41eee6e4ea))
+
+## [0.13.2](https://github.com/abushaidislam/devhub-v2/compare/v0.13.1...v0.13.2) (2026-08-26)
+
+
+### Bug Fixes
+
+* prevent repeated dropdown chevrons ([52cb97e](https://github.com/abushaidislam/devhub-v2/commit/52cb97e3a3835d5ac2e8bb6e33c58f8297b4f06a))
+
+## [0.13.1](https://github.com/abushaidislam/devhub-v2/compare/v0.13.0...v0.13.1) (2026-08-26)
+
+
+### Bug Fixes
+
+* sync README release version in CI ([74c1627](https://github.com/abushaidislam/devhub-v2/commit/74c1627d870fe0b3c5ba76edfa80b2ccebc1af2f))
+* sync README release version in CI ([24e8bed](https://github.com/abushaidislam/devhub-v2/commit/24e8bedfef818d3f6840377de1cff372e049faba))
+
 ## [0.13.0](https://github.com/abushaidislam/devhub-v2/compare/v0.12.2...v0.13.0) (2026-08-26)
 
 

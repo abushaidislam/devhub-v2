@@ -2,11 +2,11 @@
 
 A free, local-first developer workflow workspace for recurring API-debugging and data-transformation tasks. DevHub helps you detect, transform, chain, and reuse common developer-data operations without sending conventional tool inputs to a DevHub server.
 
-**Current release:** <!-- x-release-please-version --> `v0.13.0`
+**Current release:** <!-- x-release-please-version --> `v0.13.4`
 
 **License:** MIT
 
-**Homepage:** [devhub-toolkit-v2.vercel.app](https://devhub-toolkit-v2.vercel.app)
+**Homepage:** [devlove.flinkeo.online](https://devlove.flinkeo.online)
 
 ## What DevHub does
 
@@ -79,7 +79,7 @@ Saved recipes contain metadata and validated workflow definitions only. They do 
 
 DevHub does not host an AI key. Users configure their own provider, model, endpoint, and key in the browser. Supported presets include OpenAI, OpenRouter, Google Gemini, Ollama, and custom OpenAI-compatible endpoints. Hosted-provider requests go directly from the browser to the selected provider; Ollama can target a model running on the user's machine.
 
-AI workflow planning never auto-executes a proposed workflow. Error explanation sends only the bounded tool identifier and error message. Inline tool assistance is bounded and requires a per-request consent action that names the destination provider or host. Provider configuration is stored in this browser's local storage as documented in [`/ai-data-policy`](https://devhub-toolkit-v2.vercel.app/ai-data-policy).
+AI workflow planning never auto-executes a proposed workflow. Error explanation sends only the bounded tool identifier and error message. Inline tool assistance is bounded and requires a per-request consent action that names the destination provider or host. Provider configuration is stored in this browser's local storage as documented in [`/ai-data-policy`](https://devlove.flinkeo.online/ai-data-policy).
 
 ## Routes and workspaces
 
@@ -170,9 +170,9 @@ The package is published under the MIT license as declared in `package.json`.
 
 ## Links
 
-- [Production homepage](https://devhub-toolkit-v2.vercel.app)
-- [GitHub repository](https://github.com/Sayed-Saa-new/devhub-toolkit-v2)
-- [Issue tracker](https://github.com/Sayed-Saa-new/devhub-toolkit-v2/issues)
+- [Production homepage](https://devlove.flinkeo.online)
+- [GitHub repository](https://github.com/abushaidislam/devhub-v2)
+- [Issue tracker](https://github.com/abushaidislam/devhub-v2/issues)
 - [Product strategy](./docs/PRODUCT-STRATEGY.md)
 - [Architecture](./docs/ARCHITECTURE.md)
 - [Trust and privacy](./docs/TRUST-AND-PRIVACY.md)

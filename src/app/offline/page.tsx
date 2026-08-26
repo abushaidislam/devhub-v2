@@ -1,3 +1,3 @@
 import type {Metadata} from "next";import Link from "next/link";import styles from "./page.module.css";
-export const metadata:Metadata={title:"Offline",description:"This page is not available offline yet. Previously visited DevHub tools keep working locally.",robots:{index:false,follow:true}};
+export const metadata:Metadata={title:"Offline",description:"This page is not available offline yet. Previously visited DevHub tools keep working locally.",alternates:{canonical:"/offline"},robots:{index:false,follow:true}};
 export default function OfflinePage(){return <main className={styles.offline}><p className={styles.badge}>Offline</p><h1>You are offline</h1><p className={styles.copy}>This page has not been cached in this browser yet. Tools you have already opened keep working without a connection, because every current DevHub tool runs locally.</p><Link className={styles.action} href="/dashboard">Open the dashboard</Link></main>}

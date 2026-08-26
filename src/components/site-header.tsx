@@ -14,20 +14,20 @@ export function SiteHeader() {
           <Link href="/#categories">Categories</Link>
         </nav>
         <div className="nav-actions">
-          <Link className="search-trigger" href="/dashboard">
+          <Link className="search-trigger" href="/tools">
             <Search size={15} />
             <span>Search tools</span>
             <kbd>⌘K</kbd>
           </Link>
           <ButtonLink
-            href="https://github.com/Sayed-Saa-new/devhub-toolkit-v2"
+            href="https://github.com/abushaidislam/devhub-v2"
             variant="tertiary"
             size="medium"
             shape="square"
             aria-label="GitHub repository"
             prefix={<Github size={17} />}
           />
-          <ButtonLink href="/dashboard" variant="default">Open toolkit</ButtonLink>
+          <ButtonLink href="/tools" variant="default">Browse tools</ButtonLink>
         </div>
       </div>
     </header>

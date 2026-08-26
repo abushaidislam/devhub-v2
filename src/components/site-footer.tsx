@@ -6,7 +6,7 @@ const navigation = [
   {
     title: "Workspace",
     links: [
-      { label: "Open toolkit", href: "/dashboard" },
+      { label: "Open workspace", href: "/dashboard" },
       { label: "All tools", href: "/tools" },
       { label: "Favorites", href: "/favorites" },
       { label: "Saved recipes", href: "/recipes" },
@@ -48,8 +48,8 @@ export function SiteFooter() {
               A focused home for the small transformations that keep your work moving.
               Private by default, ready when you are.
             </p>
-            <Link className={styles.primaryAction} href="/dashboard">
-              <span>Open the toolkit</span>
+            <Link className={styles.primaryAction} href="/tools">
+              <span>Browse all tools</span>
               <span className={styles.actionIcon} aria-hidden="true"><ArrowRight size={16} /></span>
             </Link>
           </div>
@@ -88,7 +88,7 @@ export function SiteFooter() {
             <span>Run locally in your browser. No input history by default.</span>
           </div>
           <div className={styles.externalLinks}>
-            <a href="https://github.com/Sayed-Saa-new/devhub-toolkit-v2" target="_blank" rel="noreferrer">
+            <a href="https://github.com/abushaidislam/devhub-v2" target="_blank" rel="noreferrer">
               <Github size={14} aria-hidden="true" />
               <span>GitHub</span>
             </a>
