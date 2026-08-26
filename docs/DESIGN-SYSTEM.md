@@ -367,3 +367,10 @@ The dashboard shell and primary dashboard workspace now consume the shared P1 pr
 `DashboardToolGrid` uses Badge for category metadata and Button for the separate favorite control. The favorite control remains outside the card link so interactive elements are not nested. Default, hover, focus-within, active favorite, empty, starter-chip, tablet, and mobile states remain explicit.
 
 The dashboard context count now uses Badge, and the shell, detector, dashboard cards, and dashboard count no longer contain uppercase text-transform declarations. Technical acronyms in visible content remain semantically uppercase where appropriate.
+
+
+## Markdown Preview workspace
+
+Markdown Preview uses the shared runtime surface with a Markdown-specific toolbar. The toolbar exposes the approved shared `Switch` primitive for **Live preview** and a local **Export HTML** action. Live rendering is debounced so typing remains responsive; turning it off restores explicit Run behavior.
+
+The output header exposes accessible `Preview` and `HTML` tabs when a result exists. Preview content uses the runtime typography and surface tokens, with dedicated readable treatments for headings H1–H6, links, blockquotes, lists, task markers, fenced code, tables, horizontal rules, and safe image-alt placeholders. Tables scroll horizontally on small screens, runtime panels continue stacking below 780px, and all new controls retain visible focus, disabled, hover, and reduced-motion states.

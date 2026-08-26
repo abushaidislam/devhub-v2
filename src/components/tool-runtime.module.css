@@ -60,3 +60,36 @@
 .markdown code{border-color:var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-active);color:var(--text-primary)}
 @media(max-width:780px){.toolbar>div:last-child{gap:8px}.panels section+section{border-left:0;border-top-color:var(--border)}}
 @media(max-width:480px){.toolbar>div:last-child button,.toolbar>div:last-child select{min-height:44px}.error{padding:18px}}
+
+.markdownControls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.previewHeader{align-items:center!important;gap:10px}
+.previewHeader>span{flex:1}
+.previewModes{display:flex;align-items:center;gap:2px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-0);padding:2px}
+.previewModes button{border:0;border-radius:4px;background:transparent;color:var(--text-secondary);padding:4px 8px;font:var(--font-weight-semibold) var(--font-size-meta)/1 var(--mono);cursor:pointer}
+.previewModes button:hover{color:var(--text-primary);background:var(--surface-hover)}
+.previewModes button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:1px}
+.previewModes .activeTab{background:var(--surface-active);color:var(--text-primary)}
+.htmlOutput{min-height:100%!important;overflow:auto!important;white-space:pre-wrap!important;word-break:break-word}
+.markdown{min-height:100%;overflow:auto;padding:28px 30px;color:var(--text-primary);background:var(--surface-1);font:var(--font-weight-regular) 14px/1.7 var(--sans);overflow-wrap:anywhere}
+.markdown h1,.markdown h2,.markdown h3,.markdown h4,.markdown h5,.markdown h6{margin:0 0 14px;color:#fff;font-weight:700;line-height:1.2;letter-spacing:-.02em}
+.markdown h1{font-size:28px}.markdown h2{font-size:23px}.markdown h3{font-size:19px}.markdown h4{font-size:16px}.markdown h5,.markdown h6{font-size:14px}
+.markdown p{margin:0 0 16px;color:var(--text-primary)}
+.markdown>p:last-child,.markdown>ul:last-child,.markdown>ol:last-child,.markdown>blockquote:last-child,.markdown>table:last-child{margin-bottom:0}
+.markdown ul,.markdown ol{margin:0 0 16px;padding-left:24px}.markdown li{margin:5px 0}.markdown li input{margin-right:7px;accent-color:var(--success)}
+.markdown blockquote{margin:0 0 16px;border-left:3px solid var(--border-hover);padding:2px 0 2px 16px;color:var(--text-secondary)}
+.markdown a{color:#8ab4ff;text-decoration:underline;text-underline-offset:3px}.markdown a:hover{color:#fff}
+.markdown code{display:inline-block;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-active);padding:1px 5px;color:#f3f3f3;font:13px/1.5 var(--mono)}
+.markdown pre{margin:0 0 16px;overflow:auto;border:1px solid var(--border-strong);border-radius:var(--radius-md);background:#050505;padding:16px;color:#e6e6e6}.markdown pre code{display:block;border:0;background:transparent;padding:0;color:inherit;white-space:pre;font:13px/1.65 var(--mono)}
+.markdown table{width:100%;margin:0 0 16px;border-collapse:collapse;font-size:13px;text-align:left}.markdown th,.markdown td{border:1px solid var(--border-strong);padding:8px 10px;vertical-align:top}.markdown th{background:var(--surface-active);color:#fff;font-weight:650}.markdown td{color:var(--text-primary)}
+.markdown hr{margin:24px 0;border:0;border-top:1px solid var(--border-hover)}
+.markdown del{color:var(--text-secondary)}
+.markdown-image{display:inline-flex;border:1px dashed var(--border-hover);border-radius:var(--radius-sm);background:var(--surface-0);padding:2px 6px;color:var(--text-secondary);font:12px/1.5 var(--mono)}
+@media(max-width:780px){.markdown{padding:22px 20px}.previewHeader{align-items:flex-start!important;flex-wrap:wrap}.previewHeader>span{flex-basis:100%}}
+@media(max-width:480px){.markdownControls{width:100%}.markdownControls>*{flex:1 1 auto;justify-content:center}.markdown{padding:20px 16px}.markdown h1{font-size:24px}.markdown h2{font-size:20px}.markdown table{display:block;overflow-x:auto;white-space:nowrap}}
+
+/* The shared Switch lives inside the runtime toolbar, whose generic button rules otherwise stretch it. */
+.toolbar .markdownControls button[role="switch"]{width:32px;min-width:32px!important;height:18px;min-height:18px!important;flex:0 0 32px;padding:0;border:1px solid #3a3a3a;border-radius:999px;background:#1f1f1f;color:transparent;box-shadow:none}
+.toolbar .markdownControls button[role="switch"]:hover:not(:disabled){border-color:#555;background:#252525;color:transparent}
+.toolbar .markdownControls button[role="switch"]:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;border-color:var(--focus-ring)}
+.toolbar .markdownControls button[role="switch"][aria-checked="true"]{border-color:#ededed;background:#ededed}
+@media(max-width:780px){.toolbar .markdownControls button[role="switch"]{width:32px;min-width:32px;max-width:32px;min-height:18px;flex:0 0 32px}}

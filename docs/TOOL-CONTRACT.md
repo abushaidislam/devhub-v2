@@ -185,3 +185,10 @@ Before the visual workflow builder:
 - Expand Markdown parsing/sanitization or use a carefully reviewed permissive dependency.
 - Add regex complexity/time safeguards.
 - Improve cron descriptions and SQL dialect support.
+
+
+## Markdown Preview upgrade
+
+The Markdown Preview engine remains a local, text-to-text engine with a 200,000-character input bound. Its independently implemented renderer now supports headings H1–H6, paragraphs with soft line breaks, fenced code blocks with language metadata, ordered and unordered lists, task-list markers, blockquotes, horizontal rules, tables with alignment markers, inline code, emphasis, strong text, strikethrough, links, and image alt-text placeholders.
+
+Raw HTML is still escaped. Links are emitted only for safe `http`, `https`, `mailto`, fragment, and relative destinations; unsupported schemes such as `javascript:` are rendered as plain text. Images are represented as accessible alt-text placeholders rather than fetched, so Markdown Preview introduces no network path. The runtime adds debounced live preview, an accessible Preview/HTML view switcher, and local HTML file export; neither input nor output is persisted or transmitted.

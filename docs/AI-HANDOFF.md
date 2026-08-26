@@ -173,3 +173,24 @@ The P2 implementation is present on the feature branch but remains modified in t
 ### Remaining design-system consumers
 
 The next migration wave can cover RecentWorkspace, SavedRecipeWorkspace, assistant-page sections, and remaining ad-hoc dashboard context rows. These should reuse the existing P1 Button, SearchInput, Badge, StatusDot, and material presets rather than introducing additional local primitives.
+
+
+## Markdown Preview upgrade checkpoint
+
+### Scope completed
+
+- Expanded the local Markdown renderer in `src/lib/tool-engines.ts` with H1–H6 headings, ordered/unordered/task lists, blockquotes, tables with alignment, horizontal rules, fenced code language metadata, links, strikethrough, and accessible image-alt placeholders.
+- Preserved the 200,000-character bound and raw-HTML escaping. Unsafe link schemes are rejected as links, and images are never fetched.
+- Added debounced live preview, accessible Preview/HTML tabs, Copy HTML labeling, and local HTML export to `ToolRuntime`.
+- Refreshed the Markdown sample to demonstrate the richer blocks and updated the tool runtime styles for responsive preview presentation.
+- Added engine and component coverage for the new renderer and live-preview interaction.
+
+### Validation
+
+- Focused Vitest coverage passed: 2 test files, 18 tests.
+- TypeScript validation passed after the runtime handler fixes.
+- ESLint passed with the repository's existing six warnings and zero errors.
+
+### Privacy boundary
+
+Markdown remains local-only. The renderer escapes raw HTML, does not fetch remote images, does not persist input/output, and the HTML export is generated as a local Blob download.
