@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.1](https://github.com/abushaidislam/devhub-v2/compare/v0.12.0...v0.12.1) (2026-08-26)
+
+
+### Bug Fixes
+
+* clarify landing page trust affordances ([bf621fd](https://github.com/abushaidislam/devhub-v2/commit/bf621fd8c863f7773fd4f4c750dc71d9594ea373))
+
 ## [0.12.0](https://github.com/abushaidislam/devhub-v2/compare/v0.11.0...v0.12.0) (2026-08-26)
 
 
