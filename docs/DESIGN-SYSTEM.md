@@ -141,7 +141,7 @@ Use the shared `Switch` component for binary settings instead of native checkbox
 
 ### Dropdowns
 
-Native dropdowns use a shared dark control treatment so the closed field and browser-managed option menu feel consistent across tool runtimes and AI forms. Use the semantic `--select-selected` token for the selected option, preserve native keyboard navigation, and provide a visible chevron without relying on the browser’s default arrow.
+Native dropdowns use context-local dark control treatments so each web surface can fit its own layout while still following the same visual principles. Use the semantic `--select-selected` token for the selected option, preserve native keyboard navigation, and render a single positioned chevron outside the `<select>` background to avoid browser-specific repeated-arrow artifacts.
 
 - Surface: `--surface-1` with `--border-strong`, 6px radius, and a subtle one-pixel inset highlight.
 - Label/value: `--text-primary`, 13px, semibold; reserve trailing space for the chevron.

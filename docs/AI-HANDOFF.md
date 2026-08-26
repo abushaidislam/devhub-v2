@@ -266,3 +266,25 @@ The change is visual and behavior-preserving; no new dependency, processing logi
 ### Next step
 
 Review and push `feat/global-dropdown-style` through the normal pull-request flow when ready.
+
+
+## Dropdown cascade fix checkpoint
+
+### Scope completed
+
+Refined `feat/global-dropdown-style` after reproducing a repeated-chevron issue in Chromium. The runtime module no longer applies legacy `.toolbar select` rules to the native dropdown, preventing the higher-specificity cascade from overriding the control geometry. Both the runtime operation selector and the Assistant error-tool selector now render one wrapper-based CSS chevron instead of a `background-image`, while keeping their context-local layout and native `<select>` behavior.
+
+The design-system wording now documents the context-local approach and the browser-specific option-menu limitation rather than implying a global selector. Temporary visual-review notes were used during QA and should remain untracked.
+
+### Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed with the repository’s existing six warnings and zero errors.
+- `npm test`: 36 test files and 210 tests passed.
+- `npm run build`: passed; Next.js generated 54 static pages.
+- `npm run test:e2e`: 8 passed and 2 skipped across Chromium desktop and mobile projects after installing the missing Playwright browser binary.
+- Browser review: runtime dropdown shows one clean chevron and a readable native option menu; Assistant Tool dropdown shows the same single-chevron treatment within its own full-width form layout.
+
+### Review notes
+
+An initial Assistant preview failure was unrelated to the UI change: running the development server concurrently with `next build` raced on `.next` build-manifest files. The preview was restarted cleanly on a separate port for verification.
