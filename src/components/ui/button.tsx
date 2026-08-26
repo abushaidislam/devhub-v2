@@ -45,6 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ]
     .filter(Boolean)
     .join(" ");
+  const hasContent = loading || (children !== undefined && children !== null);
 
   return (
     <button
@@ -55,7 +56,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       aria-busy={loading || undefined}
     >
       {prefix ? <span className={styles.icon} aria-hidden="true">{prefix}</span> : null}
-      <span className={styles.content}>{loading ? "Loading…" : children}</span>
+      {hasContent ? <span className={styles.content}>{loading ? "Loading…" : children}</span> : null}
       {suffix ? <span className={styles.icon} aria-hidden="true">{suffix}</span> : null}
     </button>
   );
@@ -87,11 +88,12 @@ export function ButtonLink({
   ]
     .filter(Boolean)
     .join(" ");
+  const hasContent = children !== undefined && children !== null;
 
   return (
     <Link {...props} href={href} className={classes}>
       {prefix ? <span className={styles.icon} aria-hidden="true">{prefix}</span> : null}
-      <span className={styles.content}>{children}</span>
+      {hasContent ? <span className={styles.content}>{children}</span> : null}
       {suffix ? <span className={styles.icon} aria-hidden="true">{suffix}</span> : null}
     </Link>
   );
