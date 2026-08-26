@@ -93,3 +93,12 @@
 .toolbar .markdownControls button[role="switch"]:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;border-color:var(--focus-ring)}
 .toolbar .markdownControls button[role="switch"][aria-checked="true"]{border-color:#ededed;background:#ededed}
 @media(max-width:780px){.toolbar .markdownControls button[role="switch"]{width:32px;min-width:32px;max-width:32px;min-height:18px;flex:0 0 32px}}
+
+/* Keep long pasted Markdown from collapsing the input grid track. */
+.panels{grid-template-columns:minmax(320px,1fr) minmax(0,1fr)}
+.panels section{min-width:0}
+.panels section>header{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.panels section>header>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.panels section>header>small{flex:0 0 auto;white-space:nowrap}
+.panels textarea{width:100%;min-width:0;box-sizing:border-box}
+@media(max-width:780px){.panels{grid-template-columns:1fr}.panels section>header{gap:8px}}
