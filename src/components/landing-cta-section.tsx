@@ -14,8 +14,8 @@ export function LandingCtaSection() {
         <h2 id="landing-cta-title">Build with clarity.<br />Ship with <em>confidence.</em></h2>
         <p>Stop stitching together one-off utilities. DevHub brings your everyday developer transformations into a thoughtful, local-first workspace.</p>
         <div className={styles.actions}>
-          <Link className="button primary large" href="/dashboard">Open toolkit <ArrowRight size={16} /></Link>
-          <Link className="button secondary large" href="/tools">Explore features</Link>
+          <Link className="button primary large" href="/tools">Browse all tools <ArrowRight size={16} /></Link>
+          <Link className="button secondary large" href="/dashboard">Open workspace</Link>
         </div>
         <div className={styles.proof} aria-label="DevHub product facts">
           <div className={styles.fact}><span className={styles.factIcon}><Layers3 size={14} /></span><span><strong>{readyTools} ready tools</strong><small>Available today</small></span></div>

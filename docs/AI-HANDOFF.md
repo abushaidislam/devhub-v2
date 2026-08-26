@@ -7,7 +7,7 @@
 ## Stable branch state
 
 - `main` includes automated release metadata at `v0.6.2`.
-- Production: `https://devhub-toolkit-v2.vercel.app`
+- Production: `https://devlove.flinkeo.online`
 
 ## Current delivery
 
@@ -368,3 +368,16 @@ Audited all 41 application routes represented by the route inventory, including 
 Two real issues were fixed during the audit. The closed mobile navigation drawer is now inert and `aria-hidden` while off-canvas, preventing keyboard focus from reaching hidden links while preserving open/close focus return. The tools index no longer shows a dead Filter button with no handler; the category filters remain visible and now wrap on narrow screens instead of extending beyond the viewport.
 
 Validation after the audit fixes: typecheck passed; lint passed with the repository’s existing warnings and zero errors; full unit suite passed with 36 files / 210 tests; production build passed and generated 54 pages; existing desktop/mobile E2E passed with 8 passed and 2 skipped; focused mobile navigation check confirmed correct focus return to `Open navigation`; final route audit reported 0 genuine issue rows.
+
+
+## SEO canonical and discoverability fix checkpoint — August 2026
+
+### Scope
+
+Branch `fix/seo-canonical-domain` updates the canonical origin fallback to `https://devlove.flinkeo.online`, refreshes package/README/handoff links, points source links to `https://github.com/abushaidislam/devhub-v2`, and removes the retired hostname from LLM discovery routes and the QR sample. Public header, homepage, landing CTA, and footer actions now favor the indexable `/tools` directory while preserving `/dashboard` as the workspace route.
+
+Public tools and trust/documentation pages emit route-specific Open Graph metadata. Favorites, recent, and offline noindex routes declare explicit canonicals. The canonical tool registry contains unique meta descriptions and visible tool-specific SEO guidance, and category pages render category-specific explanatory copy. The route-level SEO contract remains registry-driven and no new parallel tool inventory was introduced. The Open Graph image route now returns a valid 1200×630 PNG.
+
+### Validation
+
+`npm run context:check`, `npm run typecheck`, `npm run lint`, `npm run test` (36 files, 210 passed), `npm run build` (54 static pages), `CI=1 npm run test:e2e` (8 passed, 2 intentionally skipped), `npm run release:validate`, and `git diff --check` pass. Local endpoint checks confirm current-host canonical tags, robots, sitemap, noindex application routes, and a valid Open Graph image response.

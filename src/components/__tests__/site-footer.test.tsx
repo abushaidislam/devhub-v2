@@ -9,11 +9,11 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("contentinfo")).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Footer navigation" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /make the next task/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /open the toolkit/i })).toHaveAttribute("href", "/dashboard");
+    expect(screen.getByRole("link", { name: /browse all tools/i })).toHaveAttribute("href", "/tools");
     expect(screen.getByRole("link", { name: /privacy/i })).toHaveAttribute("href", "/privacy");
     expect(screen.getByRole("link", { name: /github/i })).toHaveAttribute(
       "href",
-      "https://github.com/Sayed-Saa-new/devhub-toolkit-v2",
+      "https://github.com/abushaidislam/devhub-v2",
     );
   });
 });
