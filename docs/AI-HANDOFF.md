@@ -215,3 +215,30 @@ The old generic landing CTA was replaced with the new centered badge, highlighte
 ### Next recommended task
 
 Publish the feature branch through the repository's preferred review/deployment flow after confirming the CTA copy and visual density on 390px mobile and 1440px desktop.
+
+
+## Favorite icon UX fix checkpoint
+
+### Scope completed
+
+- Updated `src/components/ui/button.tsx` so `Button` and `ButtonLink` omit the empty content wrapper when they are icon-only controls. This keeps the flex layout centered instead of shifting the icon toward the prefix side.
+- Added regression coverage in `src/components/ui/__tests__/p1-components.test.tsx` for icon-only buttons and links.
+
+### Validation
+
+- Focused Vitest coverage: 2 files, 8 tests passed.
+- Full Vitest suite: 35 files, 208 tests passed.
+- TypeScript, lint, and production build passed; lint reported only the repository's existing unused-parameter warnings.
+- Playwright desktop and mobile flows: 8 passed, 2 skipped.
+
+### Review notes
+
+The change preserves the existing 44px favorite touch target, accessible `aria-label`, `aria-pressed` state, hover treatment, focus ring, and active state. No product behavior or persistence logic changed.
+
+### Working branch
+
+- `fix/favorite-icon-ux`
+
+### Next step
+
+Push the focused branch and open a review request when ready.

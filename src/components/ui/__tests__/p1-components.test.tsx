@@ -4,10 +4,22 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { Badge, StatusDot } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 
 describe("P1 UI primitives", () => {
+  it("centers icon-only buttons and links without an empty content item", () => {
+    render(
+      <>
+        <Button type="button" aria-label="Add favorite" prefix={<svg data-testid="button-icon" aria-hidden="true" />} />
+        <ButtonLink href="/repository" aria-label="Open repository" prefix={<svg data-testid="link-icon" aria-hidden="true" />} />
+      </>,
+    );
+
+    expect(screen.getByRole("button", { name: "Add favorite" }).querySelectorAll("span")).toHaveLength(1);
+    expect(screen.getByRole("link", { name: "Open repository" }).querySelectorAll("span")).toHaveLength(1);
+  });
+
   it("keeps a loading button disabled and announces busy state", () => {
     render(<Button loading>Deploy project</Button>);
     const button = screen.getByRole("button", { name: "Loading…" });
