@@ -49,7 +49,7 @@ export const AI_PROVIDER_PRESETS: readonly AiProviderPreset[] = [
     id: "gemini",
     label: "Google Gemini (AI Studio)",
     baseUrl: "https://generativelanguage.googleapis.com/v1beta",
-    defaultModel: "gemini-2.0-flash",
+    defaultModel: "gemini-flash-latest",
     hosted: true,
     keyRequired: true,
     hint: "Use a Gemini API key from Google AI Studio. Free-tier quota applies.",
@@ -183,8 +183,14 @@ export function readAiConfig(): AiProviderConfig | undefined {
     const result = validateAiConfig(parsed);
     if (!result.ok) return undefined;
     // Keep older saved Gemini setups working as model aliases change.
-    if (result.value.providerId === "gemini" && result.value.model === "gemini-2.5-flash") {
-      return { ...result.value, model: "gemini-flash-latest" };
+    if (result.value.providerId === "gemini") {
+      const legacyGeminiModels = new Set([
+        "gemini-2.0-flash",
+        "gemini-2.5-flash",
+      ]);
+      if (legacyGeminiModels.has(result.value.model)) {
+        return { ...result.value, model: "gemini-flash-latest" };
+      }
     }
     return result.value;
   } catch {
