@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/abushaidislam/devhub-v2/compare/v0.13.5...v0.14.0) (2026-08-26)
+
+
+### Features
+
+* **motion:** add semantic transition tokens and polish animations ([#50](https://github.com/abushaidislam/devhub-v2/issues/50)) ([052a3a4](https://github.com/abushaidislam/devhub-v2/commit/052a3a4bbdb880c3d9cecc8c5359e36069b0ea2f))
+
 ## [0.13.5](https://github.com/abushaidislam/devhub-v2/compare/v0.13.4...v0.13.5) (2026-08-26)
 
 

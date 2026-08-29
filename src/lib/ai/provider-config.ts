@@ -49,7 +49,7 @@ export const AI_PROVIDER_PRESETS: readonly AiProviderPreset[] = [
     id: "gemini",
     label: "Google Gemini (AI Studio)",
     baseUrl: "https://generativelanguage.googleapis.com/v1beta",
-    defaultModel: "gemini-flash-latest",
+    defaultModel: "gemini-2.0-flash",
     hosted: true,
     keyRequired: true,
     hint: "Use a Gemini API key from Google AI Studio. Free-tier quota applies.",
