@@ -2,6 +2,7 @@
 
 ## Working branch
 
+- `fix/gemini-default-model` — aligns the Gemini AI Studio default model with the provider-config test so Vercel `prebuild` can pass.
 - `main` — includes the v0.6.2 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
 
 ## Stable branch state
@@ -411,3 +412,12 @@ No new route, network request, persistence behavior, processing logic, or runtim
 ### Next step
 
 Reconfirm the final build exit code, perform the desktop/mobile keyboard and reduced-motion review, then commit the focused visual change on `feat/polish-transitions`.
+
+
+## Gemini default model alignment — August 2026
+
+Vercel `pnpm run build` failed in `prebuild` because `createDefaultAiConfig("gemini")` returned `gemini-2.0-flash` while the unit test expected the Google AI Studio alias `gemini-flash-latest`. The Gemini preset default now uses `gemini-flash-latest`. Stored configs that still name `gemini-2.0-flash` or `gemini-2.5-flash` are aliased to that same model on read. No BYOK, storage, or request-path change.
+
+### Next step
+
+Commit and push `fix/gemini-default-model` so Vercel can rebuild `main` after merge.
