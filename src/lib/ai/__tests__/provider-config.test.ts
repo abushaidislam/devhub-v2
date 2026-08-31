@@ -50,6 +50,18 @@ describe("ai provider config", () => {
     }).ok).toBe(true);
   });
 
+  it("aliases retired Gemini model names when reading stored config", () => {
+    const stored = {
+      schemaVersion: 1,
+      providerId: "gemini",
+      baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+      model: "gemini-2.0-flash",
+      apiKey: "gemini-test-key",
+    };
+    localStorage.setItem(AI_CONFIG_STORAGE_KEY, JSON.stringify(stored));
+    expect(readAiConfig()?.model).toBe("gemini-flash-latest");
+  });
+
   it("allows keyless local providers and trims trailing slashes", () => {
     const result = validateAiConfig({
       providerId: "ollama",
