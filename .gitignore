@@ -18,3 +18,4 @@ out
 *.tsbuildinfo
 artifacts
 *.github/prompts
+*cursor/skills
