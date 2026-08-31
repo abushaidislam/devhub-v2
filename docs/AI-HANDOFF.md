@@ -2,25 +2,8 @@
 
 ## Working branch
 
-- `feat/geist-vercel-light` — light Geist canvas from `referances/DESIGN-vercel (1).md`.
-- `main` — previous release baseline.
-
-## Latest checkpoint — workspace hover/chrome polish
-
-Fixed leftover dark-theme chips on the light canvas and aligned dashboard interaction with `referances/DESIGN-vercel (1).md`.
-
-- Smart input detector header icon, suggestion icons, and `kbd` hints now use hairline wells and ink glyphs instead of `#111` / `#ededed`.
-- Detector panel, sample chips, and suggestion rows use whisper/float/press shadows (no heavy black drop).
-- Dashboard tool cards: flat hairline default, `--shadow-float` + 1px lift on hover, press inset on the card link only.
-- Workspace topbar is a three-column grid so the centered H1 no longer overlaps crumb/search; search and Landing page collapse in steps at 1100 / 780 / 620 / 480.
-
-### Next step
-
-Validate All Tools at 1440, 1024, and 390: detector icon contrast, card hover/press, and topbar no-overlap. Then commit the visual change on the Geist branch.
-
-## Current visual system
-
-Landing and workspace use a near-white canvas (`#fafafa`), ink (`#171717`), hairline cards (`#ebebeb`), 6px app controls, marketing pill CTAs, and a hero-only mesh gradient. Semantic tokens live in `src/app/globals.css`.
+- `fix/gemini-default-model` — aligns the Gemini AI Studio default model with the provider-config test so Vercel `prebuild` can pass.
+- `main` — includes the v0.6.2 release with 24 local tools, Phase 2 workflows, and Phase 3 AI assistance.
 
 ## Stable branch state
 
@@ -429,3 +412,12 @@ No new route, network request, persistence behavior, processing logic, or runtim
 ### Next step
 
 Reconfirm the final build exit code, perform the desktop/mobile keyboard and reduced-motion review, then commit the focused visual change on `feat/polish-transitions`.
+
+
+## Gemini default model alignment — August 2026
+
+Vercel `pnpm run build` failed in `prebuild` because `createDefaultAiConfig("gemini")` returned `gemini-2.0-flash` while the unit test expected the Google AI Studio alias `gemini-flash-latest`. The Gemini preset default now uses `gemini-flash-latest`. Stored configs that still name `gemini-2.0-flash` or `gemini-2.5-flash` are aliased to that same model on read. No BYOK, storage, or request-path change.
+
+### Next step
+
+Commit and push `fix/gemini-default-model` so Vercel can rebuild `main` after merge.
