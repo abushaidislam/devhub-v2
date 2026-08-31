@@ -18,5 +18,5 @@
 .field input:disabled{cursor:not-allowed}
 .invalid{border-color:#9b2c2c}
 .invalid:focus-within{box-shadow:0 0 0 3px #ef6b7322}
-.error{margin:0;color:#ffb4b4;font-size:var(--font-size-copy-sm);line-height:var(--line-height-copy-tight)}
+.error{margin:0;color:var(--error-deep);font-size:var(--font-size-copy-sm);line-height:var(--line-height-copy-tight)}
 @media(prefers-reduced-motion:reduce){.field{transition:none}}

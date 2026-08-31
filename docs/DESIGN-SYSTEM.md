@@ -1,6 +1,6 @@
 # Design system
 
-DevHub uses a restrained Vercel-inspired application language. The goal is consistency and usability, not pixel-copying another product.
+DevHub uses a restrained Geist application language drawn from `referances/DESIGN-vercel (1).md`. The goal is a light ink-on-canvas system with hairline cards, not a pixel copy of Vercel and not a black canvas.
 
 ## Brand mark
 
@@ -50,6 +50,27 @@ Do not globally increase font weight to solve contrast. Emphasis must follow inf
 
 ## Core colors
 
+Source: `referances/DESIGN-vercel (1).md` (Geist marketing/app analysis). The application now uses the light ink-on-canvas system, not a black canvas.
+
+| Token | Value | Use |
+| --- | --- | --- |
+| Canvas | `#fafafa` | Page and workspace background |
+| Elevated | `#ffffff` | Cards, inputs, menus, editors |
+| Ink | `#171717` | Headings, primary CTAs, focus ring |
+| Body | `#4d4d4d` | Paragraphs, nav, secondary copy |
+| Mute | `#8f8f8f` | Captions, metadata |
+| Faint | `#a1a1a1` | Placeholders |
+| Hairline | `#ebebeb` | Cards, inputs, dividers |
+| Hairline-soft | `#f2f2f2` | Hover wells and inset fills |
+| Link | `#0070f3` | Links, selected options, accent |
+| Cyan | `#50e3c2` | Local-processing status |
+| Error | `#ee0000` | User-facing processing errors |
+| Warning | `#f5a623` | Caution states |
+
+Color is confined to the landing hero mesh gradient (cyan / blue / violet / magenta / amber) and small status accents. Do not fill chrome with accent colors.
+
+## Content hierarchy
+
 | Token | Value | Use |
 | --- | --- | --- |
 | Canvas | `#000000` | Main background |
@@ -93,9 +114,10 @@ The first category is expanded on the All Tools workspace. On a tool page, the a
 
 ## Application topbar
 
-- Height: 58px with a sticky blurred canvas and bottom border.
-- The current page name is the centered semantic H1.
+- Height: 58px with a sticky blurred canvas and bottom hairline.
+- Layout is a three-column grid (`1fr / auto / 1fr`) so the semantic H1 stays centered without overlapping the crumb or actions.
 - Breadcrumb/navigation controls remain left-aligned and global actions remain right-aligned.
+- Search is a flex field (max 240px) that drops the `⌘K` hint below 1100px, hides the landing-page control below 780px, and collapses to a 36px icon below 620px. Touch targets grow to 44px below 480px.
 - Center titles truncate rather than collide with left or right controls.
 - Workspace pages must not repeat the page title as a large content H1; use a compact context row for label, description, counts, or filters.
 
@@ -158,14 +180,15 @@ Native dropdowns use context-local dark control treatments so each web surface c
 
 - Use one flat grid on All Tools; categories remain metadata and sidebar navigation.
 - Three columns desktop, two tablet, one mobile.
-- Default surface: `#090909`, `#303030` border, subtle inset top highlight.
-- Hover: `#111111` surface, `#555555` border, one-pixel lift, and restrained shadow.
-- Keyboard focus: white border plus a one-pixel outer white ring; the card link must not show a competing second outline.
-- Tool title: white, weight 650.
-- Description: `#b5b5b5`, weight 450, line height 1.55.
-- Category metadata: `#a1a1a1`, weight 600, uppercase.
-- Tool icon: `#151515` surface, `#3a3a3a` border, near-white icon.
-- Favorite remains a separate 30px interactive target with its own visible focus ring.
+- Default surface: elevated white, `#ebebeb` hairline, no shadow (Geist level 0).
+- Hover: same white surface, `#d4d4d4` border, one-pixel lift, and `--shadow-float` (layered low-alpha stack). Do not use heavy black drop shadows.
+- Active/press on the card link: lift cancelled, `--shadow-press` inset. Favorite clicks must not press the whole card.
+- Keyboard focus: ink border plus a one-pixel outer ink ring; the card link must not show a competing second outline.
+- Tool title: ink, weight 650.
+- Description: `#4d4d4d`, weight 450, line height 1.55.
+- Category metadata: `#a1a1a1`, weight 600.
+- Tool icon: `#f2f2f2` well, `#ebebeb` hairline, ink glyph; hover brightens the well to white.
+- Favorite remains a separate 44px interactive target with its own visible focus ring.
 - Empty-state titles use strong text; empty-state guidance uses content text rather than passive gray.
 
 ## Tool runtime and editors
@@ -182,6 +205,9 @@ Native dropdowns use context-local dark control treatments so each web surface c
 
 ## Detector panel
 
+- Header mark is a 32px hairline well (`#f2f2f2` fill, `#ebebeb` border, ink glyph). Do not leave a dark `#111` chip on the light canvas.
+- Keyboard hint `kbd` chips use the hairline-soft well, not a dark inset.
+- Suggestion rows and sample chips follow the same hover/press contract as tool cards: hairline → float shadow + 1px lift → press inset.
 - Use one bounded textarea with an explicit accessible label and character count.
 - Display a visible local-only disclosure before input.
 - Resolve suggestion identity and icons from the canonical tool registry.
@@ -268,7 +294,7 @@ The following elements receive the same uniform transition on `background-color`
 | Element | Hover | Active / Press |
 | --- | --- | --- |
 | `.button` / `.icon-button` | Surface `#0e0e0e → #151515`, border `#3a3a3a → #5a5a5a`, text → white | `transform: scale(.985)` |
-| Tool card (dashboard grid) | Surface `#090909 → #0d0d0d`, border `#303030 → #555`, `translateY(-2px)`, soft 8–28px shadow | – |
+| Tool card (dashboard grid) | Hairline `#ebebeb → #d4d4d4`, `translateY(-1px)`, `--shadow-float` | Card link press uses `--shadow-press` |
 | Tool card (landing grid) | `translateY(-1px)`, border `#555`, inset highlight + shadow | `:focus-within` adds full white border + outer ring |
 | Primary / category sidebar row | Background `#151515`, `translateX(2px)` (desktop) | Left 2px `#ededed` light-bar + inset box-shadow on active |
 | Category list row | Background `#080808`, chevron `translateX(4px)` on landing, arrow `translateX(2px)` in activity | – |

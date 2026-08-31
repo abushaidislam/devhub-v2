@@ -2,10 +2,10 @@
 
 .primary a,.primary button,.scroll summary,.toolChildren a,.workspaceIdentity strong,.pageTitle,.crumb{letter-spacing:-.3px}
 .primary a,.primary button,.scroll summary{font-size:14px;line-height:20px}
-.primary a[data-active=true],.primary button[data-active=true],.scroll summary:hover,.primary a:hover,.primary button:hover,.toolChildren a[data-active=true]{color:#ededed}
+.primary a[data-active=true],.primary button[data-active=true],.scroll summary:hover,.primary a:hover,.primary button:hover,.toolChildren a[data-active=true]{color:var(--ink)}
 
 /* Sidebar hierarchy and Vercel-style linework. */
-.sidebar{isolation:isolate;border-right-color:#1f1f1f;box-shadow:1px 0 0 #ffffff08}.sidebar:after{content:"";position:absolute;top:0;right:-1px;z-index:-1;width:1px;height:100%;background:linear-gradient(180deg,transparent 3%,#ffffff33 22%,#ffffff12 72%,transparent);pointer-events:none}.workspaceSwitcher{position:relative;background:linear-gradient(180deg,#0a0a0a 0%,#000 100%)}.workspaceSwitcher:after{content:"";position:absolute;right:14px;bottom:0;left:14px;height:1px;background:linear-gradient(90deg,transparent,#303030 18%,#303030 82%,transparent)}.workspaceLogo{box-shadow:0 0 0 1px #ffffff1a,0 6px 16px #0008}.workspaceIdentity>span{background:#111;color:#a1a1a1;box-shadow:inset 0 0 0 1px #2a2a2a}.primary{gap:3px;padding-top:8px}.sectionLabel{position:relative;display:flex;align-items:center;gap:8px;color:#71717a}.sectionLabel:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,#303030,transparent)}.primary a,.primary button,.scroll summary,.toolChildren a{transition:color .16s var(--ease),background-color .16s var(--ease),transform .16s var(--ease),box-shadow .16s var(--ease)}.primary a:hover,.primary button:hover,.scroll summary:hover,.toolChildren a:hover{transform:translateX(2px)}.primary a[data-active=true],.primary button[data-active=true]{position:relative;background:linear-gradient(90deg,#1a1a1a,#121212);box-shadow:inset 1px 0 #ededed}.primary a[data-active=true]:before,.primary button[data-active=true]:before{content:"";position:absolute;top:10px;left:-10px;width:2px;height:20px;border-radius:0 2px 2px 0;background:#ededed;box-shadow:0 0 14px #ffffff88}.divider{margin:14px 10px 10px;background:linear-gradient(90deg,transparent,#303030 16%,#303030 84%,transparent)}.toolChildren{border-left:1px solid #242424;margin:2px 0 7px 20px;padding-left:10px}.toolChildren a[data-active=true]:before{left:-11px;height:18px;box-shadow:0 0 12px #ffffff80}.sidebar footer{background:linear-gradient(0deg,#090909,#000);border-top-color:#202020}.sidebar footer a:hover,.sidebar footer button:hover{transform:translateY(-1px)}/* Keep the persistent shell spatially stable across route changes. DashboardShell is mounted by each workspace page, so a mount animation would replay when navigating between tools. */@media(prefers-reduced-motion:reduce){.primary a:hover,.primary button:hover,.scroll summary:hover,.toolChildren a:hover,.sidebar footer a:hover,.sidebar footer button:hover{transform:none}}
+.sidebar{isolation:isolate;border-right-color:var(--hairline);box-shadow:none}.sidebar:after{display:none}.workspaceSwitcher{position:relative;background:var(--canvas)}.workspaceSwitcher:after{content:"";position:absolute;right:14px;bottom:0;left:14px;height:1px;background:var(--hairline)}.workspaceLogo{box-shadow:0 0 0 1px var(--hairline)}.workspaceIdentity>span{background:var(--hairline-soft);color:var(--body-copy);box-shadow:inset 0 0 0 1px var(--hairline)}.primary{gap:3px;padding-top:8px}.sectionLabel{position:relative;display:flex;align-items:center;gap:8px;color:var(--mute)}.sectionLabel:after{content:"";height:1px;flex:1;background:var(--hairline)}.primary a,.primary button,.scroll summary,.toolChildren a{transition:color .16s var(--ease),background-color .16s var(--ease),transform .16s var(--ease),box-shadow .16s var(--ease)}.primary a:hover,.primary button:hover,.scroll summary:hover,.toolChildren a:hover{transform:translateX(2px)}.primary a[data-active=true],.primary button[data-active=true]{position:relative;background:var(--hairline-soft);box-shadow:inset 1px 0 var(--ink)}.primary a[data-active=true]:before,.primary button[data-active=true]:before{content:"";position:absolute;top:10px;left:0;width:2px;height:20px;border-radius:0 2px 2px 0;background:var(--ink);box-shadow:none}.divider{margin:14px 10px 10px;background:var(--hairline)}.toolChildren{border-left:1px solid var(--hairline);margin:2px 0 7px 20px;padding-left:10px}.toolChildren a[data-active=true]:before{left:-11px;height:18px;box-shadow:none}.sidebar footer{background:var(--canvas);border-top-color:var(--hairline)}.sidebar footer a:hover,.sidebar footer button:hover{transform:translateY(-1px)}/* Keep the persistent shell spatially stable across route changes. DashboardShell is mounted by each workspace page, so a mount animation would replay when navigating between tools. */@media(prefers-reduced-motion:reduce){.primary a:hover,.primary button:hover,.scroll summary:hover,.toolChildren a:hover,.sidebar footer a:hover,.sidebar footer button:hover{transform:none}}
 .content{max-width:1220px;width:100%;margin-inline:auto}
 
 @media(max-width:480px){.menu,.collapse,.workspaceSwitcher>button,.topActions button,.topActions a,.sidebar footer a{min-width:44px;min-height:44px}.primary a,.scroll summary{min-height:44px}.toolChildren a{min-height:40px}.topbar{min-height:64px}}
@@ -24,11 +24,40 @@
 .primary small,.scroll summary small,.sidebar footer small{color:var(--text-tertiary)}
 .sectionLabel{color:var(--text-tertiary);text-transform:none;letter-spacing:var(--tracking-label)}
 .sidebar footer{border-top-color:var(--border);background:var(--surface-0)}
-.topbar{border-bottom-color:var(--border);background:#000e}
-.topbar button,.home,.search{border-color:var(--border-strong);border-radius:var(--radius-sm);background:linear-gradient(180deg,#111 0%,var(--surface-1) 100%);color:var(--text-secondary);box-shadow:inset 0 1px #ffffff14,0 1px 2px #0009;transition:background var(--duration-quick) var(--ease-smooth-out),border-color var(--duration-quick) var(--ease-smooth-out),color var(--duration-quick) var(--ease-smooth-out),box-shadow var(--duration-quick) var(--ease-smooth-out),transform var(--duration-quick) var(--ease-smooth-out)}
-.topbar button:hover,.home:hover,.search:hover{border-color:#686868;background:linear-gradient(180deg,#181818 0%,#101010 100%);color:var(--text-primary);box-shadow:inset 0 1px #ffffff1c,0 7px 18px -14px #000;transform:translateY(-1px)}
-.topbar button:active,.home:active,.search:active{transform:translateY(0) scale(.985);box-shadow:inset 0 2px 4px #0008,0 1px 1px #000}
+.topbar{border-bottom-color:var(--border);background:rgba(250,250,250,.88)}
+.topbar button,.home,.search{border-color:var(--border-strong);border-radius:var(--radius-sm);background:var(--control-fill);color:var(--text-secondary);box-shadow:var(--shadow-whisper);transition:background var(--duration-quick) var(--ease-smooth-out),border-color var(--duration-quick) var(--ease-smooth-out),color var(--duration-quick) var(--ease-smooth-out),box-shadow var(--duration-quick) var(--ease-smooth-out),transform var(--duration-quick) var(--ease-smooth-out)}
+.topbar button:hover,.home:hover,.search:hover{border-color:#686868;background:var(--control-fill-hover);color:var(--text-primary);box-shadow:var(--shadow-float);transform:translateY(-1px)}
+.topbar button:active,.home:active,.search:active{transform:translateY(0) scale(.985);box-shadow:var(--shadow-press)}
 .search kbd{border-color:var(--border-subtle);background:var(--surface-active);color:var(--text-secondary)}
 .backdrop{background:#000b}
-.primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible,.topbar button:focus-visible,.home:focus-visible,.search:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;box-shadow:inset 0 0 0 1px #ffffff4a,0 0 0 4px #ffffff1f,0 8px 20px -14px #fff5}
+.primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible,.topbar button:focus-visible,.home:focus-visible,.search:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;box-shadow:inset 0 0 0 1px rgba(23,23,23,.08),var(--focus-glow)}
 @media(max-width:480px){.menu,.collapse,.workspaceSwitcher>button,.topActions button,.topActions a,.sidebar footer a{min-width:44px;min-height:44px}}
+
+.scroll{scrollbar-color:#d4d4d4 transparent}
+.scroll::-webkit-scrollbar-thumb{background:#d4d4d4}
+.avatar{background:var(--ink);color:#fff}
+.favoriteMark,.sidebar footer strong{color:var(--ink)}
+.primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible{outline-color:var(--ink)}
+.backdrop{background:rgba(23,23,23,.28)}
+.topbar button:hover,.home:hover,.search:hover{border-color:var(--border-hover)}
+
+/* Centered title without overlap; search/actions shrink before colliding */
+.topbar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto) minmax(0,1fr);align-items:center;gap:10px;padding:0 16px 0 12px;border-bottom-color:var(--hairline);background:rgba(250,250,250,.88)}
+.topLead,.topActions{display:flex;align-items:center;gap:8px;min-width:0}
+.topLead{justify-self:start}
+.topActions{justify-self:end;justify-content:flex-end}
+.pageTitle{position:static;left:auto;max-width:100%;margin:0;transform:none;justify-self:center;overflow:hidden;color:var(--ink);font-size:13px;line-height:18px;font-weight:600;letter-spacing:-.3px;text-overflow:ellipsis;white-space:nowrap}
+.crumb{min-width:0;color:var(--body-copy)}
+.crumb span{color:var(--mute)}
+.search{width:auto!important;max-width:240px;min-width:0;flex:1 1 160px;height:32px;padding:0 8px 0 10px;border-color:var(--hairline);background:var(--canvas-elevated);color:var(--body-copy);box-shadow:var(--shadow-whisper)}
+.search span{min-width:0}
+.search kbd{flex:none;margin-left:8px;border-color:var(--hairline);background:var(--hairline-soft);color:var(--mute)}
+.home{flex:none;height:32px;padding:0 10px;font-size:12px;letter-spacing:-.3px}
+.topbar .menu,.topbar .collapse,.topbar .drawerClose{width:32px;height:32px;min-height:32px;padding:0}
+@media(max-width:1100px){.search{flex-basis:140px}.search kbd{display:none}}
+@media(max-width:900px){.topbar{padding:0 12px}.crumb{display:none}.pageTitle{max-width:100%}.search{max-width:200px}}
+@media(max-width:780px){.home{display:none}.search{max-width:180px}}
+@media(max-width:620px){.topbar{grid-template-columns:minmax(0,1fr) minmax(0,auto) auto;padding:0 10px;gap:8px}.search{width:36px!important;max-width:36px;flex:none;padding:0;justify-content:center!important}.search span,.search kbd{display:none}.pageTitle{font-size:13px}}
+@media(max-width:480px){.topbar{min-height:58px}.topbar .menu,.search{width:44px!important;height:44px;min-height:44px;max-width:44px}}
+@media(prefers-reduced-motion:reduce){.topbar button,.home,.search{transition:none}}
+
