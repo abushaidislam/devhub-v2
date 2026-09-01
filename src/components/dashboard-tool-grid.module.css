@@ -39,17 +39,17 @@
 
 /* Geist feature-card: hairline first, whisper/float on hover, press inset */
 .card{border-color:var(--hairline);border-radius:var(--radius-md);background:var(--canvas-elevated);box-shadow:none}
-.card:hover{border-color:var(--border-hover);background:#fff;transform:translateY(-1px);box-shadow:var(--shadow-float)}
+.card:hover{border-color:var(--border-hover);background:var(--surface-bright);transform:translateY(-1px);box-shadow:var(--shadow-float)}
 .card:has(> a:active){transform:translateY(0);box-shadow:var(--shadow-press)}
-.card:focus-within{border-color:var(--focus-ring);background:#fff;box-shadow:0 0 0 1px var(--focus-ring),var(--shadow-whisper)}
+.card:focus-within{border-color:var(--focus-ring);background:var(--surface-bright);box-shadow:0 0 0 1px var(--focus-ring),var(--shadow-whisper)}
 .icon{border-color:var(--hairline);background:var(--hairline-soft);color:var(--ink)}
-.card:hover .icon{border-color:var(--border-hover);background:#fff}
+.card:hover .icon{border-color:var(--border-hover);background:var(--surface-bright)}
 .card strong{color:var(--ink)}
 .card p{color:var(--body-copy)}
 .favoriteButton{border-color:var(--hairline)!important;background:var(--canvas-elevated)!important;color:var(--mute)!important;box-shadow:var(--shadow-whisper)}
-.favoriteButton:hover:not(:disabled){border-color:var(--border-hover)!important;background:#fff!important;color:var(--ink)!important;box-shadow:var(--shadow-float)}
+.favoriteButton:hover:not(:disabled){border-color:var(--border-hover)!important;background:var(--surface-bright)!important;color:var(--ink)!important;box-shadow:var(--shadow-float)}
 .favoriteButton:active:not(:disabled){box-shadow:var(--shadow-press)}
-.favoriteButton[data-active=true]{border-color:var(--ink)!important;background:var(--ink)!important;color:#fff!important;box-shadow:var(--shadow-whisper)}
+.favoriteButton[data-active=true]{border-color:var(--ink)!important;background:var(--ink)!important;color:var(--on-ink)!important;box-shadow:var(--shadow-whisper)}
 .empty a,.starters a{border-color:var(--hairline);background:var(--canvas-elevated);box-shadow:var(--shadow-whisper)}
-.empty a:hover,.starters a:hover{border-color:var(--border-hover);background:#fff;box-shadow:var(--shadow-float)}
+.empty a:hover,.starters a:hover{border-color:var(--border-hover);background:var(--surface-bright);box-shadow:var(--shadow-float)}
 @media(prefers-reduced-motion:reduce){.card:hover,.card:active{transform:none}}

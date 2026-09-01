@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Github, Search } from "lucide-react";
 import { Logo } from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 import { ButtonLink } from "./ui/button";
 
 export function SiteHeader() {
@@ -19,6 +20,7 @@ export function SiteHeader() {
             <span>Search tools</span>
             <kbd>⌘K</kbd>
           </Link>
+          <ThemeToggle size="medium" />
           <ButtonLink
             href="https://github.com/abushaidislam/devhub-v2"
             variant="tertiary"

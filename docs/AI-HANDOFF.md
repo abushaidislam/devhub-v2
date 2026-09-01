@@ -23,7 +23,7 @@ All Phases 0–3 are implemented. Phase 4 (Distribution) is planned but not star
 - `DashboardShell` app shell with sidebar, mobile drawer, centered semantic page titles.
 - Favorites localStorage store with event sync.
 - Command palette (`Cmd/Ctrl + K`) with keyboard navigation.
-- Responsive Geist light canvas (ink, hairline, hero mesh).
+- Responsive Geist light/dark canvas (ink, hairline, hero mesh) with persisted theme toggle.
 - Agent context, handoff system, and 13 documentation files under `docs/`.
 - Vitest + React Testing Library + Playwright foundations; CI workflows in `.github/workflows/`.
 - Public trust routes: `/privacy`, `/security`, `/ai-data-policy`, `/docs`, `/accessibility`, `/changelog`.
