@@ -12,8 +12,8 @@
 .content h2 em{color:var(--body-copy);font-style:italic}
 .content>p{max-width:520px;margin:24px auto 32px;color:var(--body-copy);font-size:16px;line-height:1.6}
 .actions{display:flex;align-items:center;justify-content:center;gap:10px}
-.actions .primary{background:var(--ink)!important;border-color:var(--ink)!important;color:#fff!important;border-radius:var(--radius-pill)!important}
-.actions .primary:hover{background:#000!important;border-color:#000!important}
+.actions .primary{background:var(--btn-primary-bg)!important;border-color:var(--btn-primary-border)!important;color:var(--btn-primary-fg)!important;border-radius:var(--radius-pill)!important}
+.actions .primary:hover{background:var(--btn-primary-hover-bg)!important;border-color:var(--btn-primary-hover-bg)!important;color:var(--btn-primary-hover-fg)!important}
 .proof{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:34px}
 .fact{display:flex;align-items:center;gap:9px;text-align:left}
 .factIcon{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--hairline);border-radius:7px;background:#fff;color:var(--body-copy)}

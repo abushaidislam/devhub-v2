@@ -392,9 +392,9 @@
 }
 
 .rowActions button[aria-expanded="true"] {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--on-ink);
+  border-color: var(--btn-primary-border);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
 }
 
 .rowActions button:active:not(:disabled),

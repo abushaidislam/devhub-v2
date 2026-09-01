@@ -11,7 +11,7 @@
 .red{background:#fff1f1;border-color:#ffc9c9;color:var(--error-deep)}
 .pink{background:#ffe8f3;border-color:#ffc2e0;color:#ff0080}
 .low{opacity:.72}
-.inverted{background:var(--ink);border-color:var(--ink);color:#fff}
+.inverted{background:var(--btn-primary-bg);border-color:var(--btn-primary-border);color:var(--btn-primary-fg)}
 .icon{display:inline-flex;align-items:center;justify-content:center;flex:none}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#777;box-shadow:0 0 0 3px #7772}
 .dot-neutral{background:#8f8f8f;box-shadow:0 0 0 3px #8f8f8f22}

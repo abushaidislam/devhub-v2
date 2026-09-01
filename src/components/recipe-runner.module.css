@@ -146,16 +146,16 @@
 }
 
 .actions .run {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--on-ink);
+  border-color: var(--btn-primary-border);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
   box-shadow: var(--shadow-whisper);
 }
 
 .actions .run:hover:not(:disabled) {
-  border-color: var(--text-strong);
-  background: var(--text-strong);
-  color: var(--on-ink);
+  border-color: var(--btn-primary-hover-bg);
+  background: var(--btn-primary-hover-bg);
+  color: var(--btn-primary-hover-fg);
   box-shadow: var(--shadow-float);
 }
 
