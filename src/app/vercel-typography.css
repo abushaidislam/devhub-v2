@@ -1,1 +1,75 @@
-html,body{font-family:var(--font-geist),-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-feature-settings:"rlig" 1,"calt" 1,"ss01" 1,"ss06" 1;letter-spacing:-.012em}body{font-size:14px;line-height:1.5}button,input,textarea,select{font-family:inherit;letter-spacing:inherit}h1,h2,h3,h4{font-family:var(--font-geist),-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:600;text-wrap:balance}h1{letter-spacing:-.045em}h2{letter-spacing:-.03em}h3,h4{letter-spacing:-.018em}p{letter-spacing:-.006em}.label{font-family:var(--font-geist-mono),"SFMono-Regular",Consolas,monospace;letter-spacing:.09em}kbd,code,pre{font-family:var(--font-geist-mono),"SFMono-Regular",Consolas,monospace}strong{font-weight:600}
+html,
+body {
+  font-family: var(--font-geist, Arial), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss06" 1;
+  letter-spacing: 0;
+}
+
+body {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-geist, Arial), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 48px;
+  letter-spacing: -2.4px;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -1.28px;
+}
+
+h3,
+h4 {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+}
+
+p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+.label,
+.eyebrow {
+  font-family: var(--font-geist-mono, Menlo), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+kbd,
+code,
+pre {
+  font-family: var(--font-geist-mono, Menlo), monospace;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+strong {
+  font-weight: 600;
+}

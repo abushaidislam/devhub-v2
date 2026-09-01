@@ -421,3 +421,27 @@ Vercel `pnpm run build` failed in `prebuild` because `createDefaultAiConfig("gem
 ### Next step
 
 Commit and push `fix/gemini-default-model` so Vercel can rebuild `main` after merge.
+
+
+## Design System Phase 1: SSOT CSS & Tailwind v4 @theme Alignment — September 2026
+
+### Scope completed
+
+- Completed Phase 1 of the Design System refactoring aligning foundational styling with `referances/DESIGN-vercel (1).md` (official SSOT).
+- Injected the comprehensive `@theme` token block in `src/app/globals.css` covering colors (`ink`, `body`, `mute`, `faint`, `hairline`, `canvas`, `link`, `error`, `warning`, `violet`, `cyan`, `pink`, `magenta`, and brand gradients), typography scales, letter spacing pairs (`display-xl` -2.4px, `heading-lg` -1.28px, `heading-md` -0.4px, `label-sm` -0.28px, `mono-eyebrow` 0px, `body` 0px), radii (`sm` 6px, `md` 12px, `lg` 16px, `pill-category` 64px, `pill` 100px, `full` 9999px), spacing tokens, and Geist elevation shadows.
+- Purged legacy duplicate dark CSS from early sections of `globals.css` and established clean, single-pass `:root` and `[data-theme="dark"]` token mapping.
+- Refactored `src/app/vercel-typography.css` to align headings, body, label/eyebrow (12px/16px/500/mono), and code blocks to the exact SSOT specification.
+- Updated `eslint.config.mjs` ignores to exclude helper agent and tool scripts from breaking the core repository lint gate.
+
+### Validation
+
+- `npm run context:check`: passed (14 documents, 30 unique tools).
+- `npm run typecheck`: passed with 0 errors.
+- `npm run lint`: passed with 0 errors (4 pre-existing unused-var warnings in tests/configs).
+- `npm test`: 37 test files and 231 tests passed.
+- `npm run build`: passed; Next.js compiled, type-checked, generated 60 static pages, and finalized build traces.
+
+### Next recommended task
+
+Proceed with Phase 2: Consolidate UI primitives (`src/components/ui/button.module.css`, `badge.module.css`, `search-input.module.css`) to use the SSOT tokens and clean up legacy multi-layer CSS overrides.
+
