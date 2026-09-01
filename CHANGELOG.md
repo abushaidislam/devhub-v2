@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.15.0](https://github.com/abushaidislam/devhub-v2/compare/v0.14.0...v0.15.0) (2026-09-01)
+
+
+### Features
+
+* **logo:** replace Image component with SVG for logo rendering ([03fddf1](https://github.com/abushaidislam/devhub-v2/commit/03fddf1814de8d53ed4e45d1531c09dbd201071e))
+* **provider-config:** update default model for Gemini provider to version 2.0 ([45c3e69](https://github.com/abushaidislam/devhub-v2/commit/45c3e69900bf5538427d7a988eed02ad943bc40c))
+* **styles:** adjust margin for transfer component for improved layout consistency ([d309857](https://github.com/abushaidislam/devhub-v2/commit/d309857422fdaaf9c7b4a89a2a84f6f29772275f))
+* **styles:** enhance command preview and trust strip for better UX ([7a4034d](https://github.com/abushaidislam/devhub-v2/commit/7a4034d5a479142d77dea337eb697f746ff1a74a))
+* **styles:** enhance provider label styles with hover effects and improved color scheme ([bf8ad56](https://github.com/abushaidislam/devhub-v2/commit/bf8ad5612f09a55149da4456598df63ec6613e79))
+* **styles:** enhance smart input detector styles for improved layout and responsiveness ([b4d338d](https://github.com/abushaidislam/devhub-v2/commit/b4d338d8b46dc743e4de952ca3d78950dbf06af1))
+* **styles:** implement Geist light canvas design and update UI components for improved accessibility and consistency ([23d09bd](https://github.com/abushaidislam/devhub-v2/commit/23d09bd142147e54df9c761001af326fef16bfbc))
+* **styles:** update dashboard shell and smart input detector styles for improved layout and responsiveness ([47ed855](https://github.com/abushaidislam/devhub-v2/commit/47ed8559ea2e6ef184e3d7ba017e19f133946c72))
+* **styles:** update tool-ai-assist styles for improved theming and accessibility ([f2fbd9f](https://github.com/abushaidislam/devhub-v2/commit/f2fbd9fde3ae8acf324876f84d358004f0a574ed))
+* **styles:** update workspace transfer styles for improved design and accessibility ([3deb9e1](https://github.com/abushaidislam/devhub-v2/commit/3deb9e1f4e25d19be5d930c8dd6a6a4911f635df))
+
+
+### Bug Fixes
+
+* **gitignore:** add patterns for GitHub prompts and cursor skills ([98365cf](https://github.com/abushaidislam/devhub-v2/commit/98365cfb719d53345f38f8817cb56bef750a6958))
+* **provider-config:** update Gemini default model to latest version and alias retired model names ([#54](https://github.com/abushaidislam/devhub-v2/issues/54)) ([8289515](https://github.com/abushaidislam/devhub-v2/commit/828951572de4440862eed06aa9d788a8035206b5))
+* **provider-config:** update Gemini default model to latest version and alias retired model names ([#56](https://github.com/abushaidislam/devhub-v2/issues/56)) ([1aab067](https://github.com/abushaidislam/devhub-v2/commit/1aab0675e41d095a80106af68cc17ce8750520a1))
+* **styles:** update badge SVG color for consistency ([8e73ad7](https://github.com/abushaidislam/devhub-v2/commit/8e73ad7a4bfa40aa7e3feaad0f8241797cce891f))
+
 ## [0.14.0](https://github.com/abushaidislam/devhub-v2/compare/v0.13.5...v0.14.0) (2026-08-26)
 
 

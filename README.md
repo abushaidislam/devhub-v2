@@ -2,7 +2,7 @@
 
 A free, local-first developer workflow workspace for recurring API-debugging and data-transformation tasks. DevHub helps you detect, transform, chain, and reuse common developer-data operations without sending conventional tool inputs to a DevHub server.
 
-**Current release:** <!-- x-release-please-version --> `v0.14.0`
+**Current release:** <!-- x-release-please-version --> `v0.15.0`
 
 **License:** MIT
 
