@@ -69,6 +69,22 @@ Source: `referances/DESIGN-vercel (1).md` (Geist marketing/app analysis). The ap
 
 Color is confined to the landing hero mesh gradient (cyan / blue / violet / magenta / amber) and small status accents. Do not fill chrome with accent colors.
 
+## Dark theme
+
+Dark mode inverts the Geist ink-on-canvas system using `data-theme="dark"` on `<html>`. Tokens live in `src/app/globals.css`; preference is stored in `localStorage` (`devhub:theme`) and defaults to the system `prefers-color-scheme` until the user toggles light or dark from the landing header or workspace topbar.
+
+| Token | Dark value | Use |
+| --- | --- | --- |
+| Canvas | `#000000` | Page and workspace background |
+| Elevated | `#0a0a0a` | Cards, inputs, menus, editors |
+| Ink | `#ededed` | Headings, primary CTAs, focus ring |
+| Body | `#a1a1a1` | Paragraphs, nav, secondary copy |
+| Hairline | `#262626` | Cards, inputs, dividers |
+| Hairline-soft | `#1a1a1a` | Hover wells and inset fills |
+| Surface bright | `#141414` | Hover lift on elevated cards |
+
+Primary buttons in dark mode use a white fill with black text on hover, matching Vercel's inverted CTA treatment. The hero mesh gradient remains but is toned down.
+
 ## Content hierarchy
 
 | Token | Value | Use |

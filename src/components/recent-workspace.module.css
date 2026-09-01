@@ -4,7 +4,7 @@
 .intro,.activity>header,.activity li+li,.settings,.activity,.empty,.search{border-color:var(--hairline)}
 .intro h2,.settings h3,.activity h3,.tool strong,.empty h3,.emptyAction{color:var(--ink)}
 .intro p,.settings p,.empty p,.tool small,.activity time,.noMatches{color:var(--body-copy)}
-.settings,.activity,.empty,.search,.toolIcon{background:#fff}
+.settings,.activity,.empty,.search,.toolIcon{background:var(--canvas-elevated)}
 .activity li>a:hover{background:var(--hairline-soft)}
 .activity li>a:focus-visible{outline-color:var(--ink)}
 .search input{color:var(--ink)}

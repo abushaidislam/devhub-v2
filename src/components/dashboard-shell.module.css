@@ -24,7 +24,7 @@
 .primary small,.scroll summary small,.sidebar footer small{color:var(--text-tertiary)}
 .sectionLabel{color:var(--text-tertiary);text-transform:none;letter-spacing:var(--tracking-label)}
 .sidebar footer{border-top-color:var(--border);background:var(--surface-0)}
-.topbar{border-bottom-color:var(--border);background:rgba(250,250,250,.88)}
+.topbar{border-bottom-color:var(--border);background:var(--topbar-scrim)}
 .topbar button,.home,.search{border-color:var(--border-strong);border-radius:var(--radius-sm);background:var(--control-fill);color:var(--text-secondary);box-shadow:var(--shadow-whisper);transition:background var(--duration-quick) var(--ease-smooth-out),border-color var(--duration-quick) var(--ease-smooth-out),color var(--duration-quick) var(--ease-smooth-out),box-shadow var(--duration-quick) var(--ease-smooth-out),transform var(--duration-quick) var(--ease-smooth-out)}
 .topbar button:hover,.home:hover,.search:hover{border-color:#686868;background:var(--control-fill-hover);color:var(--text-primary);box-shadow:var(--shadow-float);transform:translateY(-1px)}
 .topbar button:active,.home:active,.search:active{transform:translateY(0) scale(.985);box-shadow:var(--shadow-press)}
@@ -33,8 +33,8 @@
 .primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible,.topbar button:focus-visible,.home:focus-visible,.search:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;box-shadow:inset 0 0 0 1px rgba(23,23,23,.08),var(--focus-glow)}
 @media(max-width:480px){.menu,.collapse,.workspaceSwitcher>button,.topActions button,.topActions a,.sidebar footer a{min-width:44px;min-height:44px}}
 
-.scroll{scrollbar-color:#d4d4d4 transparent}
-.scroll::-webkit-scrollbar-thumb{background:#d4d4d4}
+.scroll{scrollbar-color:var(--border-hover) transparent}
+.scroll::-webkit-scrollbar-thumb{background:var(--border-hover)}
 .avatar{background:var(--ink);color:#fff}
 .favoriteMark,.sidebar footer strong{color:var(--ink)}
 .primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible{outline-color:var(--ink)}
@@ -42,7 +42,7 @@
 .topbar button:hover,.home:hover,.search:hover{border-color:var(--border-hover)}
 
 /* Centered title without overlap; search/actions shrink before colliding */
-.topbar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;padding:0 16px 0 12px;border-bottom-color:var(--hairline);background:rgba(250,250,250,.88)}
+.topbar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;padding:0 16px 0 12px;border-bottom-color:var(--hairline);background:var(--topbar-scrim)}
 .topLead,.topActions{display:flex;align-items:center;gap:8px;min-width:0}
 .topLead{justify-self:start;max-width:100%;overflow:hidden}
 .topActions{justify-self:end;justify-content:flex-end;max-width:100%;overflow:hidden}
@@ -53,6 +53,7 @@
 .search span{min-width:0}
 .search kbd{flex:none;margin-left:8px;border-color:var(--hairline);background:var(--hairline-soft);color:var(--mute)}
 .home{flex:none;height:32px;padding:0 10px;font-size:12px;letter-spacing:-.3px}
+.themeToggle{flex:none;width:32px!important;height:32px!important;min-height:32px!important;padding:0!important}
 .topbar .menu,.topbar .collapse,.topbar .drawerClose{width:32px;height:32px;min-height:32px;padding:0}
 @media(max-width:1100px){.search{flex-basis:140px}.search kbd{display:none}}
 @media(max-width:900px){.topbar{padding:0 12px}.crumb{display:none}.pageTitle{max-width:100%}.search{max-width:200px}}
