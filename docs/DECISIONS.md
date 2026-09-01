@@ -121,3 +121,8 @@ Saved recipes use a separate version-1 IndexedDB database capped at 50 records. 
 
 **Status:** Accepted  
 Saved recipe execution is an explicit, compatibility-gated action in an expandable workspace panel. The panel shows every declared step type and processing boundary before execution, caps runtime input at 100,000 characters, delegates to the existing sequential runner, and supports cooperative cancellation. Input, output, per-step results, warnings, errors, timing, and controller state exist only while the panel is mounted; closing it clears all runtime state. Re-run adds no persistence, URL payload, export, logging, analytics, cache write, or new network path.
+
+## ADR-025 — Geist light canvas (Vercel analysis)
+
+**Status:** Accepted (supersedes the black-canvas reading of ADR-006)  
+Visual language follows `referances/DESIGN-vercel (1).md`: near-white canvas (`#fafafa`), ink (`#171717`), hairline borders (`#ebebeb`), marketing pill CTAs vs 6px app controls, and a hero-only mesh gradient. Proprietary Vercel assets and product copy are still not copied (ADR-006 remainder). The product remains independently implemented.

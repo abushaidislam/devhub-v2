@@ -70,7 +70,7 @@ export function SmartInputDetector(){
 
 	return <section className={styles.panel} aria-labelledby="smart-detect-title">
 		<header>
-			<div className={styles.icon}><ScanSearch size={18}/></div>
+			<div className={styles.icon} aria-hidden="true"><ScanSearch size={18}/></div>
 			<div>
 				<h2 id="smart-detect-title">Smart input detection</h2>
 				<p>Paste data to find the best matching local tool.</p>
