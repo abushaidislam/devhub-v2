@@ -47,4 +47,18 @@ export const categoryDescriptions:Record<string,string>={
 };
 
 export const categories=[...new Set(tools.map(tool=>tool.category))];
-export function getTool(slug:string){return tools.find(tool=>tool.slug===slug)}
+
+// Performance Optimization:
+// Pre-computed map for O(1) slug lookup instead of O(N) array scanning via tools.find()
+const toolMap = new Map<string, Tool>(tools.map((tool) => [tool.slug, tool]));
+
+// Performance Optimization:
+// Pre-grouped tools by category to avoid repeated filtering of the tools array during component renders
+export const toolsByCategory: Record<string, Tool[]> = categories.reduce<Record<string, Tool[]>>((acc, category) => {
+  acc[category] = tools.filter((tool) => tool.category === category);
+  return acc;
+}, {});
+
+export function getTool(slug: string) {
+  return toolMap.get(slug);
+}
