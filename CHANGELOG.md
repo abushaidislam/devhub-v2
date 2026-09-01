@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.1](https://github.com/abushaidislam/devhub-v2/compare/v0.15.0...v0.15.1) (2026-09-01)
+
+
+### Performance Improvements
+
+* optimize tool lookups and render filtering ([#60](https://github.com/abushaidislam/devhub-v2/issues/60)) ([43b00b2](https://github.com/abushaidislam/devhub-v2/commit/43b00b2a55e03f543b0a73a4a77a6efe0ea87bed))
+
 ## [0.15.0](https://github.com/abushaidislam/devhub-v2/compare/v0.14.0...v0.15.0) (2026-09-01)
 
 
