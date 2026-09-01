@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Heart } from "lucide-react";
 import { AnimatedHeart } from "./ui/animated-heart";
@@ -9,10 +10,15 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import styles from "./dashboard-tool-grid.module.css";
 
+const starterTools = tools.filter((tool) => tool.featured).slice(0, 3);
+
 export function DashboardToolGrid({ favoritesOnly = false }: { favoritesOnly?: boolean }) {
   const { favorites, toggle } = useFavorites();
-  const visibleTools = favoritesOnly ? tools.filter((tool) => favorites.includes(tool.slug)) : tools;
-  const starterTools = tools.filter((tool) => tool.featured).slice(0, 3);
+  const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
+  const visibleTools = useMemo(() => {
+    if (!favoritesOnly) return tools;
+    return tools.filter((tool) => favoriteSet.has(tool.slug));
+  }, [favoritesOnly, favoriteSet]);
 
   if (favoritesOnly && visibleTools.length === 0) {
     return (
@@ -34,7 +40,7 @@ export function DashboardToolGrid({ favoritesOnly = false }: { favoritesOnly?: b
     <div className={styles.grid}>
       {visibleTools.map((tool) => {
         const Icon = tool.icon;
-        const active = favorites.includes(tool.slug);
+        const active = favoriteSet.has(tool.slug);
         return (
           <article key={tool.slug} className={styles.card}>
             <Link href={`/tools/${tool.slug}`} aria-label={`Open ${tool.name}`}>
