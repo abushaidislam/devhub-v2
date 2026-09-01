@@ -4,18 +4,18 @@
 .lg{min-height:28px;padding:0 11px;font-size:var(--font-size-label-md)}
 .gray{background:var(--hairline-soft);border-color:var(--hairline);color:var(--ink)}
 .blue{background:var(--link-soft);border-color:#b7d4ff;color:var(--link-deep)}
-.green{background:#e8fff8;border-color:#aaffec;color:#0f766e}
-.teal{background:#e8fffb;border-color:#aaffec;color:#0f766e}
-.purple{background:#f3edfb;border-color:#d8ccf1;color:#7928ca}
+.green{background:var(--cyan-soft);border-color:var(--cyan-soft);color:#0f766e}
+.teal{background:var(--cyan-soft);border-color:var(--cyan-soft);color:#0f766e}
+.purple{background:#f3edfb;border-color:var(--violet-soft);color:var(--violet)}
 .amber{background:var(--warning-soft);border-color:#f5d18a;color:var(--warning-deep)}
 .red{background:#fff1f1;border-color:#ffc9c9;color:var(--error-deep)}
-.pink{background:#ffe8f3;border-color:#ffc2e0;color:#ff0080}
+.pink{background:#ffe8f3;border-color:#ffc2e0;color:var(--pink)}
 .low{opacity:.72}
 .inverted{background:var(--btn-primary-bg);border-color:var(--btn-primary-border);color:var(--btn-primary-fg)}
 .icon{display:inline-flex;align-items:center;justify-content:center;flex:none}
-.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#777;box-shadow:0 0 0 3px #7772}
-.dot-neutral{background:#8f8f8f;box-shadow:0 0 0 3px #8f8f8f22}
-.dot-info{background:#5aa9ff;box-shadow:0 0 0 3px #5aa9ff22}
-.dot-success{background:var(--accent);box-shadow:0 0 0 3px var(--accent-muted)}
-.dot-warning{background:#e6b84d;box-shadow:0 0 0 3px #e6b84d22}
-.dot-error{background:#ef6b73;box-shadow:0 0 0 3px #ef6b7322}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mute);box-shadow:0 0 0 3px rgba(143,143,143,0.13)}
+.dot-neutral{background:var(--mute);box-shadow:0 0 0 3px rgba(143,143,143,0.13)}
+.dot-info{background:var(--link);box-shadow:0 0 0 3px rgba(0,112,243,0.13)}
+.dot-success{background:var(--cyan);box-shadow:0 0 0 3px rgba(80,227,194,0.13)}
+.dot-warning{background:var(--warning);box-shadow:0 0 0 3px rgba(245,166,35,0.13)}
+.dot-error{background:var(--error);box-shadow:0 0 0 3px rgba(238,0,0,0.13)}
