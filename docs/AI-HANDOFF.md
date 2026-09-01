@@ -445,3 +445,36 @@ Commit and push `fix/gemini-default-model` so Vercel can rebuild `main` after me
 
 Proceed with Phase 2: Consolidate UI primitives (`src/components/ui/button.module.css`, `badge.module.css`, `search-input.module.css`) to use the SSOT tokens and clean up legacy multi-layer CSS overrides.
 
+
+## Design System Phase 2: CSS Module Consolidation — September 2026
+
+### Scope completed
+
+- Completed Phase 2 of the Design System refactoring: consolidated all CSS module files from multi-pass override layers into single clean passes consuming the SSOT `@theme` tokens from Phase 1.
+- Eliminated ~400 lines of redundant CSS declarations across 8 component module files.
+
+### Files changed
+
+| File | Change |
+|------|--------|
+| `src/components/ui/button.module.css` | Replaced hardcoded hex in `.error` (`#fff`, `#ee0000`, `#c50000`) and `.warning` (`#f5a623`) variants with `var(--canvas-elevated)`, `var(--error)`, `var(--error-deep)`, `var(--warning)` tokens. |
+| `src/components/ui/badge.module.css` | Replaced hardcoded hex in dot states (`#777`, `#8f8f8f`, `#5aa9ff`, `#e6b84d`, `#ef6b73`) with `var(--mute)`, `var(--link)`, `var(--warning)`, `var(--error)` tokens; aligned `.green`/`.teal` to `var(--cyan-soft)`, `.purple` to `var(--violet-soft)`/`var(--violet)`, `.pink` to `var(--pink)`. |
+| `src/components/ui/search-input.module.css` | Replaced hardcoded `#9b2c2c` invalid border and `#ef6b7322` focus glow with `var(--error-deep)` and `rgba(238,0,0,0.13)`. |
+| `src/components/dashboard-shell.module.css` | Merged 4 layered override passes (65 lines of dark hex + P1 migration + P2 migration + Geist light overrides) into a single clean ~100 line pass. All hardcoded `#000`, `#262626`, `#1a1a1a`, `#1f1f1f`, `#ededed`, `#a1a1a1`, `#8f8f8f`, `#303030`, etc. replaced with semantic tokens. |
+| `src/components/dashboard-tool-grid.module.css` | Merged 4 layered override passes (54 lines) into a single clean ~50 line pass. Eliminated duplicate `.card`, `.icon`, `.favoriteButton`, `.empty` declarations. |
+| `src/components/tool-runtime.module.css` | Merged 138 lines of multi-pass overrides into a single clean ~130 line pass. Unified toolbar, panels, textarea, output, error, QR, markdown preview, splitter, and switch styles. |
+| `src/components/smart-input-detector.module.css` | Merged 3 layered override passes (73 lines) into a single clean ~65 line pass. Unified panel, icon, textarea, samples, results, and hints styles. |
+| `src/components/command-palette.module.css` | Merged dark-first + light-mode + `[data-theme="dark"]` layers into a clean light-first base with a focused `[data-theme="dark"]` override section. |
+
+### Validation
+
+- `npm run typecheck`: passed with 0 errors.
+- `npm run lint`: passed with 0 errors (4 pre-existing unused-var warnings).
+- `npm test` (standalone): 37 test files and 231 tests passed.
+- `npx next build`: passed; Next.js compiled in 87s, type-checked, generated 60 static pages, and finalized build traces.
+- Note: `npm run build` (which runs `prebuild` → tests → build sequentially) had 4 timeout flakes due to resource contention; standalone test and build runs both pass independently.
+
+### Next recommended task
+
+Proceed with Phase 3: Audit and consolidate remaining page-level and feature-level CSS modules (assistant, recipes, recent workspace, landing page sections) to eliminate any remaining hardcoded hex values and align with the SSOT token system.
+

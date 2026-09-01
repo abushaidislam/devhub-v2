@@ -16,7 +16,7 @@
 .clear:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
 .field:has(input:disabled){cursor:not-allowed;opacity:.55}
 .field input:disabled{cursor:not-allowed}
-.invalid{border-color:#9b2c2c}
-.invalid:focus-within{box-shadow:0 0 0 3px #ef6b7322}
+.invalid{border-color:var(--error-deep)}
+.invalid:focus-within{box-shadow:0 0 0 3px rgba(238,0,0,0.13)}
 .error{margin:0;color:var(--error-deep);font-size:var(--font-size-copy-sm);line-height:var(--line-height-copy-tight)}
 @media(prefers-reduced-motion:reduce){.field{transition:none}}
