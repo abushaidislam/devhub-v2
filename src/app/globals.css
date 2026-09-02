@@ -1488,7 +1488,7 @@ footer a:hover {
   }
   .hero h1 {
     font-size: 38px;
-    letter-spacing: -1.8px;
+    letter-spacing: -1.2px;
   }
   .hero-copy {
     font-size: 15px;
@@ -1516,15 +1516,32 @@ footer a:hover {
   .section-heading h2 {
     font-size: 26px;
   }
-  .tools-grid {
+    .tools-grid {
     grid-template-columns: 1fr;
+  }
+  .workflow-steps {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .trust-strip-inner {
+    grid-template-columns: 1fr;
+  }
+  .trust-strip-inner > article {
+    border-right: 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .trust-strip-inner > article:last-child {
+    border-bottom: 0;
   }
   .principles {
     grid-template-columns: 1fr;
   }
-  .principles article {
+    .principles article {
     border-right: 0;
     border-bottom: 1px solid var(--hairline);
+  }
+  .principles article:last-child {
+    border-bottom: 0;
   }
   .category-tabs {
     flex-wrap: wrap;

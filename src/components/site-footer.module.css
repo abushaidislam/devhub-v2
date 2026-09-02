@@ -91,10 +91,11 @@
   gap: 12px;
   min-height: 46px;
   padding: 4px 5px 4px 17px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--btn-primary-border);
   border-radius: var(--radius-pill);
-  background: var(--ink);
-  color: var(--on-primary);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  box-shadow: var(--shadow-whisper);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.28px;
@@ -102,9 +103,9 @@
 }
 
 .primaryAction:hover {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--on-primary);
+  border-color: var(--btn-primary-hover-bg);
+  background: var(--btn-primary-hover-bg);
+  color: var(--btn-primary-hover-fg);
   transform: translateY(-1px);
   box-shadow: var(--shadow-float);
 }
@@ -317,7 +318,7 @@
   }
 
   .mastheadCopy h2 {
-    font-size: clamp(40px, 13vw, 58px);
+    font-size: clamp(32px, 11vw, 48px);
   }
 
   .mastheadCopy p {
