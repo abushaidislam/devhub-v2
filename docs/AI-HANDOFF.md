@@ -517,12 +517,40 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 - `npx next build`: passed; Next.js compiled in 28.8s, generated 60 static pages, and finalized build traces with 0 errors.
 - Automated code search confirms **0 hardcoded hex colors** across all `.module.css` files in `src/`.
 
-### Summary of Full Design System Overhaul (Phases 1-4)
+### Summary of Full Design System Overhaul (Phases 1-5)
 
 - **Phase 1**: `@theme` token architecture & SSOT alignment in `globals.css` and `vercel-typography.css`.
 - **Phase 2**: UI Primitives and primary component module consolidation (eliminated ~400 lines of layered override debt).
 - **Phase 3**: 100% completion of remaining workspaces, assistant, recipes, landing, and footer styles with zero hardcoded colors across all 26 CSS modules.
 - **Phase 4**: Component shapes, interactive elevation/active states, public layout integration (`SiteFooter` across `/`, `/tools`, `/categories/[slug]`), and documentation sync.
+- **Phase 5**: UI micro-interactions, ambient mesh gradient breathing (`dh-glow`, `ctaGlow`), tactile switch squish, heart pop, suggestion arrow transitions, and reduced-motion enforcement.
+
+## Design System Phase 5: UI Micro-Interactions & Animation Polish — September 2026
+
+### Scope completed
+
+- Completed Phase 5 of the Design System refactoring: implemented refined micro-interactions, ambient gradient animations, and tactile feedback across public and workspace surfaces.
+- Enabled `dh-glow` and `ctaGlow` ambient breathing keyframes on hero and CTA mesh gradients with reduced-motion overrides.
+- Implemented micro-interactions:
+  - Command preview hover lift (`-1px`), `shadow-float`, and `kbd` key reactive lift.
+  - Workflow preview step badges styled as interactive pills with hover states.
+  - Trust strip articles with icon lift, border brightening, and shadow float.
+  - Switch active thumb squish (`width: 15px`) during press before sliding.
+  - Favorite heart icon `scale(1.15)` pop on hover across card and workspace buttons.
+  - Detector suggestion arrows smoothly slide up-right on hover.
+  - QR download link hover lift and active press.
+- Documented full system in `docs/DESIGN-SYSTEM.md`.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|--------------|---------|--------|
+| Context Check | `npm run context:check` | ✅ **Passed** (14 docs, 30 unique tools) |
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npx vitest run` | ✅ **Passed** (37 / 37 test files, 231 / 231 tests) |
+| Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
+| SSOT Token Compliance | CSS Module Audit | ✅ **100% tokenized**, 0 hardcoded hex colors |
 
 
 ## Design System Phase 4: Component Shapes, Layout Polish & Final Verification — September 2026

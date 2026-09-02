@@ -1,8 +1,10 @@
 .root{display:inline-flex;align-items:center;gap:9px;min-height:32px;color:var(--text-primary);font-size:12px;font-weight:500;cursor:pointer;user-select:none}
 .control{position:relative;width:32px;height:18px;flex:none;padding:0;border:1px solid var(--hairline);border-radius:999px;background:var(--hairline-soft);transition:background .15s ease,border-color .15s ease,box-shadow .15s ease}
-.control>span{position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--mute);box-shadow:var(--shadow-whisper);transition:transform .15s ease,background .15s ease}
+.control>span{position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--mute);box-shadow:var(--shadow-whisper);transition:transform .18s var(--ease),background .18s var(--ease),width .14s var(--ease)}
+.control:active:not(:disabled)>span{width:15px}
 .control[aria-checked=true]{border-color:var(--ink);background:var(--ink)}
 .control[aria-checked=true]>span{transform:translateX(14px);background:var(--canvas-elevated)}
+.control[aria-checked=true]:active:not(:disabled)>span{transform:translateX(11px);width:15px}
 .control:hover:not(:disabled){border-color:var(--border-hover)}
 .control[aria-checked=true]:hover:not(:disabled){border-color:var(--ink);background:var(--ink)}
 .control:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}

@@ -470,3 +470,16 @@ A comprehensive audit of the entire codebase was conducted against the Single So
 - **Card Interactive Elevation**: Ensured `.tool-card` and `.card` enforce hairline borders (`var(--hairline)`), level 1 whisper shadow (`var(--shadow-whisper)`), level 2 float shadow on hover (`var(--shadow-float)` with -1px lift), and tactile press feedback on active (`var(--shadow-press)` with `transform: translateY(0) scale(0.985)`).
 - **Public Navigation & Footer Alignment**: Integrated `<SiteFooter />` with semantic 3-column navigation, privacy notice, and brand lockup across `/`, `/tools`, and `/categories/[slug]`.
 - **Zero Discrepancies**: The codebase adheres 100% to `referances/DESIGN-vercel (1).md` with full typecheck, lint, and build test suites green.
+
+### Phase 5: UI Micro-Interactions, Animation Polish & Tactile Feedback
+- **Mesh Gradients & Ambient Breathing**: Fully enabled `dh-glow` on the hero background mesh and `ctaGlow` on the landing CTA band, producing a subtle, organic gradient bloom without distracting layout shift.
+- **Micro-Interactions**:
+  - **Command Preview & Kbd Keys**: Hover lift (`-1px`), `shadow-float`, and individual `kbd` key hover reaction.
+  - **Workflow Preview Steps**: Steps styled as interactive hairline-soft pills with hover lift and arrow color shift.
+  - **Trust Strip**: Interactive hover cards with brightened icon borders and lift.
+  - **Tactile Switch**: Active thumb squish (`width: 15px`) during drag/press prior to toggle.
+  - **Favorite Heart Micro-Animation**: Smooth `scale(1.15)` pop on hover across both workspace and card favorite buttons.
+  - **Suggestion Arrows**: Detected suggestions smoothly slide up-right (`translate(2px, -2px)`) on hover.
+  - **QR & Action Links**: Full `-1px` hover lift, `shadow-float`, and `scale(.985)` press state.
+- **Reduced Motion Assurance**: Strict zero-motion guarantee on all added keyframes and transitions under `@media (prefers-reduced-motion: reduce)`.
+

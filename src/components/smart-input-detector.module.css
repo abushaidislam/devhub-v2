@@ -49,8 +49,8 @@
 .results strong{color:var(--ink);font-size:13px}
 .results small{display:block;max-width:none;overflow:visible;white-space:normal;color:var(--text-secondary);font-size:12px;line-height:1.45}
 .results em{margin-left:auto;color:var(--cyan);font:11px var(--mono);font-style:normal}
-.results a>svg{color:var(--mute)}
-.results a:hover>svg{color:var(--ink)}
+.results a>svg{color:var(--mute);transition:transform var(--dur) var(--ease),color var(--dur) var(--ease)}
+.results a:hover>svg{color:var(--ink);transform:translate(2px,-2px)}
 .empty{margin:0;padding:9px 4px 2px;color:var(--text-secondary);font-size:12px}
 
 /* Responsive */
