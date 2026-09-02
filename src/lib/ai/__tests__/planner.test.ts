@@ -6,7 +6,10 @@ import { createDefaultAiConfig } from "../provider-config";
 const config = { ...createDefaultAiConfig("openai"), apiKey: "key" };
 
 function reply(text: string) {
-  return vi.fn(async (_input: { user: string }) => ({ ok: true as const, text }));
+  return vi.fn(async (input: { user: string }) => {
+    void input;
+    return { ok: true as const, text };
+  });
 }
 
 describe("workflow planner", () => {

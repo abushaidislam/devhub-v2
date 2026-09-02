@@ -4,7 +4,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { SavedRecipeWorkspace } from "@/components/saved-recipe-workspace";
 
 const mocks = vi.hoisted(() => ({
-  create: vi.fn(async (_payload?: unknown) => true),
+  create: vi.fn(async (payload?: unknown) => {
+    void payload;
+    return true;
+  }),
   remove: vi.fn(async () => true),
   clear: vi.fn(async () => true),
   dismissError: vi.fn(),

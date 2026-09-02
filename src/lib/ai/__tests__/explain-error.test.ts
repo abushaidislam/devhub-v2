@@ -19,10 +19,13 @@ describe("error explainer", () => {
   });
 
   it("sends only the tool identity and message", async () => {
-    const request = vi.fn(async (_input: { user: string }) => ({
-      ok: true as const,
-      text: "The payload is not valid JSON.",
-    }));
+    const request = vi.fn(async (input: { user: string }) => {
+      void input;
+      return {
+        ok: true as const,
+        text: "The payload is not valid JSON.",
+      };
+    });
     const result = await explainToolError({
       engineId: "json-formatter",
       message: "Unexpected token }",
