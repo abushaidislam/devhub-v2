@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
 import {notFound} from "next/navigation";
-import {SiteHeader} from "@/components/site-header";
-import {SiteFooter} from "@/components/site-footer";
-import {ToolCard} from "@/components/tool-card";
+import {SiteHeader} from "@/components/core/site-header";
+import {SiteFooter} from "@/components/core/site-footer";
+import {ToolCard} from "@/components/tools/tool-card";
 import {categories,categoryDescriptions,tools} from "@/lib/tools";
 
 export function generateStaticParams(){return categories.map(slug=>({slug:slug.toLowerCase()}))}

@@ -1,10 +1,10 @@
 import type {Metadata} from "next";
 import {notFound} from "next/navigation";
-import {DashboardShell} from "@/components/dashboard-shell";
-import {FavoriteButton} from "@/components/favorite-button";
-import {JsonLd} from "@/components/json-ld";
-import {NextActions} from "@/components/next-actions";
-import {ToolRuntime} from "@/components/tool-runtime";
+import {DashboardShell} from "@/components/dashboard/dashboard-shell";
+import {FavoriteButton} from "@/components/dashboard/favorite-button";
+import {JsonLd} from "@/components/core/json-ld";
+import {NextActions} from "@/components/tools/next-actions";
+import {ToolRuntime} from "@/components/tools/tool-runtime";
 import {getTool,tools} from "@/lib/tools";
 import {site} from "@/lib/site";
 import styles from "./tool-page.module.css";

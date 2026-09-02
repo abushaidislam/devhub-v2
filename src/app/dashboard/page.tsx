@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { DashboardShell } from "@/components/dashboard-shell";
-import { DashboardToolGrid } from "@/components/dashboard-tool-grid";
-import { SmartInputDetector } from "@/components/smart-input-detector";
+import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+import { DashboardToolGrid } from "@/components/dashboard/dashboard-tool-grid";
+import { SmartInputDetector } from "@/components/tools/smart-input-detector";
 import { Badge } from "@/components/ui/badge";
 import { tools } from "@/lib/tools";
 import styles from "./dashboard.module.css";

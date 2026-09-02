@@ -1,7 +1,7 @@
 import type {Metadata} from "next";
-import {SiteHeader} from "@/components/site-header";
-import {SiteFooter} from "@/components/site-footer";
-import {ToolSearch} from "@/components/tool-search";
+import {SiteHeader} from "@/components/core/site-header";
+import {SiteFooter} from "@/components/core/site-footer";
+import {ToolSearch} from "@/components/tools/tool-search";
 import {tools} from "@/lib/tools";
 
 export const metadata:Metadata={title:"Developer Tools",description:`Browse ${tools.length} fast, private developer utilities for formatting, converting and generating data.`,alternates:{canonical:"/tools"},openGraph:{type:"website",url:"/tools",title:"Developer Tools — DevHub",description:`Browse ${tools.length} fast, private developer utilities for formatting, converting and generating data.`}};

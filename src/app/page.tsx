@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, Command, LockKeyhole, Gauge, Blocks } from "lucide-react";
-import { SiteHeader } from "@/components/site-header";
-import { ToolCard } from "@/components/tool-card";
+import { SiteHeader } from "@/components/core/site-header";
+import { ToolCard } from "@/components/tools/tool-card";
 import { categories, tools } from "@/lib/tools";
-import { SiteFooter } from "@/components/site-footer";
-import { LandingCtaSection } from "@/components/landing-cta-section";
+import { SiteFooter } from "@/components/core/site-footer";
+import { LandingCtaSection } from "@/components/marketing/landing-cta-section";
 
 export default function HomePage() {
   const featured = tools.filter((tool) => tool.featured).slice(0, 6);

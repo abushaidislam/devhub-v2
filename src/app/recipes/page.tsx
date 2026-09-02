@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { DashboardShell } from "@/components/dashboard-shell";
-import { SavedRecipeWorkspace } from "@/components/saved-recipe-workspace";
+import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+import { SavedRecipeWorkspace } from "@/components/workflows/saved-recipe-workspace";
 
 export const metadata: Metadata = {
   title: "Saved Recipes",
