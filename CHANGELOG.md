@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.3](https://github.com/abushaidislam/devhub-v2/compare/v0.15.2...v0.15.3) (2026-09-02)
+
+
+### Bug Fixes
+
+* **qa:** resolve postcss config warning, eslint pattern rules, and workspace form labeling ([#70](https://github.com/abushaidislam/devhub-v2/issues/70)) ([ba35f08](https://github.com/abushaidislam/devhub-v2/commit/ba35f082f73a4ec13a3e803c9cabf5dc4d02f098))
+
 ## [0.15.2](https://github.com/abushaidislam/devhub-v2/compare/v0.15.1...v0.15.2) (2026-09-01)
 
 
