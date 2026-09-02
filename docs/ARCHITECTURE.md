@@ -54,6 +54,17 @@ Ephemeral dashboard input
 
 Detection is synchronous, deterministic, local-only, capped at 100,000 characters, and never stores or transmits the sample. It includes structure heuristics for JSON, JWT, URLs, YAML, XML, gitignore rules, Markdown, and schema-generation candidates. Explicit opens may hand the sample to the target tool through `src/lib/detection-handoff.ts`; the handoff is consumed once and never written to persistent storage or a URL.
 
+## Component organization
+
+Components are grouped by domain within `src/components`:
+
+- `core/`: App-level infrastructure (e.g., service workers, analytics).
+- `dashboard/`: Application shell, layout, and command palette.
+- `tools/`: Tool runtime and interactive engine surfaces.
+- `ui/`: Reusable primitives and generic UI elements.
+- `workflows/`: Saved recipe runners and workflow composition.
+- `marketing/`: Landing page and static discovery.
+
 ## Server/client boundaries
 
 Server by default:
@@ -97,7 +108,7 @@ Do not create a second application shell for workflows, recents, settings, or fu
 ```text
 src/app/manifest.ts → installable identity
 public/sw.js → hand-written versioned app-shell service worker
-src/components/service-worker-registration.tsx → production registration
+src/components/core/service-worker-registration.tsx → production registration
 src/lib/pwa.ts → precache contract enforced by tests
 ```
 

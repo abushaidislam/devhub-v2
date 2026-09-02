@@ -249,7 +249,7 @@ Push the focused branch and open a review request when ready.
 
 ### Scope completed
 
-Created the focused `feat/global-dropdown-style` branch and updated both native dropdown consumers: the runtime operation selector in `src/components/tool-runtime.tsx` and the AI error tool selector in `src/components/error-explainer.tsx`. Both now use a polished dark control treatment with a custom chevron, semantic surface/border/text tokens, selected-option color, visible focus ring, hover and disabled states, native keyboard behavior, and 44px mobile sizing. The shared `--select-selected` token and dropdown contract were added to `src/app/globals.css` and `docs/DESIGN-SYSTEM.md`.
+Created the focused `feat/global-dropdown-style` branch and updated both native dropdown consumers: the runtime operation selector in `src/components/tools/tool-runtime.tsx` and the AI error tool selector in `src/components/error-explainer.tsx`. Both now use a polished dark control treatment with a custom chevron, semantic surface/border/text tokens, selected-option color, visible focus ring, hover and disabled states, native keyboard behavior, and 44px mobile sizing. The shared `--select-selected` token and dropdown contract were added to `src/app/globals.css` and `docs/DESIGN-SYSTEM.md`.
 
 ### Validation
 

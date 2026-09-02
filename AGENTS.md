@@ -22,8 +22,8 @@ Current product principles:
 - Next.js 15 App Router, React 19, strict TypeScript.
 - 30 registered local-first tools in `src/lib/tools.ts`.
 - Tool logic in `src/lib/tool-engines.ts`.
-- Shared client runtime in `src/components/tool-runtime.tsx`.
-- Vercel-inspired app shell in `src/components/dashboard-shell.tsx` with centered semantic page titles.
+- Shared client runtime in `src/components/tools/tool-runtime.tsx`.
+- Vercel-inspired app shell in `src/components/dashboard/dashboard-shell.tsx` with centered semantic page titles.
 - Favorites persist locally through `src/lib/use-favorites.ts`.
 - `/dashboard` is the flat All Tools workspace with deterministic smart input detection.
 - `/favorites` is a dedicated favorites workspace.
