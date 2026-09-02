@@ -77,10 +77,10 @@ export function RecentWorkspace() {
               <h3 id="recent-list">Recently opened</h3>
               <span>{entries.length} of {HISTORY_LIMIT}</span>
             </div>
-            <label className={styles.search}>
-              <Search size={14} />
-              <span className={styles.srOnly}>Search recent tools</span>
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filter tools…" />
+            <label className={styles.search} htmlFor="recent-tools-search">
+              <Search size={14} aria-hidden="true" />
+              <span className={styles.srOnly}>Filter recent tools</span>
+              <input id="recent-tools-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filter tools…" />
             </label>
           </header>
           {visibleEntries.length ? (
