@@ -7,6 +7,6 @@
 .next li a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .icon{display:flex;flex:none;color:var(--ink)}
 .copy{display:flex;flex-direction:column;gap:2px;margin-right:auto;min-width:0}
-.copy strong{color:var(--ink);font-size:12px;font-weight:600}
+.copy strong{color:var(--ink);font-size: 14px;font-weight:600}
 .copy small{color:var(--body-copy);font-size:11px}
 @media(max-width:700px){.next ul{grid-template-columns:1fr}}

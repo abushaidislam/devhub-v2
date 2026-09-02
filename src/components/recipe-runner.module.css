@@ -25,7 +25,7 @@
   display: block;
   margin-top: 5px;
   color: var(--error);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .plan > div > strong[data-compatible="true"] {

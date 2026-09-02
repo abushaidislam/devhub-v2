@@ -55,7 +55,7 @@ p {
 .label,
 .eyebrow {
   font-family: var(--font-geist-mono, Menlo), monospace;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 16px;
   letter-spacing: 0;

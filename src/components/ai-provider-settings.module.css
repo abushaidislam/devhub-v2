@@ -30,8 +30,8 @@
 .panel p {
   margin: 0;
   color: var(--body-copy);
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.43;
 }
 .form {
   display: grid;
@@ -81,12 +81,12 @@
   height: 1px;
 }
 .providers strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 .providers small {
   color: var(--mute);
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.43;
 }
 .grid {
   display: grid;
@@ -97,7 +97,7 @@
 .key {
   display: grid;
   gap: 6px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-secondary);
 }
 .grid input,
@@ -109,23 +109,23 @@
   background: var(--canvas-elevated);
   color: var(--ink);
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 14px;
 }
 .disclosure {
   border-left: 2px solid var(--hairline);
   padding-left: 12px;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 .error {
   color: var(--error);
-  font-size: 13px !important;
+  font-size: 14px !important;
 }
 .saved {
   display: flex;
   align-items: center;
   gap: 6px;
   color: var(--cyan);
-  font-size: 13px !important;
+  font-size: 14px !important;
 }
 .actions {
   display: flex;
@@ -187,14 +187,14 @@
 .status {
   margin: 0;
   color: var(--body-copy);
-  font-size: 12px;
+  font-size: 14px;
   font-family: var(--mono);
 }
-.connected{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid rgba(80, 227, 194, 0.35);border-radius:var(--radius-sm);background:rgba(80, 227, 194, 0.08)}.connectedIcon{width:34px;height:34px;display:grid;place-items:center;flex:none;border:1px solid rgba(80, 227, 194, 0.4);border-radius:8px;color:var(--cyan);background:var(--canvas-elevated)}.connectedCopy{min-width:0;display:grid;gap:2px;flex:1}.connectedCopy strong{color:var(--ink);font-size:13px}.connectedCopy span{color:var(--cyan);font:500 11px var(--mono)}.connectedCopy small{overflow:hidden;color:var(--body-copy);font-size:11px;text-overflow:ellipsis;white-space:nowrap}.connectedActions{display:flex;gap:7px}.connectedActions button{display:flex;align-items:center;gap:5px;height:30px;padding:0 9px;border:1px solid var(--hairline);border-radius:var(--radius-sm);background:var(--canvas-elevated);color:var(--ink);font-size:11px;font-weight:500;box-shadow:var(--shadow-whisper);transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease)}.connectedActions button:hover:not(:disabled){border-color:var(--border-hover);background:var(--surface-hover);color:var(--ink);box-shadow:var(--shadow-float);transform:translateY(-1px)}.connectedActions button:active:not(:disabled){transform:translateY(0) scale(.985);box-shadow:var(--shadow-press)}.connectedActions button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}.connectedActions button:disabled{opacity:.45}@media(max-width:480px){.connected{align-items:flex-start;flex-wrap:wrap}.connectedCopy{flex-basis:calc(100% - 48px)}.connectedCopy small{white-space:normal}.connectedActions{width:100%;padding-left:46px}.connectedActions button{flex:1;justify-content:center}}
+.connected{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid rgba(80, 227, 194, 0.35);border-radius:var(--radius-sm);background:rgba(80, 227, 194, 0.08)}.connectedIcon{width:34px;height:34px;display:grid;place-items:center;flex:none;border:1px solid rgba(80, 227, 194, 0.4);border-radius:8px;color:var(--cyan);background:var(--canvas-elevated)}.connectedCopy{min-width:0;display:grid;gap:2px;flex:1}.connectedCopy strong{color:var(--ink);font-size: 14px}.connectedCopy span{color:var(--cyan);font:500 11px var(--mono)}.connectedCopy small{overflow:hidden;color:var(--body-copy);font-size:11px;text-overflow:ellipsis;white-space:nowrap}.connectedActions{display:flex;gap:7px}.connectedActions button{display:flex;align-items:center;gap:5px;height:30px;padding:0 9px;border:1px solid var(--hairline);border-radius:var(--radius-sm);background:var(--canvas-elevated);color:var(--ink);font-size:11px;font-weight:500;box-shadow:var(--shadow-whisper);transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease)}.connectedActions button:hover:not(:disabled){border-color:var(--border-hover);background:var(--surface-hover);color:var(--ink);box-shadow:var(--shadow-float);transform:translateY(-1px)}.connectedActions button:active:not(:disabled){transform:translateY(0) scale(.985);box-shadow:var(--shadow-press)}.connectedActions button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}.connectedActions button:disabled{opacity:.45}@media(max-width:480px){.connected{align-items:flex-start;flex-wrap:wrap}.connectedCopy{flex-basis:calc(100% - 48px)}.connectedCopy small{white-space:normal}.connectedActions{width:100%;padding-left:46px}.connectedActions button{flex:1;justify-content:center}}
 @media (max-width: 720px) {
   .providers,
   .grid {
     grid-template-columns: 1fr;
   }
 }
-.panel{min-width:0}@media(max-width:480px){.panel{padding:16px;gap:14px;border-radius:9px}.panel header{gap:9px}.panel h2{font-size:15px}.panel p{font-size:12px}.providers label{padding:10px}.grid input,.key input{min-width:0;width:100%}.actions{align-items:stretch;flex-direction:column}.actions button{justify-content:center;width:100%}.status{overflow-wrap:anywhere;font-size:10px}}
+.panel{min-width:0}@media(max-width:480px){.panel{padding:16px;gap:14px;border-radius:9px}.panel header{gap:9px}.panel h2{font-size:15px}.panel p{font-size: 14px}.providers label{padding:10px}.grid input,.key input{min-width:0;width:100%}.actions{align-items:stretch;flex-direction:column}.actions button{justify-content:center;width:100%}.status{overflow-wrap:anywhere;font-size:10px}}

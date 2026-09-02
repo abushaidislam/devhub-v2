@@ -96,7 +96,7 @@
   background: var(--btn-primary-bg);
   color: var(--btn-primary-fg);
   box-shadow: var(--shadow-whisper);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.28px;
   text-decoration: none;
@@ -148,7 +148,7 @@
 .column h3 {
   margin: 0 0 16px;
   color: var(--ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0;
 }
@@ -167,7 +167,7 @@
   align-items: center;
   gap: 5px;
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   text-decoration: none;
 }
@@ -216,7 +216,7 @@
   align-items: center;
   gap: 8px;
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.28px;
   text-decoration: none;
@@ -232,7 +232,7 @@
   border-radius: 6px;
   background: var(--ink);
   color: var(--canvas-elevated);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1;

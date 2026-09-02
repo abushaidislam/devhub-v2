@@ -18,9 +18,9 @@
   max-width: 720px;
   margin: 0;
   color: var(--body-copy);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1.43;
   text-align: left;
 }
 
@@ -66,8 +66,8 @@
 .storage p {
   margin: 0;
   color: var(--body-copy);
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.43;
 }
 
 .localStatus {
@@ -225,8 +225,8 @@
   min-height: 35px;
   margin: 0;
   color: var(--body-copy);
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 14px;
+  line-height: 1.435;
 }
 
 .card > code {
@@ -366,7 +366,7 @@
   overflow: hidden;
   margin: 3px 0 0;
   color: var(--body-copy);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.45;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -503,7 +503,7 @@
   }
 
   .storage p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .section {
@@ -524,7 +524,7 @@
     min-width: 0;
     min-height: 44px;
     padding: 0 7px;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .savedRow {
@@ -565,7 +565,7 @@
 
   .card > p {
     min-height: 0;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .card > code {

@@ -2,7 +2,7 @@
 .intro{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--hairline)}
 .intro>div{display:flex;align-items:center;gap:16px}
 .intro :global(.label){color:var(--ink);font-weight:700}
-.intro p{margin:0;color:var(--body-copy);font-size:12px;font-weight:500}
+.intro p{margin:0;color:var(--body-copy);font-size: 14px;font-weight:500}
 .total{height:30px;display:flex;align-items:center;padding:0 9px;border:1px solid var(--hairline);border-radius:var(--radius-sm);background:var(--canvas-elevated);color:var(--body-copy);font:var(--font-weight-semibold) var(--font-size-meta)/1 var(--mono)}
 @media(max-width:680px){
   .intro,.intro>div{align-items:flex-start;flex-direction:column;gap:7px}

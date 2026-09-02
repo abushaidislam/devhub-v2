@@ -35,8 +35,8 @@
 .panel p {
   margin: 0;
   color: var(--body-copy);
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.43;
 }
 .gate {
   border: 1px dashed var(--hairline);
@@ -51,7 +51,7 @@
 .form label {
   display: grid;
   gap: 6px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-secondary);
 }
 .form textarea {
@@ -61,7 +61,7 @@
   border-radius: 9px;
   background: var(--canvas-elevated);
   color: var(--ink);
-  font: 13px/1.6 var(--mono);
+  font: 14px/1.6 var(--mono);
   resize: vertical;
 }
 .form textarea:disabled {
@@ -82,8 +82,8 @@
   border-radius: 9px;
   background: var(--hairline-soft);
   color: var(--body-copy);
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.43;
 }
 .consent input {
   margin-top: 2px;
@@ -135,7 +135,7 @@
 }
 .error {
   color: var(--error);
-  font-size: 13px !important;
+  font-size: 14px !important;
 }
 .result {
   border: 1px solid var(--hairline);
@@ -160,7 +160,7 @@
   flex-wrap: wrap;
   gap: 8px;
   align-items: baseline;
-  font-size: 13px;
+  font-size: 14px;
 }
 .steps code,
 .options {
@@ -175,7 +175,7 @@
 }
 .link {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -262,4 +262,4 @@
   background: var(--select-selected);
   color: var(--on-primary);
 }
-.panel{min-width:0}@media(max-width:480px){.panel{padding:16px;gap:14px;border-radius:9px}.panel header{gap:9px}.panel h2{font-size:15px}.form textarea{min-height:112px;padding:10px;font-size:12px}.form .select{height:44px}.consent{padding:10px;font-size:11px}.primary{width:100%}.result{padding:13px}.steps li{align-items:flex-start;flex-direction:column;gap:3px}.actions{align-items:stretch;flex-direction:column}.actions .primary{width:100%}}
+.panel{min-width:0}@media(max-width:480px){.panel{padding:16px;gap:14px;border-radius:9px}.panel header{gap:9px}.panel h2{font-size:15px}.form textarea{min-height:112px;padding:10px;font-size: 14px}.form .select{height:44px}.consent{padding:10px;font-size:11px}.primary{width:100%}.result{padding:13px}.steps li{align-items:flex-start;flex-direction:column;gap:3px}.actions{align-items:stretch;flex-direction:column}.actions .primary{width:100%}}

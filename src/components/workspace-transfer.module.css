@@ -3,7 +3,7 @@
 .row{display:flex;align-items:center;gap:18px}
 .row>div:first-child{margin-right:auto}
 .transfer h2{margin:0 0 4px;color:var(--text-primary);font-size:16px;font-weight:600;letter-spacing:0}
-.transfer p{margin:0;color:var(--body-copy);font-size:12px;line-height:1.5}
+.transfer p{margin:0;color:var(--body-copy);font-size:14px;line-height:1.43}
 .actions{display:flex;align-items:center;gap:10px;flex:none}
 .actions>button{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--control-fill);color:var(--text-primary);font-weight:600;cursor:pointer;box-shadow:var(--shadow-whisper);transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease)}
 .actions>button:hover:not(:disabled){border-color:var(--border-hover);background:var(--control-fill-hover);color:var(--text-primary);box-shadow:var(--shadow-float);transform:translateY(-1px)}

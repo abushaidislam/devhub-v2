@@ -192,12 +192,12 @@
   --font-size-title-sm: 15px;
   --font-size-copy-lg: 16px;
   --font-size-copy-md: 14px;
-  --font-size-copy-sm: 12px;
+  --font-size-copy-sm: 14px;
   --font-size-label-strong: 14px;
   --font-size-label-md: 14px;
-  --font-size-label-sm: 12px;
-  --font-size-mono-sm: 12px;
-  --font-size-meta: 11px;
+  --font-size-label-sm: 14px;
+  --font-size-mono-sm: 14px;
+  --font-size-meta: 12px;
 
   --line-height-display: 1;
   --line-height-heading: 1.25;
@@ -789,7 +789,7 @@ footer a:hover {
 
 .command-preview-copy strong {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0;
 }
@@ -986,7 +986,7 @@ footer a:hover {
 
 .trust-copy strong {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -1154,8 +1154,8 @@ footer a:hover {
 
 .principles p {
   color: var(--body-copy);
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.43;
   margin: 0;
 }
 
@@ -1183,7 +1183,7 @@ footer a:hover {
 
 .category-list small {
   color: var(--mute);
-  font: 12px var(--mono);
+  font: 14px var(--mono);
 }
 
 /* Category tabs */
