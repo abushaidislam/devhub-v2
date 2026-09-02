@@ -1,7 +1,7 @@
 .offline{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:32px 20px;text-align:center;background:var(--canvas)}
-.badge{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--error);border:1px solid var(--hairline);border-radius:999px;padding:4px 10px;background:#fff;margin:0}
+.badge{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--error);border:1px solid var(--hairline);border-radius:999px;padding:4px 10px;background:var(--canvas-elevated);margin:0}
 .offline h1{font-size:22px;font-weight:650;color:var(--ink);margin:0}
 .copy{max-width:440px;font-size:13px;line-height:1.6;color:var(--body-copy);margin:0}
-.action{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid var(--hairline);border-radius:6px;background:#fff;color:var(--ink);font-size:12px;font-weight:600;text-decoration:none}
+.action{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid var(--hairline);border-radius:6px;background:var(--canvas-elevated);color:var(--ink);font-size:12px;font-weight:600;text-decoration:none}
 .action:hover{border-color:var(--border-hover);background:var(--hairline-soft);color:var(--ink)}
 .action:focus-visible{outline:2px solid var(--ink);outline-offset:2px}

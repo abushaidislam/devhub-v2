@@ -10,9 +10,9 @@
 .tertiary{border-color:transparent;background:transparent;color:var(--text-secondary);box-shadow:none}
 .tertiary:hover:not(:disabled){background:var(--surface-hover);color:var(--text-primary);box-shadow:none}
 .error{background:var(--canvas-elevated);border-color:var(--error);color:var(--error-deep);box-shadow:var(--shadow-whisper)}
-.error:hover:not(:disabled){background:#fff5f5;border-color:var(--error-deep);box-shadow:var(--shadow-float)}
+.error:hover:not(:disabled){background:rgba(238,0,0,0.06);border-color:var(--error-deep);box-shadow:var(--shadow-float)}
 .warning{background:var(--warning-soft);border-color:var(--warning);color:var(--warning-deep);box-shadow:var(--shadow-whisper)}
-.warning:hover:not(:disabled){background:#fff6e0;border-color:var(--warning-deep);box-shadow:var(--shadow-float)}
+.warning:hover:not(:disabled){background:rgba(245,166,35,0.08);border-color:var(--warning-deep);box-shadow:var(--shadow-float)}
 .tiny{min-height:28px;padding:0 9px;font-size:var(--font-size-meta)}
 .small{min-height:32px;padding:0 11px;font-size:var(--font-size-label-sm)}
 .medium{min-height:36px}

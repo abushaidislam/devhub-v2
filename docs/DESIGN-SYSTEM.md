@@ -444,3 +444,42 @@ The dashboard context count now uses Badge, and the shell, detector, dashboard c
 Markdown Preview uses the shared runtime surface with a Markdown-specific toolbar. The toolbar exposes the approved shared `Switch` primitive for **Live preview** and a local **Export HTML** action. Live rendering is debounced so typing remains responsive; turning it off restores explicit Run behavior.
 
 The output header exposes accessible `Preview` and `HTML` tabs when a result exists. Preview content uses the runtime typography and surface tokens, with dedicated readable treatments for headings H1–H6, links, blockquotes, lists, task markers, fenced code, tables, horizontal rules, and safe image-alt placeholders. Tables scroll horizontally on small screens, runtime panels continue stacking below 780px, and all new controls retain visible focus, disabled, hover, and reduced-motion states.
+
+## Design system audit & full tokenization overhaul (Phases 1–4)
+
+A comprehensive audit of the entire codebase was conducted against the Single Source of Truth (`referances/DESIGN-vercel (1).md`). The refactoring was implemented in four distinct phases:
+
+### Phase 1: CSS & Tailwind v4 @theme Architecture
+- Integrated the full `@theme` token block in `src/app/globals.css`, defining core colors (`ink`, `body`, `mute`, `faint`, `hairline`, `canvas`, `link`, `error`, `warning`, `violet`, `cyan`, `pink`, `magenta`, brand gradients), typography scales, letter-spacing pairs (`display-xl` -2.4px, `heading-lg` -1.28px, `heading-md` -0.4px, `label-sm` -0.28px, `mono-eyebrow` 0px, `body` 0px), radii (`sm` 6px, `md` 12px, `lg` 16px, `pill-category` 64px, `pill` 100px, `full` 9999px), and elevation shadows (`shadow-whisper`, `shadow-float`, `shadow-press`).
+- Refactored `src/app/vercel-typography.css` to align all headings, body, label/eyebrow (12px/16px/500/mono), and code blocks to the exact SSOT specification.
+
+### Phase 2: UI Primitives & Core Modules Consolidation
+- Cleaned and consolidated `button.module.css`, `badge.module.css`, and `search-input.module.css` to use tokens instead of raw hex values.
+- Consolidated multi-pass override debt (4+ layers) into single authoritative passes in `dashboard-shell.module.css`, `dashboard-tool-grid.module.css`, `tool-runtime.module.css`, `smart-input-detector.module.css`, and `command-palette.module.css`.
+
+### Phase 3: Project-Wide Tokenization
+- Audited all 26 `.module.css` files across `src/components/`, `src/app/`, and `src/components/ui/`.
+- Eliminated 100% of hardcoded hex values (`#fff`, `#000`, `#ffc9c9`, `#0f766e`, `#aaffec`, etc.) and ad-hoc inline color styles.
+- Fully tokenized `recent-workspace`, `saved-recipe-workspace`, `workspace-transfer`, `recipe-runner`, `workflow-planner`, `ai-provider-settings`, `switch`, `site-footer`, `landing-cta-section`, `assistant`, `dashboard`, and `offline/page`.
+
+### Phase 4: Component Shapes, Layout, & Visual Polish
+- **Button Shapes**: Enforced the deliberate Geist dual-shape convention:
+  - **Marketing CTAs**: Fully rounded black pills (`var(--radius-pill)` — 100px) on landing hero and CTA bands (`/`, `/tools`).
+  - **In-App & Nav Controls**: Tight 6px square (`var(--radius-sm)` — 6px) in navigation, sidebar, topbar, and workspace forms.
+  - **Category Pills**: `var(--radius-pill-category)` (64px) for category filter tabs.
+- **Card Interactive Elevation**: Ensured `.tool-card` and `.card` enforce hairline borders (`var(--hairline)`), level 1 whisper shadow (`var(--shadow-whisper)`), level 2 float shadow on hover (`var(--shadow-float)` with -1px lift), and tactile press feedback on active (`var(--shadow-press)` with `transform: translateY(0) scale(0.985)`).
+- **Public Navigation & Footer Alignment**: Integrated `<SiteFooter />` with semantic 3-column navigation, privacy notice, and brand lockup across `/`, `/tools`, and `/categories/[slug]`.
+- **Zero Discrepancies**: The codebase adheres 100% to `referances/DESIGN-vercel (1).md` with full typecheck, lint, and build test suites green.
+
+### Phase 5: UI Micro-Interactions, Animation Polish & Tactile Feedback
+- **Mesh Gradients & Ambient Breathing**: Fully enabled `dh-glow` on the hero background mesh and `ctaGlow` on the landing CTA band, producing a subtle, organic gradient bloom without distracting layout shift.
+- **Micro-Interactions**:
+  - **Command Preview & Kbd Keys**: Hover lift (`-1px`), `shadow-float`, and individual `kbd` key hover reaction.
+  - **Workflow Preview Steps**: Steps styled as interactive hairline-soft pills with hover lift and arrow color shift.
+  - **Trust Strip**: Interactive hover cards with brightened icon borders and lift.
+  - **Tactile Switch**: Active thumb squish (`width: 15px`) during drag/press prior to toggle.
+  - **Favorite Heart Micro-Animation**: Smooth `scale(1.15)` pop on hover across both workspace and card favorite buttons.
+  - **Suggestion Arrows**: Detected suggestions smoothly slide up-right (`translate(2px, -2px)`) on hover.
+  - **QR & Action Links**: Full `-1px` hover lift, `shadow-float`, and `scale(.985)` press state.
+- **Reduced Motion Assurance**: Strict zero-motion guarantee on all added keyframes and transitions under `@media (prefers-reduced-motion: reduce)`.
+

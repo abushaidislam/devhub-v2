@@ -52,7 +52,7 @@
 .primary a:focus-visible,.primary button:focus-visible,.scroll summary:focus-visible,.toolChildren a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 .sidebar footer{height:64px;display:flex;align-items:center;gap:9px;padding:0 12px;border-top:1px solid var(--hairline);background:var(--surface-0)}
-.avatar{width:28px;height:28px;display:grid;place-items:center;flex:none;border-radius:50%;background:var(--ink);color:#fff;font-size:10px;font-weight:700}
+.avatar{width:28px;height:28px;display:grid;place-items:center;flex:none;border-radius:50%;background:var(--ink);color:var(--on-primary);font-size:10px;font-weight:700}
 .sidebar footer>div:nth-child(2){min-width:0;flex:1}
 .sidebar footer strong,.sidebar footer small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sidebar footer strong{color:var(--ink);font-size:12px;line-height:17px;font-weight:600}

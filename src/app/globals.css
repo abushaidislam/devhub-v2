@@ -756,12 +756,23 @@ footer a:hover {
   cursor: pointer;
   text-decoration: none;
   box-shadow: var(--shadow-whisper);
+  transition:
+    transform var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
 }
 
 .command-preview:hover {
   border-color: var(--border-hover);
   background: var(--surface-bright);
   box-shadow: var(--shadow-float);
+  transform: translateY(-1px);
+}
+
+.command-preview:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: var(--shadow-press);
 }
 
 .command-preview:focus-visible {
@@ -828,6 +839,12 @@ footer a:hover {
   background: var(--hairline-soft);
   color: var(--ink);
   font: 500 11px/1 var(--mono);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.command-preview:hover .command-keys kbd {
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
 }
 
 /* Workflow preview */
@@ -843,6 +860,12 @@ footer a:hover {
   background: var(--canvas-elevated);
   text-align: left;
   box-shadow: var(--shadow-whisper);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.workflow-preview:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-float);
 }
 
 .workflow-label {
@@ -861,9 +884,34 @@ footer a:hover {
   font: var(--font-size-body-sm)/var(--line-height-copy) var(--mono);
 }
 
+.workflow-steps span {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--hairline-soft);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-weight: 500;
+  box-shadow: var(--shadow-whisper);
+  transition:
+    background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.workflow-steps span:hover {
+  background: var(--canvas-elevated);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-float);
+  transform: translateY(-1px);
+}
+
 .workflow-steps svg {
   color: var(--mute);
   flex: none;
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 
 /* Trust strip */
@@ -908,6 +956,18 @@ footer a:hover {
   background: var(--canvas-elevated);
   color: var(--body-copy);
   box-shadow: var(--shadow-whisper);
+  transition:
+    transform var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.trust-strip-inner > article:hover .trust-icon {
+  border-color: var(--border-hover);
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-float);
 }
 
 .trust-copy {
@@ -991,6 +1051,11 @@ footer a:hover {
   border-color: var(--border-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-float);
+}
+
+.tool-card:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: var(--shadow-press);
 }
 
 .tool-icon {
