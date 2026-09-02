@@ -21,14 +21,14 @@
 .results>button[aria-selected=true] .icon{background:var(--canvas-elevated);border-color:var(--border-hover)}
 .results>button>span:nth-child(2){min-width:0;flex:1}
 .results strong,.results small{display:block}
-.results strong{color:var(--ink);font-size:13px;font-weight:650;letter-spacing:-.2px}
+.results strong{color:var(--ink);font-size:13px;font-weight:600;letter-spacing:0}
 .results small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mute);font-size:11px;font-weight:500;margin-top:2px}
 .results em{font:var(--font-weight-semibold) var(--font-size-meta)/1 var(--mono);font-style:normal;text-transform:none;color:var(--text-tertiary)}
 .results>button>svg{opacity:0;transform:translateX(-3px);color:var(--mute);transition:opacity .14s var(--ease),transform .14s var(--ease)}
 .results>button:hover>svg,.results>button[aria-selected=true]>svg{opacity:1;transform:none}
 
 .empty{min-height:220px;display:grid;place-content:center;justify-items:center;gap:7px;color:var(--mute)}
-.empty strong{color:var(--ink);font-size:13px;font-weight:650}
+.empty strong{color:var(--ink);font-size:13px;font-weight:600}
 .empty span{font-size:11px}
 
 .dialog footer{height:40px;display:flex;align-items:center;gap:18px;padding:0 16px;border-top:1px solid var(--hairline);color:var(--mute);font-size:10px;font-weight:500}

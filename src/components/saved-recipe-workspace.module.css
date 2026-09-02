@@ -11,7 +11,7 @@
 .intro :global(.label),
 .sectionHeader :global(.label) {
   color: var(--ink);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .intro p {
@@ -60,7 +60,7 @@
   margin: 0 0 3px;
   color: var(--ink);
   font-size: 14px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .storage p {
@@ -89,7 +89,7 @@
   background: rgba(238, 0, 0, 0.05);
   color: var(--error-deep);
   font-size: 11px;
-  font-weight: 550;
+  font-weight: 500;
 }
 
 .error button,
@@ -157,7 +157,7 @@
   margin: 3px 0 0;
   color: var(--ink);
   font-size: 20px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .sectionHeader > span,
@@ -218,7 +218,7 @@
   margin: 14px 0 5px;
   color: var(--ink);
   font-size: 16px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .card > p {
@@ -256,7 +256,7 @@
 .savedMeta {
   color: var(--mute);
   font-size: 11px;
-  font-weight: 550;
+  font-weight: 500;
   line-height: 1.4;
   overflow-wrap: anywhere;
 }
@@ -304,7 +304,7 @@
   padding: 9px 11px;
   border-radius: var(--radius-sm);
   font-size: 11px;
-  font-weight: 550;
+  font-weight: 500;
 }
 
 .transferStatus {
@@ -357,7 +357,7 @@
   overflow: hidden;
   color: var(--ink);
   font-size: 14px;
-  font-weight: 650;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -423,7 +423,7 @@
   margin: 11px 0 4px;
   color: var(--ink);
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .empty p {

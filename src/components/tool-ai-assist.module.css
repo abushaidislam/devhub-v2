@@ -1,5 +1,5 @@
 .assist{border-top:1px solid var(--hairline);padding:14px;display:grid;gap:10px;background:var(--surface-1)}
-.head{display:flex;align-items:center;gap:8px;color:var(--text-primary);font-size:12px;font-weight:650}
+.head{display:flex;align-items:center;gap:8px;color:var(--text-primary);font-size:12px;font-weight:600}
 .head small{color:var(--body-copy);font-size:11px;font-weight:500}
 .gate{margin:0;color:var(--body-copy);font-size:12px;font-weight:500}
 .gate a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}

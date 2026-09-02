@@ -8,12 +8,12 @@
   animation:ctaGlow 8s var(--ease) infinite alternate}
 @keyframes ctaGlow{from{opacity:.7;transform:scale(.97)}to{opacity:1;transform:scale(1.03)}}
 .content{position:relative;z-index:1;width:min(100%,720px);padding:88px 24px 92px;text-align:center}
-.badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:7px 12px;border:1px solid var(--hairline);border-radius:64px;background:var(--canvas-elevated);color:var(--mute);font:11px var(--mono);letter-spacing:.045em;transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:7px 12px;border:1px solid var(--hairline);border-radius:64px;background:var(--canvas-elevated);color:var(--mute);font:11px var(--mono);letter-spacing:0;transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
 .badge:hover{border-color:var(--border-hover);transform:translateY(-1px);box-shadow:var(--shadow-whisper)}
 .badge svg{color:var(--mute)}
 .content h2{margin:0;color:var(--ink);font-size:clamp(42px,6vw,72px);font-weight:600;letter-spacing:-.06em;line-height:1.03}
-.content h2 em{color:var(--body-copy);font-style:italic}
-.content>p{max-width:520px;margin:24px auto 32px;color:var(--body-copy);font-size:16px;line-height:1.6}
+.content h2 em{color:var(--body-copy)}
+.content>p{max-width:520px;margin:24px auto 32px;color:var(--body-copy);font-size:16px;line-height:1.5}
 .actions{display:flex;align-items:center;justify-content:center;gap:10px}
 .actions a{transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease),background var(--dur) var(--ease)}
 .actions a:hover{transform:translateY(-1px);box-shadow:var(--shadow-float)}

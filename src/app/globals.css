@@ -207,12 +207,12 @@
 
   --tracking-display: -2.4px;
   --tracking-heading: -1.28px;
-  --tracking-label: 0px;
+  --tracking-label: -0.28px;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
-  --font-weight-strong: 650;
+  --font-weight-strong: 600;
 
   /* Motion & timing tokens (Vercel/Geist register: 150-200ms, ease-out) */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -723,7 +723,7 @@ footer a:hover {
   max-width: 650px;
   color: var(--body-copy);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -790,8 +790,8 @@ footer a:hover {
 .command-preview-copy strong {
   color: var(--ink);
   font-size: 13px;
-  font-weight: 550;
-  letter-spacing: -0.2px;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .command-preview-copy small {
@@ -980,7 +980,7 @@ footer a:hover {
   display: block;
   color: var(--mute);
   font: 500 10px/1 var(--mono);
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   text-transform: lowercase;
 }
 

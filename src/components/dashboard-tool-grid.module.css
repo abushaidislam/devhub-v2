@@ -12,9 +12,9 @@
 .card:hover .icon{border-color:var(--border-hover);background:var(--surface-bright)}
 .card>a>div{min-width:0}
 
-.card strong{display:block;color:var(--ink);font-size:14px;font-weight:650;letter-spacing:-.005em;transition:color var(--duration-quick) var(--ease-smooth-out)}
-.card p{min-height:42px;margin:6px 0 14px;color:var(--body-copy);font-size:13px;font-weight:450;line-height:1.5}
-.card small{display:flex;align-items:center;gap:5px;color:var(--text-tertiary);font-size:10px;font-weight:600;text-transform:none;letter-spacing:.07em}
+.card strong{display:block;color:var(--ink);font-size:14px;font-weight:600;letter-spacing:0;transition:color var(--duration-quick) var(--ease-smooth-out)}
+.card p{min-height:42px;margin:6px 0 14px;color:var(--body-copy);font-size:13px;font-weight:400;line-height:1.43}
+.card small{display:flex;align-items:center;gap:5px;color:var(--text-tertiary);font-size:10px;font-weight:600;text-transform:none;letter-spacing:0}
 
 .meta{display:flex;align-items:center;gap:5px;color:var(--text-tertiary)}
 .meta svg{flex:none;transition:transform var(--duration-quick) var(--ease-smooth-out),color var(--duration-quick) var(--ease-smooth-out)}
@@ -31,7 +31,7 @@
 
 .empty{min-height:360px;display:grid;place-content:center;justify-items:center;text-align:center;border:1px dashed var(--hairline);border-radius:var(--radius-lg);background:var(--canvas-elevated)}
 .empty>span{width:46px;height:46px;display:grid;place-items:center;margin-bottom:15px;border:1px solid var(--hairline);border-radius:50%;background:var(--hairline-soft);color:var(--mute)}
-.empty h2{margin:0 0 6px;color:var(--ink);font-size:16px;font-weight:650}
+.empty h2{margin:0 0 6px;color:var(--ink);font-size:16px;font-weight:600}
 .empty p{max-width:360px;margin:0 0 18px;color:var(--body-copy);font-size:12px}
 
 .emptyActions{display:grid;gap:14px;justify-items:center}
