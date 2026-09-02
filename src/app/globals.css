@@ -120,7 +120,7 @@
   --text: var(--ink);
   --muted: var(--mute);
   --border: var(--hairline);
-  --sans: var(--font-geist, Arial), sans-serif;
+  --sans: var(--font-geist-sans, Arial), sans-serif;
   --mono: var(--font-geist-mono, Menlo), monospace;
 
   --content-max: 1220px;
