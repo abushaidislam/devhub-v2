@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.15.4](https://github.com/abushaidislam/devhub-v2/compare/v0.15.3...v0.15.4) (2026-09-02)
+
+
+### Bug Fixes
+
+* design audit responsive and consistency issues\n\n- Adjusted mobile breakpoints for tools grid, workflow steps, and trust strip inner components to stack in 1 column\n- Adjusted footer masthead font scale for smaller screens\n- Converted footer primary action buttons to use global design tokens for consistency\n- Adjusted hero h1 tracking to reduce visual crowding ([#72](https://github.com/abushaidislam/devhub-v2/issues/72)) ([e521b8f](https://github.com/abushaidislam/devhub-v2/commit/e521b8fb3af343d745764a0376662fce4f2c128a))
+* design audit responsive and consistency issues\n\n- Adjusted mobile breakpoints for tools grid, workflow steps, and trust strip inner components to stack in 1 column\n- Adjusted footer masthead font scale for smaller screens\n- Converted footer primary action buttons to use global design tokens for consistency\n- Adjusted hero h1 tracking to reduce visual crowding ([#74](https://github.com/abushaidislam/devhub-v2/issues/74)) ([a4e9d43](https://github.com/abushaidislam/devhub-v2/commit/a4e9d43c375d19f94cf69e472e8702ecb6f72233))
+
 ## [0.15.3](https://github.com/abushaidislam/devhub-v2/compare/v0.15.2...v0.15.3) (2026-09-02)
 
 
