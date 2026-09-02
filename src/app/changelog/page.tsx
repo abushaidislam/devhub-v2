@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {TrustPage} from "@/components/trust-page";
+import {TrustPage} from "@/components/marketing/trust-page";
 
 export const metadata: Metadata = {
   title: "Changelog",

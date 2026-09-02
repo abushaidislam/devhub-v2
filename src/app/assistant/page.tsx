@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { AiProviderSettings } from "@/components/ai-provider-settings";
-import { DashboardShell } from "@/components/dashboard-shell";
-import { ErrorExplainer } from "@/components/error-explainer";
-import { WorkflowPlanner } from "@/components/workflow-planner";
+import { AiProviderSettings } from "@/components/tools/ai-provider-settings";
+import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+import { ErrorExplainer } from "@/components/core/error-explainer";
+import { WorkflowPlanner } from "@/components/workflows/workflow-planner";
 import { ArrowRight, LifeBuoy, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import styles from "./assistant.module.css";
 
