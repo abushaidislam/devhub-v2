@@ -2,9 +2,9 @@
 .control{position:relative;width:32px;height:18px;flex:none;padding:0;border:1px solid var(--hairline);border-radius:999px;background:var(--hairline-soft);transition:background .15s ease,border-color .15s ease,box-shadow .15s ease}
 .control>span{position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--mute);box-shadow:var(--shadow-whisper);transition:transform .15s ease,background .15s ease}
 .control[aria-checked=true]{border-color:var(--ink);background:var(--ink)}
-.control[aria-checked=true]>span{transform:translateX(14px);background:#fff}
+.control[aria-checked=true]>span{transform:translateX(14px);background:var(--canvas-elevated)}
 .control:hover:not(:disabled){border-color:var(--border-hover)}
-.control[aria-checked=true]:hover:not(:disabled){border-color:#000;background:#000}
+.control[aria-checked=true]:hover:not(:disabled){border-color:var(--ink);background:var(--ink)}
 .control:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
 .root[data-disabled=true]{opacity:.45;cursor:not-allowed}
 .control:disabled{cursor:not-allowed}

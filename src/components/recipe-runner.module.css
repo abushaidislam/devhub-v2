@@ -64,7 +64,7 @@
 
 .plan em {
   padding: 2px 5px;
-  border: 1px solid #285248;
+  border: 1px solid rgba(80, 227, 194, 0.3);
   border-radius: 999px;
   color: var(--cyan);
   font: 600 8px var(--font-geist-mono), monospace;
@@ -73,7 +73,7 @@
 }
 
 .plan em:not([data-boundary="local"]) {
-  border-color: #68582a;
+  border-color: rgba(245, 166, 35, 0.3);
   color: var(--warning);
 }
 
@@ -306,12 +306,12 @@
 }
 
 [data-theme="dark"] .plan em:not([data-boundary="local"]) {
-  border-color: #68582a;
-  color: #f5ce67;
+  border-color: rgba(245, 166, 35, 0.35);
+  color: var(--warning);
 }
 
 [data-theme="dark"] .plan em {
-  border-color: #285248;
+  border-color: rgba(80, 227, 194, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

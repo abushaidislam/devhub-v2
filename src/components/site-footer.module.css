@@ -48,7 +48,7 @@
   padding: 6px 10px;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-pill);
-  background: #fff;
+  background: var(--canvas-elevated);
   color: var(--body-copy);
   font: 600 var(--font-size-label-sm) / 1 var(--mono);
   letter-spacing: var(--tracking-label);
@@ -95,7 +95,7 @@
   border: 1px solid var(--ink);
   border-radius: var(--radius-pill);
   background: var(--ink);
-  color: #fff;
+  color: var(--on-primary);
   font-size: 13px;
   font-weight: 650;
   letter-spacing: -0.3px;
@@ -103,9 +103,9 @@
 }
 
 .primaryAction:hover {
-  border-color: #000;
-  background: #000;
-  color: #fff;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--on-primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-float);
 }
@@ -129,7 +129,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--canvas-elevated);
   color: var(--ink);
 }
 
@@ -228,10 +228,10 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  border: 1px solid #6f6f6f;
+  border: 1px solid var(--hairline);
   border-radius: 6px;
-  background: linear-gradient(145deg, #e5e5e5, #777);
-  color: #111;
+  background: var(--ink);
+  color: var(--canvas-elevated);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: -0.08em;
@@ -239,7 +239,7 @@
 }
 
 .brandMark span {
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .tagline,

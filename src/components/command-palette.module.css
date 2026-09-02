@@ -38,7 +38,7 @@
 
 /* Dark theme overrides */
 [data-theme="dark"] .overlay{background:rgba(0,0,0,.72)}
-[data-theme="dark"] .dialog{border-color:var(--border-strong);background:var(--canvas-elevated);box-shadow:0 28px 100px #000}
+[data-theme="dark"] .dialog{border-color:var(--border-strong);background:var(--canvas-elevated);box-shadow:0 28px 100px rgba(0,0,0,0.8)}
 [data-theme="dark"] .dialog>header{border-bottom-color:var(--hairline);color:var(--text-secondary)}
 [data-theme="dark"] .dialog input{color:var(--text-primary)}
 [data-theme="dark"] .dialog header kbd,[data-theme="dark"] .dialog footer kbd{border-color:var(--hairline);background:var(--hairline-soft);color:var(--body-copy)}

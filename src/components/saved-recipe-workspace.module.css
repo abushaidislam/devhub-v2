@@ -84,9 +84,9 @@
   gap: 14px;
   margin-top: 14px;
   padding: 11px 13px;
-  border: 1px solid #ffc9c9;
+  border: 1px solid rgba(238, 0, 0, 0.2);
   border-radius: var(--radius-sm);
-  background: #fff1f1;
+  background: rgba(238, 0, 0, 0.05);
   color: var(--error-deep);
   font-size: 11px;
   font-weight: 550;
@@ -308,14 +308,14 @@
 }
 
 .transferStatus {
-  border: 1px solid #aaffec;
-  background: #e8fff8;
-  color: #0f766e;
+  border: 1px solid rgba(80, 227, 194, 0.3);
+  background: rgba(80, 227, 194, 0.08);
+  color: var(--cyan);
 }
 
 .transferError {
-  border: 1px solid #ffc9c9;
-  background: #fff1f1;
+  border: 1px solid rgba(238, 0, 0, 0.2);
+  background: rgba(238, 0, 0, 0.05);
   color: var(--error-deep);
 }
 
@@ -601,15 +601,15 @@
 
 [data-theme="dark"] .error,
 [data-theme="dark"] .transferError {
-  border-color: #5a302d;
-  background: #1a0d0c;
-  color: #ffb2aa;
+  border-color: rgba(238, 0, 0, 0.3);
+  background: rgba(238, 0, 0, 0.12);
+  color: var(--error);
 }
 
 [data-theme="dark"] .transferStatus {
-  border-color: #235449;
-  background: #071b17;
-  color: #8ee8d2;
+  border-color: rgba(80, 227, 194, 0.3);
+  background: rgba(80, 227, 194, 0.08);
+  color: var(--cyan);
 }
 
 [data-theme="dark"] .card > code {
