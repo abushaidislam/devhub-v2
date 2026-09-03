@@ -23,7 +23,7 @@ export default function HomePage() {
           <div className="hero-actions">
             <Link className="button primary large" href="/tools">Browse all tools <ArrowRight size={16} /></Link>
             <Link className="button secondary large" href="/dashboard">Open workspace</Link>
-            <a className="button secondary large" href="https://github.com/abushaidislam/devhub-v2" target="_blank" rel="noreferrer"><Github size={15} /> Source</a>
+            <a className="button tertiary large" href="https://github.com/abushaidislam/devhub-v2" target="_blank" rel="noreferrer"><Github size={15} /> Source</a>
           </div>
           <HeroWorkbench />
         </div>
