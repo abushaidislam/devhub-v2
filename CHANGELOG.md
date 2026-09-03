@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/abushaidislam/devhub-v2/compare/v0.19.0...v0.20.0) (2026-09-03)
+
+
+### Features
+
+* add CSS modules for workspace components and include AI handoff documentation ([7735dd4](https://github.com/abushaidislam/devhub-v2/commit/7735dd45654fe0820b50ae1a0a4cf1add70e9338))
+
 ## [0.19.0](https://github.com/abushaidislam/devhub-v2/compare/v0.18.0...v0.19.0) (2026-09-03)
 
 
