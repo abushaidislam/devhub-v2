@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { historyEnabled, readHistory, recordHistory, setHistoryEnabled } from "@/lib/history";
+import { historyEnabled, historySupported, readHistory, recordHistory, setHistoryEnabled } from "@/lib/history";
 
 describe("history storage", () => {
   beforeEach(() => {
@@ -24,5 +24,23 @@ describe("history storage", () => {
     });
 
     expect(historyEnabled()).toBe(false);
+  });
+
+  it("reports history as unsupported when storage access throws an error", () => {
+    const originalLocalStorage = globalThis.localStorage;
+    Object.defineProperty(globalThis, "localStorage", {
+      get() {
+        throw new Error("SecurityError: The operation is insecure.");
+      },
+      configurable: true,
+    });
+    try {
+      expect(historySupported()).toBe(false);
+    } finally {
+      Object.defineProperty(globalThis, "localStorage", {
+        value: originalLocalStorage,
+        configurable: true,
+      });
+    }
   });
 });
