@@ -430,6 +430,8 @@
   color: var(--ink);
   font-size: 15px;
   font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.2px;
 }
 
 .empty p {

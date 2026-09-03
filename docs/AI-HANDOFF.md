@@ -983,7 +983,8 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
   - Components setting `font-size: 14px` on `<h2>` without explicitly setting `letter-spacing` (e.g. `SmartInputDetector`'s `.panel h2`) inherited `-1.28px` tracking. At 14px, `-1.28px` collapsed spacing by ~9% per character, causing characters in "Smart input detection" to squish and overlap into each other.
 - **Global & Component Typography Fix**:
   - Converted global heading letter-spacing in `src/app/vercel-typography.css` from fixed pixel values (`-2.4px`, `-1.28px`, `-0.4px`) to proportional `em` units (`-0.05em`, `-0.04em`, `-0.02em`).
-  - Updated component heading styles (`smart-input-detector.module.css`, `next-actions.module.css`, `workflow-planner.module.css`, `saved-recipe-workspace.module.css`, `ai-provider-settings.module.css`) to explicitly define `font-size: 14px/16px`, `font-weight: 600`, `line-height: 20px/22px`, and `letter-spacing: -0.28px` matching DevHub v2 design system standards.
+  - Updated component heading styles (`smart-input-detector.module.css`, `next-actions.module.css`, `workflow-planner.module.css`, `saved-recipe-workspace.module.css`, `ai-provider-settings.module.css`, `dashboard-tool-grid.module.css`, `recent-workspace.module.css`) to explicitly define `font-size: 14px/16px`, `font-weight: 600`, `line-height: 20px/22px`, and `letter-spacing: -0.28px` matching DevHub v2 design system standards.
+  - Enhanced `.providers legend` styling in `ai-provider-settings.module.css` to use uppercase Geist Mono font (`font: 600 10px/12px var(--font-geist-mono)`).
 - 100% compliant with SSOT Vercel/Geist design system typography standards.
 
 ### Verification Results

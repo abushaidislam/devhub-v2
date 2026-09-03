@@ -46,7 +46,7 @@
 .noMatches{padding:48px 16px;color:var(--body-copy);font-size: 14px;text-align:center}
 .empty{min-height:260px;display:grid;place-content:center;justify-items:center;gap:7px;padding:24px;border:1px dashed var(--hairline);border-radius:var(--radius-md);background:var(--canvas-elevated);text-align:center}
 .empty>svg{color:var(--mute)}
-.empty h3{margin:4px 0 0;color:var(--ink);font-size:14px}
+.empty h3{margin:4px 0 0;color:var(--ink);font-size:14px;font-weight:600;line-height:20px;letter-spacing:-0.28px}
 .emptyAction{display:flex;align-items:center;gap:5px;margin-top:8px;color:var(--ink);font-size: 14px;font-weight:500;text-decoration:none}
 .emptyAction:hover{color:var(--ink);text-decoration:underline}
 
