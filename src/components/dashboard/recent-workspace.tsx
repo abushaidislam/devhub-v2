@@ -9,6 +9,8 @@ import { HISTORY_LIMIT } from "@/lib/history";
 import { useHistory } from "@/lib/use-history";
 import styles from "./recent-workspace.module.css";
 
+const toolsBySlug = new Map(tools.map((tool) => [tool.slug, tool]));
+
 function relativeTime(value: number) {
   const seconds = Math.max(1, Math.floor((Date.now() - value) / 1000));
   if (seconds < 60) return `${seconds}s ago`;
@@ -27,7 +29,7 @@ export function RecentWorkspace() {
     () =>
       normalizedQuery
         ? entries.filter((entry) => {
-            const tool = tools.find((item) => item.slug === entry.slug);
+            const tool = toolsBySlug.get(entry.slug);
             return tool?.name.toLowerCase().includes(normalizedQuery) || entry.slug.includes(normalizedQuery);
           })
         : entries,
@@ -86,7 +88,7 @@ export function RecentWorkspace() {
           {visibleEntries.length ? (
             <ul>
               {visibleEntries.map((entry) => {
-                const tool = tools.find((item) => item.slug === entry.slug);
+                const tool = toolsBySlug.get(entry.slug);
                 if (!tool) return null;
                 const Icon = tool.icon;
                 return (
