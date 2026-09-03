@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useMemo, useRef, useState, type RefObject} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 import {ArrowRight, Command, Search, X} from "lucide-react";
 import {tools} from "@/lib/tools";
@@ -14,7 +14,7 @@ export function CommandPalette({
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  returnFocusRef?: RefObject<HTMLElement | null>;
+  returnFocusRef?: React.RefObject<HTMLElement | null>;
 }) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
