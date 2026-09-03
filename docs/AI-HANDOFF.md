@@ -573,5 +573,21 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
 | SSOT Token Compliance | CSS Module Audit | ✅ **100% tokenized**, 0 hardcoded hex colors |
 
+## Design System Phase 6: Marketing Capabilities Bento Grid & Architectural Comparison — September 2026
+
+### Scope completed
+
+- Added `LandingBentoGrid` (`src/components/marketing/landing-bento-grid.tsx` + `landing-bento-grid.module.css`) to the homepage (`src/app/page.tsx`). Implements an abstract, clean 12-column asymmetric Bento Grid showcasing DevHub's key capabilities:
+  - Card 1 (Span 7): Deterministic Smart Routing with live regex token preview, fast-guard tags (`[JSON]`, `[JWT]`, `[Base64]`, etc.), and `<1ms` match telemetry.
+  - Card 2 (Span 5): Zero-Egress Privacy Sandbox featuring in-browser V8 execution diagram, WebCrypto/TypeScript badges, and `<0.2ms` RAM processing metrics.
+  - Card 3 (Span 4): Composable Workflow Recipes showing sequential pipeline nodes (`Input ➔ JSON ➔ YAML ➔ SHA-256`) and local storage metadata.
+  - Card 4 (Span 4): Real-time Type & Interface Inference showing JSON to TypeScript conversion with syntax-highlighted tokens.
+  - Card 5 (Span 4): Workspace Ergonomics & Velocity with `⌘K` command simulation and Service Worker offline caching status.
+- Added `LandingComparison` (`src/components/marketing/landing-comparison.tsx` + `landing-comparison.module.css`) to the homepage (`src/app/page.tsx`). Contrasts traditional ad-heavy, cloud-dependent web utility wrappers with DevHub's local-first, distraction-free Geist workbench across 5 key architectural dimensions.
+- Adheres 100% to the Vercel/Geist design system tokens (`var(--canvas)`, `var(--canvas-elevated)`, `var(--hairline)`, `var(--hairline-soft)`, `var(--ink)`, `var(--body-copy)`, `var(--mute)`, `var(--cyan)`, etc.) with 0 hardcoded hex colors.
+- Responsive breakpoints at 1024px, 860px, and 680px for desktop, tablet, and mobile viewing.
+- Fully respects `prefers-reduced-motion: reduce`.
+
+
 
 

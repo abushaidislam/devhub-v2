@@ -483,3 +483,19 @@ A comprehensive audit of the entire codebase was conducted against the Single So
   - **QR & Action Links**: Full `-1px` hover lift, `shadow-float`, and `scale(.985)` press state.
 - **Reduced Motion Assurance**: Strict zero-motion guarantee on all added keyframes and transitions under `@media (prefers-reduced-motion: reduce)`.
 
+### Phase 6: Marketing Capabilities Bento Grid & Architectural Comparison
+- **Landing Bento Grid (`LandingBentoGrid`)**:
+  - Implements a 12-column asymmetric bento grid adhering to the Geist hairline-card system.
+  - Card 1 (Span 7): Deterministic Smart Routing with live regex token preview, fast-guard tags (`[JSON]`, `[JWT]`, `[Base64]`, etc.), and `<1ms` match telemetry.
+  - Card 2 (Span 5): Zero-Egress Privacy Sandbox featuring in-browser V8 execution diagram, WebCrypto/TypeScript badges, and `<0.2ms` RAM processing metrics.
+  - Card 3 (Span 4): Composable Workflow Recipes showing sequential pipeline nodes (`Input ➔ JSON ➔ YAML ➔ SHA-256`) and local storage metadata.
+  - Card 4 (Span 4): Real-time Type & Interface Inference showing JSON to TypeScript conversion with syntax-highlighted tokens.
+  - Card 5 (Span 4): Workspace Ergonomics & Velocity with `⌘K` command simulation and Service Worker offline caching status.
+  - Responsive: collapses gracefully from 12 columns to 2-column layout below 1024px and single-column stacked layout below 680px.
+  - Micro-interactions: Whisper elevation (`var(--shadow-whisper)`), `-1px` hover lift with `var(--shadow-float)`, tactile active press (`scale(0.995)`), and cyan pulse animations.
+- **Architectural Comparison Matrix (`LandingComparison`)**:
+  - Direct 2-column comparison between traditional ad-heavy, cloud-dependent web utility wrappers and DevHub's local-first workbench.
+  - Evaluates 5 dimensions: Execution Boundary, Latency, Privacy, Workspace Experience, and Offline Reliability.
+  - Tokenized styling with hairline borders, green/cyan positive indicators, and muted negative indicators.
+
+

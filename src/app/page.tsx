@@ -5,6 +5,8 @@ import { ToolCard } from "@/components/tools/tool-card";
 import { categories, tools } from "@/lib/tools";
 import { SiteFooter } from "@/components/core/site-footer";
 import { LandingCtaSection } from "@/components/marketing/landing-cta-section";
+import { LandingBentoGrid } from "@/components/marketing/landing-bento-grid";
+import { LandingComparison } from "@/components/marketing/landing-comparison";
 
 export default function HomePage() {
   const featured = tools.filter((tool) => tool.featured).slice(0, 6);
@@ -54,6 +56,10 @@ export default function HomePage() {
           </article>
         </div>
       </section>
+
+      {/* Abstract & Clean Capabilities Bento Grid */}
+      <LandingBentoGrid />
+
       <section className="section">
         <div className="container">
           <div className="section-heading">
@@ -66,22 +72,10 @@ export default function HomePage() {
           <div className="tools-grid">{featured.map((tool) => <ToolCard key={tool.slug} tool={tool} />)}</div>
         </div>
       </section>
-      <section className="section muted" id="principles">
-        <div className="container">
-          <div className="section-heading">
-            <div>
-              <span className="label">Designed with intent</span>
-              <h2 className="type-heading-lg">Fast is a feature.</h2>
-            </div>
-          </div>
-          <div className="principles">
-            <article><Gauge /><h3>Instant by default</h3><p>Server-first rendering, focused bundles and interfaces with no waiting around.</p></article>
-            <article><LockKeyhole /><h3>Private by design</h3><p>Local-first processing keeps sensitive payloads in your browser.</p></article>
-            <article><Command /><h3>Keyboard native</h3><p>Search, navigate and run workflows without reaching for the mouse.</p></article>
-            <article><Blocks /><h3>Built to scale</h3><p>Typed data and composable UI make every new tool consistent.</p></article>
-          </div>
-        </div>
-      </section>
+
+      {/* Architectural Philosophy / Comparison Matrix */}
+      <LandingComparison />
+
       <section className="section" id="categories">
         <div className="container">
           <div className="section-heading">

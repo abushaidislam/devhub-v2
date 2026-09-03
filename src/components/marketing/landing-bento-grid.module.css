@@ -1,0 +1,707 @@
+.section {
+  position: relative;
+  padding: 96px 0;
+  border-top: 1px solid var(--hairline);
+  background: var(--canvas);
+}
+
+.header {
+  margin-bottom: 48px;
+  max-width: 760px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: var(--tracking-mono-eyebrow);
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(80, 227, 194, 0.16);
+  animation: pulseCyan 2.4s var(--ease) infinite;
+}
+
+@keyframes pulseCyan {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    box-shadow: 0 0 0 5px rgba(80, 227, 194, 0.22);
+  }
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: var(--font-size-heading-lg);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--tracking-heading);
+  color: var(--ink);
+}
+
+.subheading {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--body-copy);
+  max-width: 640px;
+}
+
+/* 12-Column Asymmetric Bento Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--canvas-elevated);
+  box-shadow: var(--shadow-whisper);
+  transition:
+    border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    background var(--dur) var(--ease);
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-bright);
+  box-shadow: var(--shadow-float);
+  transform: translateY(-1px);
+}
+
+.card:active {
+  transform: translateY(0) scale(0.995);
+  box-shadow: var(--shadow-press);
+}
+
+.cardDetection {
+  grid-column: span 7;
+}
+
+.cardPrivacy {
+  grid-column: span 5;
+}
+
+.cardRecipes {
+  grid-column: span 4;
+}
+
+.cardInference {
+  grid-column: span 4;
+}
+
+.cardVelocity {
+  grid-column: span 4;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.kicker {
+  font: 500 10px/1 var(--mono);
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--hairline-soft);
+  color: var(--body-copy);
+  font: 500 10px/1 var(--mono);
+}
+
+.metaIcon {
+  color: var(--mute);
+}
+
+.cardHeading {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.cardCopy {
+  margin: 0 0 24px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--body-copy);
+  flex-grow: 0;
+}
+
+/* Card 1: Heuristic Terminal Mockup */
+.previewWindow {
+  margin-top: auto;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas);
+  overflow: hidden;
+  box-shadow: var(--shadow-whisper);
+}
+
+.windowBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--hairline-soft);
+  font: 500 11px/1 var(--mono);
+}
+
+.windowTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink);
+}
+
+.windowStats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--mute);
+}
+
+.statusLive {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.codeLine {
+  padding: 12px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--canvas-elevated);
+  font: 11px/1.4 var(--mono);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tokenMuted {
+  color: var(--mute);
+}
+
+.tokenHighlight {
+  color: var(--ink);
+  font-weight: 500;
+  background: rgba(80, 227, 194, 0.12);
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+
+.detectedRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--canvas);
+}
+
+.detectedMatch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.detectedMatch strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cyanDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.matchScore {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(80, 227, 194, 0.12);
+  border: 1px solid rgba(80, 227, 194, 0.25);
+  color: var(--cyan);
+  font: 600 10px/1 var(--mono);
+}
+
+.actionHint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--mute);
+}
+
+.actionHint kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  background: var(--hairline-soft);
+  color: var(--ink);
+  font: 500 10px/1 var(--mono);
+}
+
+.formatPills {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--canvas-elevated);
+  overflow-x: auto;
+}
+
+.formatPills span {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--hairline-soft);
+  color: var(--mute);
+  font: 500 10px/1 var(--mono);
+}
+
+.formatPills .activePill {
+  border-color: var(--border-hover);
+  background: var(--surface-bright);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Card 2: Privacy / Sandbox */
+.privacyVisual {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shieldLockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas);
+}
+
+.shieldIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas-elevated);
+  color: var(--cyan);
+  box-shadow: var(--shadow-whisper);
+}
+
+.shieldCopy {
+  display: grid;
+  gap: 2px;
+}
+
+.shieldCopy strong {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.shieldCopy small {
+  font: 11px var(--mono);
+  color: var(--mute);
+}
+
+.telemetryMatrix {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.telemetryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas);
+  font: 11px var(--mono);
+}
+
+.telemetryLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--body-copy);
+}
+
+.metricCyan {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.metricBlocked {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.complianceRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 4px;
+  font: 11px var(--mono);
+  color: var(--mute);
+}
+
+/* Card 3: Recipe Pipeline */
+.pipelineVisual {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas);
+}
+
+.pipelineSteps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.pipelineStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stepNum {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: var(--canvas-elevated);
+  color: var(--ink);
+  font: 600 10px/1 var(--mono);
+}
+
+.stepName {
+  font: 10px var(--mono);
+  color: var(--body-copy);
+  text-align: center;
+}
+
+.pipelineConnector {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+  position: relative;
+  top: -9px;
+}
+
+.pipelineMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--hairline);
+  font: 10px var(--mono);
+  color: var(--mute);
+}
+
+/* Card 4: Type Inference */
+.inferenceVisual {
+  margin-top: auto;
+}
+
+.miniEditor {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas);
+  overflow: hidden;
+}
+
+.editorHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--hairline-soft);
+  font: 500 10px/1 var(--mono);
+  color: var(--mute);
+}
+
+.editorHead svg {
+  color: var(--mute);
+}
+
+.editorBody {
+  padding: 12px;
+  background: var(--canvas-elevated);
+}
+
+.codeSnippetMono {
+  font: 11px/1.55 var(--mono);
+  color: var(--ink);
+}
+
+.tokenKeyword {
+  color: var(--cyan);
+  font-weight: 500;
+}
+
+.tokenType {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tokenProp {
+  color: var(--body-copy);
+}
+
+/* Card 5: Keyboard Velocity */
+.velocityVisual {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.commandMockup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas);
+}
+
+.commandInputRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 12px var(--mono);
+}
+
+.commandPrompt {
+  color: var(--mute);
+  font-weight: 600;
+}
+
+.commandText {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.commandCursor {
+  display: inline-block;
+  width: 6px;
+  height: 14px;
+  background: var(--ink);
+  opacity: 0.7;
+  animation: blinkCursor 1s steps(2, start) infinite;
+}
+
+@keyframes blinkCursor {
+  to {
+    visibility: hidden;
+  }
+}
+
+.commandResult {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: var(--canvas-elevated);
+  border: 1px solid var(--hairline);
+  font-size: 11px;
+  color: var(--ink);
+}
+
+.badgeSubtle {
+  font: 10px var(--mono);
+  color: var(--cyan);
+}
+
+.pwaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas);
+}
+
+.pwaStatus {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 11px var(--mono);
+  color: var(--body-copy);
+}
+
+.pwaIcon {
+  color: var(--cyan);
+}
+
+.keycaps {
+  display: flex;
+  gap: 4px;
+}
+
+.keycaps kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--hairline-soft);
+  color: var(--ink);
+  font: 500 10px/1 var(--mono);
+  box-shadow: var(--shadow-whisper);
+}
+
+/* Footer Link */
+.footerLinkRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.exploreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--body-copy);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.exploreLink:hover {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+
+.exploreLink:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Responsive Rules */
+@media (max-width: 1024px) {
+  .cardDetection {
+    grid-column: span 12;
+  }
+  .cardPrivacy {
+    grid-column: span 12;
+  }
+  .cardRecipes {
+    grid-column: span 6;
+  }
+  .cardInference {
+    grid-column: span 6;
+  }
+  .cardVelocity {
+    grid-column: span 12;
+  }
+}
+
+@media (max-width: 680px) {
+  .section {
+    padding: 64px 0;
+  }
+  .header {
+    margin-bottom: 32px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .cardDetection,
+  .cardPrivacy,
+  .cardRecipes,
+  .cardInference,
+  .cardVelocity {
+    grid-column: span 1;
+    padding: 20px;
+  }
+  .formatPills {
+    display: none;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .pulseDot {
+    animation: none;
+  }
+  .commandCursor {
+    animation: none;
+  }
+  .card:hover,
+  .card:active,
+  .exploreLink:hover {
+    transform: none;
+  }
+}
