@@ -47,8 +47,7 @@ describe("theme", () => {
 
     it("returns light when window is undefined", () => {
       const originalWindow = global.window;
-      // @ts-ignore
-      delete global.window;
+      delete (global as { window?: unknown }).window;
       expect(resolveTheme("system")).toBe("light");
       global.window = originalWindow;
     });
@@ -78,8 +77,7 @@ describe("theme", () => {
   describe("readThemePreference", () => {
     it("returns system when window is undefined", () => {
       const originalWindow = global.window;
-      // @ts-ignore
-      delete global.window;
+      delete (global as { window?: unknown }).window;
       expect(readThemePreference()).toBe("system");
       global.window = originalWindow;
     });
