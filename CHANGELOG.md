@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.17.1](https://github.com/abushaidislam/devhub-v2/compare/v0.17.0...v0.17.1) (2026-09-03)
+
+
+### Performance Improvements
+
+* optimize category filtering in llms-full.txt route ([#85](https://github.com/abushaidislam/devhub-v2/issues/85)) ([b6f21cf](https://github.com/abushaidislam/devhub-v2/commit/b6f21cfc27ca0e91bbec53db9d52b59c7503bae9))
+* optimize tool lookup in recent-workspace filtering ([#84](https://github.com/abushaidislam/devhub-v2/issues/84)) ([0ba94d7](https://github.com/abushaidislam/devhub-v2/commit/0ba94d70eb13e63a04f6e17ac7df3de375175554))
+
 ## [0.17.0](https://github.com/abushaidislam/devhub-v2/compare/v0.16.0...v0.17.0) (2026-09-03)
 
 
