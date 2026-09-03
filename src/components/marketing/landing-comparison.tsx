@@ -1,4 +1,4 @@
-import { Check, X, Shield, Globe, Zap, Clock, EyeOff, LayoutTemplate, WifiOff } from "lucide-react";
+import { Check, X, Globe } from "lucide-react";
 import styles from "./landing-comparison.module.css";
 
 interface ComparisonRow {
