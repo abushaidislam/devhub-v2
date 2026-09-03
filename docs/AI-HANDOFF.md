@@ -874,3 +874,29 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
 | Browser MCP | Chrome DevTools Screenshots | ✅ **Verified** (Hero CTA hierarchy, calibrated contrast, 8pt grid alignment) |
 
+## PR Review & Merge Checkpoint — September 2026
+
+### Merged Pull Requests
+
+1. **PR #83 (`jules-add-theme-tests-11605656598029059047`)**:
+   - Added comprehensive unit tests in `src/lib/__tests__/theme.test.ts` covering theme resolution, SSR fallback, storage persistence, and DOM application.
+2. **PR #91 (`optimize-llms-route-8588514976564701775`)**:
+   - Optimized `src/app/llms.txt/route.ts` payload generation by pre-aggregating category tool counts, reducing time complexity from $O(C \times T)$ to $O(1)$ per category.
+3. **PR #82 (`test-history-supported-edge-case-14700629240439449563`)**:
+   - Added edge-case test coverage in `src/lib/__tests__/history.test.ts` for `historySupported()` throwing on `localStorage` access.
+
+### Handled / Superseded PRs
+
+- **PR #88 (`jules-performance-optimization-recent-workspace-9692653979207837176`)**: Redundant / superseded by PR #84 (commit `0ba94d7`), which already implemented the `toolsMap` lookup optimization in `recent-workspace.tsx`.
+- **PR #90 (`chore(main): release 0.18.0`)**: Automated release PR managed by `release-please`.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npx eslint "src/**/*.{ts,tsx}" --quiet` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npm test -- --run` | ✅ **Passed** (41 / 41 test files, 258 / 258 tests) |
+| Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
+
+
