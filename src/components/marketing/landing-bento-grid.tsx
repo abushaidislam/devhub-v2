@@ -15,7 +15,6 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
-import styles from "./landing-bento-grid.module.css";
 
 interface FormatSample {
   name: string;
@@ -136,71 +135,71 @@ export function LandingBentoGrid() {
   };
 
   return (
-    <section className={styles.section} id="capabilities" aria-labelledby="bento-title">
-      <div className="container">
-        <div className={styles.header}>
-          <div className={styles.eyebrow}>
-            <span className={styles.pulseDot} />
+    <section className="relative py-24 border-t border-[var(--hairline)] bg-[var(--canvas)]" id="capabilities" aria-labelledby="bento-title">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="mb-12 max-w-3xl">
+          <div className="inline-flex items-center gap-2 mb-4 font-mono text-[11px] font-medium leading-none tracking-[0.05em] text-zinc-500 uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_0_3px_rgba(34,211,238,0.16)] animate-pulse" />
             Capabilities Architecture
           </div>
-          <h2 id="bento-title" className={styles.title}>
+          <h2 id="bento-title" className="m-0 mb-4 text-3xl font-semibold leading-tight tracking-tight text-zinc-100">
             Engineered for velocity.
           </h2>
-          <p className={styles.subtitle}>
+          <p className="m-0 text-base leading-relaxed text-zinc-400 max-w-2xl">
             Every layer of DevHub is designed to eliminate developer friction. From sub-millisecond input heuristics to zero-network memory sandboxes.
           </p>
         </div>
 
-        <div className={styles.grid}>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6">
           {/* Card 1: Deterministic Smart Detection (Span 7) */}
-          <article className={`${styles.card} ${styles.cardDetection}`}>
-            <div className={styles.cardMeta}>
-              <span className={styles.kicker}>01 / Dual-Stage Detection</span>
-              <span className={styles.tag}>Heuristic Engine</span>
+          <article className="relative flex flex-col p-6 lg:p-8 border border-white/10 rounded-xl bg-zinc-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_24px_-8px_rgba(0,0,0,0.2)] backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-zinc-800 hover:bg-zinc-900/80 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.3)] md:col-span-12 lg:col-span-7">
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-xs font-medium text-zinc-500">01 / Dual-Stage Detection</span>
+              <span className="px-2 py-0.5 border border-zinc-800 rounded bg-zinc-900 text-zinc-400 font-mono text-[10px] leading-tight">Heuristic Engine</span>
             </div>
-            <h3 className={styles.cardHeading}>Sub-millisecond smart routing</h3>
-            <p className={styles.cardCopy}>
+            <h3 className="m-0 mb-2 text-lg font-semibold tracking-tight text-zinc-100">Sub-millisecond smart routing</h3>
+            <p className="m-0 mb-6 text-sm leading-relaxed text-zinc-400">
               Paste any raw blob—JSON, JWT, SQL, Cron, YAML, or Base64. Bounded O(1) fast-guards inspect syntax patterns and route to the exact tool with confidence scoring in under 1ms.
             </p>
 
             {/* Interactive Visual Graphic */}
-            <div className={styles.previewWindow}>
-              <div className={styles.windowBar}>
-                <div className={styles.windowTitle}>
+            <div className="mt-auto flex flex-col border border-zinc-800 rounded-lg bg-black overflow-hidden shadow-sm">
+              <div className="flex items-center justify-between px-3 py-2 border-b border-zinc-800 bg-zinc-900/50">
+                <div className="flex items-center gap-2 font-mono text-[10px] text-zinc-500">
                   <Terminal size={12} />
                   <span>{activeFormat.filename}</span>
                 </div>
-                <div className={styles.windowStats}>
+                <div className="flex items-center gap-3">
                   <span>{activeFormat.bytes}</span>
-                  <span className={styles.statusLive}>{activeFormat.speed}</span>
+                  <span className="font-mono text-[10px] text-cyan-400">{activeFormat.speed}</span>
                 </div>
               </div>
 
-              <div className={styles.codeLine} key={activeFormat.name}>
+              <div className="p-4 font-mono text-xs leading-relaxed break-all bg-black" key={activeFormat.name}>
                 <code>
-                  <span className={styles.tokenMuted}>{activeFormat.prefix}</span>
-                  <span className={styles.tokenHighlight}>{activeFormat.highlight}</span>
-                  <span className={styles.tokenMuted}>{activeFormat.suffix}</span>
+                  <span className="text-zinc-600">{activeFormat.prefix}</span>
+                  <span className="text-zinc-300">{activeFormat.highlight}</span>
+                  <span className="text-zinc-600">{activeFormat.suffix}</span>
                 </code>
               </div>
 
-              <Link href={activeFormat.toolHref} className={styles.detectedRow} title={`Open ${activeFormat.tool}`}>
-                <div className={styles.detectedMatch}>
-                  <span className={styles.cyanDot} />
+              <Link href={activeFormat.toolHref} className="flex items-center justify-between p-3 border-t border-zinc-800 bg-zinc-900/30 transition-colors hover:bg-zinc-900/80 group" title={`Open ${activeFormat.tool}`}>
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
                   <strong>{activeFormat.tool}</strong>
-                  <span className={styles.matchScore}>{activeFormat.match}</span>
+                  <span className="px-1.5 py-0.5 border border-cyan-900/50 rounded bg-cyan-950/30 font-mono text-[10px] text-cyan-400">{activeFormat.match}</span>
                 </div>
-                <div className={styles.actionHint}>
+                <div className="flex items-center gap-1.5 font-mono text-[10px] text-zinc-500 opacity-70 group-hover:opacity-100 transition-opacity">
                   <span>Press</span>
-                  <kbd>⌘</kbd>
-                  <kbd>↵</kbd>
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 border border-zinc-700 rounded bg-zinc-800 font-mono text-[10px] font-medium text-zinc-300 shadow-sm transition-all group-hover:-translate-y-px group-hover:border-zinc-600 group-hover:shadow-md">⌘</kbd>
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 border border-zinc-700 rounded bg-zinc-800 font-mono text-[10px] font-medium text-zinc-300 shadow-sm transition-all group-hover:-translate-y-px group-hover:border-zinc-600 group-hover:shadow-md">↵</kbd>
                   <span>to jump</span>
-                  <ArrowRight size={11} className={styles.jumpArrow} />
+                  <ArrowRight size={11} className="text-zinc-400 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </Link>
 
               {/* Interactive Format Pills */}
-              <div className={styles.formatPills} role="tablist" aria-label="Detection format samples">
+              <div className="flex p-2 border-t border-zinc-800 bg-zinc-900/50 overflow-x-auto gap-1" role="tablist" aria-label="Detection format samples">
                 {Object.keys(FORMAT_SAMPLES).map((fmt) => {
                   const isActive = fmt === selectedFormat;
                   return (
@@ -209,7 +208,7 @@ export function LandingBentoGrid() {
                       type="button"
                       role="tab"
                       aria-selected={isActive}
-                      className={`${styles.formatPillBtn} ${isActive ? styles.activePill : ""}`}
+                      className={`px-3 py-1.5 border rounded border-transparent bg-transparent font-mono text-xs text-zinc-500 transition-all hover:border-zinc-700 hover:bg-zinc-800 hover:text-zinc-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-600 focus-visible:ring-offset-1 ${isActive ? "!border-cyan-500/30 !bg-cyan-950/40 !text-cyan-400 !font-semibold shadow-[0_0_8px_rgba(34,211,238,0.15)]" : ""}`}
                       onClick={() => setSelectedFormat(fmt)}
                     >
                       {fmt}
@@ -221,44 +220,44 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 2: Zero-Egress Privacy Sandbox (Span 5) */}
-          <article className={`${styles.card} ${styles.cardPrivacy}`}>
-            <div className={styles.cardMeta}>
-              <span className={styles.kicker}>02 / Memory Boundary</span>
-              <span className={styles.tag}>Zero Egress</span>
+          <article className="relative flex flex-col p-6 lg:p-8 border border-white/10 rounded-xl bg-zinc-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_24px_-8px_rgba(0,0,0,0.2)] backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-zinc-800 hover:bg-zinc-900/80 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.3)] md:col-span-12 lg:col-span-5">
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-xs font-medium text-zinc-500">02 / Memory Boundary</span>
+              <span className="px-2 py-0.5 border border-zinc-800 rounded bg-zinc-900 text-zinc-400 font-mono text-[10px] leading-tight">Zero Egress</span>
             </div>
-            <h3 className={styles.cardHeading}>Zero-egress privacy sandbox</h3>
-            <p className={styles.cardCopy}>
+            <h3 className="m-0 mb-2 text-lg font-semibold tracking-tight text-zinc-100">Zero-egress privacy sandbox</h3>
+            <p className="m-0 mb-6 text-sm leading-relaxed text-zinc-400">
               Deterministic processing runs strictly in your browser&apos;s V8 memory. No server uploads, no backend telemetry, and zero payload retention.
             </p>
 
             {/* Visual Graphic */}
-            <div className={styles.privacyVisual}>
-              <div className={styles.shieldLockup}>
-                <div className={styles.shieldIcon}>
+            <div className="mt-auto flex flex-col gap-4">
+              <div className="flex items-center gap-3 p-4 border border-zinc-800 rounded-lg bg-black transition-all hover:border-cyan-900/50 hover:shadow-[0_0_16px_rgba(34,211,238,0.1)] hover:-translate-y-px">
+                <div className="grid place-items-center w-10 h-10 border border-zinc-800 rounded-md bg-zinc-900 text-cyan-400 shadow-sm">
                   <ShieldCheck size={22} />
                 </div>
-                <div className={styles.shieldCopy}>
-                  <strong>100% In-Browser Execution</strong>
-                  <small>WebCrypto &amp; Pure TypeScript</small>
+                <div className="grid gap-0.5">
+                  <strong className="text-[13px] font-semibold text-zinc-100">100% In-Browser Execution</strong>
+                  <small className="font-mono text-[11px] text-zinc-500">WebCrypto &amp; Pure TypeScript</small>
                 </div>
               </div>
 
-              <div className={styles.telemetryMatrix}>
-                <div className={styles.telemetryRow}>
-                  <span className={styles.telemetryLabel}>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between p-3 border border-zinc-800 rounded-lg bg-black font-mono text-xs transition-all hover:bg-zinc-900 hover:border-zinc-700 hover:-translate-y-px">
+                  <span className="flex items-center gap-2 text-zinc-400">
                     <Cpu size={13} /> Local RAM Processing
                   </span>
-                  <span className={styles.metricCyan}>&lt; 0.2ms latency</span>
+                  <span className="font-semibold text-cyan-400">&lt; 0.2ms latency</span>
                 </div>
-                <div className={styles.telemetryRow}>
-                  <span className={styles.telemetryLabel}>
+                <div className="flex items-center justify-between p-3 border border-zinc-800 rounded-lg bg-black font-mono text-xs transition-all hover:bg-zinc-900 hover:border-zinc-700 hover:-translate-y-px">
+                  <span className="flex items-center gap-2 text-zinc-400">
                     <Lock size={13} /> External Network Egress
                   </span>
-                  <span className={styles.metricBlocked}>0 bytes sent</span>
+                  <span className="font-semibold text-zinc-100">0 bytes sent</span>
                 </div>
               </div>
 
-              <div className={styles.complianceRow}>
+              <div className="flex items-center justify-center gap-3 p-2 font-mono text-xs text-zinc-500">
                 <span>Client-Only</span>
                 <span>•</span>
                 <span>No Cookies</span>
@@ -269,35 +268,35 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 3: Multi-Step Recipe Pipelines (Span 4) */}
-          <article className={`${styles.card} ${styles.cardRecipes}`}>
-            <div className={styles.cardMeta}>
-              <span className={styles.kicker}>03 / Workflow Pipelines</span>
-              <Workflow size={15} className={styles.metaIcon} />
+          <article className="relative flex flex-col p-6 lg:p-8 border border-white/10 rounded-xl bg-zinc-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_24px_-8px_rgba(0,0,0,0.2)] backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-zinc-800 hover:bg-zinc-900/80 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.3)] md:col-span-6 lg:col-span-4">
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-xs font-medium text-zinc-500">03 / Workflow Pipelines</span>
+              <Workflow size={15} className="text-zinc-500" />
             </div>
-            <h3 className={styles.cardHeading}>Composable recipe pipelines</h3>
-            <p className={styles.cardCopy}>
+            <h3 className="m-0 mb-2 text-lg font-semibold tracking-tight text-zinc-100">Composable recipe pipelines</h3>
+            <p className="m-0 mb-6 text-sm leading-relaxed text-zinc-400">
               Pipe transformations sequentially. Compose reusable developer recipes and export schema definitions without storing sensitive run values.
             </p>
 
             {/* Visual Graphic */}
-            <div className={styles.pipelineVisual}>
-              <div className={styles.pipelineSteps}>
-                <div className={styles.pipelineStep} title="Step 1: Raw JSON">
-                  <span className={styles.stepNum}>1</span>
-                  <span className={styles.stepName}>Raw JSON</span>
+            <div className="mt-auto flex flex-col gap-4 p-5 border border-zinc-800 rounded-lg bg-black">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-col items-center gap-1.5 cursor-default group" title="Step 1: Raw JSON">
+                  <span className="grid place-items-center w-6 h-6 border border-zinc-800 rounded-full bg-zinc-900 font-mono text-[10px] font-semibold text-zinc-300 transition-all group-hover:border-cyan-500/40 group-hover:bg-cyan-950/30 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_12px_rgba(34,211,238,0.2)]">1</span>
+                  <span className="font-mono text-[10px] text-zinc-500 transition-colors group-hover:text-zinc-300">Raw JSON</span>
                 </div>
-                <div className={styles.pipelineConnector} />
-                <div className={styles.pipelineStep} title="Step 2: YAML Parse">
-                  <span className={styles.stepNum}>2</span>
-                  <span className={styles.stepName}>YAML Parse</span>
+                <div className="flex-1 h-px bg-zinc-800 relative -top-[9px]" />
+                <div className="flex flex-col items-center gap-1.5 cursor-default group" title="Step 2: YAML Parse">
+                  <span className="grid place-items-center w-6 h-6 border border-zinc-800 rounded-full bg-zinc-900 font-mono text-[10px] font-semibold text-zinc-300 transition-all group-hover:border-cyan-500/40 group-hover:bg-cyan-950/30 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_12px_rgba(34,211,238,0.2)]">2</span>
+                  <span className="font-mono text-[10px] text-zinc-500 transition-colors group-hover:text-zinc-300">YAML Parse</span>
                 </div>
-                <div className={styles.pipelineConnector} />
-                <div className={styles.pipelineStep} title="Step 3: SHA-256">
-                  <span className={styles.stepNum}>3</span>
-                  <span className={styles.stepName}>SHA-256</span>
+                <div className="flex-1 h-px bg-zinc-800 relative -top-[9px]" />
+                <div className="flex flex-col items-center gap-1.5 cursor-default group" title="Step 3: SHA-256">
+                  <span className="grid place-items-center w-6 h-6 border border-zinc-800 rounded-full bg-zinc-900 font-mono text-[10px] font-semibold text-zinc-300 transition-all group-hover:border-cyan-500/40 group-hover:bg-cyan-950/30 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_12px_rgba(34,211,238,0.2)]">3</span>
+                  <span className="font-mono text-[10px] text-zinc-500 transition-colors group-hover:text-zinc-300">SHA-256</span>
                 </div>
               </div>
-              <div className={styles.pipelineMeta}>
+              <div className="flex items-center justify-center gap-2 pt-3 border-t border-zinc-800 font-mono text-[10px] text-zinc-500">
                 <span>3 steps</span>
                 <span>•</span>
                 <span>Zero Payload Storage</span>
@@ -306,48 +305,48 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 4: Type & Interface Inference (Span 4) */}
-          <article className={`${styles.card} ${styles.cardInference}`}>
-            <div className={styles.cardMeta}>
-              <span className={styles.kicker}>04 / Type Inference</span>
-              <Layers size={15} className={styles.metaIcon} />
+          <article className="relative flex flex-col p-6 lg:p-8 border border-white/10 rounded-xl bg-zinc-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_24px_-8px_rgba(0,0,0,0.2)] backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-zinc-800 hover:bg-zinc-900/80 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.3)] md:col-span-6 lg:col-span-4">
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-xs font-medium text-zinc-500">04 / Type Inference</span>
+              <Layers size={15} className="text-zinc-500" />
             </div>
-            <h3 className={styles.cardHeading}>Live interface extraction</h3>
-            <p className={styles.cardCopy}>
+            <h3 className="m-0 mb-2 text-lg font-semibold tracking-tight text-zinc-100">Live interface extraction</h3>
+            <p className="m-0 mb-6 text-sm leading-relaxed text-zinc-400">
               Transform chaotic API responses into strictly typed TypeScript interfaces, Markdown tables, or CSV datasets in a single keystroke.
             </p>
 
             {/* Visual Graphic */}
-            <div className={styles.inferenceVisual}>
-              <div className={styles.miniEditor}>
-                <div className={styles.editorHead}>
-                  <div className={styles.editorHeadTitle}>
+            <div className="mt-auto">
+              <div className="border border-zinc-800 rounded-lg bg-black overflow-hidden">
+                <div className="flex items-center justify-between px-3 py-2 border-b border-zinc-800 bg-zinc-900/50 font-mono text-[10px] font-medium text-zinc-500">
+                  <div className="flex items-center gap-2">
                     <span>JSON Payload</span>
                     <ArrowRight size={11} />
                     <span>TypeScript</span>
                   </div>
                   <button
                     type="button"
-                    className={`${styles.miniCopyBtn} ${tsCopied ? styles.miniCopyBtnCopied : ""}`}
+                    className={`inline-flex items-center gap-1.5 h-6 px-2 border border-zinc-800 rounded bg-zinc-900 font-mono text-[9px] font-medium text-zinc-400 cursor-pointer transition-all hover:bg-zinc-800 hover:text-zinc-300 hover:border-zinc-700 hover:-translate-y-px active:translate-y-0 active:scale-95 ${tsCopied ? "!border-cyan-500/40 !bg-cyan-950/30 !text-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.2)]" : ""}`}
                     onClick={handleTsCopy}
                     aria-label="Copy TypeScript interface"
                   >
-                    {tsCopied ? <Check size={11} className={styles.checkIcon} /> : <Copy size={11} />}
+                    {tsCopied ? <Check size={11} className="text-cyan-400" /> : <Copy size={11} />}
                     <span>{tsCopied ? "Copied" : "Copy"}</span>
                   </button>
                 </div>
-                <div className={styles.editorBody}>
-                  <div className={styles.codeSnippetMono}>
-                    <span className={styles.tokenKeyword}>interface</span>{" "}
-                    <span className={styles.tokenType}>UserResponse</span> &#123;
+                <div className="p-4 bg-zinc-950">
+                  <div className="font-mono text-[11px] leading-relaxed text-zinc-300">
+                    <span className="font-medium text-cyan-400">interface</span>{" "}
+                    <span className="font-semibold text-zinc-100">UserResponse</span> &#123;
                     <br />
-                    &nbsp;&nbsp;<span className={styles.tokenProp}>id</span>:{" "}
-                    <span className={styles.tokenKeyword}>number</span>;
+                    &nbsp;&nbsp;<span className="text-zinc-400">id</span>:{" "}
+                    <span className="font-medium text-cyan-400">number</span>;
                     <br />
-                    &nbsp;&nbsp;<span className={styles.tokenProp}>email</span>:{" "}
-                    <span className={styles.tokenKeyword}>string</span>;
+                    &nbsp;&nbsp;<span className="text-zinc-400">email</span>:{" "}
+                    <span className="font-medium text-cyan-400">string</span>;
                     <br />
-                    &nbsp;&nbsp;<span className={styles.tokenProp}>verified</span>:{" "}
-                    <span className={styles.tokenKeyword}>boolean</span>;
+                    &nbsp;&nbsp;<span className="text-zinc-400">verified</span>:{" "}
+                    <span className="font-medium text-cyan-400">boolean</span>;
                     <br />
                     &#125;
                   </div>
@@ -357,47 +356,47 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 5: Keyboard Ergonomics & Offline PWA (Span 4) */}
-          <article className={`${styles.card} ${styles.cardVelocity}`}>
-            <div className={styles.cardMeta}>
-              <span className={styles.kicker}>05 / Speed &amp; Ergonomics</span>
-              <Zap size={15} className={styles.metaIcon} />
+          <article className="relative flex flex-col p-6 lg:p-8 border border-white/10 rounded-xl bg-zinc-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_24px_-8px_rgba(0,0,0,0.2)] backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-zinc-800 hover:bg-zinc-900/80 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.3)] md:col-span-12 lg:col-span-4">
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-xs font-medium text-zinc-500">05 / Speed &amp; Ergonomics</span>
+              <Zap size={15} className="text-zinc-500" />
             </div>
-            <h3 className={styles.cardHeading}>Instant keyboard velocity</h3>
-            <p className={styles.cardCopy}>
+            <h3 className="m-0 mb-2 text-lg font-semibold tracking-tight text-zinc-100">Instant keyboard velocity</h3>
+            <p className="m-0 mb-6 text-sm leading-relaxed text-zinc-400">
               Trigger any tool in milliseconds with ⌘K, switch operations via tactile shortcuts, and work uninterrupted with full offline Service Worker caching.
             </p>
 
             {/* Visual Graphic */}
-            <div className={styles.velocityVisual}>
-              <div className={styles.commandMockup}>
-                <div className={styles.commandInputRow}>
-                  <span className={styles.commandPrompt}>&gt;</span>
-                  <span className={styles.commandText}>base64 encode</span>
-                  <span className={styles.commandCursor} />
+            <div className="mt-auto flex flex-col gap-4">
+              <div className="flex flex-col gap-3 p-4 border border-zinc-800 rounded-lg bg-black">
+                <div className="flex items-center gap-2 font-mono text-xs">
+                  <span className="font-semibold text-zinc-500">&gt;</span>
+                  <span className="font-medium text-zinc-100">base64 encode</span>
+                  <span className="inline-block w-1.5 h-3.5 bg-zinc-300 opacity-70 animate-pulse" />
                 </div>
-                <div className={styles.commandResult}>
+                <div className="flex items-center justify-between px-2.5 py-1.5 border border-zinc-800 rounded bg-zinc-900 text-[11px] text-zinc-300">
                   <span>Base64 String Converter</span>
-                  <span className={styles.badgeSubtle}>0.4ms</span>
+                  <span className="font-mono text-[10px] text-cyan-400">0.4ms</span>
                 </div>
               </div>
 
-              <div className={styles.pwaRow}>
-                <div className={styles.pwaStatus}>
-                  <CheckCircle2 size={13} className={styles.pwaIcon} />
+              <div className="flex items-center justify-between p-3 border border-zinc-800 rounded-lg bg-black group hover:bg-zinc-900 transition-colors">
+                <div className="flex items-center gap-2 font-mono text-[11px] text-zinc-400">
+                  <CheckCircle2 size={13} className="text-cyan-400" />
                   <span>Service Worker Precached</span>
                 </div>
-                <div className={styles.keycaps}>
-                  <kbd>⌘</kbd>
-                  <kbd>K</kbd>
+                <div className="flex gap-1">
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 border border-zinc-700 rounded bg-zinc-800 font-mono text-[10px] font-medium text-zinc-300 shadow-sm transition-all group-hover:-translate-y-px group-hover:border-zinc-600 group-hover:shadow-md">⌘</kbd>
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 border border-zinc-700 rounded bg-zinc-800 font-mono text-[10px] font-medium text-zinc-300 shadow-sm transition-all group-hover:-translate-y-px group-hover:border-zinc-600 group-hover:shadow-md">K</kbd>
                 </div>
               </div>
             </div>
           </article>
         </div>
 
-        <div className={styles.footerLinkRow}>
-          <Link href="/tools" className={styles.exploreLink}>
-            Explore all 30 local tools in DevHub <ArrowRight size={14} className={styles.exploreArrow} />
+        <div className="flex justify-center mt-10">
+          <Link href="/tools" className="inline-flex items-center gap-2 text-[13px] font-medium text-zinc-400 no-underline transition-all hover:text-zinc-100 hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-600 focus-visible:ring-offset-2 focus-visible:rounded group">
+            Explore all 30 local tools in DevHub <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
