@@ -974,6 +974,29 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Vitest Tests | `npm test -- --run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
 
 
+## Smart Input Detection Heading Typography Fix — September 2026
+
+### Scope completed
+
+- **Typography Bug Root Cause Analysis**:
+  - Global `h2` rule in `src/app/vercel-typography.css` had fixed `letter-spacing: -1.28px;` intended for 32px display headers.
+  - Components setting `font-size: 14px` on `<h2>` without explicitly setting `letter-spacing` (e.g. `SmartInputDetector`'s `.panel h2`) inherited `-1.28px` tracking. At 14px, `-1.28px` collapsed spacing by ~9% per character, causing characters in "Smart input detection" to squish and overlap into each other.
+- **Global & Component Typography Fix**:
+  - Converted global heading letter-spacing in `src/app/vercel-typography.css` from fixed pixel values (`-2.4px`, `-1.28px`, `-0.4px`) to proportional `em` units (`-0.05em`, `-0.04em`, `-0.02em`).
+  - Updated component heading styles (`smart-input-detector.module.css`, `next-actions.module.css`, `workflow-planner.module.css`, `saved-recipe-workspace.module.css`, `ai-provider-settings.module.css`) to explicitly define `font-size: 14px/16px`, `font-weight: 600`, `line-height: 20px/22px`, and `letter-spacing: -0.28px` matching DevHub v2 design system standards.
+- 100% compliant with SSOT Vercel/Geist design system typography standards.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| Context Check | `npm run context:check` | ✅ **Passed** (14 docs, 30 unique tools) |
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npm test -- --run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
+
+
+
 
 
 

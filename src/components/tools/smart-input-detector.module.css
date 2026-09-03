@@ -4,7 +4,7 @@
 .icon{width:32px;height:32px;display:grid;place-items:center;flex:none;border:1px solid var(--hairline);border-radius:var(--radius-sm);background:var(--hairline-soft);color:var(--ink)}
 .icon svg{color:inherit;stroke:currentColor}
 .panel>header>div:nth-child(2){flex:1;min-width:0}
-.panel h2{margin:0 0 3px;color:var(--text-primary);font-size: 14px}
+.panel h2{margin:0 0 3px;color:var(--text-primary);font-size:14px;font-weight:600;line-height:20px;letter-spacing:-0.28px}
 .panel header p{margin:0;color:var(--text-secondary);font-size:11px}
 .panel>header>span{display:inline-flex;align-items:center;gap:6px;flex:none;min-width:max-content;padding:0 8px;height:22px;border:1px solid rgba(80, 227, 194, 0.35);border-radius:999px;background:rgba(80, 227, 194, 0.08);color:var(--cyan);font-size:10px;font-weight:500;line-height:1;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
 .localBadge{margin-left:auto}
