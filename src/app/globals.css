@@ -627,7 +627,8 @@ footer a:hover {
 /* Landing Hero */
 .hero {
   position: relative;
-  min-height: 640px;
+  min-height: 680px;
+  padding: 96px 0 80px;
   display: flex;
   align-items: center;
   overflow: hidden;

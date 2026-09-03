@@ -588,6 +588,18 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 - Responsive breakpoints at 1024px, 860px, and 680px for desktop, tablet, and mobile viewing.
 - Fully respects `prefers-reduced-motion: reduce`.
 
+## Design System Phase 7: Hero Section Redesign & Interactive Workbench Console — September 2026
+
+### Scope completed
+
+- Replaced the legacy vertically stacked pill elements (`command-preview` and `workflow-preview`) in the homepage hero (`src/app/page.tsx`) with a high-polish, interactive `HeroWorkbench` component (`src/components/marketing/hero-workbench.tsx` + `hero-workbench.module.css`).
+- Added 4 interactive transformation tabs (`JWT Token`, `JSON ➔ TypeScript`, `Base64 String`, `Cron Parser`) with real-time heuristic detection badges, syntax-highlighted outputs, one-click copy, and tool deep links.
+- Integrated bottom command bar (`⌘K` prompt) and live execution telemetry chip (`<0.2ms latency · V8 RAM`).
+- Refined masthead typography, status pill, and action buttons.
+- Added comprehensive unit tests in `src/components/marketing/__tests__/hero-workbench.test.tsx`.
+- Updated `globals.css` `.hero` padding for balanced vertical rhythm.
+
+
 
 
 

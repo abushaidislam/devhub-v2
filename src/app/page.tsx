@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Command, LockKeyhole, Gauge, Blocks } from "lucide-react";
+import { ArrowRight, Github, LockKeyhole, Gauge, Blocks } from "lucide-react";
 import { SiteHeader } from "@/components/core/site-header";
 import { ToolCard } from "@/components/tools/tool-card";
 import { categories, tools } from "@/lib/tools";
@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/core/site-footer";
 import { LandingCtaSection } from "@/components/marketing/landing-cta-section";
 import { LandingBentoGrid } from "@/components/marketing/landing-bento-grid";
 import { LandingComparison } from "@/components/marketing/landing-comparison";
+import { HeroWorkbench } from "@/components/marketing/hero-workbench";
 
 export default function HomePage() {
   const featured = tools.filter((tool) => tool.featured).slice(0, 6);
@@ -16,28 +17,15 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-grid" />
         <div className="container hero-inner">
-          <div className="eyebrow"><span className="pulse" />Built for the work between the work</div>
+          <div className="eyebrow"><span className="pulse" />Local-first sandbox · 30 tools · 0ms network</div>
           <h1 className="type-display">Developer tools,<br /><span>engineered for speed.</span></h1>
-          <p className="hero-copy">Paste messy API data, detect the right tool, transform it locally, and save the workflow for next time.</p>
+          <p className="hero-copy">The zero-latency developer workbench. Paste messy payloads, auto-detect schemas, and transform data in your browser&apos;s memory without data ever leaving your machine.</p>
           <div className="hero-actions">
             <Link className="button primary large" href="/tools">Browse all tools <ArrowRight size={16} /></Link>
-            <a className="button secondary large" href="https://github.com/abushaidislam/devhub-v2">View source</a>
+            <Link className="button secondary large" href="/dashboard">Open workspace</Link>
+            <a className="button secondary large" href="https://github.com/abushaidislam/devhub-v2" target="_blank" rel="noreferrer"><Github size={15} /> Source</a>
           </div>
-          <Link className="command-preview" href="/tools" aria-label="Browse all developer tools">
-            <Command size={17} />
-            <span className="command-preview-copy"><strong>Jump to any tool</strong><small>Search the toolkit</small></span>
-            <span className="command-preview-action">Browse tools <ArrowRight size={14} /></span>
-            <span className="command-keys" aria-hidden="true"><kbd>⌘</kbd><kbd>K</kbd></span>
-          </Link>
-          <div className="workflow-preview" aria-label="Example local workflow">
-            <span className="workflow-label">A typical DevHub flow</span>
-            <div className="workflow-steps">
-              <span>Paste JSON</span><ArrowRight size={13} />
-              <span>Detect</span><ArrowRight size={13} />
-              <span>Transform locally</span><ArrowRight size={13} />
-              <span>Save recipe</span>
-            </div>
-          </div>
+          <HeroWorkbench />
         </div>
       </section>
       <section className="trust-strip" aria-label="DevHub product principles">

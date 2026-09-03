@@ -1,0 +1,470 @@
+.workbench {
+  position: relative;
+  width: min(100%, 880px);
+  margin: 40px auto 0;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--canvas-elevated);
+  box-shadow: var(--shadow-whisper);
+  overflow: hidden;
+  text-align: left;
+  transition:
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.workbench:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-float);
+}
+
+/* Top Bar */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--hairline-soft);
+  flex-wrap: wrap;
+}
+
+.windowControls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dotRed {
+  background: #ff5f56;
+}
+
+.dotYellow {
+  background: #ffbd2e;
+}
+
+.dotGreen {
+  background: #27c93f;
+}
+
+[data-theme="dark"] .dot {
+  border-color: rgba(255, 255, 255, 0.1);
+  opacity: 0.85;
+}
+
+.tabsList {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--mute);
+  font: 500 11px/1 var(--mono);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.tabBtn:hover {
+  color: var(--ink);
+  background: var(--canvas-elevated);
+}
+
+.tabBtnActive {
+  background: var(--canvas-elevated) !important;
+  border-color: var(--hairline) !important;
+  color: var(--ink) !important;
+  box-shadow: var(--shadow-whisper);
+}
+
+.tabBtn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.telemetryBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--canvas-elevated);
+  font: 500 10px/1 var(--mono);
+  color: var(--cyan);
+  flex: none;
+}
+
+.zapIcon {
+  color: var(--cyan);
+}
+
+/* Stage Layout */
+.stage {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  min-height: 240px;
+  background: var(--canvas);
+}
+
+.paneLeft,
+.paneRight {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  min-width: 0;
+}
+
+.paneHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 11px/1 var(--mono);
+  color: var(--ink);
+}
+
+.fileLabel svg {
+  color: var(--mute);
+}
+
+.cyanFileDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.badgeInput {
+  font: 500 10px/1 var(--mono);
+  color: var(--mute);
+  padding: 2px 6px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--hairline-soft);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 7px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--canvas-elevated);
+  color: var(--body-copy);
+  font: 500 10px/1 var(--mono);
+  cursor: pointer;
+  transition:
+    background var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.copyBtn:hover {
+  background: var(--hairline-soft);
+  color: var(--ink);
+  border-color: var(--border-hover);
+}
+
+.copyBtn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.openToolLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 7px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--canvas-elevated);
+  color: var(--ink);
+  font: 500 10px/1 var(--mono);
+  text-decoration: none;
+  transition:
+    border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.openToolLink:hover {
+  border-color: var(--border-hover);
+  transform: translateX(1px);
+}
+
+.openToolLink:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.codeWrap {
+  flex: 1;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas-elevated);
+  padding: 12px;
+  overflow: auto;
+  max-height: 180px;
+}
+
+.codeBlock,
+.codeBlockOutput {
+  margin: 0;
+  font: 11px/1.55 var(--mono);
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.codeBlockOutput {
+  color: var(--ink);
+}
+
+/* Center Divider */
+.centerDivider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  padding: 12px 0;
+}
+
+.dividerLine {
+  flex: 1;
+  width: 1px;
+  background: var(--hairline);
+}
+
+.transformPill {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: var(--canvas-elevated);
+  color: var(--mute);
+  box-shadow: var(--shadow-whisper);
+}
+
+/* Ingest Detection Banner */
+.detectionBanner {
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: 1px solid rgba(80, 227, 194, 0.25);
+  border-radius: 4px;
+  background: rgba(80, 227, 194, 0.08);
+}
+
+.detectedInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--ink);
+}
+
+.pulseIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.detectedLabel {
+  font: 500 10px/1 var(--mono);
+  color: var(--mute);
+}
+
+.confidencePill {
+  font: 600 10px/1 var(--mono);
+  color: var(--cyan);
+  margin-left: auto;
+}
+
+/* Output Footer */
+.outputFooter {
+  margin-top: 10px;
+  padding: 7px 0 0;
+  text-align: right;
+}
+
+.outputMeta {
+  font: 500 10px/1 var(--mono);
+  color: var(--mute);
+}
+
+/* Integrated Bottom Command Bar */
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--hairline);
+  background: var(--hairline-soft);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.bottomBar:hover {
+  background: var(--canvas-elevated);
+}
+
+.bottomBar:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.bottomLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 12px;
+}
+
+.commandIcon {
+  color: var(--mute);
+  flex: none;
+}
+
+.bottomPrompt {
+  color: var(--ink);
+  font-weight: 500;
+  flex: none;
+}
+
+.bottomSample {
+  color: var(--mute);
+  font-family: var(--mono);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bottomRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+
+.keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--canvas-elevated);
+  color: var(--ink);
+  font: 500 10px/1 var(--mono);
+  box-shadow: var(--shadow-whisper);
+}
+
+.browseAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--mute);
+  margin-left: 6px;
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.bottomBar:hover .browseAction {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+
+/* Responsive Rules */
+@media (max-width: 820px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+  .centerDivider {
+    display: none;
+  }
+  .bottomSample {
+    display: none;
+  }
+  .topBar {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .workbench {
+    margin-top: 24px;
+  }
+  .telemetryBadge {
+    display: none;
+  }
+  .paneLeft,
+  .paneRight {
+    padding: 12px;
+  }
+  .codeWrap {
+    max-height: 140px;
+  }
+  .bottomBar {
+    padding: 10px 14px;
+  }
+  .browseAction {
+    display: none;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .workbench:hover,
+  .openToolLink:hover,
+  .bottomBar:hover .browseAction {
+    transform: none;
+  }
+}
