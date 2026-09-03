@@ -95,9 +95,9 @@ async function fixImports() {
       const oldImport = `@/components/${nameWithoutExt}`;
       const newImport = `@/components/${category}/${nameWithoutExt}`;
       
-      const regex = new RegExp(`['"]${oldImport}['"]`, 'g');
+      const regex = new RegExp(`(['"])\${oldImport}(['"])`, 'g');
       if (regex.test(content)) {
-        content = content.replace(regex, `"${newImport}"`);
+        content = content.replace(regex, `$1\${newImport}$2`);
         changed = true;
       }
     }
@@ -108,10 +108,10 @@ async function fixImports() {
     
     if (fileCategory) {
       // Find `from "./something"` or `import "./something.module.css"`
-      const relativeImportRegex = /from\s+['"](\.\/?[^'"]+)['"]/g;
-      const cssImportRegex = /import\s+['"](\.\/?[^'"]+)['"]/g;
+      const relativeImportRegex = /from\s+(['"])(\.\/?[^'"]+)\1/g;
+      const cssImportRegex = /import\s+(['"])(\.\/?[^'"]+)\1/g;
       
-      const replaceRelative = (match, p1) => {
+      const replaceRelative = (match, quote, p1) => {
         let importedBasename = path.basename(p1);
         let importedCategory = null;
         
@@ -129,9 +129,9 @@ async function fixImports() {
 
         if (importedCategory) {
           if (importedCategory === fileCategory) {
-             return match.replace(p1, `./${importedBasename}`);
+             return match.replace(quote + p1 + quote, quote + `./${importedBasename}` + quote);
           } else {
-             return match.replace(p1, `../${importedCategory}/${importedBasename}`);
+             return match.replace(quote + p1 + quote, quote + `../${importedCategory}/${importedBasename}` + quote);
           }
         }
         
