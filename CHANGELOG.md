@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.17.0](https://github.com/abushaidislam/devhub-v2/compare/v0.16.0...v0.17.0) (2026-09-03)
+
+
+### Features
+
+* add premium-web-design skill documentation for interface styling and micro-interactions ([872fcf6](https://github.com/abushaidislam/devhub-v2/commit/872fcf667858c1d8c97e8f463300c10cf4eadf14))
+* **marketing/hero:** add interactive workbench console to homepage hero ([dd6a041](https://github.com/abushaidislam/devhub-v2/commit/dd6a041a51c2a1706d46f728348021f2cb560f80))
+
 ## [0.16.0](https://github.com/abushaidislam/devhub-v2/compare/v0.15.4...v0.16.0) (2026-09-03)
 
 
