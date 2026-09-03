@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.0](https://github.com/abushaidislam/devhub-v2/compare/v0.17.1...v0.18.0) (2026-09-03)
+
+
+### Features
+
+* implement landing page layout with bento grid components and global styles ([bb4edcf](https://github.com/abushaidislam/devhub-v2/commit/bb4edcfaff84d5fd5a82888a4a8289b64fe62b31))
+
 ## [0.17.1](https://github.com/abushaidislam/devhub-v2/compare/v0.17.0...v0.17.1) (2026-09-03)
 
 
