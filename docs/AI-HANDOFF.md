@@ -599,7 +599,24 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 - Added comprehensive unit tests in `src/components/marketing/__tests__/hero-workbench.test.tsx`.
 - Updated `globals.css` `.hero` padding for balanced vertical rhythm.
 
+## Design Engineering & Micro-interactions Polish — September 2026
 
+### Scope completed
 
+- Elevate the web marketing page (`src/app/page.tsx` and all marketing components) to Vercel/Linear/Stripe design engineering standards:
+  - **Hero Workbench Micro-Interactions**: Smooth keyframe fade transitions (`panelFadeIn`), tactile button active press states (`scale(0.97)` / `scale(0.96)`), stateful copy button with cyan pop animation (`checkPop`), arrow translate on hover (`translateX(2px)`), keycaps hover lift, and telemetery badge glow.
+  - **Interactive Capabilities Bento Grid**: Converted static format spans in Card 1 into fully interactive format buttons (`JWT`, `JSON`, `Base64`, `YAML`, `SQL`, `Cron`, `XML`) with real-time heuristic preview switching, tool routing, and confidence metrics. Added interactive TypeScript copy button with stateful checkmark pop in Card 4. Added pipeline step scale/glow hover effects and tactile keycap physics in Card 5.
+  - **Architectural Comparison**: Added row hover highlights (`.featureItem:hover`), positive icon cyan glow, and negative icon border brighten transitions.
+  - **Core Marketing Elements (`globals.css`)**: Added missing base transitions to `.button`, `.tool-card`, `.tool-icon`, and `.category-list a` to eliminate abrupt mouseenter snapping. Added smooth arrow slides, text indent transitions (`padding-left: 20px`), and hero eyebrow pill styling (`padding: 6px 14px; border-radius: var(--radius-pill); box-shadow: var(--shadow-whisper)`).
+  - **Accessibility & Motion Safety**: Comprehensive `prefers-reduced-motion: reduce` overrides across all marketing modules, disabling all hover transforms, animations, and transitions.
 
+### Verification Results
 
+| Quality Gate | Command | Result |
+|--------------|---------|--------|
+| Context Check | `npm run context:check` | ✅ **Passed** (14 docs, 30 unique tools) |
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npx vitest run` | ✅ **Passed** (39 / 39 test files, 238 / 238 tests) |
+| Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
+| Browser MCP | Chrome DevTools Screenshots | ✅ **Verified** (Hero, Workbench, Bento, Comparison, Categories, CTA) |
