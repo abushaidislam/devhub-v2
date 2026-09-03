@@ -997,7 +997,22 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Vitest Tests | `npm test -- --run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
 
 
+## Tool Runtime Splitter Dark Theme Color Refinement — September 2026
 
+### Scope completed
 
+- Resolved dark theme splitter styling issue where focus-visible and active states rendered a bright neon green vertical column.
+- Refined `.splitter` in [`tool-runtime.module.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/tools/tool-runtime.module.css):
+  - Added a subtle 1px vertical hairline seam (`::before`) down the center matching `var(--hairline)`.
+  - Updated the grab handle (`::after`) at rest to neutral dark silver `var(--border-strong)`.
+  - Refined hover & resizing states to elongate the handle and transition to soft silver `var(--text-secondary)` with `var(--shadow-float)` depth.
+  - Replaced bright cyan focus fill with high-contrast neutral focus ring (`var(--border-strong)` outline and `var(--ink)` white handle glow), preserving keyboard accessibility without neon green distortion.
+- Fully aligned with Vercel/Linear dark theme monochromatic design system principles and contrast guidelines.
 
+### Verification Results
 
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npx vitest run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |

@@ -688,40 +688,67 @@
   transition: background-color var(--dur) var(--ease);
 }
 
+.splitter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: var(--hairline);
+  transition: background-color var(--dur) var(--ease);
+}
+
 .splitter::after {
   content: "";
   position: absolute;
   top: 50%;
-  left: 2px;
+  left: 50%;
   width: 4px;
-  height: 48px;
-  transform: translateY(-50%);
+  height: 40px;
+  transform: translate(-50%, -50%);
   border-radius: 999px;
-  background: var(--hairline);
+  background: var(--border-strong);
+  box-shadow: var(--shadow-whisper);
   transition:
     background-color var(--dur) var(--ease),
-    height var(--dur) var(--ease);
+    height var(--dur) var(--ease),
+    width var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
 }
 
 .splitter:hover,
 .splitter[data-resizing="true"] {
-  background: var(--surface-active);
+  background: var(--surface-subtle);
+}
+
+.splitter:hover::before,
+.splitter[data-resizing="true"]::before {
+  background: var(--border-hover);
 }
 
 .splitter:hover::after,
 .splitter[data-resizing="true"]::after {
-  height: 64px;
-  background: var(--border-hover);
+  height: 56px;
+  background: var(--text-secondary);
+  box-shadow: var(--shadow-float);
 }
 
 .splitter:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: -2px;
-  background: var(--surface-active);
+  outline: 2px solid var(--border-strong);
+  outline-offset: -1px;
+  background: var(--surface-subtle);
+}
+
+.splitter:focus-visible::before {
+  background: var(--border-hover);
 }
 
 .splitter:focus-visible::after {
-  background: var(--focus-ring);
+  height: 56px;
+  background: var(--ink);
+  box-shadow: 0 0 0 2px var(--surface-1);
 }
 
 /* Responsive */
