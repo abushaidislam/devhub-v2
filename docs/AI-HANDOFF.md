@@ -900,3 +900,55 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
 
 
+## Landing CTA & Footer Redesign Polish — September 2026
+
+### Scope completed
+
+- **Landing CTA Section Redesign** (`src/components/marketing/landing-cta-section.tsx` + `landing-cta-section.module.css`):
+  - Converted the section into a framed, elevated bento container (`.ctaCard`) with multi-stop radial ambient mesh glow (`ctaMeshGlow`) and subtle grid mask pattern.
+  - Added live pulse status badge (`30 local tools · 0ms network egress`).
+  - Added interactive Quick Launch Bar with 6 instant tool shortcuts (`JSON`, `JWT`, `Base64`, `Cron`, `SQL`, `UUID`).
+  - Redesigned 3 product facts into interactive micro-cards (`.factCard`) featuring cyan icons, chiseled highlights, and hover lighting physics.
+- **Site Footer Redesign** (`src/components/core/site-footer.tsx` + `site-footer.module.css`):
+  - Added top hairline gradient aura (`topHairlineGradient`).
+  - Added Quick Tool Chips bar in masthead for instant one-click tool navigation.
+  - Added monospace category kickers (`01 / WORKSPACE`, `02 / EXPLORE`, `03 / TRUST`) with animated `ArrowUpRight` link hover transitions.
+  - Added brand version badge (`v0.18.0 · Open Source`), privacy guarantee telemetry chip (`WebCrypto & Pure TypeScript · 0 Bytes Network Egress`), and `All Systems Local` status chip.
+- 100% compliant with SSOT Vercel/Geist design system tokens (`var(--canvas)`, `var(--canvas-elevated)`, `var(--hairline)`, `var(--ink)`, `var(--body-copy)`, `var(--cyan)`, etc.) with 0 hardcoded hex colors.
+- Full `prefers-reduced-motion: reduce` compliance across both modules.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| Context Check | `npm run context:check` | ✅ **Passed** (14 docs, 30 unique tools) |
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npx eslint "src/**/*.{ts,tsx}" --quiet` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npm test -- --run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
+
+
+## Site Header Redesign Polish — September 2026
+
+### Scope completed
+
+- **Site Header Redesign** (`src/components/core/site-header.tsx` + `site-header.module.css`):
+  - Upgraded header container with glassmorphism backdrop (`backdrop-filter: blur(16px) saturate(180%)`) and sticky top elevation.
+  - Enhanced desktop navigation links (`Dashboard`, `Tools`, `Recipes`, `Categories`, `AI Assist`) with smooth pill hover highlights (`background: var(--hairline-soft)`).
+  - Added live status pulse chip (`0ms local V8`) with cyan pulse dot animation (`pulseDot`).
+  - Redesigned search trigger button (`Search 30 tools...`) with 3D keycaps (`⌘K`), cyan icon hover lighting, and subtle shadow float.
+  - Added dedicated unit test suite in `src/components/core/__tests__/site-header.test.tsx`.
+- 100% compliant with SSOT Vercel/Geist design system tokens with zero hardcoded hex colors.
+- Full `prefers-reduced-motion: reduce` compliance.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| Context Check | `npm run context:check` | ✅ **Passed** (14 docs, 30 unique tools) |
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npx eslint "src/**/*.{ts,tsx}" --quiet` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npm test -- --run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
+
+
+
+

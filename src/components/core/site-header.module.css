@@ -1,0 +1,211 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 64px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--topbar-scrim);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 16px;
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  color: var(--body-copy);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  transition:
+    color var(--dur) var(--ease),
+    background var(--dur) var(--ease);
+}
+
+.navLink:hover {
+  color: var(--ink);
+  background: var(--hairline-soft);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  min-width: 210px;
+  padding: 0 10px 0 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas-elevated);
+  color: var(--mute);
+  font-size: 12.5px;
+  font-weight: 400;
+  text-decoration: none;
+  box-shadow: var(--shadow-whisper);
+  transition:
+    border-color var(--dur) var(--ease),
+    background var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    transform 0.14s var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.searchTrigger:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-bright);
+  color: var(--ink);
+  box-shadow: var(--shadow-float);
+  transform: translateY(-1px);
+}
+
+.searchIcon {
+  color: var(--mute);
+  flex: none;
+  transition: color var(--dur) var(--ease);
+}
+
+.searchTrigger:hover .searchIcon {
+  color: var(--cyan);
+}
+
+.searchLabel {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.keycaps {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.keycaps kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--hairline-soft);
+  color: var(--body-copy);
+  font: 500 10px/1 var(--mono);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+}
+
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-pill);
+  background: var(--canvas-elevated);
+  color: var(--body-copy);
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(80, 227, 194, 0.2);
+  animation: pulseCyan 2.4s var(--ease) infinite;
+}
+
+@keyframes pulseCyan {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(80, 227, 194, 0.25);
+  }
+}
+
+.primaryCta {
+  border-radius: var(--radius-pill) !important;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .nav {
+    display: none;
+  }
+
+  .statusChip {
+    display: none;
+  }
+
+  .searchTrigger {
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 600px) {
+  .headerInner {
+    width: calc(100% - 32px);
+  }
+
+  .searchTrigger {
+    min-width: 40px;
+    padding: 0 8px;
+  }
+
+  .searchLabel,
+  .keycaps {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulseDot {
+    animation: none !important;
+  }
+
+  .searchTrigger,
+  .navLink {
+    transform: none !important;
+    transition: none !important;
+  }
+}
