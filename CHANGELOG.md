@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.19.0](https://github.com/abushaidislam/devhub-v2/compare/v0.18.0...v0.19.0) (2026-09-03)
+
+
+### Features
+
+* add AI handoff documentation and style modules for tool runtime, badges, and switches ([4a400d1](https://github.com/abushaidislam/devhub-v2/commit/4a400d1790d989d7bb38293cec0c0fea50cce5f6))
+* implement site header, footer, and marketing landing call-to-action components ([15e8291](https://github.com/abushaidislam/devhub-v2/commit/15e829146dbbbbc4803053a9124586e8f565ef5c))
+
 ## [0.18.0](https://github.com/abushaidislam/devhub-v2/compare/v0.17.1...v0.18.0) (2026-09-03)
 
 
