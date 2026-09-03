@@ -950,5 +950,30 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Vitest Tests | `npm test -- --run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
 
 
+## Vercel Button Architecture & Status Badge Contrast Polish — September 2026
+
+### Scope completed
+
+- **Toolbar Button Architecture** (`src/components/tools/tool-runtime.module.css`):
+  - Fixed `.toolbar button` selector collision with `Switch` component (`button[role="switch"]`), restoring exact toggle geometry.
+  - Upgraded toolbar buttons (`Export HTML`, `Reset`, `Copy HTML`, `Run`) to Vercel design system specifications: inset chiseled highlights (`inset 0 1px 0 rgba(255,255,255,0.09)`), smooth hover lift (`translateY(-1px)`), tactile active click press (`scale(0.985)`), and layered focus halo rings (`:focus-visible`).
+- **Status Badge Contrast Fix** (`src/components/ui/badge.module.css`):
+  - Converted `.teal`, `.green`, `.blue`, `.purple`, `.amber`, `.red`, and `.pink` badge backgrounds to high-contrast alpha tokens (e.g. `rgba(80, 227, 194, 0.1)` fill + `rgba(80, 227, 194, 0.25)` border).
+  - Eliminated washed-out text and over-bright neon blob backgrounds on `Local processing` badge.
+- **Switch Component Polish** (`src/components/ui/switch.module.css`):
+  - Enforced strict `34px x 18px` toggle track dimensions, dark ink checked state, and tactile thumb squish (`15px`) on press.
+- 100% compliant with SSOT Vercel/Geist design system tokens.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| Context Check | `npm run context:check` | ✅ **Passed** (14 docs, 30 unique tools) |
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npx eslint "src/**/*.{ts,tsx}" --quiet` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npm test -- --run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
+
+
+
 
 
