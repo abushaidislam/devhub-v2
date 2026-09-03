@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/abushaidislam/devhub-v2/compare/v0.15.4...v0.16.0) (2026-09-03)
+
+
+### Features
+
+* **marketing:** add landing bento grid and architectural comparison ([116bd89](https://github.com/abushaidislam/devhub-v2/commit/116bd89698c432735308b298188670d1ef7607e2))
+
 ## [0.15.4](https://github.com/abushaidislam/devhub-v2/compare/v0.15.3...v0.15.4) (2026-09-02)
 
 
