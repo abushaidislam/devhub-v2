@@ -65,7 +65,7 @@ describe("ThemeToggle", () => {
   });
 
   it("applies custom className and size props", () => {
-    const { container } = render(<ThemeToggle className="custom-class" size="tiny" />);
+    render(<ThemeToggle className="custom-class" size="tiny" />);
 
     const button = screen.getByRole("button");
     // Depending on how Button component is implemented, it might append these classes
