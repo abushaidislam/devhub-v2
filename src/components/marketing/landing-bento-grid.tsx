@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
+  Check,
   CheckCircle2,
+  Copy,
   Cpu,
   Layers,
   Lock,
@@ -12,7 +17,124 @@ import {
 } from "lucide-react";
 import styles from "./landing-bento-grid.module.css";
 
+interface FormatSample {
+  name: string;
+  filename: string;
+  bytes: string;
+  speed: string;
+  prefix: string;
+  highlight: string;
+  suffix: string;
+  tool: string;
+  match: string;
+  toolHref: string;
+}
+
+const FORMAT_SAMPLES: Record<string, FormatSample> = {
+  JWT: {
+    name: "JWT",
+    filename: "input.raw",
+    bytes: "1,420 bytes",
+    speed: "0ms ingest",
+    prefix: "ey",
+    highlight: "JhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9",
+    suffix: ".eyJzdWIiOiIxMjM0NTY3ODkwIi...",
+    tool: "JWT Decoder",
+    match: "99.8% match",
+    toolHref: "/tools/jwt-decoder",
+  },
+  JSON: {
+    name: "JSON",
+    filename: "payload.json",
+    bytes: "68 bytes",
+    speed: "0ms ingest",
+    prefix: "{\n  \"",
+    highlight: "status",
+    suffix: "\": \"healthy\", \"nodes\": 8\n}",
+    tool: "JSON Formatter",
+    match: "100% match",
+    toolHref: "/tools/json-formatter",
+  },
+  Base64: {
+    name: "Base64",
+    filename: "encoded.txt",
+    bytes: "44 bytes",
+    speed: "0ms ingest",
+    prefix: "V2Vs",
+    highlight: "Y29tZSB0byBEZXZIdWI",
+    suffix: "gLSBMb2NhbC1maXJzdA==",
+    tool: "Base64 Converter",
+    match: "99.4% match",
+    toolHref: "/tools/base64",
+  },
+  YAML: {
+    name: "YAML",
+    filename: "config.yaml",
+    bytes: "58 bytes",
+    speed: "0ms ingest",
+    prefix: "version: '3.8'\n",
+    highlight: "services:",
+    suffix: " app: image: node",
+    tool: "YAML Formatter",
+    match: "98.9% match",
+    toolHref: "/tools/yaml-formatter",
+  },
+  SQL: {
+    name: "SQL",
+    filename: "query.sql",
+    bytes: "78 bytes",
+    speed: "0ms ingest",
+    prefix: "SELECT ",
+    highlight: "id, name, email",
+    suffix: " FROM users WHERE active = 1",
+    tool: "SQL Formatter",
+    match: "99.1% match",
+    toolHref: "/tools/sql-formatter",
+  },
+  Cron: {
+    name: "Cron",
+    filename: "schedule.cron",
+    bytes: "16 bytes",
+    speed: "0ms ingest",
+    prefix: "*/15 ",
+    highlight: "0-6 * * 1-5",
+    suffix: " (Mon-Fri 00:00-06:59)",
+    tool: "Cron Parser",
+    match: "97.8% match",
+    toolHref: "/tools/cron-parser",
+  },
+  XML: {
+    name: "XML",
+    filename: "dataset.xml",
+    bytes: "57 bytes",
+    speed: "0ms ingest",
+    prefix: "<response><status ",
+    highlight: 'code="200"',
+    suffix: " /><record id=\"42\"/></response>",
+    tool: "XML Formatter",
+    match: "98.6% match",
+    toolHref: "/tools/xml-formatter",
+  },
+};
+
 export function LandingBentoGrid() {
+  const [selectedFormat, setSelectedFormat] = useState<string>("JWT");
+  const [tsCopied, setTsCopied] = useState<boolean>(false);
+
+  const activeFormat = FORMAT_SAMPLES[selectedFormat] || FORMAT_SAMPLES.JWT;
+
+  const handleTsCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `interface UserResponse {\n  id: number;\n  email: string;\n  verified: boolean;\n}`
+      );
+      setTsCopied(true);
+      setTimeout(() => setTsCopied(false), 2000);
+    } catch {
+      // Fallback
+    }
+  };
+
   return (
     <section className={styles.section} id="capabilities" aria-labelledby="bento-title">
       <div className="container">
@@ -41,49 +163,59 @@ export function LandingBentoGrid() {
               Paste any raw blob—JSON, JWT, SQL, Cron, YAML, or Base64. Bounded O(1) fast-guards inspect syntax patterns and route to the exact tool with confidence scoring in under 1ms.
             </p>
 
-            {/* Abstract Visual Graphic */}
-            <div className={styles.previewWindow} aria-hidden="true">
+            {/* Interactive Visual Graphic */}
+            <div className={styles.previewWindow}>
               <div className={styles.windowBar}>
                 <div className={styles.windowTitle}>
                   <Terminal size={12} />
-                  <span>input.raw</span>
+                  <span>{activeFormat.filename}</span>
                 </div>
                 <div className={styles.windowStats}>
-                  <span>1,420 bytes</span>
-                  <span className={styles.statusLive}>0ms ingest</span>
+                  <span>{activeFormat.bytes}</span>
+                  <span className={styles.statusLive}>{activeFormat.speed}</span>
                 </div>
               </div>
 
-              <div className={styles.codeLine}>
+              <div className={styles.codeLine} key={activeFormat.name}>
                 <code>
-                  <span className={styles.tokenMuted}>ey</span>
-                  <span className={styles.tokenHighlight}>JhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9</span>
-                  <span className={styles.tokenMuted}>.eyJzdWIiOiIxMjM0NTY3ODkwIi...</span>
+                  <span className={styles.tokenMuted}>{activeFormat.prefix}</span>
+                  <span className={styles.tokenHighlight}>{activeFormat.highlight}</span>
+                  <span className={styles.tokenMuted}>{activeFormat.suffix}</span>
                 </code>
               </div>
 
-              <div className={styles.detectedRow}>
+              <Link href={activeFormat.toolHref} className={styles.detectedRow} title={`Open ${activeFormat.tool}`}>
                 <div className={styles.detectedMatch}>
                   <span className={styles.cyanDot} />
-                  <strong>JWT Decoder</strong>
-                  <span className={styles.matchScore}>99.8% match</span>
+                  <strong>{activeFormat.tool}</strong>
+                  <span className={styles.matchScore}>{activeFormat.match}</span>
                 </div>
                 <div className={styles.actionHint}>
                   <span>Press</span>
                   <kbd>⌘</kbd>
                   <kbd>↵</kbd>
                   <span>to jump</span>
+                  <ArrowRight size={11} className={styles.jumpArrow} />
                 </div>
-              </div>
+              </Link>
 
-              <div className={styles.formatPills}>
-                <span className={styles.activePill}>JWT</span>
-                <span>JSON</span>
-                <span>Base64</span>
-                <span>YAML</span>
-                <span>SQL</span>
-                <span>Cron</span>
-                <span>XML</span>
+              {/* Interactive Format Pills */}
+              <div className={styles.formatPills} role="tablist" aria-label="Detection format samples">
+                {Object.keys(FORMAT_SAMPLES).map((fmt) => {
+                  const isActive = fmt === selectedFormat;
+                  return (
+                    <button
+                      key={fmt}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      className={`${styles.formatPillBtn} ${isActive ? styles.activePill : ""}`}
+                      onClick={() => setSelectedFormat(fmt)}
+                    >
+                      {fmt}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </article>
@@ -99,8 +231,8 @@ export function LandingBentoGrid() {
               Deterministic processing runs strictly in your browser&apos;s V8 memory. No server uploads, no backend telemetry, and zero payload retention.
             </p>
 
-            {/* Abstract Visual Graphic */}
-            <div className={styles.privacyVisual} aria-hidden="true">
+            {/* Visual Graphic */}
+            <div className={styles.privacyVisual}>
               <div className={styles.shieldLockup}>
                 <div className={styles.shieldIcon}>
                   <ShieldCheck size={22} />
@@ -147,20 +279,20 @@ export function LandingBentoGrid() {
               Pipe transformations sequentially. Compose reusable developer recipes and export schema definitions without storing sensitive run values.
             </p>
 
-            {/* Abstract Visual Graphic */}
-            <div className={styles.pipelineVisual} aria-hidden="true">
+            {/* Visual Graphic */}
+            <div className={styles.pipelineVisual}>
               <div className={styles.pipelineSteps}>
-                <div className={styles.pipelineStep}>
+                <div className={styles.pipelineStep} title="Step 1: Raw JSON">
                   <span className={styles.stepNum}>1</span>
                   <span className={styles.stepName}>Raw JSON</span>
                 </div>
                 <div className={styles.pipelineConnector} />
-                <div className={styles.pipelineStep}>
+                <div className={styles.pipelineStep} title="Step 2: YAML Parse">
                   <span className={styles.stepNum}>2</span>
                   <span className={styles.stepName}>YAML Parse</span>
                 </div>
                 <div className={styles.pipelineConnector} />
-                <div className={styles.pipelineStep}>
+                <div className={styles.pipelineStep} title="Step 3: SHA-256">
                   <span className={styles.stepNum}>3</span>
                   <span className={styles.stepName}>SHA-256</span>
                 </div>
@@ -184,13 +316,24 @@ export function LandingBentoGrid() {
               Transform chaotic API responses into strictly typed TypeScript interfaces, Markdown tables, or CSV datasets in a single keystroke.
             </p>
 
-            {/* Abstract Visual Graphic */}
-            <div className={styles.inferenceVisual} aria-hidden="true">
+            {/* Visual Graphic */}
+            <div className={styles.inferenceVisual}>
               <div className={styles.miniEditor}>
                 <div className={styles.editorHead}>
-                  <span>JSON Payload</span>
-                  <ArrowRight size={11} />
-                  <span>TypeScript</span>
+                  <div className={styles.editorHeadTitle}>
+                    <span>JSON Payload</span>
+                    <ArrowRight size={11} />
+                    <span>TypeScript</span>
+                  </div>
+                  <button
+                    type="button"
+                    className={`${styles.miniCopyBtn} ${tsCopied ? styles.miniCopyBtnCopied : ""}`}
+                    onClick={handleTsCopy}
+                    aria-label="Copy TypeScript interface"
+                  >
+                    {tsCopied ? <Check size={11} className={styles.checkIcon} /> : <Copy size={11} />}
+                    <span>{tsCopied ? "Copied" : "Copy"}</span>
+                  </button>
                 </div>
                 <div className={styles.editorBody}>
                   <div className={styles.codeSnippetMono}>
@@ -224,8 +367,8 @@ export function LandingBentoGrid() {
               Trigger any tool in milliseconds with ⌘K, switch operations via tactile shortcuts, and work uninterrupted with full offline Service Worker caching.
             </p>
 
-            {/* Abstract Visual Graphic */}
-            <div className={styles.velocityVisual} aria-hidden="true">
+            {/* Visual Graphic */}
+            <div className={styles.velocityVisual}>
               <div className={styles.commandMockup}>
                 <div className={styles.commandInputRow}>
                   <span className={styles.commandPrompt}>&gt;</span>
@@ -254,7 +397,7 @@ export function LandingBentoGrid() {
 
         <div className={styles.footerLinkRow}>
           <Link href="/tools" className={styles.exploreLink}>
-            Explore all 30 local tools in DevHub <ArrowRight size={14} />
+            Explore all 30 local tools in DevHub <ArrowRight size={14} className={styles.exploreArrow} />
           </Link>
         </div>
       </div>

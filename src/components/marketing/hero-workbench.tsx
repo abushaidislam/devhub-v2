@@ -155,6 +155,7 @@ export function HeroWorkbench() {
 
       {/* Main Split Stage */}
       <div
+        key={activeSample.id}
         className={styles.stage}
         id={`panel-${activeSample.id}`}
         role="tabpanel"
@@ -205,15 +206,15 @@ export function HeroWorkbench() {
             <div className={styles.headerActions}>
               <button
                 type="button"
-                className={styles.copyBtn}
+                className={`${styles.copyBtn} ${copied ? styles.copyBtnCopied : ""}`}
                 onClick={handleCopy}
                 aria-label="Copy output to clipboard"
               >
-                {copied ? <Check size={12} /> : <Copy size={12} />}
+                {copied ? <Check size={12} className={styles.checkIcon} /> : <Copy size={12} />}
                 <span>{copied ? "Copied" : "Copy"}</span>
               </button>
               <Link href={activeSample.toolSlug} className={styles.openToolLink}>
-                Open tool <ArrowRight size={12} />
+                <span>Open tool</span> <ArrowRight size={12} className={styles.openToolArrow} />
               </Link>
             </div>
           </div>

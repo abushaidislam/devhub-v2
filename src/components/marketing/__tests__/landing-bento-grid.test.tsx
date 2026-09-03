@@ -20,6 +20,50 @@ describe("LandingBentoGrid", () => {
     // Verify footer explore link
     expect(screen.getByRole("link", { name: /explore all 30 local tools/i })).toHaveAttribute("href", "/tools");
   });
+
+  it("switches detected format preview when a format pill is clicked", async () => {
+    const { fireEvent } = await import("@testing-library/react");
+    render(<LandingBentoGrid />);
+
+    // Default is JWT
+    expect(screen.getByText("JWT Decoder")).toBeInTheDocument();
+    expect(screen.getByText("99.8% match")).toBeInTheDocument();
+
+    // Click JSON pill
+    const jsonPill = screen.getByRole("tab", { name: "JSON" });
+    fireEvent.click(jsonPill);
+
+    expect(screen.getByText("JSON Formatter")).toBeInTheDocument();
+    expect(screen.getByText("100% match")).toBeInTheDocument();
+
+    // Click SQL pill
+    const sqlPill = screen.getByRole("tab", { name: "SQL" });
+    fireEvent.click(sqlPill);
+
+    expect(screen.getByText("SQL Formatter")).toBeInTheDocument();
+    expect(screen.getByText("99.1% match")).toBeInTheDocument();
+  });
+
+  it("copies TypeScript interface and displays Copied state", async () => {
+    const { fireEvent } = await import("@testing-library/react");
+    const { vi } = await import("vitest");
+    const writeTextMock = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: writeTextMock,
+      },
+    });
+
+    render(<LandingBentoGrid />);
+
+    const copyBtn = screen.getByRole("button", { name: /copy typescript interface/i });
+    fireEvent.click(copyBtn);
+
+    expect(writeTextMock).toHaveBeenCalledWith(
+      expect.stringContaining("interface UserResponse")
+    );
+    expect(await screen.findByText("Copied")).toBeInTheDocument();
+  });
 });
 
 describe("LandingComparison", () => {
