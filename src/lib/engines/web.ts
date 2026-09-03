@@ -1,7 +1,4 @@
-import * as Utils from './utils';
-// Destructure what we need (or just use Utils.)
-// Actually, since the lines might use the util functions directly, we should just import them all:
-import { EngineResult, escapeHtml, textEncoder, fatalTextDecoder, bytesToBase64, decodeBase64Bytes, decodeUtf8, decodeJwtPart, MAX_REGEX_PATTERN_LENGTH, MAX_MARKDOWN_LENGTH, safeMarkdownHref, formatInlineMarkdown, splitMarkdownTableRow, isMarkdownTableSeparator, renderMarkdownTable, parseCsvRows, htmlEntityMap, MAX_BATCH_TOOL_LENGTH, ensureBatchInput, gitignoreTemplates, typeScriptIdentifier } from './utils';
+import { EngineResult, htmlEntityMap, ensureBatchInput } from './utils';
 
 export function transformUrl(input:string,mode:"encode"|"decode"):EngineResult{return {output:mode==="encode"?encodeURIComponent(input):decodeURIComponent(input),meta:mode==="encode"?"Encoded component":"Decoded component"}}
 export function parseQueryString(input:string):EngineResult{const value=input.trim();if(!value)throw new Error("Enter a URL or a query string.");const queryIndex=value.indexOf("?");const query=queryIndex>=0?value.slice(queryIndex+1):value;const params=new URLSearchParams(query.split("#")[0]);const entries=[...params.entries()];if(entries.length===0)throw new Error("No query parameters found.");const grouped:Record<string,string|string[]>={};for(const [key,item] of entries){const existing=grouped[key];if(existing===undefined)grouped[key]=item;else if(Array.isArray(existing))existing.push(item);else grouped[key]=[existing,item]}return {output:JSON.stringify(grouped,null,2),meta:`${entries.length} parameter${entries.length===1?"":"s"}`}}

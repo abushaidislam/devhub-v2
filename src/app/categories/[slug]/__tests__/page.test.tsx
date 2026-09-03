@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { notFound } from "next/navigation";
 import CategoryPage, { generateMetadata, generateStaticParams } from "../page";
-import { categories, categoryDescriptions, tools } from "@/lib/tools";
+import { categories, categoryDescriptions, tools, type Tool } from "@/lib/tools";
 
 // Mock next/navigation
 vi.mock("next/navigation", () => ({
@@ -17,7 +17,7 @@ vi.mock("@/components/core/site-footer", () => ({
   SiteFooter: () => <footer data-testid="site-footer">Footer</footer>,
 }));
 vi.mock("@/components/tools/tool-card", () => ({
-  ToolCard: ({ tool }: { tool: any }) => (
+  ToolCard: ({ tool }: { tool: Tool }) => (
     <div data-testid={`tool-card-${tool.slug}`}>{tool.name}</div>
   ),
 }));
