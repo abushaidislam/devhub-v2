@@ -65,6 +65,13 @@
   gap: 16px;
 }
 
+@media (hover: hover) {
+  .grid:hover .card:not(:hover) {
+    opacity: 0.65;
+    filter: grayscale(10%);
+  }
+}
+
 .card {
   position: relative;
   display: flex;
@@ -73,20 +80,25 @@
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   background: var(--canvas-elevated);
-  box-shadow: var(--shadow-whisper);
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
   transition:
     border-color var(--dur) var(--ease),
     transform var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease),
-    background var(--dur) var(--ease);
+    background var(--dur) var(--ease),
+    opacity 0.22s var(--ease),
+    filter 0.22s var(--ease);
   overflow: hidden;
 }
 
 .card:hover {
   border-color: var(--border-hover);
   background: var(--surface-bright);
-  box-shadow: var(--shadow-float);
-  transform: translateY(-1px);
+  box-shadow: var(--chiseled-highlight-hover), var(--shadow-float);
+  transform: translateY(-2px);
+  opacity: 1 !important;
+  filter: none !important;
+  z-index: 2;
 }
 
 .card:active {
@@ -850,6 +862,10 @@
   .commandCursor,
   .checkIcon {
     animation: none !important;
+  }
+  .grid:hover .card:not(:hover) {
+    opacity: 1 !important;
+    filter: none !important;
   }
   .card:hover,
   .card:active,

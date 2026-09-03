@@ -8,8 +8,8 @@
   animation:ctaGlow 8s var(--ease) infinite alternate}
 @keyframes ctaGlow{from{opacity:.7;transform:scale(.97)}to{opacity:1;transform:scale(1.03)}}
 .content{position:relative;z-index:1;width:min(100%,720px);padding:88px 24px 92px;text-align:center}
-.badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:7px 12px;border:1px solid var(--hairline);border-radius:64px;background:var(--canvas-elevated);color:var(--mute);font:11px var(--mono);letter-spacing:0;transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-.badge:hover{border-color:var(--border-hover);transform:translateY(-1px);box-shadow:var(--shadow-whisper)}
+.badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:7px 12px;border:1px solid var(--hairline);border-radius:64px;background:var(--canvas-elevated);color:var(--mute);font:11px var(--mono);letter-spacing:0;box-shadow:var(--chiseled-highlight),var(--shadow-whisper);transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.badge:hover{border-color:var(--border-hover);transform:translateY(-1px);box-shadow:var(--chiseled-highlight-hover),var(--shadow-float)}
 .badge svg{color:var(--mute)}
 .content h2{margin:0;color:var(--ink);font-size:clamp(42px,6vw,72px);font-weight:600;letter-spacing:-.06em;line-height:1.03}
 .content h2 em{color:var(--body-copy)}
@@ -21,13 +21,15 @@
 .actions .primary{background:var(--btn-primary-bg)!important;border-color:var(--btn-primary-border)!important;color:var(--btn-primary-fg)!important;border-radius:var(--radius-pill)!important}
 .actions .primary:hover{background:var(--btn-primary-hover-bg)!important;border-color:var(--btn-primary-hover-bg)!important;color:var(--btn-primary-hover-fg)!important}
 .proof{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:34px}
-.fact{display:flex;align-items:center;gap:9px;text-align:left}
-.factIcon{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--hairline);border-radius:7px;background:var(--canvas-elevated);color:var(--body-copy);box-shadow:var(--shadow-whisper);transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease),transform var(--dur) var(--ease)}
-.fact:hover .factIcon{border-color:var(--border-hover);color:var(--ink);transform:translateY(-1px)}
+@media(hover:hover){.proof:hover .fact:not(:hover){opacity:0.65;transition:opacity 0.22s var(--ease)}}
+.fact{display:flex;align-items:center;gap:9px;text-align:left;transition:opacity 0.22s var(--ease)}
+.fact:hover{opacity:1!important}
+.factIcon{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--hairline);border-radius:7px;background:var(--canvas-elevated);color:var(--body-copy);box-shadow:var(--chiseled-highlight),var(--shadow-whisper);transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease),transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.fact:hover .factIcon{border-color:var(--border-hover);color:var(--ink);transform:translateY(-1px);box-shadow:var(--chiseled-highlight-hover),var(--shadow-float)}
 .fact span:last-child{display:grid;gap:2px}
 .fact strong{color:var(--ink);font-size:11px;font-weight:600}
 .fact small{color:var(--mute);font-size:10px}
-.actions a:focus-visible,.badge:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.actions a:focus-visible,.badge:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px;box-shadow:var(--focus-glow)}
 @media(max-width:640px){.section{min-height:0}.content{padding:72px 16px 76px}.content h2{font-size:clamp(40px,12vw,58px)}.content>p{font-size:15px}.actions{align-items:stretch;flex-direction:column}.actions a{width:100%}.proof{align-items:flex-start;flex-direction:column;gap:14px;width:max-content;margin:30px auto 0}.fact{width:100%}}
-@media(prefers-reduced-motion:reduce){.pattern::after{display:none;animation:none}.actions a:hover,.actions a:active,.fact:hover .factIcon,.badge:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.pattern::after{display:none;animation:none}.proof:hover .fact:not(:hover){opacity:1!important}.actions a:hover,.actions a:active,.fact:hover .factIcon,.badge:hover{transform:none}}
 

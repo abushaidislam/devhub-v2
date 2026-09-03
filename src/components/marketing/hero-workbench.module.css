@@ -5,7 +5,7 @@
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   background: var(--canvas-elevated);
-  box-shadow: var(--shadow-whisper);
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
   overflow: hidden;
   text-align: left;
   transition:
@@ -15,7 +15,7 @@
 
 .workbench:hover {
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--chiseled-highlight-hover), var(--shadow-float);
 }
 
 /* Top Bar */
@@ -305,7 +305,8 @@
   flex: 1;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-sm);
-  background: var(--canvas-elevated);
+  background: var(--canvas);
+  box-shadow: var(--shadow-press);
   padding: 12px;
   overflow: auto;
   max-height: 180px;

@@ -57,7 +57,7 @@
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   background: var(--canvas-elevated);
-  box-shadow: var(--shadow-whisper);
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
   overflow: hidden;
   transition:
     border-color var(--dur) var(--ease),
@@ -67,7 +67,7 @@
 
 .column:hover {
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--chiseled-highlight-hover), var(--shadow-float);
   transform: translateY(-1px);
 }
 
@@ -78,7 +78,13 @@
 .columnDevHub {
   position: relative;
   background: var(--canvas-elevated);
-  border-color: var(--border-hover);
+  border-color: rgba(80, 227, 194, 0.35);
+  box-shadow: inset 0 1px 0 0 rgba(80, 227, 194, 0.2), var(--chiseled-highlight), var(--shadow-whisper);
+}
+
+.columnDevHub:hover {
+  border-color: rgba(80, 227, 194, 0.55);
+  box-shadow: inset 0 1px 0 0 rgba(80, 227, 194, 0.35), var(--chiseled-highlight-hover), var(--shadow-float);
 }
 
 .columnHeader {
@@ -142,6 +148,12 @@
   padding: 12px 28px 24px;
 }
 
+@media (hover: hover) {
+  .featureList:hover .featureItem:not(:hover) {
+    opacity: 0.65;
+  }
+}
+
 .featureItem {
   display: flex;
   align-items: flex-start;
@@ -151,11 +163,13 @@
   border-radius: var(--radius-sm);
   transition:
     background-color var(--dur) var(--ease),
-    transform 0.14s var(--ease);
+    transform 0.14s var(--ease),
+    opacity 0.22s var(--ease);
 }
 
 .featureItem:hover {
   background-color: var(--hairline-soft);
+  opacity: 1 !important;
 }
 
 .featureItem:last-child {
@@ -263,6 +277,9 @@
 
 /* Reduced Motion Override */
 @media (prefers-reduced-motion: reduce) {
+  .featureList:hover .featureItem:not(:hover) {
+    opacity: 1 !important;
+  }
   .column:hover,
   .featureItem:hover,
   .featureItem:hover .iconWrapperPositive {

@@ -174,6 +174,8 @@
   --shadow-whisper: 0 1px 1px rgba(0, 0, 0, 0.04);
   --shadow-float: 0 2px 2px rgba(0, 0, 0, 0.04), 0 8px 16px -4px rgba(0, 0, 0, 0.08);
   --shadow-press: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+  --chiseled-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  --chiseled-highlight-hover: inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
 
   --radius-sm: 6px;
   --radius-md: 12px;
@@ -282,8 +284,8 @@
   --text-muted: #8f8f8f;
   --text-tertiary: #666666;
 
-  --focus-ring: #ededed;
-  --focus-glow: 0 0 0 4px rgba(237, 237, 237, 0.12);
+  --focus-ring: #50e3c2;
+  --focus-glow: 0 0 0 4px rgba(80, 227, 194, 0.18);
   --accent-muted: #0a2540;
   --control-fill: #0a0a0a;
   --control-fill-hover: #141414;
@@ -298,6 +300,8 @@
   --shadow-whisper: 0 1px 1px rgba(0, 0, 0, 0.35);
   --shadow-float: 0 2px 2px rgba(0, 0, 0, 0.3), 0 8px 16px -4px rgba(0, 0, 0, 0.55);
   --shadow-press: inset 0 1px 2px rgba(0, 0, 0, 0.45);
+  --chiseled-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
+  --chiseled-highlight-hover: inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
 }
 
 /* Base styles */
@@ -366,6 +370,13 @@ button,
     opacity var(--dur) var(--ease),
     transform var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease);
+}
+
+/* Global High-Contrast Focus Architecture */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  box-shadow: var(--focus-glow);
 }
 
 /* Skip link */
@@ -583,7 +594,7 @@ footer a:hover {
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: var(--shadow-whisper);
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
   transition:
     transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.16s cubic-bezier(0.16, 1, 0.3, 1),
@@ -595,7 +606,7 @@ footer a:hover {
 .button:hover:not(:disabled) {
   border-color: var(--border-hover);
   background: var(--control-fill-hover);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--chiseled-highlight-hover), var(--shadow-float);
   transform: translateY(-1px);
 }
 
@@ -609,14 +620,14 @@ footer a:hover {
   background: var(--btn-primary-bg) !important;
   color: var(--btn-primary-fg) !important;
   border-color: var(--btn-primary-border) !important;
-  box-shadow: var(--shadow-whisper);
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
 }
 
 .primary:hover:not(:disabled) {
   background: var(--btn-primary-hover-bg) !important;
   border-color: var(--btn-primary-hover-bg) !important;
   color: var(--btn-primary-hover-fg) !important;
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--chiseled-highlight-hover), var(--shadow-float);
 }
 
 .secondary {
@@ -709,7 +720,7 @@ footer a:hover {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-pill);
   background: var(--canvas-elevated);
-  box-shadow: var(--shadow-whisper);
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
   transition:
     border-color var(--dur) var(--ease),
     transform 0.14s var(--ease),
@@ -719,7 +730,7 @@ footer a:hover {
 .hero .eyebrow:hover {
   border-color: var(--border-hover);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--chiseled-highlight-hover), var(--shadow-float);
 }
 
 .pulse {
@@ -1062,6 +1073,13 @@ footer a:hover {
   gap: 12px;
 }
 
+@media (hover: hover) {
+  .tools-grid:hover .tool-card:not(:hover) {
+    opacity: 0.62;
+    filter: grayscale(12%);
+  }
+}
+
 .tool-card {
   min-height: 148px;
   display: flex;
@@ -1071,20 +1089,25 @@ footer a:hover {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   background: var(--canvas-elevated);
-  box-shadow: none;
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
   text-decoration: none;
   transition:
     transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.18s var(--ease),
     box-shadow 0.18s var(--ease),
-    background 0.18s var(--ease);
+    background 0.18s var(--ease),
+    opacity 0.22s var(--ease),
+    filter 0.22s var(--ease);
 }
 
 .tool-card:hover {
   background: var(--surface-bright);
   border-color: var(--border-hover);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--chiseled-highlight-hover), var(--shadow-float);
+  opacity: 1 !important;
+  filter: none !important;
+  z-index: 2;
 }
 
 .tool-card:active {
@@ -1171,12 +1194,27 @@ footer a:hover {
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--canvas-elevated);
+  box-shadow: var(--chiseled-highlight), var(--shadow-whisper);
 }
 
 .principles article {
   padding: 28px;
   border-right: 1px solid var(--hairline);
   min-height: 220px;
+  transition:
+    background-color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
+}
+
+@media (hover: hover) {
+  .principles:hover article:not(:hover) {
+    opacity: 0.72;
+  }
+}
+
+.principles article:hover {
+  background: var(--hairline-soft);
+  opacity: 1 !important;
 }
 
 .principles article:last-child {
@@ -1641,6 +1679,11 @@ footer a:hover {
   }
   .hero:after {
     animation: none !important;
+  }
+  .tools-grid:hover .tool-card:not(:hover),
+  .principles:hover article:not(:hover) {
+    opacity: 1 !important;
+    filter: none !important;
   }
   .tool-card:hover,
   .tool-card:active,
