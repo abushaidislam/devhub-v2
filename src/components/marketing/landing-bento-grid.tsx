@@ -153,13 +153,13 @@ export function LandingBentoGrid() {
 
         <div className={styles.grid}>
           {/* Card 1: Deterministic Smart Detection (Span 7) */}
-          <article className={`${styles.card} ${styles.cardDetection}`}>
+          <article className={`${styles.card} ${styles.cardDetection} relative bg-white/50 dark:bg-black/50 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg shadow-black/5 ring-1 ring-black/5 rounded-2xl overflow-hidden`}>
             <div className={styles.cardMeta}>
-              <span className={styles.kicker}>01 / Dual-Stage Detection</span>
+              <span className={`${styles.kicker} text-[11px] font-mono font-medium uppercase tracking-wider text-neutral-500`}>01 / Dual-Stage Detection</span>
               <span className={styles.tag}>Heuristic Engine</span>
             </div>
-            <h3 className={styles.cardHeading}>Sub-millisecond smart routing</h3>
-            <p className={styles.cardCopy}>
+            <h3 className={`${styles.cardHeading} text-lg font-semibold tracking-tight text-neutral-900 dark:text-white leading-snug`}>Sub-millisecond smart routing</h3>
+            <p className={`${styles.cardCopy} text-sm font-medium tracking-normal text-neutral-500 dark:text-neutral-400 leading-relaxed`}>
               Paste any raw blob—JSON, JWT, SQL, Cron, YAML, or Base64. Bounded O(1) fast-guards inspect syntax patterns and route to the exact tool with confidence scoring in under 1ms.
             </p>
 
@@ -221,13 +221,13 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 2: Zero-Egress Privacy Sandbox (Span 5) */}
-          <article className={`${styles.card} ${styles.cardPrivacy}`}>
+          <article className={`${styles.card} ${styles.cardPrivacy} relative bg-white/50 dark:bg-black/50 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg shadow-black/5 ring-1 ring-black/5 rounded-2xl overflow-hidden`}>
             <div className={styles.cardMeta}>
-              <span className={styles.kicker}>02 / Memory Boundary</span>
+              <span className={`${styles.kicker} text-[11px] font-mono font-medium uppercase tracking-wider text-neutral-500`}>02 / Memory Boundary</span>
               <span className={styles.tag}>Zero Egress</span>
             </div>
-            <h3 className={styles.cardHeading}>Zero-egress privacy sandbox</h3>
-            <p className={styles.cardCopy}>
+            <h3 className={`${styles.cardHeading} text-lg font-semibold tracking-tight text-neutral-900 dark:text-white leading-snug`}>Zero-egress privacy sandbox</h3>
+            <p className={`${styles.cardCopy} text-sm font-medium tracking-normal text-neutral-500 dark:text-neutral-400 leading-relaxed`}>
               Deterministic processing runs strictly in your browser&apos;s V8 memory. No server uploads, no backend telemetry, and zero payload retention.
             </p>
 
@@ -269,13 +269,13 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 3: Multi-Step Recipe Pipelines (Span 4) */}
-          <article className={`${styles.card} ${styles.cardRecipes}`}>
+          <article className={`${styles.card} ${styles.cardRecipes} relative bg-white/50 dark:bg-black/50 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg shadow-black/5 ring-1 ring-black/5 rounded-2xl overflow-hidden`}>
             <div className={styles.cardMeta}>
-              <span className={styles.kicker}>03 / Workflow Pipelines</span>
+              <span className={`${styles.kicker} text-[11px] font-mono font-medium uppercase tracking-wider text-neutral-500`}>03 / Workflow Pipelines</span>
               <Workflow size={15} className={styles.metaIcon} />
             </div>
-            <h3 className={styles.cardHeading}>Composable recipe pipelines</h3>
-            <p className={styles.cardCopy}>
+            <h3 className={`${styles.cardHeading} text-lg font-semibold tracking-tight text-neutral-900 dark:text-white leading-snug`}>Composable recipe pipelines</h3>
+            <p className={`${styles.cardCopy} text-sm font-medium tracking-normal text-neutral-500 dark:text-neutral-400 leading-relaxed`}>
               Pipe transformations sequentially. Compose reusable developer recipes and export schema definitions without storing sensitive run values.
             </p>
 
@@ -306,19 +306,19 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 4: Type & Interface Inference (Span 4) */}
-          <article className={`${styles.card} ${styles.cardInference}`}>
+          <article className={`${styles.card} ${styles.cardInference} relative bg-white/50 dark:bg-black/50 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg shadow-black/5 ring-1 ring-black/5 rounded-2xl overflow-hidden`}>
             <div className={styles.cardMeta}>
-              <span className={styles.kicker}>04 / Type Inference</span>
+              <span className={`${styles.kicker} text-[11px] font-mono font-medium uppercase tracking-wider text-neutral-500`}>04 / Type Inference</span>
               <Layers size={15} className={styles.metaIcon} />
             </div>
-            <h3 className={styles.cardHeading}>Live interface extraction</h3>
-            <p className={styles.cardCopy}>
+            <h3 className={`${styles.cardHeading} text-lg font-semibold tracking-tight text-neutral-900 dark:text-white leading-snug`}>Live interface extraction</h3>
+            <p className={`${styles.cardCopy} text-sm font-medium tracking-normal text-neutral-500 dark:text-neutral-400 leading-relaxed`}>
               Transform chaotic API responses into strictly typed TypeScript interfaces, Markdown tables, or CSV datasets in a single keystroke.
             </p>
 
             {/* Visual Graphic */}
             <div className={styles.inferenceVisual}>
-              <div className={styles.miniEditor}>
+              <div className={`${styles.miniEditor} rounded-lg bg-neutral-950 border border-white/10 shadow-2xl shadow-black/40 ring-1 ring-white/5 overflow-hidden`}>
                 <div className={styles.editorHead}>
                   <div className={styles.editorHeadTitle}>
                     <span>JSON Payload</span>
@@ -357,13 +357,13 @@ export function LandingBentoGrid() {
           </article>
 
           {/* Card 5: Keyboard Ergonomics & Offline PWA (Span 4) */}
-          <article className={`${styles.card} ${styles.cardVelocity}`}>
+          <article className={`${styles.card} ${styles.cardVelocity} relative bg-white/50 dark:bg-black/50 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg shadow-black/5 ring-1 ring-black/5 rounded-2xl overflow-hidden`}>
             <div className={styles.cardMeta}>
-              <span className={styles.kicker}>05 / Speed &amp; Ergonomics</span>
+              <span className={`${styles.kicker} text-[11px] font-mono font-medium uppercase tracking-wider text-neutral-500`}>05 / Speed &amp; Ergonomics</span>
               <Zap size={15} className={styles.metaIcon} />
             </div>
-            <h3 className={styles.cardHeading}>Instant keyboard velocity</h3>
-            <p className={styles.cardCopy}>
+            <h3 className={`${styles.cardHeading} text-lg font-semibold tracking-tight text-neutral-900 dark:text-white leading-snug`}>Instant keyboard velocity</h3>
+            <p className={`${styles.cardCopy} text-sm font-medium tracking-normal text-neutral-500 dark:text-neutral-400 leading-relaxed`}>
               Trigger any tool in milliseconds with ⌘K, switch operations via tactile shortcuts, and work uninterrupted with full offline Service Worker caching.
             </p>
 

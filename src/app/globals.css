@@ -665,6 +665,7 @@ footer a:hover {
   min-height: 680px;
   padding: 96px 0 80px;
   display: flex;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
   border-bottom: 1px solid var(--hairline);
@@ -709,6 +710,7 @@ footer a:hover {
 }
 
 .hero-inner {
+  margin-top: 50px;
   position: relative;
   z-index: 1;
   text-align: center;
