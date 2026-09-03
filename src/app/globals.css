@@ -83,6 +83,7 @@
   /* Core brand tokens from referances/DESIGN-vercel (1).md */
   --ink: #171717;
   --on-ink: #ffffff;
+  --ink-soft: #4d4d4d;
   --body-copy: #4d4d4d;
   --mute: #8f8f8f;
   --faint: #a1a1a1;
@@ -256,9 +257,10 @@
 
   --ink: #ededed;
   --on-ink: #000000;
-  --body-copy: #a1a1a1;
+  --ink-soft: #d4d4d4;
+  --body-copy: #b5b5b5;
   --mute: #8f8f8f;
-  --faint: #666666;
+  --faint: #737373;
   --hairline: #262626;
   --hairline-soft: #1a1a1a;
   --canvas: #000000;
@@ -275,14 +277,15 @@
 
   --border-subtle: #262626;
   --border-strong: #303030;
-  --border-hover: #555555;
+  --border-hover: #3a3a3a;
+  --border-focus: #555555;
   --border-active: #ededed;
 
   --text-primary: #ededed;
   --text-strong: #f5f5f5;
-  --text-secondary: #a1a1a1;
-  --text-muted: #8f8f8f;
-  --text-tertiary: #666666;
+  --text-secondary: #b5b5b5;
+  --text-muted: #999999;
+  --text-tertiary: #737373;
 
   --focus-ring: #50e3c2;
   --focus-glow: 0 0 0 4px rgba(80, 227, 194, 0.18);
@@ -636,6 +639,21 @@ footer a:hover {
   border-color: var(--hairline);
 }
 
+.tertiary {
+  background: transparent;
+  border-color: transparent;
+  color: var(--body-copy);
+  box-shadow: none;
+}
+
+.tertiary:hover:not(:disabled) {
+  color: var(--ink);
+  background: var(--hairline-soft);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
 .large {
   height: 44px;
   padding: 0 18px;
@@ -746,7 +764,7 @@ footer a:hover {
   font-size: var(--font-size-display);
   line-height: var(--line-height-display);
   letter-spacing: var(--tracking-display);
-  margin: 0 0 28px;
+  margin: 0 0 24px;
   max-width: 960px;
   color: var(--ink);
   text-wrap: balance;
@@ -754,7 +772,7 @@ footer a:hover {
 }
 
 .hero h1 span {
-  color: var(--body-copy);
+  color: var(--ink-soft);
 }
 
 .hero-copy {
@@ -767,7 +785,7 @@ footer a:hover {
 
 .hero-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   margin-top: 24px;
 }
 
@@ -1049,7 +1067,7 @@ footer a:hover {
   display: flex;
   align-items: end;
   justify-content: space-between;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 .section-heading h2 {
@@ -1084,7 +1102,7 @@ footer a:hover {
   min-height: 148px;
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 16px;
   padding: 24px;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
@@ -1198,7 +1216,7 @@ footer a:hover {
 }
 
 .principles article {
-  padding: 28px;
+  padding: 24px;
   border-right: 1px solid var(--hairline);
   min-height: 220px;
   transition:

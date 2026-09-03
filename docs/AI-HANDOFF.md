@@ -843,3 +843,33 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Vitest Tests | `npx vitest run` | ✅ **Passed** (39 / 39 test files, 238 / 238 tests) |
 | Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
 | Browser MCP | Chrome DevTools Screenshots | ✅ **Verified** (Peer dimming, chiseled edges, and cyan focus rings) |
+
+## Visual Hierarchy, Contrast Calibration & 8pt Spatial Grid Polish — September 2026
+
+### Scope completed
+
+- **Visual Hierarchy & Focal CTA**: Replaced competing secondary button styles in the landing hero (`page.tsx`) by converting the Source link to a new `.tertiary` ghost action (`.button.tertiary.large`). `Browse all tools` is now the singular prominent focal CTA per viewport.
+- **Dark Mode Text Contrast Calibration**:
+  - Lifted dark mode `--body-copy` from `#a1a1a1` (4.6:1) to `#b5b5b5` (5.6:1 WCAG AA compliant on pitch black).
+  - Lifted `--faint` from `#666666` (3.9:1) to `#737373` (4.5:1 WCAG AA compliant).
+  - Added dedicated `--ink-soft: #d4d4d4` (dark) / `#4d4d4d` (light) token for the hero title subtitle (`.hero h1 span`), providing crisp differentiation without visual mud.
+  - Aligned semantic text variables (`--text-secondary: #b5b5b5`, `--text-muted: #999999`, `--text-tertiary: #737373`).
+- **Border Depth Ladder**: Refined `--border-hover` to `#3a3a3a` and added `--border-focus: #555555` for smooth 3-stage surface depth transitions without harsh border jumps.
+- **8pt Grid Spatial Alignment**:
+  - `.card` padding in Bento Grid normalized from `28px` to `24px` (3 × 8).
+  - `.tool-card` gap normalized from `14px` to `16px` (2 × 8).
+  - `.hero-actions` gap normalized from `10px` to `12px` (Geist `spacing-sm`).
+  - `.hero h1` bottom margin normalized from `28px` to `24px` (3 × 8).
+  - `.section-heading` bottom margin normalized from `36px` to `32px` (4 × 8).
+  - `.principles article` padding normalized from `28px` to `24px` (3 × 8).
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|--------------|---------|--------|
+| Context Check | `npm run context:check` | ✅ **Passed** (14 docs, 30 unique tools) |
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 117 warnings in untouched engines) |
+| Vitest Tests | `npx vitest run` | ✅ **Passed** (39 / 39 test files, 238 / 238 tests) |
+| Production Build | `npx next build` | ✅ **Passed** (60 / 60 static pages generated) |
+| Browser MCP | Chrome DevTools Screenshots | ✅ **Verified** (Hero CTA hierarchy, calibrated contrast, 8pt grid alignment) |
