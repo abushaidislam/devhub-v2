@@ -1055,6 +1055,27 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Quality Gate | Command | Result |
 |---|---|---|
 | TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
-| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 3 pre-existing script warnings) |
-| Vitest Tests | `npm test` | ✅ **Passed** (55 / 55 test files, 334 / 334 tests) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 2 pre-existing script warnings) |
+| Vitest Tests | `npm test` | ✅ **Passed** (55 / 55 test files, 338 / 338 tests) |
+
+## Dashboard Green Lines & Card Solid Border Removal — September 2026
+
+### Scope completed
+
+- Resolved unwanted vertical green lines along the main content area in the dashboard shell:
+  - Root cause: Programmatic focus on `<main id="main-content" tabIndex={-1}>` on route load triggered dark mode `:focus-visible` with `box-shadow: var(--focus-glow)` (`rgba(80, 227, 194, 0.18)`), projecting a faint 4px green glow/line along the left and right boundaries.
+  - Aligned dark theme `--focus-ring` in [`src/app/globals.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/app/globals.css) to neutral `#ededed` (matching `--ink` per `docs/DESIGN-SYSTEM.md`) and `--focus-glow` to `0 0 0 4px rgba(237, 237, 237, 0.14)`.
+  - Added explicit focus resets on `#main-content:focus, #main-content:focus-visible` and `.content:focus, .content:focus-visible` (`outline: none !important; box-shadow: none !important;`), preventing container outlines and boundary glows.
+- Eliminated solid green borders on tool cards:
+  - Root cause: In [`src/components/dashboard/dashboard-tool-grid.module.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/dashboard/dashboard-tool-grid.module.css), `.card:focus-within` applied `border-color: var(--focus-ring)` and `box-shadow: 0 0 0 1px var(--focus-ring)`, which turned the whole card into a solid green box on mouse click or focus.
+  - Replaced `.card:focus-within` with keyboard-only `:has(> a:focus-visible)`, applying a clean neutral border `var(--border-hover)` and `var(--shadow-whisper)` without turning mouse-clicked cards solid green.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 2 pre-existing script warnings) |
+| Vitest Tests | `npm test` | ✅ **Passed** (55 / 55 test files, 338 / 338 tests) |
+| Production Build | `npm run build` | ✅ **Passed** (60 / 60 static routes generated) |
 
