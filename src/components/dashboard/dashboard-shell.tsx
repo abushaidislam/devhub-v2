@@ -331,46 +331,46 @@ export function DashboardShell({
             prefix={<X size={17} />}
           />
         </div>
-        <nav className={styles.primary} aria-label="Workspace navigation">
-          <Link href="/dashboard" data-active={pathname === "/dashboard"}>
-            <span className={styles.primaryIcon}>
-              <Grid2X2 size={18} />
-            </span>
-            All tools<small>{tools.length}</small>
-          </Link>
-          <Link href="/favorites" data-active={pathname === "/favorites"}>
-            <span className={styles.primaryIcon}>
-              <Heart size={18} fill={pathname === "/favorites" ? "currentColor" : "none"} />
-            </span>
-            Favorites<small>{favorites.length}</small>
-          </Link>
-          <Link href="/workbench" data-active={pathname === "/workbench"} onClick={() => setMobileOpen(false)}>
-            <span className={styles.primaryIcon}>
-              <Columns2 size={18} />
-            </span>
-            Workbench
-          </Link>
-          <Link href="/recipes" data-active={pathname === "/recipes"} onClick={() => setMobileOpen(false)}>
-            <span className={styles.primaryIcon}>
-              <Workflow size={18} />
-            </span>
-            Recipes
-          </Link>
-          <Link href="/assistant" data-active={pathname === "/assistant"} onClick={() => setMobileOpen(false)}>
-            <span className={styles.primaryIcon}>
-              <Sparkles size={18} />
-            </span>
-            Assistant
-          </Link>
-          <Link href="/recent" data-active={pathname === "/recent"} onClick={() => setMobileOpen(false)}>
-            <span className={styles.primaryIcon}>
-              <Clock3 size={18} />
-            </span>
-            Recent
-          </Link>
-        </nav>
-        <div className={styles.divider} />
         <div className={styles.scroll}>
+          <nav className={styles.primary} aria-label="Workspace navigation">
+            <Link href="/dashboard" data-active={pathname === "/dashboard"}>
+              <span className={styles.primaryIcon}>
+                <Grid2X2 size={18} />
+              </span>
+              All tools<small>{tools.length}</small>
+            </Link>
+            <Link href="/favorites" data-active={pathname === "/favorites"}>
+              <span className={styles.primaryIcon}>
+                <Heart size={18} fill={pathname === "/favorites" ? "currentColor" : "none"} />
+              </span>
+              Favorites<small>{favorites.length}</small>
+            </Link>
+            <Link href="/workbench" data-active={pathname === "/workbench"} onClick={() => setMobileOpen(false)}>
+              <span className={styles.primaryIcon}>
+                <Columns2 size={18} />
+              </span>
+              Workbench
+            </Link>
+            <Link href="/recipes" data-active={pathname === "/recipes"} onClick={() => setMobileOpen(false)}>
+              <span className={styles.primaryIcon}>
+                <Workflow size={18} />
+              </span>
+              Recipes
+            </Link>
+            <Link href="/assistant" data-active={pathname === "/assistant"} onClick={() => setMobileOpen(false)}>
+              <span className={styles.primaryIcon}>
+                <Sparkles size={18} />
+              </span>
+              Assistant
+            </Link>
+            <Link href="/recent" data-active={pathname === "/recent"} onClick={() => setMobileOpen(false)}>
+              <span className={styles.primaryIcon}>
+                <Clock3 size={18} />
+              </span>
+              Recent
+            </Link>
+          </nav>
+          <div className={styles.divider} />
           <div className={styles.sectionLabel}>Tool categories</div>
           {categories.map((category, index) => {
             const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] ?? Shapes;

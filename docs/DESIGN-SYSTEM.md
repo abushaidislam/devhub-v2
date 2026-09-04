@@ -123,8 +123,8 @@ Application content uses stronger contrast than passive chrome while keeping the
 - Category row: 40px
 - Nested tool row: 36px
 - Footer: 64px
-- Row radius: 5–6px
-- Internal scrollbar: 4px
+- Internal scrollbar: 4px (covers the entire navigation pane)
+- Unified full-height scroll: Primary navigation rows, divider, and all tool categories scroll together as a single continuous unit between the fixed header (58px) and fixed footer (64px).
 - Split resizer: 8px touch/click target along sidebar right border with Vercel Geist micro-interactions (hairline indicator, hover glow, keyboard navigation, transition suppression during active drag). Dragging to the left below 150px provides a subtle dimming visual cue and snaps the sidebar closed on release, preserving the pre-collapse width when reopened. ArrowLeft at minimum width also collapses cleanly.
 
 The first category is expanded on the All Tools workspace. On a tool page, the active category is expanded. The sidebar search was intentionally removed; topbar search and `Cmd/Ctrl + K` are the canonical search entry points.
