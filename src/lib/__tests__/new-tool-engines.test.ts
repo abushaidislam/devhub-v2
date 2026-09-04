@@ -67,6 +67,11 @@ describe("parseQueryString", () => {
 			q: "1",
 		});
 	});
+	it("prevents prototype pollution from unsafe keys", () => {
+		const result = JSON.parse(parseQueryString("?__proto__=polluted&constructor=polluted&prototype=polluted&valid=1").output);
+		expect(result).toEqual({ valid: "1" });
+		expect(({} as Record<string, unknown>).__proto__).not.toBe("polluted");
+	});
 });
 
 describe("generatePassword", () => {
@@ -116,6 +121,11 @@ describe("parseUrl", () => {
 	it("accepts a query string and rejects empty input", () => {
 		expect(JSON.parse(parseUrl("?q=devhub").output).query).toEqual({q: "devhub"});
 		expect(() => parseUrl("   ")).toThrow(/URL or query/);
+	});
+	it("prevents prototype pollution from unsafe keys in query", () => {
+		const result = JSON.parse(parseUrl("https://devhub.dev/tools?__proto__=polluted&constructor=polluted&prototype=polluted&valid=1").output);
+		expect(result.query).toEqual({ valid: "1" });
+		expect(({} as Record<string, unknown>).__proto__).not.toBe("polluted");
 	});
 });
 
