@@ -39,6 +39,7 @@ import {
 		parseUrl,
 		generateGitignore,
 		jsonToTypescript,
+		curlToCode,
 	} from "./tool-engines";
 import type {ToolEngine, ToolResult} from "./engine-types";
 
@@ -390,6 +391,16 @@ const engineList: ToolEngine[] = [
 			produces: "text",
 			sensitivity: "local",
 			async run(input) { const r = jsonToTypescript(input.value); return makeText(r.output, r.meta); },
+		},
+		{
+			id: "curl-converter",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input, options) {
+				const r = curlToCode(input.value, options as { target?: string } | undefined);
+				return makeText(r.output, r.meta);
+			},
 		},
 	];
 

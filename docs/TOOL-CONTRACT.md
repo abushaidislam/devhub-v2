@@ -75,6 +75,7 @@ This registry is the only source of truth for tool identity. Never create a sepa
 28. URL Parser
 29. Gitignore Generator
 30. JSON to TypeScript
+31. cURL Converter
 
 The proposed Timestamp Converter and Text Diff tools already existed in the registry and were retained rather than duplicated.
 

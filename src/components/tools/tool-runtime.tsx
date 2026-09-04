@@ -49,6 +49,7 @@ const defaults: Record<string, string> = {
 		"url-parser": "https://devhub.dev/tools?tag=local&tag=fast#readme",
 		"gitignore-generator": "node\nnext\nvscode\nenv",
 		"json-to-typescript": '{\n  "name": "DevHub",\n  "tools": ["json", "yaml"]\n}',
+		"curl-converter": 'curl -X POST https://api.example.com/items \\\n  -H "Content-Type: application/json" \\\n  -H "Authorization: Bearer token123" \\\n  -d \'{"name": "Widget", "price": 42}\'',
 	};
 
 export function ToolRuntime({slug, name}: {slug: string; name: string}) {
@@ -56,7 +57,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [input, setInput] = useState(initial);
 	const [aux, setAux] = useState(slug === "regex-tester" ? "DevHub" : "");
 	const [option, setOption] = useState(
-		slug === "hash-generator" ? "SHA-256" : "encode",
+		slug === "hash-generator" ? "SHA-256" : slug === "curl-converter" ? "fetch" : "encode",
 	);
 	const [output, setOutput] = useState("");
 	const [meta, setMeta] = useState("Ready");
@@ -68,13 +69,14 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [isResizing, setIsResizing] = useState(false);
 	const panelsRef = useRef<HTMLDivElement>(null);
 
-	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities"].includes(slug);
+	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities", "curl-converter"].includes(slug);
 		const preview = slug === "markdown-preview";
 		const [livePreview, setLivePreview] = useState(preview);
 		const [markdownView, setMarkdownView] = useState<"preview" | "html">("preview");
 		const operation = useMemo(() => {
 		if (slug === "regex-tester") return `test the input text against this regular expression pattern: ${aux}`;
 		if (slug === "hash-generator") return `${option} hash`;
+		if (slug === "curl-converter") return `convert cURL command to ${option}`;
 		if (slug === "base64" || slug === "url-encoder") return option;
 		const operations: Record<string, string> = {
 			"json-formatter": "format and validate JSON",
@@ -103,6 +105,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 				"url-parser": "inspect URL parts, query parameters, and fragments",
 				"gitignore-generator": "generate .gitignore rules for selected stacks",
 				"json-to-typescript": "generate TypeScript interfaces from JSON",
+				"curl-converter": "convert cURL command into client code",
 			};
 		return operations[slug] ?? "analyze and transform input";
 	}, [aux, option, slug]);
@@ -128,7 +131,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 				? "Text to test"
 				: slug === "uuid-generator"
 					? "Number of UUIDs"
-					: `${name} input`,
+					: slug === "curl-converter"
+						? "cURL command (e.g. curl https://api.example.com)"
+						: `${name} input`,
 		[slug, name],
 	);
 
@@ -136,6 +141,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		if (slug === "base64" || slug === "url-encoder") return {mode: option};
 		if (slug === "hash-generator") return {algorithm: option};
 		if (slug === "regex-tester") return {pattern: aux, flags: "gi"};
+		if (slug === "curl-converter") return {target: option};
 		return undefined;
 	}
 
@@ -300,6 +306,15 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 												<option>SHA-1</option>
 												<option>SHA-256</option>
 												<option>SHA-512</option>
+											</>
+										) : slug === "curl-converter" ? (
+											<>
+												<option value="fetch">JavaScript (Fetch)</option>
+												<option value="axios">JavaScript (Axios)</option>
+												<option value="python">Python (Requests)</option>
+												<option value="node">Node.js</option>
+												<option value="go">Go (net/http)</option>
+												<option value="php">PHP (cURL)</option>
 											</>
 										) : (
 											<>

@@ -13,6 +13,7 @@ import {
 		parseUrl,
 		generateGitignore,
 		jsonToTypescript,
+		curlToCode,
 	} from "../tool-engines";
 
 describe("jsonToCsv", () => {
@@ -151,5 +152,72 @@ describe("jsonToTypescript", () => {
 	});
 	it("rejects invalid JSON", () => {
 		expect(() => jsonToTypescript("not-json")).toThrow(/valid JSON/);
+	});
+});
+
+describe("curlToCode", () => {
+	it("converts simple GET to fetch", () => {
+		const res = curlToCode("curl https://api.devhub.tools/users");
+		expect(res.output).toContain('fetch("https://api.devhub.tools/users")');
+		expect(res.output).toContain("await response.json()");
+	});
+
+	it("converts POST with headers and JSON body to fetch", () => {
+		const cmd = `curl -X POST https://api.devhub.tools/items \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer my-token" \\
+  -d '{"name": "test", "active": true}'`;
+		const res = curlToCode(cmd, "fetch");
+		expect(res.output).toContain('method: "POST"');
+		expect(res.output).toContain('"Content-Type": "application/json"');
+		expect(res.output).toContain('"Authorization": "Bearer my-token"');
+		expect(res.output).toContain('JSON.stringify');
+		expect(res.output).toContain('"name": "test"');
+	});
+
+	it("converts to Axios", () => {
+		const cmd = `curl -X POST https://api.devhub.tools/items -H "Content-Type: application/json" -d '{"val": 123}'`;
+		const res = curlToCode(cmd, "axios");
+		expect(res.output).toContain('import axios from "axios";');
+		expect(res.output).toContain('method: "post"');
+		expect(res.output).toContain('url: "https://api.devhub.tools/items"');
+		expect(res.output).toContain('"val": 123');
+	});
+
+	it("converts to Python Requests", () => {
+		const cmd = `curl -X PUT https://api.devhub.tools/items/1 -H "Content-Type: application/json" -d '{"val": 456}'`;
+		const res = curlToCode(cmd, "python");
+		expect(res.output).toContain("import requests");
+		expect(res.output).toContain('url = "https://api.devhub.tools/items/1"');
+		expect(res.output).toContain("requests.put(url, headers=headers, json=data)");
+	});
+
+	it("converts to Go net/http", () => {
+		const cmd = `curl -X POST https://api.devhub.tools/login -d 'user=admin&pass=123'`;
+		const res = curlToCode(cmd, "go");
+		expect(res.output).toContain("package main");
+		expect(res.output).toContain('http.NewRequest("POST", url, payload)');
+	});
+
+	it("converts to PHP cURL", () => {
+		const cmd = `curl https://api.devhub.tools/health`;
+		const res = curlToCode(cmd, "php");
+		expect(res.output).toContain("<?php");
+		expect(res.output).toContain("curl_init()");
+		expect(res.output).toContain('CURLOPT_URL => "https://api.devhub.tools/health"');
+	});
+
+	it("handles basic auth with -u", () => {
+		const cmd = `curl -u admin:secret https://api.devhub.tools/secure`;
+		const res = curlToCode(cmd, "fetch");
+		expect(res.output).toContain('"Authorization": "Basic ');
+	});
+
+	it("rejects commands that do not start with curl", () => {
+		expect(() => curlToCode("wget https://api.devhub.tools")).toThrow(/must start with 'curl'/);
+	});
+
+	it("rejects command with missing URL", () => {
+		expect(() => curlToCode("curl -X POST -H 'Content-Type: application/json'")).toThrow(/No URL found/);
 	});
 });
