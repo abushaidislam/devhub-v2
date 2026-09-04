@@ -212,6 +212,33 @@ async function putRecord(record: SavedRecipe): Promise<void> {
   }
 }
 
+export async function getSavedRecipe(
+  id: string,
+): Promise<RecipeStorageResult<SavedRecipe>> {
+  if (!recipeStorageSupported()) {
+    return failure("Local recipe storage is unavailable in this browser.");
+  }
+  if (!id) {
+    return failure("Saved recipe was not found.");
+  }
+  let db: IDBDatabase | undefined;
+  try {
+    db = await openDb();
+    const record = await requestValue(
+      db.transaction(STORE, "readonly").objectStore(STORE).get(id),
+    );
+    const recipe = normalizeRecord(record);
+    if (!recipe) {
+      return failure("Saved recipe was not found.");
+    }
+    return { ok: true, value: recipe };
+  } catch {
+    return failure("Saved recipe could not be read from this browser.");
+  } finally {
+    db?.close();
+  }
+}
+
 export async function listSavedRecipes(): Promise<
   RecipeStorageResult<SavedRecipe[]>
 > {
@@ -272,10 +299,9 @@ export async function updateSavedRecipe(
   id: string,
   updates: SavedRecipeUpdate,
 ): Promise<RecipeStorageResult<SavedRecipe>> {
-  const listed = await listSavedRecipes();
-  if (!listed.ok) return listed;
-  const current = listed.value.find((recipe) => recipe.id === id);
-  if (!current) return failure("Saved recipe was not found.");
+  const existing = await getSavedRecipe(id);
+  if (!existing.ok) return existing;
+  const current = existing.value;
 
   const draft = validateSavedRecipeDraft({
     name: updates.name ?? current.name,
