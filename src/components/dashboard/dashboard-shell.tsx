@@ -48,6 +48,7 @@ import { ThemeToggle } from "../core/theme-toggle";
 const DEFAULT_SIDEBAR_WIDTH = 256;
 const MIN_SIDEBAR_WIDTH = 200;
 const MAX_SIDEBAR_WIDTH = 420;
+const SNAP_COLLAPSE_THRESHOLD = 150;
 const SIDEBAR_STEP = 10;
 const SIDEBAR_STORAGE_KEY = "devhub:sidebar-width";
 
@@ -74,11 +75,15 @@ export function DashboardShell({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_SIDEBAR_WIDTH);
   const [isResizing, setIsResizing] = useState(false);
+  const [willCollapse, setWillCollapse] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const widthRef = useRef(DEFAULT_SIDEBAR_WIDTH);
   widthRef.current = sidebarWidth;
+  const isResizingRef = useRef(false);
+  const preDragWidthRef = useRef(DEFAULT_SIDEBAR_WIDTH);
+  const lastClientXRef = useRef(DEFAULT_SIDEBAR_WIDTH);
 
   const mainRef = useRef<HTMLElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
@@ -185,27 +190,63 @@ export function DashboardShell({
     if (isMobileViewport) return;
     event.preventDefault();
     event.currentTarget.setPointerCapture?.(event.pointerId);
+    isResizingRef.current = true;
     setIsResizing(true);
+    preDragWidthRef.current = sidebarWidth;
+    lastClientXRef.current = sidebarWidth;
+    setWillCollapse(false);
   }
 
   function handleResizerPointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (!isResizing) return;
-    const newWidth = Math.min(
-      Math.max(Math.round(event.clientX), MIN_SIDEBAR_WIDTH),
-      MAX_SIDEBAR_WIDTH
-    );
-    widthRef.current = newWidth;
-    setSidebarWidth(newWidth);
+    if (!isResizingRef.current) return;
+    const clientX =
+      typeof event.clientX === "number" && !Number.isNaN(event.clientX)
+        ? Math.round(event.clientX)
+        : 0;
+    lastClientXRef.current = clientX;
+    if (clientX < SNAP_COLLAPSE_THRESHOLD) {
+      setWillCollapse(true);
+      const compressed = Math.max(0, clientX);
+      widthRef.current = compressed;
+      setSidebarWidth(compressed);
+    } else {
+      setWillCollapse(false);
+      const newWidth = Math.min(
+        Math.max(clientX, MIN_SIDEBAR_WIDTH),
+        MAX_SIDEBAR_WIDTH
+      );
+      widthRef.current = newWidth;
+      setSidebarWidth(newWidth);
+    }
   }
 
   function handleResizerPointerUp(event: PointerEvent<HTMLDivElement>) {
     if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
+    isResizingRef.current = false;
     setIsResizing(false);
-    try {
-      localStorage.setItem(SIDEBAR_STORAGE_KEY, String(widthRef.current));
-    } catch {}
+    const shouldCollapse = lastClientXRef.current < SNAP_COLLAPSE_THRESHOLD;
+    setWillCollapse(false);
+    if (shouldCollapse) {
+      setSidebarOpen(false);
+      const restored = Math.max(MIN_SIDEBAR_WIDTH, preDragWidthRef.current);
+      setSidebarWidth(restored);
+      widthRef.current = restored;
+      try {
+        localStorage.setItem(SIDEBAR_STORAGE_KEY, String(restored));
+      } catch {}
+    } else {
+      const finalWidth = Math.min(
+        Math.max(widthRef.current, MIN_SIDEBAR_WIDTH),
+        MAX_SIDEBAR_WIDTH
+      );
+      setSidebarWidth(finalWidth);
+      widthRef.current = finalWidth;
+      try {
+        localStorage.setItem(SIDEBAR_STORAGE_KEY, String(finalWidth));
+      } catch {}
+    }
   }
 
   function handleResizerDoubleClick() {
@@ -219,12 +260,16 @@ export function DashboardShell({
   function handleResizerKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      const next = Math.max(MIN_SIDEBAR_WIDTH, sidebarWidth - SIDEBAR_STEP);
-      setSidebarWidth(next);
-      widthRef.current = next;
-      try {
-        localStorage.setItem(SIDEBAR_STORAGE_KEY, String(next));
-      } catch {}
+      if (sidebarWidth <= MIN_SIDEBAR_WIDTH) {
+        setSidebarOpen(false);
+      } else {
+        const next = Math.max(MIN_SIDEBAR_WIDTH, sidebarWidth - SIDEBAR_STEP);
+        setSidebarWidth(next);
+        widthRef.current = next;
+        try {
+          localStorage.setItem(SIDEBAR_STORAGE_KEY, String(next));
+        } catch {}
+      }
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
       const next = Math.min(MAX_SIDEBAR_WIDTH, sidebarWidth + SIDEBAR_STEP);
@@ -256,7 +301,11 @@ export function DashboardShell({
       data-resizing={isResizing}
       style={{ "--sidebar-width": `${sidebarWidth}px` } as CSSProperties}
     >
-      <aside ref={sidebarRef} className={`${styles.sidebar} ${mobileOpen ? styles.open : ""}`}>
+      <aside
+        ref={sidebarRef}
+        className={`${styles.sidebar} ${mobileOpen ? styles.open : ""}`}
+        data-will-collapse={willCollapse}
+      >
         <div className={styles.workspaceSwitcher}>
           <Image
             className={styles.workspaceLogo}
@@ -387,6 +436,7 @@ export function DashboardShell({
           aria-valuemax={MAX_SIDEBAR_WIDTH}
           className={styles.resizer}
           data-resizing={isResizing}
+          data-will-collapse={willCollapse}
           onPointerDown={handleResizerPointerDown}
           onPointerMove={handleResizerPointerMove}
           onPointerUp={handleResizerPointerUp}

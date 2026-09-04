@@ -6,10 +6,13 @@
 .sidebar{position:sticky;top:0;height:100vh;width:var(--sidebar-width,256px);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;border-right:1px solid var(--hairline);background:var(--bg);z-index:50;transition:transform var(--duration-fast) var(--ease-smooth-out),opacity var(--duration-fast) var(--ease-smooth-out);-webkit-font-smoothing:antialiased}
 .noSidebar .sidebar{transform:translateX(-100%);opacity:0;pointer-events:none}
 
+.sidebar[data-will-collapse="true"]{opacity:0.45;transition:opacity var(--duration-fast) var(--ease-smooth-out)}
+
 .resizer{position:absolute;top:0;right:0;bottom:0;width:8px;cursor:col-resize;touch-action:none;user-select:none;z-index:60;display:flex;justify-content:flex-end}
 .resizer::after{content:"";position:absolute;top:0;right:0;bottom:0;width:2px;background:transparent;transition:background-color var(--duration-fast) var(--ease-smooth-out),box-shadow var(--duration-fast) var(--ease-smooth-out)}
 .resizer:hover::after,.resizer[data-resizing="true"]::after{background:var(--link);box-shadow:0 0 8px rgba(0,112,243,0.5)}
 :global([data-theme="dark"]) .resizer:hover::after,:global([data-theme="dark"]) .resizer[data-resizing="true"]::after{background:#3291ff;box-shadow:0 0 8px rgba(50,145,255,0.6)}
+.resizer[data-will-collapse="true"]::after{background:var(--mute)!important;box-shadow:none!important}
 .resizer:focus-visible{outline:none}
 .resizer:focus-visible::after{background:var(--link);box-shadow:0 0 0 2px var(--focus-glow)}
 

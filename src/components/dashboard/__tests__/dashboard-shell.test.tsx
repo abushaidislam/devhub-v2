@@ -74,4 +74,43 @@ describe("DashboardShell", () => {
     fireEvent.doubleClick(resizer);
     expect(resizer).toHaveAttribute("aria-valuenow", "256");
   });
+
+  it("snaps to collapse when dragging to the left below threshold or pressing ArrowLeft at minimum width", async () => {
+    const { fireEvent, waitFor } = await import("@testing-library/react");
+    const { container } = render(
+      <DashboardShell>
+        <div>Content</div>
+      </DashboardShell>
+    );
+
+    const resizer = screen.getByRole("separator", { name: /Resize sidebar/i });
+
+    // Drag past collapse threshold (e.g. clientX: 120)
+    fireEvent.pointerDown(resizer, { pointerId: 1, clientX: 256 });
+    fireEvent.pointerMove(resizer, { pointerId: 1, clientX: 120 });
+    await waitFor(() => expect(resizer).toHaveAttribute("data-will-collapse", "true"));
+
+    // Releasing pointer collapses the sidebar
+    fireEvent.pointerUp(resizer, { pointerId: 1 });
+    await waitFor(() => {
+      const cls = (container.firstChild as HTMLElement)?.className || "";
+      expect(cls).toContain("noSidebar");
+    });
+
+    // Show navigation button opens it again
+    const toggleBtn = screen.getByRole("button", { name: /Show navigation/i });
+    expect(toggleBtn).toBeInTheDocument();
+    fireEvent.click(toggleBtn);
+    await waitFor(() => {
+      const cls = (container.firstChild as HTMLElement)?.className || "";
+      expect(cls).not.toContain("noSidebar");
+    });
+
+    // Keyboard ArrowLeft at min width collapses as well
+    fireEvent.keyDown(resizer, { key: "Home" }); // at min width (200)
+    expect(resizer).toHaveAttribute("aria-valuenow", "200");
+    fireEvent.keyDown(resizer, { key: "ArrowLeft" });
+    const finalCls = (container.firstChild as HTMLElement)?.className || "";
+    expect(finalCls).toContain("noSidebar");
+  });
 });

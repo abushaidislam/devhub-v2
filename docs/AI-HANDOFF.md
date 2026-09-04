@@ -7,6 +7,7 @@
 - Dynamic `--sidebar-width` CSS variable applied to `.app` grid layout with smooth transition, disabled during active drag (`data-resizing="true"`) for instantaneous 60fps tracking.
 - Drag handle with 8px invisible hit target, subtle hairline accent hover/drag line (`var(--link)` / `var(--border-strong)` with soft glow), and pointer capture via `setPointerCapture`.
 - Width bounded between 200px (min) and 420px (max); double-clicking the resizer handle resets to default 256px.
+- Drag-to-collapse (snap-to-close): Dragging left below 150px provides visual dimming feedback (`data-will-collapse="true"`) and collapses the sidebar on release with Vercel slide-out animation; reopening restores pre-collapse width. Keyboard ArrowLeft at minimum width also cleanly collapses.
 - Persisted user preference in `localStorage` under `devhub:sidebar-width`.
 - Full WAI-ARIA separator accessibility (`role="separator"`, `aria-orientation="vertical"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, `aria-label="Resize sidebar"`, and keyboard controls for ArrowLeft, ArrowRight, Home, and End).
 - Automatically hidden on mobile/drawer viewports (`@media (max-width: 900px)`).
@@ -14,7 +15,7 @@
 ### Validation
 - TypeScript check (`npx tsc --noEmit`): Passed (0 errors).
 - ESLint check (`npm run lint`): Passed (0 errors).
-- Vitest unit tests: Passed including newly added test suite in `dashboard-shell.test.tsx`.
+- Vitest unit tests: 3/3 passed in `dashboard-shell.test.tsx` verifying normal resize, snap-to-close, and keyboard collapse.
 
 ## Latest Header Height & Baseline Alignment Handoff
 
