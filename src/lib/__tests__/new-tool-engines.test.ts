@@ -14,7 +14,9 @@ import {
 		generateGitignore,
 		jsonToTypescript,
 		curlToCode,
+		yamlToJson,
 	} from "../tool-engines";
+
 
 describe("jsonToCsv", () => {
 	it("converts an array of objects", () => {
@@ -235,3 +237,106 @@ describe("curlToCode", () => {
 		);
 	});
 });
+
+describe("yamlToJson", () => {
+	it("converts basic key-value mappings and scalar types", () => {
+		const yaml = `
+name: DevHub
+version: 2
+active: true
+ratio: 3.14
+notes: null
+`;
+		const res = yamlToJson(yaml);
+		expect(JSON.parse(res.output)).toEqual({
+			name: "DevHub",
+			version: 2,
+			active: true,
+			ratio: 3.14,
+			notes: null,
+		});
+		expect(res.meta).toContain("5 keys");
+	});
+
+	it("converts sequences (lists)", () => {
+		const yaml = `
+- apple
+- banana
+- cherry
+`;
+		const res = yamlToJson(yaml);
+		expect(JSON.parse(res.output)).toEqual(["apple", "banana", "cherry"]);
+		expect(res.meta).toContain("3 items");
+	});
+
+	it("converts sequences of objects", () => {
+		const yaml = `
+- id: 1
+  name: Alice
+- id: 2
+  name: Bob
+`;
+		const res = yamlToJson(yaml);
+		expect(JSON.parse(res.output)).toEqual([
+			{ id: 1, name: "Alice" },
+			{ id: 2, name: "Bob" },
+		]);
+	});
+
+	it("converts nested structures and objects", () => {
+		const yaml = `
+database:
+  host: localhost
+  port: 5432
+  auth:
+    enabled: yes
+`;
+		const res = yamlToJson(yaml);
+		expect(JSON.parse(res.output)).toEqual({
+			database: {
+				host: "localhost",
+				port: 5432,
+				auth: {
+					enabled: true,
+				},
+			},
+		});
+	});
+
+	it("handles comments and document markers", () => {
+		const yaml = `
+---
+# Main config
+title: "DevHub #1" # inline comment
+status: ok
+...
+`;
+		const res = yamlToJson(yaml);
+		expect(JSON.parse(res.output)).toEqual({
+			title: "DevHub #1",
+			status: "ok",
+		});
+	});
+
+	it("handles flow sequences and flow mappings", () => {
+		const yaml = `
+tags: [fast, local, private]
+config: { port: 8080, debug: false }
+`;
+		const res = yamlToJson(yaml);
+		expect(JSON.parse(res.output)).toEqual({
+			tags: ["fast", "local", "private"],
+			config: { port: 8080, debug: false },
+		});
+	});
+
+	it("rejects tab indentation with descriptive error", () => {
+		const yaml = "key:\n\tvalue: 1";
+		expect(() => yamlToJson(yaml)).toThrow(/spaces, not tabs/);
+	});
+
+	it("rejects empty input", () => {
+		expect(() => yamlToJson("")).toThrow(/Enter YAML content/);
+	});
+});
+

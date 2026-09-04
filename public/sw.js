@@ -45,6 +45,7 @@ const PRECACHE_PATHS=[
 		"/tools/gitignore-generator",
 		"/tools/json-to-typescript",
 		"/tools/curl-converter",
+		"/tools/yaml-to-json",
 		"/favicon.png",
 	"/icon.png",
 	"/icon-maskable.png"

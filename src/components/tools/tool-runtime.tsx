@@ -51,7 +51,9 @@ const defaults: Record<string, string> = {
 		"gitignore-generator": "node\nnext\nvscode\nenv",
 		"json-to-typescript": '{\n  "name": "DevHub",\n  "tools": ["json", "yaml"]\n}',
 		"curl-converter": 'curl -X POST https://api.example.com/items \\\n  -H "Content-Type: application/json" \\\n  -H "Authorization: Bearer token123" \\\n  -d \'{"name": "Widget", "price": 42}\'',
+		"yaml-to-json": "name: DevHub\nversion: 2.0\nfeatures:\n  - local-first\n  - privacy\n  - fast\nsettings:\n  offline: true\n  port: 8080",
 	};
+
 
 export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const initial = defaults[slug] ?? "";
@@ -107,7 +109,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 				"gitignore-generator": "generate .gitignore rules for selected stacks",
 				"json-to-typescript": "generate TypeScript interfaces from JSON",
 				"curl-converter": "convert cURL command into client code",
+				"yaml-to-json": "convert YAML configuration into structured JSON",
 			};
+
 		return operations[slug] ?? "analyze and transform input";
 	}, [aux, option, slug]);
 

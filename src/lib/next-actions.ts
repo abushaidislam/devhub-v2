@@ -17,14 +17,17 @@ export const TOOL_PAIRINGS:Record<string,readonly string[]>={
 	"sql-formatter":["json-formatter","regex-tester","cron-parser"],
 	"cron-parser":["sql-formatter","regex-tester","uuid-generator"],
 	"url-encoder":["base64","qr-generator","regex-tester"],
-	"yaml-formatter":["json-to-yaml","json-formatter","markdown-linter"],
+	"yaml-formatter":["yaml-to-json","json-to-yaml","json-formatter"],
+	"json-to-yaml":["yaml-to-json","json-formatter","yaml-formatter"],
 	"xml-formatter":["html-entities","json-formatter","markdown-preview"],
 	"markdown-linter":["markdown-preview","yaml-formatter","text-diff"],
 	"url-parser":["url-encoder","query-parser","json-to-typescript"],
 	"gitignore-generator":["yaml-formatter","markdown-preview","text-diff"],
 	"json-to-typescript":["json-formatter","json-to-yaml","csv-to-json"],
-	"curl-converter":["url-parser","json-formatter","base64"]
+	"curl-converter":["url-parser","json-formatter","base64"],
+	"yaml-to-json":["json-formatter","json-to-typescript","json-to-csv"]
 };
+
 export function recommendNextActions({tools,currentSlug,recentSlugs=[],favorites=[],limit=NEXT_ACTION_LIMIT}:{tools:readonly NextActionTool[];currentSlug?:string;recentSlugs?:readonly string[];favorites?:readonly string[];limit?:number}):NextAction[]{
 	const bounded=Math.min(Math.max(Math.trunc(limit),0),MAX_LIMIT);
 	if(bounded===0)return [];

@@ -24,8 +24,12 @@ describe('getTool', () => {
     expect(curlTool).toBeDefined();
     expect(curlTool?.isNew).toBe(true);
 
+    const yamlToJsonTool = getTool('yaml-to-json');
+    expect(yamlToJsonTool).toBeDefined();
+    expect(yamlToJsonTool?.isNew).toBe(true);
+
     const jsonTool = getTool('json-formatter');
     expect(jsonTool).toBeDefined();
     expect(jsonTool?.isNew).toBeFalsy();
   });
-});
+});

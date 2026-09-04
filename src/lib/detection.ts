@@ -175,7 +175,9 @@ export function detectInput(input: string): Detection[] {
   }
   if (isYaml(value)) {
     add("yaml-formatter", 0.91, "Recognized YAML mappings and indentation");
+    add("yaml-to-json", 0.88, "YAML configuration can be converted to JSON");
   }
+
   if (isXml(value)) {
     add("xml-formatter", 0.93, "Recognized XML root element");
   }

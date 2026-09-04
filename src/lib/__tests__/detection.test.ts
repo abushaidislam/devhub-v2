@@ -16,7 +16,9 @@ describe("smart input detection", () => {
     ["https://devhub.tools/path?q=json", "url-encoder"],
     ["https://devhub.tools/path?q=json", "url-parser"],
     ["name: DevHub\nfeatures:\n  - local\n  - fast", "yaml-formatter"],
+    ["name: DevHub\nfeatures:\n  - local\n  - fast", "yaml-to-json"],
     ["<root><item>DevHub</item></root>", "xml-formatter"],
+
     ["node_modules/\n.env\n.next/", "gitignore-generator"],
     ["SELECT id FROM users WHERE active = true", "sql-formatter"],
     ["0 9 * * 1", "cron-parser"],

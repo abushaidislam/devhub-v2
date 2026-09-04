@@ -244,7 +244,15 @@ describe("run() regression values", () => {
 		const lines = result.output.value.split("\n").filter(Boolean);
 		expect(lines).toHaveLength(3);
 	});
+
+	it("yaml-to-json produces typed json output", async () => {
+		const engine = getEngine("yaml-to-json")!;
+		const result = await engine.run({type: "text", value: "foo: bar\ncount: 10"});
+		expect(result.output.type).toBe("json");
+		expect(JSON.parse(result.output.value)).toEqual({foo: "bar", count: 10});
+	});
 });
+
 
 // ---------------------------------------------------------------------------
 // getEngine: unknown slug returns undefined

@@ -40,8 +40,10 @@ import {
 		generateGitignore,
 		jsonToTypescript,
 		curlToCode,
+		yamlToJson,
 	} from "./tool-engines";
 import type {ToolEngine, ToolResult} from "./engine-types";
+
 
 // ---------------------------------------------------------------------------
 // Internal helpers
@@ -402,7 +404,18 @@ const engineList: ToolEngine[] = [
 				return makeText(r.output, r.meta);
 			},
 		},
+		{
+			id: "yaml-to-json",
+			accepts: ["text"],
+			produces: "json",
+			sensitivity: "local",
+			async run(input) {
+				const r = yamlToJson(input.value);
+				return makeJson(r.output, r.meta);
+			},
+		},
 	];
+
 
 const engineMap = new Map(engineList.map((e) => [e.id, e]));
 

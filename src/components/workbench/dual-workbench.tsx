@@ -94,7 +94,9 @@ const DEFAULT_SAMPLES: Record<string, string> = {
   "json-to-typescript":
     '{\n  "userId": 42,\n  "username": "coder",\n  "roles": ["admin", "editor"]\n}',
   "json-to-yaml": '{\n  "name": "DevHub",\n  "tools": 31\n}',
+  "yaml-to-json": "name: DevHub\ntools: 32\nlocal: true",
   "url-parser": "https://devhub.dev/search?q=local-first&safe=true",
+
   "query-parser": "https://devhub.dev/search?q=local-first&safe=true",
   "text-diff": "version one\nversion two\n---\nversion one\nversion two modified",
   "case-converter": "devhub split workbench",
@@ -515,7 +517,7 @@ export function DualWorkbench() {
                 value={leftSlug}
                 aria-label="Select left tool"
                 searchable={true}
-                searchPlaceholder="Search 31 tools…"
+                searchPlaceholder={`Search ${tools.length} tools…`}
                 options={TOOL_SELECT_OPTIONS}
                 onChange={(newSlug) => {
                   setLeftSlug(newSlug);
@@ -662,7 +664,7 @@ export function DualWorkbench() {
                 value={rightSlug}
                 aria-label="Select right tool"
                 searchable={true}
-                searchPlaceholder="Search 31 tools…"
+                searchPlaceholder={`Search ${tools.length} tools…`}
                 options={TOOL_SELECT_OPTIONS}
                 onChange={(newSlug) => {
                   setRightSlug(newSlug);
