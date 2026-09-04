@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.22.0](https://github.com/abushaidislam/devhub-v2/compare/v0.21.1...v0.22.0) (2026-09-04)
+
+
+### Features
+
+* add hero workbench component, mockup generation scripts, and supporting documentation ([8452fab](https://github.com/abushaidislam/devhub-v2/commit/8452fab0289a3ba5fa2ad6dc9c39c78ff8c182d3))
+* add landing page styles, documentation, and automated mockup generation scripts ([55a2937](https://github.com/abushaidislam/devhub-v2/commit/55a293727d3977b20fdb774a34365d5affb9a0b4))
+
 ## [0.21.1](https://github.com/abushaidislam/devhub-v2/compare/v0.21.0...v0.21.1) (2026-09-04)
 
 
