@@ -118,7 +118,7 @@ Application content uses stronger contrast than passive chrome while keeping the
 ## Sidebar geometry
 
 - Desktop width: 256px
-- Workspace header: 64px
+- Workspace header: 58px (aligned with application topbar)
 - Primary row: 40px
 - Category row: 40px
 - Nested tool row: 36px

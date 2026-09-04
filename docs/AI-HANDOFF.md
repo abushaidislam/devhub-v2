@@ -1,5 +1,16 @@
 # AI handoff
 
+## Latest Header Height & Baseline Alignment Handoff
+
+### Scope and objective
+- Fixed vertical alignment mismatch between sidebar workspace switcher header and application topbar.
+- Changed `.workspaceSwitcher` height from `64px` to `58px` in `src/components/dashboard/dashboard-shell.module.css`.
+- Replaced inset `:after` divider with clean full-width `border-bottom: 1px solid var(--hairline)`, creating a seamless continuous 58px dividing line across both headers.
+- Updated `docs/DESIGN-SYSTEM.md` sidebar geometry specification.
+
+### Validation
+- Ran full test suite (`npm test`): 59 files, 386 tests all passed.
+
 ## Latest Command Palette Performance & UX Optimization Handoff
 
 ### Scope and objective
