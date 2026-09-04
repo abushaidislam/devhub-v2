@@ -1112,3 +1112,28 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
   - Added pairings: `["url-parser", "json-formatter", "base64"]`.
 - Added comprehensive unit tests in [`src/lib/__tests__/new-tool-engines.test.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/__tests__/new-tool-engines.test.ts) and [`src/lib/__tests__/detection.test.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/__tests__/detection.test.ts).
 
+
+## Sidebar New Tool Badge System — September 2026
+
+### Scope completed
+
+- Added `isNew?: boolean` property to the canonical `Tool` interface in [`src/lib/tools.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/tools.ts).
+- Marked newly added tool `curl-converter` with `isNew: true`.
+- Updated [`src/components/dashboard/dashboard-shell.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/dashboard/dashboard-shell.tsx):
+  - Rendered `<span className={styles.newBadge}>New</span>` directly adjacent to `<span className={styles.toolName}>{tool.name}</span>` inside `.toolChildren a`.
+- Implemented matching pill badge design in [`src/components/dashboard/dashboard-shell.module.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/dashboard/dashboard-shell.module.css):
+  - Follows the exact design formula of `.workspaceIdentity>span` ("Toolkit" header badge): `border-radius: 999px`, `background: var(--surface-active)`, `color: var(--text-secondary)`, `box-shadow: inset 0 0 0 1px var(--border-subtle)`.
+  - Scaled down proportionally to `height: 18px`, `font-size: 11px`, `padding: 0 7px` for sidebar link height.
+  - Added subtle hover and active state styles (`var(--border-hover)`, `var(--surface-hover)`).
+  - Configured `margin-left: auto` on `.favoriteMark` so favorite icons stay pinned to the right edge while `.newBadge` stays right beside the tool name.
+- Created unit test in [`src/components/dashboard/__tests__/dashboard-shell.test.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/dashboard/__tests__/dashboard-shell.test.tsx) and updated [`src/lib/__tests__/tools.test.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/__tests__/tools.test.ts).
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 2 pre-existing script warnings) |
+| Vitest Tests | `npm test` | ✅ **Passed** (56 / 56 test files, 352 / 352 tests) |
+| Visual Check | Antigravity Browser Subagent | ✅ **Verified** (screenshot captured) |
+

@@ -18,4 +18,14 @@ describe('getTool', () => {
     const tool = getTool('');
     expect(tool).toBeUndefined();
   });
+
+  it('marks newly added tools with isNew flag', () => {
+    const curlTool = getTool('curl-converter');
+    expect(curlTool).toBeDefined();
+    expect(curlTool?.isNew).toBe(true);
+
+    const jsonTool = getTool('json-formatter');
+    expect(jsonTool).toBeDefined();
+    expect(jsonTool?.isNew).toBeFalsy();
+  });
 });
