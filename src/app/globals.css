@@ -83,6 +83,7 @@
   /* Core brand tokens from referances/DESIGN-vercel (1).md */
   --ink: #171717;
   --on-ink: #ffffff;
+  --on-primary: var(--on-ink);
   --ink-soft: #4d4d4d;
   --body-copy: #4d4d4d;
   --mute: #8f8f8f;
@@ -257,6 +258,7 @@
 
   --ink: #ededed;
   --on-ink: #000000;
+  --on-primary: var(--on-ink);
   --ink-soft: #d4d4d4;
   --body-copy: #b5b5b5;
   --mute: #8f8f8f;

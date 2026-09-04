@@ -8,6 +8,7 @@ import { LandingCtaSection } from "@/components/marketing/landing-cta-section";
 import { LandingBentoGrid } from "@/components/marketing/landing-bento-grid";
 import { LandingComparison } from "@/components/marketing/landing-comparison";
 import { HeroWorkbench } from "@/components/marketing/hero-workbench";
+import { LandingFeatureShowcase } from "@/components/marketing/landing-feature-showcase";
 
 export default function HomePage() {
   const featured = tools.filter((tool) => tool.featured).slice(0, 6);
@@ -47,6 +48,9 @@ export default function HomePage() {
 
       {/* Abstract & Clean Capabilities Bento Grid */}
       <LandingBentoGrid />
+
+      {/* Alternating Real Product Feature Showcase */}
+      <LandingFeatureShowcase />
 
       <section className="section">
         <div className="container">
