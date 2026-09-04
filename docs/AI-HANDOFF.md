@@ -1016,3 +1016,45 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
 | ESLint | `npm run lint` | ✅ **Passed** (0 errors) |
 | Vitest Tests | `npx vitest run` | ✅ **Passed** (43 / 43 test files, 261 / 261 tests) |
+
+## Landing Bento Grid Text Luminance & Depth Refinement — September 2026
+
+### Scope completed
+
+- Refined text luminance ladder, opacity tiers, and visual depth in [`src/components/marketing/landing-bento-grid.module.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/marketing/landing-bento-grid.module.css).
+- Fixed disconnected `.subtitle` selector so the capabilities section description receives proper responsive typography, line-height, and smooth contrast.
+- Calibrated 4-tier contrast hierarchy across all 5 Bento cards:
+  - **Tier 1 (Smooth Matte Headers / 78% Opacity)**: Card titles (`.cardHeading`) refined to 16.5px with comfortable 0.78 opacity (illuminating to 0.96 on hover), eliminating dark-mode halation.
+  - **Tier 2 (Calm Body / 70% Opacity)**: Card copy descriptions (`.cardCopy`) softened with relaxed line-height (1.6) and tight letter-spacing (`-0.005em`).
+  - **Tier 3 (Recessed Mockups / 72%-78%)**: Mockup chrome and labels (`.windowTitle`, `.telemetryLabel`, `.stepName`, `.pwaStatus`, `.actionHint kbd`, `.commandResult`, `.stepNum`) calibrated for deep, glare-free aesthetic.
+  - **Tier 4 (Ambient Metadata / 62%-70%)**: Non-critical stats, kickers, compliance badges, and muted tokens (`.kicker`, `.windowStats`, `.tokenMuted`, `.complianceRow`).
+- Maintained WCAG AA/AAA compliance while creating a calm, Linear/Vercel-level matte aesthetic and zero eye strain.
+
+## Hero Workbench Text Luminance & Depth Refinement — September 2026
+
+### Scope completed
+
+- Applied the calibrated matte-silver, glare-free dark mode contrast system to [`src/components/marketing/hero-workbench.module.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/marketing/hero-workbench.module.css).
+- Calibrated all interactive console typography and metadata:
+  - **Tabs (`.tabBtn`, `.tabBtnActive`)**: Inactive tabs softened to `opacity: 0.72`, active tab set to clean `opacity: 0.88`, illuminating to `0.95` on hover.
+  - **Ingest & Output Pane Chrome (`.fileLabel`, `.badgeInput`, `.copyBtn`, `.openToolLink`)**: Softened header labels and action buttons to `var(--body-copy)` with `0.78` opacity, eliminating white glare while retaining clear affordances.
+  - **Raw & Output Code Blocks (`.codeBlock`, `.codeBlockOutput`)**: Softened raw data payloads and output code to calm, velvety `0.80 - 0.82` opacity against black canvas, eliminating OLED/IPS glare.
+  - **Detection Banner (`.detectionBanner`, `.detectedInfo strong`, `.confidencePill`)**: Refined to subtle background tint with softer tool name and confidence pill.
+  - **Bottom Command Bar (`.bottomPrompt`, `.bottomSample`, `.keycap`, `.browseAction`)**: Calibrated keyboard hints, search prompts, and arrow links to cohesive matte tiers.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| Vitest Tests | `npx vitest run src/components/marketing/__tests__/hero-workbench.test.tsx` | ✅ **Passed** (1 / 1 test files, 3 / 3 tests) |
+
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 3 pre-existing script warnings) |
+| Vitest Tests | `npm test` | ✅ **Passed** (55 / 55 test files, 334 / 334 tests) |
+
