@@ -245,29 +245,6 @@
   border-color: var(--border-hover);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.17), 0 4px 12px -10px rgba(255, 255, 255, 0.2);
 }
-.selectField::after {
-  content: "";
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  width: 7px;
-  height: 7px;
-  border-right: 1.5px solid var(--text-secondary);
-  border-bottom: 1.5px solid var(--text-secondary);
-  pointer-events: none;
-  transform: translateY(-65%) rotate(45deg);
-  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.selectField:hover::after,
-.selectField:focus-within::after {
-  border-color: var(--text-primary);
-}
-.selectField:focus-within::after {
-  transform: translateY(-35%) rotate(225deg);
-}
-.selectField:has(.select:disabled)::after {
-  border-color: var(--text-tertiary);
-}
 .select:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;

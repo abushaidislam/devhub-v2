@@ -1147,3 +1147,68 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Vitest Tests | `npm test` | ✅ **Passed** (56 / 56 test files, 352 / 352 tests) |
 | Visual Check | Antigravity Browser Subagent | ✅ **Verified** (screenshot captured) |
 
+
+## Dual-Pane Split Workbench (`/workbench`) — September 2026
+
+### Scope completed
+
+- Implemented the Dual-Pane Split Workbench at [`/workbench`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/app/workbench/page.tsx), enabling developers to run two developer tools side-by-side with instantaneous browser memory pipelining.
+- **Components & Architecture:**
+  - Route page: [`src/app/workbench/page.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/app/workbench/page.tsx) with SEO metadata, semantic description, and `DashboardShell` integration.
+  - Interactive workbench: [`src/components/workbench/dual-workbench.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/workbench/dual-workbench.tsx) and styles in [`src/components/workbench/dual-workbench.module.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/workbench/dual-workbench.module.css).
+  - Navigation: Added `Workbench` to the primary navigation in [`src/components/dashboard/dashboard-shell.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/dashboard/dashboard-shell.tsx) using the `Columns2` Lucide icon.
+- **Core Capabilities:**
+  - **Side-by-side Independent Execution:** Select any two tools from the 31 available tools with independent options, inputs, outputs, error handling, and status metadata.
+  - **Zero-latency Local Pipelining:** Single-click "Pipe →" button and centered directional splitter button (`→`) that seamlessly sends Left Pane output into Right Pane input and triggers the right tool engine locally.
+  - **Auto-Sync Mode:** Toggleable real-time synchronization where executing the Left tool automatically feeds output into the Right tool.
+  - **5 Workflow Presets:**
+    1. *cURL → TypeScript* (cURL Converter → JSON to TypeScript)
+    2. *Base64 → JSON Formatter* (Base64 Decode → JSON Formatter)
+    3. *JSON → YAML* (JSON Formatter → JSON to YAML)
+    4. *URL Parser → Query Parser* (URL Parser → Query Parser)
+    5. *Case Converter → Text Diff* (Case Converter → Text Diff)
+  - **Interactive & Accessible Splitter:** Draggable slider dividing left and right panes (bounded 25%–75%) with full keyboard accessibility (`ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown`), `aria-valuenow`, and responsive stacking on viewports ≤860px.
+  - **Swap Panes:** Instant one-click inversion of left and right tools, inputs, and outputs.
+  - **Async Execution Safety:** Race-condition-free execution counter (`execId`) preventing stale closure overwrites when rapidly switching tools or presets.
+  - **100% Local-First:** Strict adherence to product doctrine; zero network calls, zero tracking, all data processed in ephemeral browser memory.
+- **Unit & Integration Tests:**
+  - [`src/components/workbench/__tests__/dual-workbench.test.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/workbench/__tests__/dual-workbench.test.tsx) with 6 comprehensive test cases covering pane rendering, tool execution, manual output piping, pane swapping, preset switching, and keyboard splitter resizing.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 2 pre-existing script warnings) |
+| Vitest Tests | `npm test` | ✅ **Passed** (58 / 58 test files, 368 / 368 tests) |
+
+
+## Global Premium Custom Select Component — September 2026
+
+### Scope completed
+
+- Built and deployed a global, accessible, searchable custom `Select` primitive in [`src/components/ui/select.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/ui/select.tsx) and [`src/components/ui/select.module.css`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/ui/select.module.css), completely replacing raw native browser `<select>` dropdowns across the application with Linear/Vercel-inspired floating popovers.
+- **Design & Features:**
+  - **Floating Obsidian Popover**: Styled with Geist tokens (`var(--canvas-elevated)`, `var(--border-subtle)`, `var(--shadow-float)`), hairline borders, and smooth entry animation.
+  - **Live Search Bar**: Automatically activates when option count > 7 or `searchable={true}`, enabling users to filter 31+ tools by typing letters.
+  - **Tool Icons & Category Grouping**: Groups tools into categories (Converters, Formatters, Generators, Security & Crypto, Text & Content, Web & Network, Utilities) with authentic Lucide icons.
+  - **Full Keyboard Navigation**: `ArrowUp`, `ArrowDown`, `Enter`, `Escape`, `Tab`, with auto-scroll into view.
+  - **Checkmark Indicators**: Selected item is styled with active background and a crisp `<Check size={14} />`.
+  - **100% Backward Compatibility**: Renders a visually hidden synchronized native `<select>` element under the hood (`.srOnlySelect`), ensuring all existing automated tests using `screen.getByRole("combobox")`, `user.selectOptions(...)`, and `toHaveValue(...)` continue to pass without any breaking changes.
+- **Application Integration:**
+  - **Dual Workbench (`/workbench`)**: Both Left and Right tool pickers use `Select` with all 31 tools, categorized, with icons and instant search; tool option selectors (e.g. modes, cURL targets, hash algorithms) use `Select size="small"`.
+  - **Tool Runtime (`ToolRuntime`)**: Mode / hash algorithm / cURL target selectors use `Select size="small"`.
+  - **AI Error Explainer (`ErrorExplainer`)**: Tool selection dropdown upgraded to searchable `Select` with icons and categories.
+- **Component Tests:**
+  - [`src/components/ui/__tests__/select.test.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/ui/__tests__/select.test.tsx) with 7 comprehensive tests covering rendering, popover toggling, option selection, dynamic search filtering, keyboard navigation, Escape dismissal, and native select synchronization.
+
+### Verification Results
+
+| Quality Gate | Command | Result |
+|---|---|---|
+| TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
+| ESLint | `npm run lint` | ✅ **Passed** (0 errors, 2 pre-existing script warnings) |
+| Vitest Tests | `npm test` | ✅ **Passed** (59 / 59 test files, 375 / 375 tests) |
+
+
+

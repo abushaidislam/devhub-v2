@@ -10,6 +10,7 @@ import {
 import { useAiConfig } from "@/lib/ai/use-ai-config";
 import { engines } from "@/lib/engine-registry";
 import { tools } from "@/lib/tools";
+import { Select } from "../ui/select";
 import styles from "../workflows/workflow-planner.module.css";
 
 export function ErrorExplainer() {
@@ -94,20 +95,26 @@ export function ErrorExplainer() {
         <label htmlFor={`${fieldId}-tool`}>
           <span>Tool</span>
           <span className={styles.selectField}>
-            <select
-              className={styles.select}
+            <Select
               id={`${fieldId}-tool`}
               value={engineId}
               disabled={!configured}
-              onChange={(event) => setEngineId(event.target.value)}
-            >
-              {engines.map((engine) => (
-                <option key={engine.id} value={engine.id}>
-                  {tools.find((tool) => tool.slug === engine.id)?.name ??
-                    engine.id}
-                </option>
-              ))}
-            </select>
+              aria-label="Tool"
+              searchable={true}
+              searchPlaceholder="Search tools…"
+              options={engines.map((engine) => {
+                const tool = tools.find((t) => t.slug === engine.id);
+                const IconComp = tool?.icon;
+                return {
+                  value: engine.id,
+                  label: tool?.name ?? engine.id,
+                  group: tool?.category,
+                  icon: IconComp ? <IconComp size={13} /> : undefined,
+                };
+              })}
+              onChange={setEngineId}
+              fullWidth={true}
+            />
           </span>
         </label>
 

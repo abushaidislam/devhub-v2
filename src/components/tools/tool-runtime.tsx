@@ -9,6 +9,7 @@ import {getEngine} from "@/lib/engine-registry";
 import {trackActivationEvent} from "@/lib/analytics";
 import {ToolAiAssist} from "./tool-ai-assist";
 import {Switch} from "../ui/switch";
+import {Select} from "../ui/select";
 import styles from "./tool-runtime.module.css";
 
 const MIN_PANEL_PERCENT = 25;
@@ -343,35 +344,34 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 						)}
 							{needsMode && (
 								<div className={styles.selectField}>
-									<select
-										className={styles.select}
+									<Select
+										size="small"
 										disabled={isRunning}
 										aria-label="Operation"
 										value={option}
-										onChange={(event) => setOption(event.target.value)}
-									>
-										{slug === "hash-generator" ? (
-											<>
-												<option>SHA-1</option>
-												<option>SHA-256</option>
-												<option>SHA-512</option>
-											</>
-										) : slug === "curl-converter" ? (
-											<>
-												<option value="fetch">JavaScript (Fetch)</option>
-												<option value="axios">JavaScript (Axios)</option>
-												<option value="python">Python (Requests)</option>
-												<option value="node">Node.js</option>
-												<option value="go">Go (net/http)</option>
-												<option value="php">PHP (cURL)</option>
-											</>
-										) : (
-											<>
-												<option value="encode">Encode</option>
-												<option value="decode">Decode</option>
-											</>
-										)}
-									</select>
+										options={
+											slug === "hash-generator"
+												? [
+														{ value: "SHA-1", label: "SHA-1" },
+														{ value: "SHA-256", label: "SHA-256" },
+														{ value: "SHA-512", label: "SHA-512" },
+													]
+												: slug === "curl-converter"
+													? [
+															{ value: "fetch", label: "JavaScript (Fetch)" },
+															{ value: "axios", label: "JavaScript (Axios)" },
+															{ value: "python", label: "Python (Requests)" },
+															{ value: "node", label: "Node.js" },
+															{ value: "go", label: "Go (net/http)" },
+															{ value: "php", label: "PHP (cURL)" },
+														]
+													: [
+															{ value: "encode", label: "Encode" },
+															{ value: "decode", label: "Decode" },
+														]
+										}
+										onChange={setOption}
+									/>
 								</div>
 							)}
 <Button type="button" onClick={reset} disabled={isRunning} variant="secondary" size="small" prefix={<RotateCcw size={14} />}>

@@ -179,29 +179,6 @@
     transform 0.14s var(--ease);
 }
 
-.selectField::after {
-  content: "";
-  position: absolute;
-  right: 13px;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  border-right: 1.5px solid var(--text-secondary);
-  border-bottom: 1.5px solid var(--text-secondary);
-  pointer-events: none;
-  transform: translateY(-65%) rotate(45deg);
-  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-
-.selectField:hover::after,
-.selectField:focus-within::after {
-  border-color: var(--text-primary);
-}
-
-.selectField:focus-within::after {
-  transform: translateY(-35%) rotate(225deg);
-}
-
 .select:hover:not(:disabled) {
   border-color: var(--border-hover);
   background: var(--surface-bright);
