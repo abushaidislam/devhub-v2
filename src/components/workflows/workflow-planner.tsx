@@ -1,8 +1,8 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Loader2, Save, Sparkles } from "lucide-react";
+import { Loader2, Save, Sparkles, Square } from "lucide-react";
 import { planWorkflow, type PlannedWorkflow } from "@/lib/ai/planner";
 import {
   AI_GOAL_LIMIT,
@@ -23,6 +23,13 @@ export function WorkflowPlanner() {
   const [error, setError] = useState<string>();
   const [plan, setPlan] = useState<PlannedWorkflow>();
   const [savedId, setSavedId] = useState(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const destination = config ? describeDestination(config) : undefined;
   const canSubmit =
@@ -40,21 +47,38 @@ export function WorkflowPlanner() {
     [plan],
   );
 
+  function cancelRequest() {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setPending(false);
+  }
+
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     if (!config || !canSubmit) return;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
     setPending(true);
     setError(undefined);
     setPlan(undefined);
     setSavedId(false);
-    const result = await planWorkflow({ goal, config });
-    setPending(false);
-    setConsent(false);
-    if (!result.ok) {
-      setError(result.error);
-      return;
+    const result = await planWorkflow({
+      goal,
+      config,
+      signal: controller.signal,
+    });
+    if (abortControllerRef.current === controller) {
+      abortControllerRef.current = null;
+      setPending(false);
+      setConsent(false);
+      if (!result.ok) {
+        if (result.error !== "Request cancelled.") setError(result.error);
+        return;
+      }
+      setPlan(result.plan);
     }
-    setPlan(result.plan);
   }
 
   async function savePlan() {
@@ -126,10 +150,28 @@ export function WorkflowPlanner() {
           </span>
         </label>
 
-        <button type="submit" className={styles.primary} disabled={!canSubmit}>
-          {pending ? <Loader2 className={styles.spin} size={15} /> : <Sparkles size={15} />}
-          {pending ? "Planning…" : "Propose workflow"}
-        </button>
+        {pending ? (
+          <div style={{ display: "flex", gap: "8px" }}>
+            <button type="button" className={styles.primary} disabled>
+              <Loader2 className={styles.spin} size={15} />
+              Planning…
+            </button>
+            <button
+              type="button"
+              className={styles.cancelButton}
+              onClick={cancelRequest}
+              aria-label="Cancel planning request"
+            >
+              <Square size={14} fill="currentColor" />
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <button type="submit" className={styles.primary} disabled={!canSubmit}>
+            <Sparkles size={15} />
+            Propose workflow
+          </button>
+        )}
       </form>
 
       {error ? (

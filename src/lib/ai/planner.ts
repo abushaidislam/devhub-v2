@@ -108,12 +108,14 @@ export type PlanWorkflowInput = {
   goal: string;
   config: AiProviderConfig;
   signal?: AbortSignal;
+  onChunk?: (chunk: string, accumulated: string) => void;
   /** Injected for tests. */
   request?: (input: {
     config: AiProviderConfig;
     system: string;
     user: string;
     signal?: AbortSignal;
+    onChunk?: (chunk: string, accumulated: string) => void;
   }) => Promise<AiResponse>;
 };
 
@@ -121,6 +123,7 @@ export async function planWorkflow({
   goal,
   config,
   signal,
+  onChunk,
   request = requestCompletion,
 }: PlanWorkflowInput): Promise<PlannerResult> {
   const trimmed = goal.trim();
@@ -139,6 +142,7 @@ export async function planWorkflow({
     system: PLANNER_SYSTEM_PROMPT,
     user: buildPlannerUserPrompt(trimmed),
     signal,
+    onChunk,
   });
   if (!response.ok) return { ok: false, error: response.error };
   return parsePlannerResponse(response.text);

@@ -77,28 +77,38 @@ All Phases 0–3 are implemented. Phase 4 (Distribution) is planned but not star
 23. Query String Parser
 24. Password Generator (Web Crypto randomness)
 
+### AI Streaming & Keyboard-First Experience (Phase 3 Polish)
+
+- Real-time SSE streaming for OpenAI-compatible providers (`stream: true`) and native Gemini API (`:streamGenerateContent?alt=sse`) with progressive token rendering.
+- Cooperative mid-flight cancellation with `AbortController` and visible Stop/Cancel buttons across `ToolAiAssist`, `WorkflowPlanner`, and `ErrorExplainer`.
+- ToolRuntime keyboard-first UX:
+  - `Cmd+Enter` / `Ctrl+Enter` global shortcut to run the tool.
+  - `Cmd+Shift+C` / `Ctrl+Shift+C` global shortcut to copy output.
+  - `Alt+S` / "Use as input" button: pipes output text directly into input for iterative transformations.
+  - Tactile `<kbd className={styles.kbd}>⌘↵</kbd>` / `Ctrl+↵` badges inside the Run button.
+  - "Plan workflow" action in `ToolAiAssist` to transition into the planner.
+- Comprehensive Vitest unit tests in `src/lib/ai/__tests__/client.test.ts`, `tool-ai-assist.test.tsx`, `error-explainer.test.tsx`, and `tool-runtime.test.tsx`.
+
 ### Validation
 
-- `npm run typecheck`, `npm run build`, and `npm run test` pass.
+- `npm run typecheck`, `npm run build`, `npm run lint`, `npm run context:check`, and `npm test` (57 test files, 362 tests) pass.
 - No dependency, server endpoint, upload, or hosted share service was added.
 - AI requests originate directly from the user's browser to the endpoint they configured.
 - Provider keys are stored unencrypted in browser `localStorage`, as disclosed in the settings panel and `/ai-data-policy`.
 
 ## Known gaps
 
-- AI requests are not yet cancellable mid-flight and are not streamed.
 - No URL or hosted share link exists; recipe exchange uses the bounded local JSON file.
 - `package-lock.json` is committed; `bun.lock` is also present. Reproducible installs use `npm ci` via CI.
 - Imported recipes are additive and may duplicate an existing recipe; import does not auto-deduplicate names.
 
 ## Next recommended task
 
-Phase 3 is implemented. Recommended next work in order:
+Recommended next work in order:
 
-1. Add streaming + cancellable planner/assist requests with visible progress and `AbortController`.
-2. Inline "explain this error" action already wired inside `ToolRuntime` via `ToolAiAssist` — add one-click "generate a workflow from the current tool result" as an explicit, consent-gated action.
-3. Phase 4 distribution validation: confirm repeat-usage retention evidence before building the browser extension, VS Code extension, or CLI.
-4. Lift test coverage thresholds once new-tool and AI-assist tests are stabilized; add more Playwright coverage for `/recipes` and `/assistant` flows.
+1. Phase 4 distribution validation: confirm repeat-usage retention evidence before building the browser extension, VS Code extension, or CLI.
+2. Lift test coverage thresholds once new-tool and AI-assist tests are stabilized; add more Playwright coverage for `/recipes` and `/assistant` flows.
+3. Interactive visual workflow canvas / builder for multi-step recipes.
 
 Keep the BYOK boundary: never ship a DevHub-hosted key and never send full tool input or output to a provider without the explicit per-action consent checkbox and destination disclosure.
 

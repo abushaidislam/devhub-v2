@@ -56,11 +56,13 @@ export type AssistToolInput = {
   error?: string;
   config: AiProviderConfig;
   signal?: AbortSignal;
+  onChunk?: (chunk: string, accumulated: string) => void;
   request?: (value: {
     config: AiProviderConfig;
     system: string;
     user: string;
     signal?: AbortSignal;
+    onChunk?: (chunk: string, accumulated: string) => void;
   }) => Promise<AiResponse>;
 };
 
@@ -71,6 +73,7 @@ export async function assistWithInput({
   error,
   config,
   signal,
+  onChunk,
   request = requestCompletion,
 }: AssistToolInput): Promise<AssistResult> {
   if (!getEngine(engineId)) {
@@ -85,6 +88,7 @@ export async function assistWithInput({
     system: ASSIST_SYSTEM_PROMPT,
     user: buildAssistUserPrompt(engineId, trimmed, { operation, error }),
     signal,
+    onChunk,
   });
   if (!response.ok) return { ok: false, error: response.error };
   return { ok: true, answer: response.text.slice(0, 1200) };

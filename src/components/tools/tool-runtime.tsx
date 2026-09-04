@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import {useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent} from "react";
-import {Check, Copy, Download, Play, RotateCcw} from "lucide-react";
+import {ArrowLeftRight, Check, Copy, Download, Play, RotateCcw} from "lucide-react";
 import {Badge, StatusDot} from "../ui/badge";
 import {Button} from "../ui/button";
 import {consumeDetectionHandoff} from "@/lib/detection-handoff";
@@ -267,6 +267,55 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 			};
 		}, [isResizing]);
 
+		const [isMac, setIsMac] = useState(false);
+
+		useEffect(() => {
+			if (typeof navigator !== "undefined") {
+				setIsMac(/(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent));
+			}
+		}, []);
+
+		function useOutputAsInput() {
+			if (!output || Boolean(image) || isRunning || output === input) return;
+			setInput(output);
+			setMeta("Output copied to input");
+		}
+
+		const runRef = useRef(run);
+		runRef.current = run;
+
+		const copyRef = useRef(copy);
+		copyRef.current = copy;
+
+		const useOutputAsInputRef = useRef(useOutputAsInput);
+		useOutputAsInputRef.current = useOutputAsInput;
+
+		useEffect(() => {
+			function onKeyDown(event: globalThis.KeyboardEvent) {
+				if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+					event.preventDefault();
+					void runRef.current();
+					return;
+				}
+				if ((event.metaKey || event.ctrlKey) && event.shiftKey && (event.key === "c" || event.key === "C")) {
+					if (output && !image && !isRunning) {
+						event.preventDefault();
+						void copyRef.current();
+						return;
+					}
+				}
+				if (event.altKey && (event.key === "s" || event.key === "S")) {
+					if (output && !image && !isRunning) {
+						event.preventDefault();
+						useOutputAsInputRef.current();
+						return;
+					}
+				}
+			}
+			window.addEventListener("keydown", onKeyDown);
+			return () => window.removeEventListener("keydown", onKeyDown);
+		}, [output, image, isRunning]);
+
 		function reset() {
 		setInput(initial);
 		setAux(slug === "regex-tester" ? "DevHub" : "");
@@ -328,19 +377,43 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 <Button type="button" onClick={reset} disabled={isRunning} variant="secondary" size="small" prefix={<RotateCcw size={14} />}>
 							Reset
 						</Button>
+						<Button
+							type="button"
+							onClick={useOutputAsInput}
+							disabled={!output || Boolean(image) || isRunning || output === input}
+							aria-label="Use output as input"
+							title={isMac ? "Copy output to input (⌥S)" : "Copy output to input (Alt+S)"}
+							variant="secondary"
+							size="small"
+							prefix={<ArrowLeftRight size={14} />}
+						>
+							Use as input
+						</Button>
 <Button
 							type="button"
 							onClick={copy}
 							disabled={!output || !!image || isRunning}
 							aria-label={copied ? "Copied output to clipboard" : preview ? "Copy rendered HTML to clipboard" : "Copy output to clipboard"}
+							title={isMac ? "Copy output (⌘⇧C)" : "Copy output (Ctrl+Shift+C)"}
 							variant="secondary"
 							size="small"
 							prefix={copied ? <Check size={14} /> : <Copy size={14} />}
 						>
 								{preview ? "Copy HTML" : "Copy"}
 							</Button>
-<Button type="button" className={styles.run} onClick={() => void run()} disabled={isRunning} aria-busy={isRunning} variant="default" size="small" loading={isRunning} prefix={<Play size={14} />}>
-								Run
+<Button
+							type="button"
+							className={styles.run}
+							onClick={() => void run()}
+							disabled={isRunning}
+							aria-busy={isRunning}
+							title={isMac ? "Run tool (⌘↵)" : "Run tool (Ctrl+↵)"}
+							variant="default"
+							size="small"
+							loading={isRunning}
+							prefix={<Play size={14} />}
+						>
+								Run <kbd className={styles.kbd}>{isMac ? "⌘↵" : "Ctrl+↵"}</kbd>
 							</Button>
 				</div>
 			</div>

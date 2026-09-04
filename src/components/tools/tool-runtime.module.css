@@ -124,6 +124,31 @@
   transform: translateY(-1px);
 }
 
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: inherit;
+  font: 500 10px/1 var(--mono);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  user-select: none;
+}
+:global([data-theme="light"]) .toolbar .run .kbd {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+:global([data-theme="light"]) .kbd {
+  background: rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--text-primary);
+}
+
 /* Select / dropdown */
 .selectField {
   position: relative;

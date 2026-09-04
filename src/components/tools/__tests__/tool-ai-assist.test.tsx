@@ -105,6 +105,8 @@ describe("ToolAiAssist", () => {
         operation: "test-op",
         error: undefined,
         config: mockConfig,
+        signal: expect.any(Object),
+        onChunk: expect.any(Function),
       });
 
       await waitFor(() => {
@@ -139,11 +141,33 @@ describe("ToolAiAssist", () => {
         engineId: "test-tool",
         message: "Something went wrong",
         config: mockConfig,
+        signal: expect.any(Object),
+        onChunk: expect.any(Function),
       });
 
       await waitFor(() => {
         expect(screen.getByText("Mocked Explanation")).toBeInTheDocument();
       });
+    });
+
+    it("renders Stop button during request and allows cancellation", async () => {
+      const user = userEvent.setup();
+      let capturedSignal: AbortSignal | undefined;
+      (assistWithInput as Mock).mockImplementation(({ signal }: { signal: AbortSignal }) => {
+        capturedSignal = signal;
+        return new Promise(() => {}); // never resolves until abort
+      });
+
+      render(<ToolAiAssist slug="test-tool" input="valid input" />);
+      const analyzeBtn = screen.getByRole("button", { name: "Analyze this input" });
+      await user.click(analyzeBtn);
+
+      const stopBtn = screen.getByRole("button", { name: "Stop AI request" });
+      expect(stopBtn).toBeInTheDocument();
+
+      await user.click(stopBtn);
+      expect(capturedSignal?.aborted).toBe(true);
+      expect(screen.queryByRole("button", { name: "Stop AI request" })).not.toBeInTheDocument();
     });
 
     it("calls explainToolError and displays error on failure", async () => {

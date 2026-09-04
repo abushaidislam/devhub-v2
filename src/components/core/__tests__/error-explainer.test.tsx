@@ -114,6 +114,8 @@ describe("ErrorExplainer", () => {
       engineId: "json-formatter", // First engine in the list typically
       message: "Unexpected token",
       config: mockConfig,
+      signal: expect.any(Object),
+      onChunk: expect.any(Function),
     });
 
     await waitFor(() => {
@@ -123,6 +125,41 @@ describe("ErrorExplainer", () => {
 
     // Consent should be reset after submission
     expect(consentCheckbox).not.toBeChecked();
+  });
+
+  it("shows Cancel button and aborts in-flight request", async () => {
+    vi.mocked(aiConfig.useAiConfig).mockReturnValue({
+      config: mockConfig,
+      configured: true,
+      loading: false,
+      error: undefined,
+      save: vi.fn(),
+      clear: vi.fn(),
+    });
+
+    let capturedSignal: AbortSignal | undefined;
+    vi.mocked(explainError.explainToolError).mockImplementation(({ signal }) => {
+      capturedSignal = signal;
+      return new Promise(() => {}); // hang until aborted
+    });
+
+    render(<ErrorExplainer />);
+    const user = userEvent.setup();
+
+    const messageInput = screen.getByRole("textbox", { name: "Error message" });
+    const consentCheckbox = screen.getByRole("checkbox", { name: /Send the tool name/ });
+    const submitBtn = screen.getByRole("button", { name: "Explain error" });
+
+    await user.type(messageInput, "Unexpected token");
+    await user.click(consentCheckbox);
+    await user.click(submitBtn);
+
+    const cancelBtn = screen.getByRole("button", { name: "Cancel explanation request" });
+    expect(cancelBtn).toBeInTheDocument();
+
+    await user.click(cancelBtn);
+    expect(capturedSignal?.aborted).toBe(true);
+    expect(screen.queryByRole("button", { name: "Cancel explanation request" })).not.toBeInTheDocument();
   });
 
   it("displays error message if explainToolError fails", async () => {

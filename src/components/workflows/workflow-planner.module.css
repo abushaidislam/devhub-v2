@@ -131,6 +131,25 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+.cancelButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  background: var(--error-surface, rgba(239, 68, 68, 0.1));
+  border: 1px solid var(--error-border, rgba(239, 68, 68, 0.3));
+  color: var(--error-deep, #ef4444);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+}
+.cancelButton:hover {
+  background: var(--error-surface-hover, rgba(239, 68, 68, 0.2));
+  border-color: var(--error-deep, #ef4444);
+}
 .spin {
   animation: spin 0.9s linear infinite;
 }

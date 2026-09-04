@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Loader2, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Sparkles, Square, Workflow } from "lucide-react";
 import Link from "next/link";
 import { assistWithInput } from "@/lib/ai/assist-tool";
 import { explainToolError } from "@/lib/ai/explain-error";
@@ -25,19 +25,41 @@ export function ToolAiAssist({
   const [pending, setPending] = useState<"assist" | "error" | undefined>();
   const [answer, setAnswer] = useState<string>();
   const [failure, setFailure] = useState<string>();
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     setAnswer(undefined);
     setFailure(undefined);
     setConsent(Boolean(config));
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setPending(undefined);
   }, [config, slug]);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const destination = config ? describeDestination(config) : undefined;
 
+  function stopRequest() {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setPending(undefined);
+  }
+
   async function runAssist() {
     if (!config || !consent) return;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
     setPending("assist");
-    setAnswer(undefined);
+    setAnswer("");
     setFailure(undefined);
     const result = await assistWithInput({
       engineId: slug,
@@ -45,29 +67,42 @@ export function ToolAiAssist({
       operation,
       error,
       config,
+      signal: controller.signal,
+      onChunk: (_delta, accumulated) => {
+        setAnswer(accumulated);
+      },
     });
-    setPending(undefined);
-    setConsent(Boolean(config));
-    if (result.ok) setAnswer(result.answer);
-    else setFailure(result.error);
+    if (abortControllerRef.current === controller) {
+      abortControllerRef.current = null;
+      setPending(undefined);
+      setConsent(Boolean(config));
+      if (result.ok) setAnswer(result.answer);
+      else if (result.error !== "Request cancelled.") setFailure(result.error);
+    }
   }
 
   async function runExplain() {
-    // Error explanations are also browser-to-provider requests. Keep them
-    // behind the same explicit consent gate as input analysis so unchecking
-    // the disclosure checkbox reliably prevents *all* outbound requests.
     if (!config || !consent || !error) return;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
     setPending("error");
-    setAnswer(undefined);
+    setAnswer("");
     setFailure(undefined);
     const result = await explainToolError({
       engineId: slug,
       message: error,
       config,
+      signal: controller.signal,
+      onChunk: (_delta, accumulated) => {
+        setAnswer(accumulated);
+      },
     });
-    setPending(undefined);
-    if (result.ok) setAnswer(result.explanation);
-    else setFailure(result.error);
+    if (abortControllerRef.current === controller) {
+      abortControllerRef.current = null;
+      setPending(undefined);
+      if (result.ok) setAnswer(result.explanation);
+      else if (result.error !== "Request cancelled.") setFailure(result.error);
+    }
   }
 
   return (
@@ -104,33 +139,48 @@ export function ToolAiAssist({
           </label>
 
           <div className={styles.actions}>
-            <button
-              type="button"
-              onClick={runAssist}
-              disabled={!consent || Boolean(pending) || !input.trim()}
-            >
-              {pending === "assist" ? (
-                <Loader2 className={styles.spin} size={14} />
-              ) : (
-                <Sparkles size={14} />
-              )}
-              {pending === "assist" ? "Analyzing…" : "Analyze this input"}
-            </button>
-            <button
-              type="button"
-              onClick={runExplain}
-              disabled={!consent || !error || Boolean(pending)}
-              title={
-                error
-                  ? "Sends only the tool name and the error message"
-                  : "Available after a tool error"
-              }
-            >
-              {pending === "error" ? (
-                <Loader2 className={styles.spin} size={14} />
-              ) : null}
-              Explain this error
-            </button>
+            {pending ? (
+              <button
+                type="button"
+                className={styles.stopButton}
+                onClick={stopRequest}
+                aria-label="Stop AI request"
+              >
+                <Square size={13} fill="currentColor" />
+                Stop
+              </button>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={runAssist}
+                  disabled={!consent || !input.trim()}
+                >
+                  <Sparkles size={14} />
+                  Analyze this input
+                </button>
+                <button
+                  type="button"
+                  onClick={runExplain}
+                  disabled={!consent || !error}
+                  title={
+                    error
+                      ? "Sends only the tool name and the error message"
+                      : "Available after a tool error"
+                  }
+                >
+                  Explain this error
+                </button>
+                <Link
+                  href="/assistant#assistant-step-plan"
+                  className={styles.planLink}
+                  title="Plan a multi-step workflow in AI Assistant"
+                >
+                  <Workflow size={14} />
+                  Plan workflow
+                </Link>
+              </>
+            )}
           </div>
         </>
       )}
@@ -143,8 +193,10 @@ export function ToolAiAssist({
       {answer ? (
         <div className={styles.result} role="status">
           {answer}
+          {pending ? <span className={styles.cursor} aria-hidden="true">▍</span> : null}
         </div>
       ) : null}
     </div>
   );
 }
+

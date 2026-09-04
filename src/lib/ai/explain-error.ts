@@ -45,11 +45,13 @@ export type ExplainErrorInput = {
   message: string;
   config: AiProviderConfig;
   signal?: AbortSignal;
+  onChunk?: (chunk: string, accumulated: string) => void;
   request?: (input: {
     config: AiProviderConfig;
     system: string;
     user: string;
     signal?: AbortSignal;
+    onChunk?: (chunk: string, accumulated: string) => void;
   }) => Promise<AiResponse>;
 };
 
@@ -58,6 +60,7 @@ export async function explainToolError({
   message,
   config,
   signal,
+  onChunk,
   request = requestCompletion,
 }: ExplainErrorInput): Promise<ErrorExplanationResult> {
   const payload = buildErrorPayload(engineId, message);
@@ -71,6 +74,7 @@ export async function explainToolError({
       payload.value.message,
     ),
     signal,
+    onChunk,
   });
   if (!response.ok) return { ok: false, error: response.error };
   return { ok: true, explanation: response.text.slice(0, 1200) };
