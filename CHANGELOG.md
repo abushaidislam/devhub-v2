@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.1](https://github.com/abushaidislam/devhub-v2/compare/v0.21.0...v0.21.1) (2026-09-04)
+
+
+### Performance Improvements
+
+* **engines:** precompile keyword RegExps in formatSql ([#112](https://github.com/abushaidislam/devhub-v2/issues/112)) ([5a4499b](https://github.com/abushaidislam/devhub-v2/commit/5a4499b549ff33f04fe31b024ba918ba39bb1429))
+
 ## [0.21.0](https://github.com/abushaidislam/devhub-v2/compare/v0.20.0...v0.21.0) (2026-09-04)
 
 
