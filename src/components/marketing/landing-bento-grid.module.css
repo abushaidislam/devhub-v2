@@ -48,13 +48,17 @@
   line-height: var(--line-height-heading);
   letter-spacing: var(--tracking-heading);
   color: var(--ink);
+  opacity: 0.90;
 }
 
+.subtitle,
 .subheading {
   margin: 0;
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
   color: var(--body-copy);
+  opacity: 0.76;
   max-width: 640px;
 }
 
@@ -138,7 +142,8 @@
   font: 500 10px/1 var(--mono);
   color: var(--mute);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  opacity: 0.70;
 }
 
 .tag {
@@ -150,27 +155,42 @@
   background: var(--hairline-soft);
   color: var(--body-copy);
   font: 500 10px/1 var(--mono);
+  opacity: 0.75;
 }
 
 .metaIcon {
   color: var(--mute);
+  opacity: 0.70;
 }
 
 .cardHeading {
   margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.015em;
+  font-size: 16.5px;
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.012em;
   color: var(--ink);
+  opacity: 0.78;
+  transition: opacity var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.card:hover .cardHeading {
+  opacity: 0.96;
 }
 
 .cardCopy {
   margin: 0 0 24px;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
   color: var(--body-copy);
+  opacity: 0.70;
   flex-grow: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.card:hover .cardCopy {
+  opacity: 0.85;
 }
 
 /* Card 1: Heuristic Terminal Mockup */
@@ -197,7 +217,9 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: var(--ink);
+  color: var(--body-copy);
+  font-weight: 500;
+  opacity: 0.75;
 }
 
 .windowStats {
@@ -205,11 +227,13 @@
   align-items: center;
   gap: 10px;
   color: var(--mute);
+  opacity: 0.70;
 }
 
 .statusLive {
   color: var(--cyan);
   font-weight: 600;
+  opacity: 0.88;
 }
 
 .codeLine {
@@ -224,14 +248,17 @@
 
 .tokenMuted {
   color: var(--mute);
+  opacity: 0.65;
 }
 
 .tokenHighlight {
-  color: var(--ink);
+  color: var(--cyan);
   font-weight: 500;
-  background: rgba(80, 227, 194, 0.12);
-  padding: 1px 3px;
+  background: rgba(80, 227, 194, 0.08);
+  border: 1px solid rgba(80, 227, 194, 0.16);
+  padding: 1px 4px;
   border-radius: 3px;
+  opacity: 0.85;
 }
 
 .detectedRow {
@@ -262,7 +289,13 @@
 
 .detectedMatch strong {
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 500;
+  opacity: 0.78;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.detectedRow:hover .detectedMatch strong {
+  opacity: 0.96;
 }
 
 .cyanDot {
@@ -270,16 +303,18 @@
   height: 6px;
   border-radius: 50%;
   background: var(--cyan);
-  box-shadow: 0 0 0 2px rgba(80, 227, 194, 0.2);
+  opacity: 0.85;
+  box-shadow: 0 0 0 2px rgba(80, 227, 194, 0.18);
 }
 
 .matchScore {
   padding: 2px 6px;
   border-radius: 4px;
-  background: rgba(80, 227, 194, 0.12);
-  border: 1px solid rgba(80, 227, 194, 0.25);
+  background: rgba(80, 227, 194, 0.08);
+  border: 1px solid rgba(80, 227, 194, 0.18);
   color: var(--cyan);
-  font: 600 10px/1 var(--mono);
+  font: 500 10px/1 var(--mono);
+  opacity: 0.85;
 }
 
 .actionHint {
@@ -288,6 +323,7 @@
   gap: 4px;
   font-size: 11px;
   color: var(--mute);
+  opacity: 0.70;
 }
 
 .actionHint kbd {
@@ -300,9 +336,10 @@
   border: 1px solid var(--hairline);
   border-radius: 3px;
   background: var(--hairline-soft);
-  color: var(--ink);
+  color: var(--body-copy);
   font: 500 10px/1 var(--mono);
   box-shadow: var(--shadow-whisper);
+  opacity: 0.75;
 }
 
 .jumpArrow {
@@ -334,10 +371,12 @@
   font: 500 10px/1 var(--mono);
   cursor: pointer;
   white-space: nowrap;
+  opacity: 0.72;
   transition:
     border-color var(--dur) var(--ease),
     background var(--dur) var(--ease),
     color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     transform 0.14s var(--ease),
     box-shadow var(--dur) var(--ease);
 }
@@ -346,6 +385,7 @@
   border-color: var(--border-hover);
   background: var(--surface-bright);
   color: var(--ink);
+  opacity: 0.95;
   transform: translateY(-1px);
 }
 
@@ -414,12 +454,15 @@
 
 .shieldCopy strong {
   font-size: 13px;
+  font-weight: 500;
   color: var(--ink);
+  opacity: 0.78;
 }
 
 .shieldCopy small {
   font: 11px var(--mono);
   color: var(--mute);
+  opacity: 0.68;
 }
 
 .telemetryMatrix {
@@ -454,16 +497,19 @@
   align-items: center;
   gap: 8px;
   color: var(--body-copy);
+  opacity: 0.75;
 }
 
 .metricCyan {
   color: var(--cyan);
   font-weight: 600;
+  opacity: 0.88;
 }
 
 .metricBlocked {
-  color: var(--ink);
-  font-weight: 600;
+  color: var(--body-copy);
+  font-weight: 500;
+  opacity: 0.75;
 }
 
 .complianceRow {
@@ -474,6 +520,7 @@
   padding: 4px;
   font: 11px var(--mono);
   color: var(--mute);
+  opacity: 0.62;
 }
 
 /* Card 3: Recipe Pipeline */
@@ -511,13 +558,15 @@
   border: 1px solid var(--hairline);
   border-radius: 50%;
   background: var(--canvas-elevated);
-  color: var(--ink);
-  font: 600 10px/1 var(--mono);
+  color: var(--body-copy);
+  font: 500 10px/1 var(--mono);
+  opacity: 0.78;
   transition:
     transform 0.16s var(--ease),
     border-color var(--dur) var(--ease),
     background var(--dur) var(--ease),
     color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease);
 }
 
@@ -525,19 +574,22 @@
   border-color: rgba(80, 227, 194, 0.4);
   background: rgba(80, 227, 194, 0.12);
   color: var(--cyan);
+  opacity: 1;
   transform: scale(1.15);
   box-shadow: 0 0 10px rgba(80, 227, 194, 0.25);
 }
 
-.pipelineStep:hover .stepName {
-  color: var(--ink);
-}
-
 .stepName {
   font: 10px var(--mono);
-  color: var(--body-copy);
+  color: var(--mute);
   text-align: center;
-  transition: color var(--dur) var(--ease);
+  opacity: 0.72;
+  transition: color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.pipelineStep:hover .stepName {
+  color: var(--ink);
+  opacity: 0.95;
 }
 
 .pipelineConnector {
@@ -546,6 +598,7 @@
   background: var(--hairline);
   position: relative;
   top: -9px;
+  opacity: 0.75;
 }
 
 .pipelineMeta {
@@ -557,6 +610,7 @@
   border-top: 1px solid var(--hairline);
   font: 10px var(--mono);
   color: var(--mute);
+  opacity: 0.65;
 }
 
 /* Card 4: Type Inference */
@@ -580,6 +634,7 @@
   background: var(--hairline-soft);
   font: 500 10px/1 var(--mono);
   color: var(--mute);
+  opacity: 0.72;
 }
 
 .editorHeadTitle {
@@ -604,16 +659,19 @@
   color: var(--body-copy);
   font: 500 9px/1 var(--mono);
   cursor: pointer;
+  opacity: 0.75;
   transition:
     background var(--dur) var(--ease),
     color var(--dur) var(--ease),
     border-color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     transform 0.14s var(--ease);
 }
 
 .miniCopyBtn:hover {
   background: var(--hairline-soft);
   color: var(--ink);
+  opacity: 0.95;
   border-color: var(--border-hover);
   transform: translateY(-1px);
 }
@@ -626,6 +684,7 @@
   border-color: rgba(80, 227, 194, 0.45) !important;
   background: rgba(80, 227, 194, 0.12) !important;
   color: var(--cyan) !important;
+  opacity: 1 !important;
   box-shadow: 0 0 6px rgba(80, 227, 194, 0.2);
 }
 
@@ -646,15 +705,18 @@
 .tokenKeyword {
   color: var(--cyan);
   font-weight: 500;
+  opacity: 0.85;
 }
 
 .tokenType {
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 500;
+  opacity: 0.78;
 }
 
 .tokenProp {
   color: var(--body-copy);
+  opacity: 0.75;
 }
 
 /* Card 5: Keyboard Velocity */
@@ -684,20 +746,22 @@
 
 .commandPrompt {
   color: var(--mute);
-  font-weight: 600;
+  font-weight: 500;
+  opacity: 0.65;
 }
 
 .commandText {
   color: var(--ink);
   font-weight: 500;
+  opacity: 0.78;
 }
 
 .commandCursor {
   display: inline-block;
-  width: 6px;
-  height: 14px;
-  background: var(--ink);
-  opacity: 0.7;
+  width: 5px;
+  height: 13px;
+  background: var(--cyan);
+  opacity: 0.65;
   animation: blinkCursor 1s steps(2, start) infinite;
 }
 
@@ -716,12 +780,14 @@
   background: var(--canvas-elevated);
   border: 1px solid var(--hairline);
   font-size: 11px;
-  color: var(--ink);
+  color: var(--body-copy);
+  opacity: 0.76;
 }
 
 .badgeSubtle {
   font: 10px var(--mono);
   color: var(--cyan);
+  opacity: 0.85;
 }
 
 .pwaRow {
@@ -740,10 +806,12 @@
   gap: 6px;
   font: 11px var(--mono);
   color: var(--body-copy);
+  opacity: 0.75;
 }
 
 .pwaIcon {
   color: var(--cyan);
+  opacity: 0.85;
 }
 
 .keycaps {
@@ -761,12 +829,14 @@
   border: 1px solid var(--hairline);
   border-radius: 4px;
   background: var(--hairline-soft);
-  color: var(--ink);
+  color: var(--body-copy);
   font: 500 10px/1 var(--mono);
   box-shadow: var(--shadow-whisper);
+  opacity: 0.78;
   transition:
     transform 0.14s var(--ease),
     border-color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease);
 }
 
@@ -774,6 +844,7 @@
   transform: translateY(-1px);
   border-color: var(--border-hover);
   box-shadow: var(--shadow-float);
+  opacity: 0.95;
 }
 
 /* Footer Link */
@@ -791,7 +862,11 @@
   font-size: 13px;
   font-weight: 500;
   text-decoration: none;
-  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+  opacity: 0.78;
+  transition:
+    color var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
 }
 
 .exploreArrow {
@@ -800,6 +875,7 @@
 
 .exploreLink:hover {
   color: var(--ink);
+  opacity: 0.96;
   transform: translateX(2px);
 }
 

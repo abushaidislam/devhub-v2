@@ -80,10 +80,12 @@
   font: 500 11px/1 var(--mono);
   cursor: pointer;
   white-space: nowrap;
+  opacity: 0.72;
   transition:
     background var(--dur) var(--ease),
     border-color var(--dur) var(--ease),
     color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     transform 0.14s var(--ease),
     box-shadow var(--dur) var(--ease);
 }
@@ -91,6 +93,7 @@
 .tabBtn:hover {
   color: var(--ink);
   background: var(--canvas-elevated);
+  opacity: 0.95;
   transform: translateY(-1px);
 }
 
@@ -102,6 +105,7 @@
   background: var(--canvas-elevated) !important;
   border-color: var(--hairline) !important;
   color: var(--ink) !important;
+  opacity: 0.88 !important;
   box-shadow: var(--shadow-whisper);
   transform: none !important;
 }
@@ -121,8 +125,12 @@
   background: var(--canvas-elevated);
   font: 500 10px/1 var(--mono);
   color: var(--cyan);
+  opacity: 0.88;
   flex: none;
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  transition:
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
 }
 
 .telemetryBadge:hover {
@@ -175,11 +183,13 @@
   align-items: center;
   gap: 6px;
   font: 500 11px/1 var(--mono);
-  color: var(--ink);
+  color: var(--body-copy);
+  opacity: 0.78;
 }
 
 .fileLabel svg {
   color: var(--mute);
+  opacity: 0.70;
 }
 
 .cyanFileDot {
@@ -187,6 +197,7 @@
   height: 6px;
   border-radius: 50%;
   background: var(--cyan);
+  opacity: 0.85;
 }
 
 .badgeInput {
@@ -196,6 +207,7 @@
   border: 1px solid var(--hairline);
   border-radius: 4px;
   background: var(--hairline-soft);
+  opacity: 0.72;
 }
 
 .headerActions {
@@ -216,10 +228,12 @@
   color: var(--body-copy);
   font: 500 10px/1 var(--mono);
   cursor: pointer;
+  opacity: 0.78;
   transition:
     background var(--dur) var(--ease),
     color var(--dur) var(--ease),
     border-color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     transform 0.14s var(--ease),
     box-shadow var(--dur) var(--ease);
 }
@@ -227,6 +241,7 @@
 .copyBtn:hover {
   background: var(--hairline-soft);
   color: var(--ink);
+  opacity: 0.95;
   border-color: var(--border-hover);
   transform: translateY(-1px);
 }
@@ -268,18 +283,23 @@
   border: 1px solid var(--hairline);
   border-radius: 4px;
   background: var(--canvas-elevated);
-  color: var(--ink);
+  color: var(--body-copy);
   font: 500 10px/1 var(--mono);
   text-decoration: none;
+  opacity: 0.78;
   transition:
     background var(--dur) var(--ease),
     border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     transform 0.14s var(--ease),
     box-shadow var(--dur) var(--ease);
 }
 
 .openToolLink:hover {
   background: var(--hairline-soft);
+  color: var(--ink);
+  opacity: 0.95;
   border-color: var(--border-hover);
   transform: translateY(-1px);
 }
@@ -317,12 +337,14 @@
   margin: 0;
   font: 11px/1.55 var(--mono);
   color: var(--ink);
+  opacity: 0.80;
   white-space: pre-wrap;
   word-break: break-all;
 }
 
 .codeBlockOutput {
   color: var(--ink);
+  opacity: 0.82;
 }
 
 /* Center Divider */
@@ -350,6 +372,7 @@
   border-radius: 50%;
   background: var(--canvas-elevated);
   color: var(--mute);
+  opacity: 0.75;
   box-shadow: var(--shadow-whisper);
 }
 
@@ -357,9 +380,9 @@
 .detectionBanner {
   margin-top: 10px;
   padding: 7px 10px;
-  border: 1px solid rgba(80, 227, 194, 0.25);
+  border: 1px solid rgba(80, 227, 194, 0.18);
   border-radius: 4px;
-  background: rgba(80, 227, 194, 0.08);
+  background: rgba(80, 227, 194, 0.06);
 }
 
 .detectedInfo {
@@ -370,21 +393,30 @@
   color: var(--ink);
 }
 
+.detectedInfo strong {
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0.82;
+}
+
 .pulseIndicator {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--cyan);
+  opacity: 0.85;
 }
 
 .detectedLabel {
   font: 500 10px/1 var(--mono);
   color: var(--mute);
+  opacity: 0.72;
 }
 
 .confidencePill {
-  font: 600 10px/1 var(--mono);
+  font: 500 10px/1 var(--mono);
   color: var(--cyan);
+  opacity: 0.88;
   margin-left: auto;
 }
 
@@ -398,6 +430,7 @@
 .outputMeta {
   font: 500 10px/1 var(--mono);
   color: var(--mute);
+  opacity: 0.65;
 }
 
 /* Integrated Bottom Command Bar */
@@ -435,12 +468,14 @@
 
 .commandIcon {
   color: var(--mute);
+  opacity: 0.70;
   flex: none;
 }
 
 .bottomPrompt {
   color: var(--ink);
   font-weight: 500;
+  opacity: 0.78;
   flex: none;
 }
 
@@ -448,6 +483,7 @@
   color: var(--mute);
   font-family: var(--mono);
   font-size: 11px;
+  opacity: 0.68;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -470,12 +506,14 @@
   border: 1px solid var(--hairline);
   border-radius: 4px;
   background: var(--canvas-elevated);
-  color: var(--ink);
+  color: var(--body-copy);
   font: 500 10px/1 var(--mono);
   box-shadow: var(--shadow-whisper);
+  opacity: 0.78;
   transition:
     transform 0.14s var(--ease),
     border-color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease);
 }
 
@@ -483,6 +521,7 @@
   transform: translateY(-1px);
   border-color: var(--border-hover);
   box-shadow: var(--shadow-float);
+  opacity: 0.95;
 }
 
 .bottomBar:active .keycap {
@@ -496,12 +535,17 @@
   gap: 4px;
   font-size: 11px;
   color: var(--mute);
+  opacity: 0.75;
   margin-left: 6px;
-  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+  transition:
+    color var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
 }
 
 .bottomBar:hover .browseAction {
   color: var(--ink);
+  opacity: 0.96;
   transform: translateX(3px);
 }
 
