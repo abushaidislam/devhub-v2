@@ -1096,6 +1096,8 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
     - **Go** (`net/http`)
     - **PHP** (`curl`)
   - Pure execution: strictly in-browser, bounded to 100,000 characters with `ensureBatchInput`, 0 network requests.
+  - Cookie handling: parses `-b` and `--cookie` flags and injects extracted cookies into `headers["Cookie"]`.
+  - Advanced network flags: detects `--retry`, `--connect-timeout`, and `--compressed`, appending an explicit warning comment to generated Fetch code explaining standard Fetch API limitations.
 - Integrated into typed registries:
   - Canonical registry in [`src/lib/tools.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/tools.ts) with `Terminal` icon from `lucide-react`, metadata, and SEO points.
   - Exported through [`src/lib/tool-engines.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/tool-engines.ts).

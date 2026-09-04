@@ -6,6 +6,8 @@ export interface ParsedCurl {
 	headers: Record<string, string>;
 	data: string | null;
 	auth: { username: string; password?: string } | null;
+	cookies: string[];
+	unsupportedFetchFlags: string[];
 }
 
 /**
@@ -94,6 +96,8 @@ export function parseCurl(command: string): ParsedCurl {
 	const headers: Record<string, string> = {};
 	const dataParts: string[] = [];
 	let auth: { username: string; password?: string } | null = null;
+	const cookies: string[] = [];
+	const unsupportedFetchFlags: string[] = [];
 
 	for (let i = startIndex + 1; i < tokens.length; i++) {
 		const token = tokens[i];
@@ -162,6 +166,50 @@ export function parseCurl(command: string): ParsedCurl {
 			continue;
 		}
 
+		// Cookie flags (-b, --cookie)
+		if (token === "-b" || token === "--cookie") {
+			if (i + 1 < tokens.length) {
+				cookies.push(tokens[++i]);
+			}
+			continue;
+		}
+		if (token.startsWith("-b") && token.length > 2) {
+			cookies.push(token.slice(2));
+			continue;
+		}
+		if (token.startsWith("--cookie=")) {
+			cookies.push(token.slice("--cookie=".length));
+			continue;
+		}
+
+		// Advanced network flags (--retry, --connect-timeout, --compressed)
+		if (token === "--retry") {
+			if (!unsupportedFetchFlags.includes("--retry")) unsupportedFetchFlags.push("--retry");
+			if (i + 1 < tokens.length && !tokens[i + 1].startsWith("-")) {
+				i++;
+			}
+			continue;
+		}
+		if (token.startsWith("--retry=")) {
+			if (!unsupportedFetchFlags.includes("--retry")) unsupportedFetchFlags.push("--retry");
+			continue;
+		}
+		if (token === "--connect-timeout") {
+			if (!unsupportedFetchFlags.includes("--connect-timeout")) unsupportedFetchFlags.push("--connect-timeout");
+			if (i + 1 < tokens.length && !tokens[i + 1].startsWith("-")) {
+				i++;
+			}
+			continue;
+		}
+		if (token.startsWith("--connect-timeout=")) {
+			if (!unsupportedFetchFlags.includes("--connect-timeout")) unsupportedFetchFlags.push("--connect-timeout");
+			continue;
+		}
+		if (token === "--compressed") {
+			if (!unsupportedFetchFlags.includes("--compressed")) unsupportedFetchFlags.push("--compressed");
+			continue;
+		}
+
 		// Data / Body flags
 		if (
 			token === "-d" ||
@@ -225,8 +273,6 @@ export function parseCurl(command: string): ParsedCurl {
 			[
 				"-A",
 				"--user-agent",
-				"-b",
-				"--cookie",
 				"-c",
 				"--cookie-jar",
 				"-e",
@@ -235,7 +281,6 @@ export function parseCurl(command: string): ParsedCurl {
 				"--output",
 				"-m",
 				"--max-time",
-				"--connect-timeout",
 				"-x",
 				"--proxy",
 			].includes(token)
@@ -277,12 +322,20 @@ export function parseCurl(command: string): ParsedCurl {
 		headers["Authorization"] = `Basic ${encoded}`;
 	}
 
+	// Inject extracted cookies into headers as Cookie
+	if (cookies.length > 0) {
+		const cookieValue = cookies.join("; ");
+		headers["Cookie"] = headers["Cookie"] ? `${headers["Cookie"]}; ${cookieValue}` : cookieValue;
+	}
+
 	return {
 		url,
 		method,
 		headers,
 		data,
 		auth,
+		cookies,
+		unsupportedFetchFlags,
 	};
 }
 
@@ -305,35 +358,43 @@ function toFetch(parsed: ParsedCurl): string {
 	const isJson = isJsonData(parsed.data);
 	const hasHeaders = Object.keys(parsed.headers).length > 0;
 	const isSimpleGet = parsed.method === "GET" && !hasHeaders && !parsed.data;
+	let output = "";
 
 	if (isSimpleGet) {
-		return `const response = await fetch(${JSON.stringify(parsed.url)});\nconst data = await response.json();\nconsole.log(data);`;
-	}
+		output = `const response = await fetch(${JSON.stringify(parsed.url)});\nconst data = await response.json();\nconsole.log(data);`;
+	} else {
+		const options: string[] = [];
+		options.push(`  method: ${JSON.stringify(parsed.method)}`);
 
-	const options: string[] = [];
-	options.push(`  method: ${JSON.stringify(parsed.method)}`);
-
-	if (hasHeaders) {
-		const headerLines = Object.entries(parsed.headers)
-			.map(([k, v]) => `    ${JSON.stringify(k)}: ${JSON.stringify(v)}`)
-			.join(",\n");
-		options.push(`  headers: {\n${headerLines}\n  }`);
-	}
-
-	if (parsed.data !== null) {
-		if (isJson) {
-			const formatted = JSON.stringify(JSON.parse(parsed.data), null, 4)
-				.split("\n")
-				.map((line, idx) => (idx === 0 ? line : `    ${line}`))
-				.join("\n");
-			options.push(`  body: JSON.stringify(${formatted})`);
-		} else {
-			options.push(`  body: ${JSON.stringify(parsed.data)}`);
+		if (hasHeaders) {
+			const headerLines = Object.entries(parsed.headers)
+				.map(([k, v]) => `    ${JSON.stringify(k)}: ${JSON.stringify(v)}`)
+				.join(",\n");
+			options.push(`  headers: {\n${headerLines}\n  }`);
 		}
+
+		if (parsed.data !== null) {
+			if (isJson) {
+				const formatted = JSON.stringify(JSON.parse(parsed.data), null, 4)
+					.split("\n")
+					.map((line, idx) => (idx === 0 ? line : `    ${line}`))
+					.join("\n");
+				options.push(`  body: JSON.stringify(${formatted})`);
+			} else {
+				options.push(`  body: ${JSON.stringify(parsed.data)}`);
+			}
+		}
+
+		const optionsStr = `{\n${options.join(",\n")}\n}`;
+		output = `const response = await fetch(${JSON.stringify(parsed.url)}, ${optionsStr});\nconst data = await response.json();\nconsole.log(data);`;
 	}
 
-	const optionsStr = `{\n${options.join(",\n")}\n}`;
-	return `const response = await fetch(${JSON.stringify(parsed.url)}, ${optionsStr});\nconst data = await response.json();\nconsole.log(data);`;
+	if (parsed.unsupportedFetchFlags.length > 0) {
+		output +=
+			"\n\n// Note: --retry, --connect-timeout, or --compressed flags were detected in your cURL command but are not natively supported by the standard Fetch API.";
+	}
+
+	return output;
 }
 
 /**

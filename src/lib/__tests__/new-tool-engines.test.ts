@@ -220,4 +220,18 @@ describe("curlToCode", () => {
 	it("rejects command with missing URL", () => {
 		expect(() => curlToCode("curl -X POST -H 'Content-Type: application/json'")).toThrow(/No URL found/);
 	});
+
+	it("extracts cookies via -b and --cookie into Cookie header", () => {
+		const cmd = `curl -b "session_id=xyz123; theme=dark" --cookie "auth_token=abc" https://api.devhub.tools/profile`;
+		const res = curlToCode(cmd, "fetch");
+		expect(res.output).toContain('"Cookie": "session_id=xyz123; theme=dark; auth_token=abc"');
+	});
+
+	it("detects advanced network flags (--retry, --connect-timeout, --compressed) and appends warning comment in fetch", () => {
+		const cmd = `curl --retry 3 --connect-timeout 10 --compressed https://api.devhub.tools/data`;
+		const res = curlToCode(cmd, "fetch");
+		expect(res.output).toContain(
+			"// Note: --retry, --connect-timeout, or --compressed flags were detected in your cURL command but are not natively supported by the standard Fetch API.",
+		);
+	});
 });
