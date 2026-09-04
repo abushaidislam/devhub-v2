@@ -1079,3 +1079,36 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 | Vitest Tests | `npm test` | ✅ **Passed** (55 / 55 test files, 338 / 338 tests) |
 | Production Build | `npm run build` | ✅ **Passed** (60 / 60 static routes generated) |
 
+
+## Addition of cURL Converter Tool (`curl-converter`) — September 2026
+
+### Scope completed
+
+- Added the 31st canonical developer tool: **cURL Converter** (`slug: "curl-converter"`).
+- Pure deterministic engine in [`src/lib/engines/curl.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/engines/curl.ts):
+  - Robust tokenization supporting single quotes, double quotes, escape sequences, and multiline line continuations (`\`).
+  - Flag parsing: method (`-X`, `--request`, `-I`), headers (`-H`, `--header`), body/data (`-d`, `--data`, `--data-raw`, `--data-binary`, `--data-urlencode`), basic auth (`-u`, `--user`), and positional/flagged URLs (`--url`).
+  - Target language code generators:
+    - **JavaScript (Fetch)** (standard browser / Edge)
+    - **JavaScript (Axios)**
+    - **Python (Requests)**
+    - **Node.js** (native fetch / HTTP)
+    - **Go** (`net/http`)
+    - **PHP** (`curl`)
+  - Pure execution: strictly in-browser, bounded to 100,000 characters with `ensureBatchInput`, 0 network requests.
+  - Cookie handling: parses `-b` and `--cookie` flags and injects extracted cookies into `headers["Cookie"]`.
+  - Advanced network flags: detects `--retry`, `--connect-timeout`, and `--compressed`, appending an explicit warning comment to generated Fetch code explaining standard Fetch API limitations.
+- Integrated into typed registries:
+  - Canonical registry in [`src/lib/tools.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/tools.ts) with `Terminal` icon from `lucide-react`, metadata, and SEO points.
+  - Exported through [`src/lib/tool-engines.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/tool-engines.ts).
+  - Registered engine in [`src/lib/engine-registry.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/engine-registry.ts) with `accepts: ["text"]`, `produces: "text"`, and `sensitivity: "local"`.
+- Shared runtime integration in [`src/components/tools/tool-runtime.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/tools/tool-runtime.tsx):
+  - Added default realistic cURL sample.
+  - Added target language selector dropdown for live switching between JavaScript Fetch, Axios, Python Requests, Node.js, Go, and PHP.
+  - Integrated with `operation` and `buildOptions()`.
+- Smart Input Detection in [`src/lib/detection.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/detection.ts):
+  - Heuristic detects `curl ` commands and suggests `curl-converter` with `0.99` confidence.
+- Next Actions in [`src/lib/next-actions.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/next-actions.ts):
+  - Added pairings: `["url-parser", "json-formatter", "base64"]`.
+- Added comprehensive unit tests in [`src/lib/__tests__/new-tool-engines.test.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/__tests__/new-tool-engines.test.ts) and [`src/lib/__tests__/detection.test.ts`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/lib/__tests__/detection.test.ts).
+

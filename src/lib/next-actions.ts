@@ -22,7 +22,8 @@ export const TOOL_PAIRINGS:Record<string,readonly string[]>={
 	"markdown-linter":["markdown-preview","yaml-formatter","text-diff"],
 	"url-parser":["url-encoder","query-parser","json-to-typescript"],
 	"gitignore-generator":["yaml-formatter","markdown-preview","text-diff"],
-	"json-to-typescript":["json-formatter","json-to-yaml","csv-to-json"]
+	"json-to-typescript":["json-formatter","json-to-yaml","csv-to-json"],
+	"curl-converter":["url-parser","json-formatter","base64"]
 };
 export function recommendNextActions({tools,currentSlug,recentSlugs=[],favorites=[],limit=NEXT_ACTION_LIMIT}:{tools:readonly NextActionTool[];currentSlug?:string;recentSlugs?:readonly string[];favorites?:readonly string[];limit?:number}):NextAction[]{
 	const bounded=Math.min(Math.max(Math.trunc(limit),0),MAX_LIMIT);
