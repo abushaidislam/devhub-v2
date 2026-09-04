@@ -1,3 +1,5 @@
+import { decodeBase64Bytes, decodeUtf8 } from "./engines/utils";
+
 export const DETECTION_INPUT_LIMIT = 100_000;
 
 export type Detection = {
@@ -7,17 +9,16 @@ export type Detection = {
 };
 
 function decodeBase64Text(value: string) {
-  const compact = value.replace(/\s/g, "").replace(/-/g, "+").replace(/_/g, "/");
-  if (!compact || compact.length % 4 === 1 || !/^[A-Za-z0-9+/]*={0,2}$/.test(compact)) {
-    return null;
-  }
-  const padded = compact + "=".repeat((4 - (compact.length % 4)) % 4);
   try {
-    const binary = atob(padded);
-    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    const bytes = decodeBase64Bytes(value, false);
+    return decodeUtf8(bytes, "");
   } catch {
-    return null;
+    try {
+      const bytes = decodeBase64Bytes(value, true);
+      return decodeUtf8(bytes, "");
+    } catch {
+      return null;
+    }
   }
 }
 
