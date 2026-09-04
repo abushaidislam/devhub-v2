@@ -86,10 +86,16 @@ export function SmartInputDetector(){
 			</div>
 			<div className={styles.footerRow}>
 				{input?(trimmed?<p className={styles.warning} role="status">Input was trimmed to {DETECTION_INPUT_LIMIT.toLocaleString("en-US")} characters.</p>:null):<div className={styles.samples} role="group" aria-label="Example inputs">
-					<span>Try</span>
-					{sampleInputs.map(sample=><Button key={sample.label} type="button" variant="secondary" size="small" shape="rounded" onClick={()=>{applyInput(sample.value);textareaRef.current?.focus()}}>{sample.label}</Button>)}
+					<span className={styles.samplesLabel}>Try</span>
+					{sampleInputs.map(sample=><Button key={sample.label} type="button" className={styles.sampleChip} variant="secondary" size="small" shape="rounded" onClick={()=>{applyInput(sample.value);textareaRef.current?.focus()}}>{sample.label}</Button>)}
 				</div>}
-				<p className={styles.hints}><kbd>/</kbd> focus<span>·</span><kbd>Esc</kbd> clear<span>·</span><kbd>⌘/Ctrl</kbd>+<kbd>Enter</kbd> top match</p>
+				<div className={styles.hints} role="group" aria-label="Keyboard shortcuts">
+					<span className={styles.hintItem}><kbd>/</kbd> <span className={styles.hintAction}>focus</span></span>
+					<span className={styles.hintDivider} aria-hidden="true">·</span>
+					<span className={styles.hintItem}><kbd>Esc</kbd> <span className={styles.hintAction}>clear</span></span>
+					<span className={styles.hintDivider} aria-hidden="true">·</span>
+					<span className={styles.hintItem}><kbd>⌘/Ctrl</kbd><span className={styles.hintPlus}>+</span><kbd>Enter</kbd> <span className={styles.hintAction}>top match</span></span>
+				</div>
 			</div>
 		</div>
 		<p className={styles.srOnly} role="status">{matchSummary}</p>
