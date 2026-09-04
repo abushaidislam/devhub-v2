@@ -1,5 +1,21 @@
 # AI handoff
 
+## Latest Command Palette Performance & UX Optimization Handoff
+
+### Scope and objective
+- Fixed command palette open lag on laptops/integrated GPUs caused by heavy `backdrop-filter: blur(12px)` real-time rasterization.
+- Aligned command palette dialog styling strictly with Vercel Geist Level 2 Floating surface specifications (`referances/DESIGN-vercel (1).md`): solid high-contrast overlay (`rgba(0,0,0,0.78)` / `0.88`), dual-layer shadow (`0 2px 2px rgba(0,0,0,.04), 0 8px 16px -4px rgba(0,0,0,.08)`), and inset hairline border.
+- Improved UX: added category group headers when query is empty, substring search match highlights (`<mark>`), clickable suggestion chips in empty state (`json`, `convert`, `format`, `encode`, `generate`, `hash`), auto-scroll active item into view (`scrollIntoView({ block: 'nearest' })`), and `React.memo` + `startTransition` rendering optimizations.
+
+### Key files modified
+- `src/components/dashboard/command-palette.module.css`: Removed backdrop-filter blur; added `.groupHeader`, `.emptySuggestions`, `.suggestionChip`, `mark` styling; added `contain: content` and `will-change: transform`.
+- `src/components/dashboard/command-palette.tsx`: Memoized `ResultItem`, auto-scrolling, hover deduplication, category headers grouping, search match highlighting, and interactive empty state.
+- `docs/DESIGN-SYSTEM.md`: Updated command palette specification, animation timing (140ms), and overlay design tokens.
+
+### Validation
+- TypeScript check (`npx tsc --noEmit`): Passed (0 errors).
+- Vitest tests (`src/components/dashboard/__tests__/command-palette.test.tsx`): 5/5 passed.
+
 ## Working branch
 
 - `fix/gemini-default-model` — aligns the Gemini AI Studio default model with the provider-config test so Vercel `prebuild` can pass.

@@ -240,13 +240,23 @@ Native dropdowns use context-local dark control treatments so each web surface c
 
 ## Command palette
 
-- Dialog uses a `#0b0b0b` surface, `#484848` border, and strong modal shadow.
-- Search input uses white text, weight 500, with an `#888888` placeholder.
-- Result titles use `#f5f5f5`, weight 650; descriptions use `#9a9a9a`, weight 500.
-- Selected results use a `#1a1a1a` surface and `#505050` border.
+- Overlay uses a solid semi-transparent surface (`rgba(250,250,250,.88)` light / `rgba(0,0,0,.78)` dark) without `backdrop-filter: blur()` — the Vercel reference defines Level 2 Floating elevation with layered shadows, not backdrop blur. Removing blur eliminates GPU-heavy full-page recompositing on open.
+- Dialog uses `var(--canvas-elevated)` surface, `var(--hairline)` border, and Geist Level 2 Floating shadow (`0 2px 2px rgba(0,0,0,.04), 0 8px 16px -4px rgba(0,0,0,.08)` light; `0 2px 4px rgba(0,0,0,.2), 0 12px 28px -4px rgba(0,0,0,.5)` dark). The dialog uses `will-change: transform` for GPU-promoted compositing.
+- Opening animation runs in 140ms with the standard ease curve.
+- Search input uses `var(--ink)` text, weight 500, with a `var(--mute)` placeholder.
+- Result titles use `var(--ink)`, weight 600; descriptions use `var(--mute)`, weight 500.
+- When no search query is active, results are grouped by category with compact monospace group headers (`var(--mute)`, 12px/16px, weight 500, Geist Mono — matching `{typography.mono-eyebrow}`).
+- Search matches highlight the matched substring with `<mark>` elements using `var(--hairline-soft)` background and `var(--ink)` text at weight 600.
+- Selected results use `var(--hairline-soft)` background with an inset `var(--hairline)` border.
 - Hover and selection are distinct but both preserve strong text contrast.
-- Keyboard focus uses a two-pixel inset white outline so it stays visible inside the modal.
+- Keyboard focus uses a two-pixel inset ink outline so it stays visible inside the modal.
+- Arrow-key navigation auto-scrolls the active item into view with `scrollIntoView({ block: 'nearest' })`.
+- Individual result items are `React.memo`-ized to prevent full-list re-renders when only the active index changes.
+- Search filtering uses `startTransition` so the input remains responsive while the result list updates.
+- Hover-to-active updates are deduplicated via a ref check to avoid unnecessary renders during fast mouse movement.
+- The empty state displays clickable keyword suggestions (json, convert, format, encode, generate, hash) styled as interactive `kbd` chips.
 - Keyboard hints use 600-weight monospace and remain readable at compact sizes.
+- Results container uses `contain: content` for layout isolation.
 
 ## Activity rows
 
@@ -327,7 +337,7 @@ All reveals are enabled only when `@media (prefers-reduced-motion: no-preference
 | `dh-rise` | `opacity 0→1`, `translateY(8px)→0` | 500ms | `.05s` step (hero children) | Landing hero inner |
 | `dh-reveal` | `opacity 0→1`, `translateY(12px)→0` | 450–550ms | `.04s` step (tool cards 1–6) | Page hero, sections, CTA, footer, tool grids |
 | Sidebar route stability | No mount animation; active, hover, and category-chevron transitions only | `.15s`–`.16s` | None | Workspace sidebar across route changes |
-| `palette-in` | `opacity 0→1`, `translateY(-6px) scale(.985) → 1` | 180ms | None | Command-palette dialog on open |
+| `palette-in` | `opacity 0→1`, `translateY(-6px) scale(.985) → 1` | 140ms | None | Command-palette dialog on open |
 
 ### Ambient and status animations
 
@@ -347,7 +357,7 @@ All reveals are enabled only when `@media (prefers-reduced-motion: no-preference
 
 ### Command palette extras
 
-- Backdrop blur at 6–12px with a dark `#000a/0b` overlay.
+- Overlay uses a solid semi-transparent surface without `backdrop-filter: blur()` — aligned with the Vercel reference Level 2 Floating elevation (layered shadows, not blur). This eliminates GPU-heavy per-frame compositing on laptops with integrated graphics.
 - Result-row arrow icon is hidden by default (`opacity: 0`, `translateX(-3px)`) and revealed on hover / `aria-selected`.
 
 ### Reduced-motion policy
