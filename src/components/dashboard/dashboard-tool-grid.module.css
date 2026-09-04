@@ -4,7 +4,7 @@
 .card{position:relative;min-height:160px;border:1px solid var(--hairline);border-radius:var(--radius-md);background:var(--canvas-elevated);box-shadow:none;transition:border-color var(--duration-quick) var(--ease-smooth-out),background-color var(--duration-quick) var(--ease-smooth-out),transform var(--duration-fast) var(--ease-smooth-out),box-shadow var(--duration-fast) var(--ease-smooth-out)}
 .card:hover{border-color:var(--border-hover);background:var(--surface-bright);transform:translateY(-1px);box-shadow:var(--shadow-float)}
 .card:has(> a:active){transform:translateY(0);box-shadow:var(--shadow-press)}
-.card:focus-within{border-color:var(--focus-ring);background:var(--surface-bright);box-shadow:0 0 0 1px var(--focus-ring),var(--shadow-whisper)}
+.card:has(> a:focus-visible){border-color:var(--border-hover);background:var(--surface-bright);box-shadow:0 0 0 1px var(--border-hover),var(--shadow-whisper)}
 .card>a{height:100%;display:flex;align-items:flex-start;gap:12px;padding:18px 56px 18px 18px}
 .card>a:focus-visible{outline:0}
 

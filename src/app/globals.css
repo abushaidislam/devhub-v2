@@ -289,8 +289,8 @@
   --text-muted: #999999;
   --text-tertiary: #737373;
 
-  --focus-ring: #50e3c2;
-  --focus-glow: 0 0 0 4px rgba(80, 227, 194, 0.18);
+  --focus-ring: #ededed;
+  --focus-glow: 0 0 0 4px rgba(237, 237, 237, 0.14);
   --accent-muted: #0a2540;
   --control-fill: #0a0a0a;
   --control-fill-hover: #141414;
@@ -407,8 +407,10 @@ button,
   outline-offset: 3px;
 }
 
-#main-content:focus {
-  outline: none;
+#main-content:focus,
+#main-content:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Focus Indicator Contract */
