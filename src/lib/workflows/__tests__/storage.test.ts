@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { builtInRecipes } from "../built-in-recipes";
 import {
   createSavedRecipe,
+  getSavedRecipe,
   listSavedRecipes,
   recipeStorageSupported,
   SAVED_RECIPE_DESCRIPTION_LIMIT,
@@ -80,11 +81,34 @@ describe("saved recipe storage boundary", () => {
     });
     try {
       expect(recipeStorageSupported()).toBe(false);
+      expect(await getSavedRecipe("test-id")).toEqual({
+        ok: false,
+        error: "Local recipe storage is unavailable in this browser.",
+      });
       expect(await listSavedRecipes()).toEqual({
         ok: false,
         error: "Local recipe storage is unavailable in this browser.",
       });
       expect(await createSavedRecipe(validDraft)).toEqual({
+        ok: false,
+        error: "Local recipe storage is unavailable in this browser.",
+      });
+    } finally {
+      Object.defineProperty(globalThis, "indexedDB", {
+        configurable: true,
+        value: original,
+      });
+    }
+  });
+
+  it("returns failure when requesting a empty or missing recipe id when IndexedDB is unavailable", async () => {
+    const original = globalThis.indexedDB;
+    Object.defineProperty(globalThis, "indexedDB", {
+      configurable: true,
+      value: undefined,
+    });
+    try {
+      expect(await getSavedRecipe("")).toEqual({
         ok: false,
         error: "Local recipe storage is unavailable in this browser.",
       });

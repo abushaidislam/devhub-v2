@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.21.1](https://github.com/abushaidislam/devhub-v2/compare/v0.21.0...v0.21.1) (2026-09-04)
+
+
+### Performance Improvements
+
+* **engines:** precompile keyword RegExps in formatSql ([#112](https://github.com/abushaidislam/devhub-v2/issues/112)) ([5a4499b](https://github.com/abushaidislam/devhub-v2/commit/5a4499b549ff33f04fe31b024ba918ba39bb1429))
+
+## [0.21.0](https://github.com/abushaidislam/devhub-v2/compare/v0.20.0...v0.21.0) (2026-09-04)
+
+
+### Features
+
+* add landing feature showcase component and automated screenshot generation workflow ([493b6f1](https://github.com/abushaidislam/devhub-v2/commit/493b6f1a595fb7abe5746a677b9552ae1ccd74c4))
+* add landing feature showcase component with screenshot generation script and styles ([8835018](https://github.com/abushaidislam/devhub-v2/commit/88350188f095a30c4260f8a8b74d06e4faddfe82))
+
 ## [0.20.0](https://github.com/abushaidislam/devhub-v2/compare/v0.19.0...v0.20.0) (2026-09-03)
 
 
