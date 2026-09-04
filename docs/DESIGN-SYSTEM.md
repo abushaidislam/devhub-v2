@@ -117,7 +117,7 @@ Application content uses stronger contrast than passive chrome while keeping the
 
 ## Sidebar geometry
 
-- Desktop width: 256px
+- Desktop width: 256px (customizable via draggable split resizer, 200px min - 420px max, double-click resets to 256px, persisted in `devhub:sidebar-width`)
 - Workspace header: 58px (aligned with application topbar)
 - Primary row: 40px
 - Category row: 40px
@@ -125,6 +125,7 @@ Application content uses stronger contrast than passive chrome while keeping the
 - Footer: 64px
 - Row radius: 5–6px
 - Internal scrollbar: 4px
+- Split resizer: 8px touch/click target along sidebar right border with Vercel Geist micro-interactions (hairline indicator, hover glow, keyboard navigation, transition suppression during active drag).
 
 The first category is expanded on the All Tools workspace. On a tool page, the active category is expanded. The sidebar search was intentionally removed; topbar search and `Cmd/Ctrl + K` are the canonical search entry points.
 

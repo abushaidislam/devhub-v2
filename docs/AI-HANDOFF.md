@@ -1,5 +1,21 @@
 # AI handoff
 
+## Latest Sidebar Split Resizer Handoff
+
+### Scope and objective
+- Implemented a clean, Vercel Geist-inspired split resizer on the dashboard sidebar (`DashboardShell`).
+- Dynamic `--sidebar-width` CSS variable applied to `.app` grid layout with smooth transition, disabled during active drag (`data-resizing="true"`) for instantaneous 60fps tracking.
+- Drag handle with 8px invisible hit target, subtle hairline accent hover/drag line (`var(--link)` / `var(--border-strong)` with soft glow), and pointer capture via `setPointerCapture`.
+- Width bounded between 200px (min) and 420px (max); double-clicking the resizer handle resets to default 256px.
+- Persisted user preference in `localStorage` under `devhub:sidebar-width`.
+- Full WAI-ARIA separator accessibility (`role="separator"`, `aria-orientation="vertical"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, `aria-label="Resize sidebar"`, and keyboard controls for ArrowLeft, ArrowRight, Home, and End).
+- Automatically hidden on mobile/drawer viewports (`@media (max-width: 900px)`).
+
+### Validation
+- TypeScript check (`npx tsc --noEmit`): Passed (0 errors).
+- ESLint check (`npm run lint`): Passed (0 errors).
+- Vitest unit tests: Passed including newly added test suite in `dashboard-shell.test.tsx`.
+
 ## Latest Header Height & Baseline Alignment Handoff
 
 ### Scope and objective
