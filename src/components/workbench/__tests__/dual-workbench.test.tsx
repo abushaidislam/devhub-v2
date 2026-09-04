@@ -104,4 +104,33 @@ describe("DualWorkbench", () => {
     await user.keyboard("{ArrowRight}");
     expect(splitter).toHaveAttribute("aria-valuenow", "50");
   });
+
+  it("smart-extracts JSON payload when piping cURL converter to TypeScript generator", async () => {
+    const user = userEvent.setup();
+    render(<DualWorkbench />);
+
+    const runLeftBtn = await screen.findByRole("button", { name: "Run Left" });
+    await user.click(runLeftBtn);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("Left tool output")).toBeInTheDocument();
+    });
+
+    const pipeBtn = screen.getByRole("button", { name: "Pipe Left Output to Right Input" });
+    await user.click(pipeBtn);
+
+    await waitFor(() => {
+      const rightInput = screen.getByRole("textbox", { name: "Right tool input" }) as HTMLTextAreaElement;
+      expect(JSON.parse(rightInput.value)).toEqual({
+        id: 101,
+        name: "DevHub Toolkit",
+        active: true,
+        tags: ["local", "speed"],
+      });
+      const rightOutput = screen.queryByLabelText("Right tool output");
+      if (rightOutput) {
+        expect(rightOutput.textContent).toContain("interface");
+      }
+    });
+  });
 });

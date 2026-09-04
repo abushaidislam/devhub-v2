@@ -7,15 +7,21 @@
 
 .topBar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  padding: 12px 18px;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 18px;
   background: var(--canvas-elevated);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-whisper);
+}
+
+.topBarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .lead {
@@ -44,14 +50,22 @@
   color: var(--body-copy);
 }
 
-.controls {
+.topBarActions {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
-.presets {
+.presetBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.presetScroll {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -65,6 +79,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-right: 2px;
+  flex-shrink: 0;
 }
 
 .presetBtn {
@@ -370,9 +385,36 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 860px) {
+  .topBarHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .topBarActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .presetBar {
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .presetScroll {
+    flex-wrap: nowrap;
+  }
+
   .panesWrapper {
     flex-direction: column;
     min-height: auto;
+  }
+
+  .pane {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-height: 420px;
   }
 
   .splitter {

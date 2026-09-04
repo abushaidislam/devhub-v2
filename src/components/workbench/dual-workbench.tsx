@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { tools, getTool } from "@/lib/tools";
 import { getEngine } from "@/lib/engine-registry";
+import { parseCurl } from "@/lib/engines/curl";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Select, type SelectOption } from "../ui/select";
@@ -188,7 +189,7 @@ export function DualWorkbench() {
       setLeftMeta(res.meta);
 
       if (autoSync && res.output.trim()) {
-        pipeToRight(res.output, targetRightSlug, targetRightOpt);
+        pipeToRight(res.output, targetRightSlug, targetRightOpt, currentVal);
       }
     } else {
       setLeftError(res.meta);
@@ -218,14 +219,66 @@ export function DualWorkbench() {
     }
   }
 
+  function extractJsonPayload(text: string, sourceInput: string): string {
+    try {
+      JSON.parse(text);
+      return text;
+    } catch {}
+
+    // 1. If source is cURL command, use parseCurl to robustly extract body
+    if (sourceInput && sourceInput.trim().toLowerCase().startsWith("curl")) {
+      try {
+        const parsed = parseCurl(sourceInput);
+        if (parsed.data) {
+          try {
+            JSON.parse(parsed.data);
+            return parsed.data;
+          } catch {}
+        }
+      } catch {}
+    }
+
+    // 2. Extract body from fetch/axios JSON.stringify(...) code
+    const stringifyMatch = text.match(/body:\s*JSON\.stringify\((\s*[\{\[][\s\S]*?[\}\]]\s*)\)/);
+    if (stringifyMatch && stringifyMatch[1]) {
+      try {
+        JSON.parse(stringifyMatch[1].trim());
+        return stringifyMatch[1].trim();
+      } catch {}
+    }
+
+    // 3. Fallback regex for -d or --data flags
+    const curlDataMatch = sourceInput.match(/(?:-d|--data|--data-raw|--data-binary)\s+['"]({[\s\S]*?}|\[[\s\S]*?\])['"]/);
+    if (curlDataMatch && curlDataMatch[1]) {
+      try {
+        JSON.parse(curlDataMatch[1]);
+        return curlDataMatch[1];
+      } catch {}
+    }
+
+    return text;
+  }
+
   function pipeToRight(
     textToPipe = leftOutput,
     currentRightSlug = rightSlug,
     currentRightOpt = rightOption,
+    currentLeftInput = leftInput,
   ) {
     if (!textToPipe) return;
-    setRightInput(textToPipe);
-    void executeRight(textToPipe, currentRightOpt, currentRightSlug);
+
+    let payload = textToPipe;
+    if (
+      currentRightSlug === "json-to-typescript" ||
+      currentRightSlug === "json-formatter" ||
+      currentRightSlug === "json-to-yaml" ||
+      currentRightSlug === "json-to-csv"
+    ) {
+      payload = extractJsonPayload(textToPipe, currentLeftInput);
+    }
+
+    setRightInput(payload);
+    void executeRight(payload, currentRightOpt, currentRightSlug);
   }
 
   function swapPanes() {
@@ -388,18 +441,43 @@ export function DualWorkbench() {
     <div className={styles.workbench}>
       {/* Top Controls & Presets */}
       <div className={styles.topBar}>
-        <div className={styles.lead}>
-          <div className={styles.titleRow}>
-            <Columns2 size={16} />
-            <h2>Dual Split Workbench</h2>
-            <Badge variant="teal" size="sm">0ms local pipeline</Badge>
+        <div className={styles.topBarHeader}>
+          <div className={styles.lead}>
+            <div className={styles.titleRow}>
+              <Columns2 size={16} />
+              <h2>Dual Split Workbench</h2>
+              <Badge variant="teal" size="sm">0ms local pipeline</Badge>
+            </div>
+            <p>Run two tools side-by-side. Pipe outputs instantaneously without network calls.</p>
           </div>
-          <p>Run two tools side-by-side. Pipe outputs instantaneously without network calls.</p>
+
+          <div className={styles.topBarActions}>
+            <label className={styles.syncToggle} title="Automatically pass Left output to Right input and run">
+              <input
+                type="checkbox"
+                checked={autoSync}
+                onChange={(e) => setAutoSync(e.target.checked)}
+              />
+              <Zap size={13} fill={autoSync ? "currentColor" : "none"} />
+              <span>Auto-sync</span>
+            </label>
+
+            <Button
+              type="button"
+              variant="secondary"
+              size="small"
+              onClick={swapPanes}
+              prefix={<ArrowLeftRight size={14} />}
+              title="Swap Left and Right Panes"
+            >
+              Swap sides
+            </Button>
+          </div>
         </div>
 
-        <div className={styles.controls}>
-          <div className={styles.presets} role="group" aria-label="Workflow presets">
-            <span className={styles.presetsLabel}>Presets:</span>
+        <div className={styles.presetBar} role="group" aria-label="Workflow presets">
+          <span className={styles.presetsLabel}>Presets:</span>
+          <div className={styles.presetScroll}>
             {WORKBENCH_PRESETS.map((preset) => (
               <button
                 key={preset.id}
@@ -413,27 +491,6 @@ export function DualWorkbench() {
               </button>
             ))}
           </div>
-
-          <label className={styles.syncToggle} title="Automatically pass Left output to Right input and run">
-            <input
-              type="checkbox"
-              checked={autoSync}
-              onChange={(e) => setAutoSync(e.target.checked)}
-            />
-            <Zap size={13} fill={autoSync ? "currentColor" : "none"} />
-            <span>Auto-sync</span>
-          </label>
-
-          <Button
-            type="button"
-            variant="secondary"
-            size="small"
-            onClick={swapPanes}
-            prefix={<ArrowLeftRight size={14} />}
-            title="Swap Left and Right Panes"
-          >
-            Swap sides
-          </Button>
         </div>
       </div>
 
@@ -525,7 +582,7 @@ export function DualWorkbench() {
                     variant="secondary"
                     size="small"
                     disabled={!leftOutput}
-                    onClick={() => pipeToRight(leftOutput)}
+                    onClick={() => pipeToRight(leftOutput, rightSlug, rightOption, leftInput)}
                     prefix={<ArrowRight size={12} />}
                     title="Send to Right Pane"
                   >
@@ -582,7 +639,7 @@ export function DualWorkbench() {
           <button
             type="button"
             className={styles.pipeButtonCenter}
-            onClick={() => pipeToRight(leftOutput)}
+            onClick={() => pipeToRight(leftOutput, rightSlug, rightOption, leftInput)}
             disabled={!leftOutput}
             title="Pipe Left Output to Right Input"
             aria-label="Pipe Left Output to Right Input"

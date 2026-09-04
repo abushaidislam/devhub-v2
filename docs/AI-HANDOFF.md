@@ -1208,7 +1208,27 @@ Proceed with Phase 3: Audit and consolidate remaining page-level and feature-lev
 |---|---|---|
 | TypeScript | `npm run typecheck` | ✅ **Passed** (0 errors) |
 | ESLint | `npm run lint` | ✅ **Passed** (0 errors, 2 pre-existing script warnings) |
-| Vitest Tests | `npm test` | ✅ **Passed** (59 / 59 test files, 375 / 375 tests) |
+| Vitest Tests | `npm test` | ✅ **Passed** (59 / 59 test files, 376 / 376 tests) |
+
+
+## Dual Split Workbench Smart Pipeline & Responsive Architecture — September 2026
+
+### Scope completed
+
+- **Smart JSON Payload Extraction**:
+  - Implemented `extractJsonPayload` using `parseCurl(sourceInput)` and regex for `body: JSON.stringify(...)` in [`src/components/workbench/dual-workbench.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/workbench/dual-workbench.tsx).
+  - Resolved pipeline mismatch where `cURL → TypeScript` previously piped full JavaScript `fetch()` code into `json-to-typescript`, triggering a red syntax error. Now it automatically extracts the JSON request body and feeds clean JSON, generating TypeScript interfaces with zero errors.
+- **Two-Tier Header Layout**:
+  - Separated top bar into `.topBarHeader` (Title + `Auto-sync` & `Swap sides` actions) and `.presetBar` (full-width dedicated presets strip).
+  - Solved isolated orphaned wrapping where the `Swap sides` button was pushed onto a lonely line below presets.
+- **Responsive Stacking (Mobile & Tablet ≤ 860px)**:
+  - Ensured dual panes stack vertically with `width: 100%` and `min-height: 420px`.
+  - Added horizontal scroll with smooth touch for preset pills so they never break layout on small devices.
+  - Splitter rotates into horizontal separator with center pipe button rotating to downward arrow (↓).
+- **Automated Tests**:
+  - Added smart extraction test in [`src/components/workbench/__tests__/dual-workbench.test.tsx`](file:///c:/Users/ASUS/Desktop/devhub%20v2/src/components/workbench/__tests__/dual-workbench.test.tsx).
+  - All 59 test files (376 tests) pass with 0 errors.
+
 
 
 
