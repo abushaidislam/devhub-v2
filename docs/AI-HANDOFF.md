@@ -7,9 +7,9 @@
 - Reduced primary navigation item height from 40px to 34px (`.primary a`) with 8px horizontal padding and 8px icon-label gap.
 - Reduced tool category accordion header height from 40px to 34px (`.scroll summary`) and tool sub-items from 36px to 30px (`.toolChildren a`).
 - Removed harsh left tick marker (`::before`) and inset box-shadow from active state, replacing it with Vercel's clean, soft rounded pill background (`var(--surface-active)` / `rgba(255,255,255,0.08)`).
-- Upgraded sidebar typography weights to `font-weight: 600` (semi-bold) across all default items, summaries, and tool links, with `font-weight: 700` (bold) on active states and section labels.
-- Elevated text luminance from `--text-secondary` (`#b5b5b5`) to `--ink-soft` (`#d4d4d4`) and font-size from 13.5px to 14px for bold, immediate visual punch against dark background.
-- Boosted icon color from muted `--text-tertiary` to `--text-secondary` (and full white on hover/active) to eliminate foggy, low-contrast rendering on Windows display profiles.
+- Calibrated sidebar typography weight and optical density to match Vercel exactly (`font-weight: 450` for regular items, `font-weight: 500` for active states and headers), eliminating thick/heavy visual weight.
+- Styled count badges transparently with subtle mono typography to keep visual hierarchy lightweight and aligned with Vercel's clean aesthetic.
+- Balanced inactive icon and text color contrasts (`var(--text-secondary)` / `var(--text-tertiary)`) for crisp yet understated readability.
 - Removed jarring `translateX(2px)` hover jumps in favor of instant, smooth background color transitions.
 - Compacted sidebar footer height to 54px and refined count badge pill styling.
 
