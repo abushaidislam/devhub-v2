@@ -327,6 +327,7 @@ export function DashboardShell({
             size="medium"
             shape="square"
             aria-label="Close navigation"
+            title="Close navigation"
             onClick={() => setMobileOpen(false)}
             prefix={<X size={17} />}
           />
@@ -462,6 +463,8 @@ export function DashboardShell({
               size="medium"
               shape="square"
               aria-label="Open navigation"
+              title="Open navigation"
+              aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(true)}
               prefix={<Menu size={18} />}
             />
@@ -471,6 +474,8 @@ export function DashboardShell({
               size="medium"
               shape="square"
               aria-label={sidebarOpen ? "Hide navigation" : "Show navigation"}
+              title={sidebarOpen ? "Hide navigation" : "Show navigation"}
+              aria-expanded={sidebarOpen}
               onClick={() => setSidebarOpen((value) => !value)}
               prefix={sidebarOpen ? <PanelLeftClose size={17} /> : <PanelLeftOpen size={17} />}
             />
@@ -485,6 +490,7 @@ export function DashboardShell({
               className={styles.search}
               type="button"
               aria-label="Search tools"
+              title="Search tools (⌘K)"
               onClick={() => setCommandOpen(true)}
             >
               <Search size={15} aria-hidden="true" />
