@@ -21,7 +21,7 @@ export default function AssistantPage() {
         <header className={styles.hero}>
           <div>
             <span className={styles.eyebrow}><Sparkles size={13} /> AI workspace</span>
-            <h1>Think through the work.<br /><span>Keep control of the data.</span></h1>
+            <h2 className={styles.heroTitle}>Think through the work.<br /><span>Keep control of the data.</span></h2>
             <p>Optional AI tools for planning workflows and understanding errors, powered by your own provider and stored locally.</p><div className={styles.heroActions}><a className={styles.primaryAction} href="#assistant-step-provider">Configure provider <ArrowRight size={14} /></a><a className={styles.secondaryAction} href="#assistant-step-plan">See workflow planning</a></div>
           </div>
           <div className={styles.localBadge}><span /> BYOK · local-first</div>

@@ -13,7 +13,24 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   if(!category)return {};
   const items=tools.filter(tool=>tool.category===category);
   const description=`Browse ${items.length} free ${category.toLowerCase()} developer tools for focused, browser-based workflows.`;
-  return {title:`${category} Developer Tools`,description,alternates:{canonical:`/categories/${slug}`},openGraph:{type:"website",url:`/categories/${slug}`,title:`${category} Developer Tools — DevHub`,description}};
+  return {
+    title:`${category} Developer Tools`,
+    description,
+    alternates:{canonical:`/categories/${slug}`},
+    openGraph:{
+      type:"website",
+      url:`/categories/${slug}`,
+      title:`${category} Developer Tools — DevHub`,
+      description,
+      images:[{url:"/opengraph-image",width:1200,height:630,alt:`${category} Developer Tools — DevHub`}]
+    },
+    twitter:{
+      card:"summary_large_image",
+      title:`${category} Developer Tools — DevHub`,
+      description,
+      images:["/opengraph-image"]
+    }
+  };
 }
 
 export default async function CategoryPage({params}:{params:Promise<{slug:string}>}){
