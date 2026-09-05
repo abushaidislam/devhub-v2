@@ -7,6 +7,7 @@
 - Reduced primary navigation item height from 40px to 34px (`.primary a`) with 8px horizontal padding and 8px icon-label gap.
 - Reduced tool category accordion header height from 40px to 34px (`.scroll summary`) and tool sub-items from 36px to 30px (`.toolChildren a`).
 - Removed harsh left tick marker (`::before`) and inset box-shadow from active state, replacing it with Vercel's clean, soft rounded pill background (`var(--surface-active)` / `rgba(255,255,255,0.08)`).
+- Increased sidebar typography weights to `font-weight: 500` (medium) for default items and `600` (semi-bold) for active states, counts, and section labels to achieve Vercel's crisp, solid legibility.
 - Removed jarring `translateX(2px)` hover jumps in favor of instant, smooth background color transitions.
 - Compacted sidebar footer height to 54px and refined count badge pill styling.
 
