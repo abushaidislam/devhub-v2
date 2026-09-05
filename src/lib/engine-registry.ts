@@ -41,6 +41,9 @@ import {
 		jsonToTypescript,
 		curlToCode,
 		yamlToJson,
+		calculateChmod,
+		formatHtml,
+		generateLoremIpsum,
 	} from "./tool-engines";
 import type {ToolEngine, ToolResult} from "./engine-types";
 
@@ -412,6 +415,36 @@ const engineList: ToolEngine[] = [
 			async run(input) {
 				const r = yamlToJson(input.value);
 				return makeJson(r.output, r.meta);
+			},
+		},
+		{
+			id: "lorem-ipsum",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input, options) {
+				const r = generateLoremIpsum(input.value, options as { count?: number; units?: "paragraphs" | "sentences" | "words"; startWithLorem?: boolean } | undefined);
+				return makeText(r.output, r.meta);
+			},
+		},
+		{
+			id: "chmod-calculator",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input) {
+				const r = calculateChmod(input.value);
+				return makeText(r.output, r.meta);
+			},
+		},
+		{
+			id: "html-formatter",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "local",
+			async run(input, options) {
+				const r = formatHtml(input.value, options as { mode?: "format" | "minify" } | undefined);
+				return makeText(r.output, r.meta);
 			},
 		},
 	];

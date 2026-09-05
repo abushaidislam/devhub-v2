@@ -25,7 +25,10 @@ export const TOOL_PAIRINGS:Record<string,readonly string[]>={
 	"gitignore-generator":["yaml-formatter","markdown-preview","text-diff"],
 	"json-to-typescript":["json-formatter","json-to-yaml","csv-to-json"],
 	"curl-converter":["url-parser","json-formatter","base64"],
-	"yaml-to-json":["json-formatter","json-to-typescript","json-to-csv"]
+	"yaml-to-json":["json-formatter","json-to-typescript","json-to-csv"],
+	"lorem-ipsum":["text-stats","markdown-preview","case-converter"],
+	"chmod-calculator":["number-base","password-generator","hash-generator"],
+	"html-formatter":["html-entities","xml-formatter","markdown-preview"]
 };
 
 export function recommendNextActions({tools,currentSlug,recentSlugs=[],favorites=[],limit=NEXT_ACTION_LIMIT}:{tools:readonly NextActionTool[];currentSlug?:string;recentSlugs?:readonly string[];favorites?:readonly string[];limit?:number}):NextAction[]{

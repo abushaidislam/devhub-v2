@@ -13,3 +13,68 @@ export function formatXml(input:string):EngineResult{const value=ensureBatchInpu
 export function describeCron(input:string):EngineResult{const parts=input.trim().split(/\s+/);if(parts.length!==5)throw new Error("Use a standard five-field cron expression.");const [minute,hour,day,month,weekday]=parts;const value=(v:string,label:string)=>v==="*"?`every ${label}`:`${label} ${v}`;return {output:`Runs at ${value(minute,"minute")}, ${value(hour,"hour")}; ${value(day,"day of month")}; ${value(month,"month")}; ${value(weekday,"weekday")}.`,meta:"Five-field cron"}}
 export function convertTimestamp(input:string):EngineResult{const value=input.trim();if(!value)throw new Error("Enter a Unix timestamp or an ISO 8601 date.");let date:Date;let meta:string;if(/^-?\d{1,15}$/.test(value)){const numeric=Number(value);const ms=Math.abs(numeric)>=1e12?numeric:numeric*1000;date=new Date(ms);meta=Math.abs(numeric)>=1e12?"Parsed as milliseconds":"Parsed as seconds"}else{date=new Date(value);meta="Parsed as date string"}if(Number.isNaN(date.getTime()))throw new Error("That value is not a valid timestamp or date.");const seconds=Math.floor(date.getTime()/1000);const lines=[`Unix seconds: ${seconds}`,`Unix milliseconds: ${date.getTime()}`,`ISO 8601 (UTC): ${date.toISOString()}`,`UTC: ${date.toUTCString()}`,`Local: ${date.toString()}`];return {output:lines.join("\n"),meta}}
 export function convertNumberBase(input:string):EngineResult{const value=input.trim().toLowerCase().replace(/_/g,"");if(!value)throw new Error("Enter a number in decimal, hex (0x), octal (0o) or binary (0b).");let parsed:number;if(value.startsWith("0x"))parsed=parseInt(value.slice(2),16);else if(value.startsWith("0o"))parsed=parseInt(value.slice(2),8);else if(value.startsWith("0b"))parsed=parseInt(value.slice(2),2);else if(/^-?\d+$/.test(value))parsed=Number(value);else throw new Error("Use a decimal number or prefix with 0x, 0o or 0b.");if(!Number.isFinite(parsed)||Number.isNaN(parsed))throw new Error("That value is not a valid number.");if(!Number.isSafeInteger(parsed))throw new Error("Value must be a safe integer.");const abs=Math.abs(parsed),sign=parsed<0?"-":"";const lines=[`Decimal: ${parsed}`,`Hex: ${sign}0x${abs.toString(16).toUpperCase()}`,`Octal: ${sign}0o${abs.toString(8)}`,`Binary: ${sign}0b${abs.toString(2)}`];return {output:lines.join("\n"),meta:"Converted locally"}}
+
+const HTML_VOID_TAGS = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
+
+export function formatHtml(input: string, options?: { mode?: "format" | "minify" }): EngineResult {
+  const value = ensureBatchInput(input, "Enter HTML markup to format.");
+  const mode = options?.mode ?? "format";
+
+  if (mode === "minify") {
+    let minified = value.replace(/<!--(?!\[if)[\s\S]*?-->/g, "");
+    minified = minified.replace(/\s+/g, " ");
+    minified = minified.replace(/>\s+</g, "><");
+    minified = minified.replace(/\s+>/g, ">");
+    minified = minified.replace(/<\s+/g, "<");
+    minified = minified.trim();
+    const saved = Math.max(0, Math.round(((value.length - minified.length) / (value.length || 1)) * 100));
+    return {
+      output: minified,
+      meta: `Minified HTML — saved ${saved}% (${minified.length} chars)`,
+    };
+  }
+
+  const tokens = value.match(/<!DOCTYPE[^>]*>|<!--[\s\S]*?-->|<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<pre[\s\S]*?<\/pre>|<[^>]+>|[^<]+/gi) ?? [];
+  const output: string[] = [];
+  let indent = 0;
+
+  for (const token of tokens) {
+    const trimmed = token.trim();
+    if (!trimmed) continue;
+
+    if (trimmed.startsWith("<!DOCTYPE") || trimmed.startsWith("<!--")) {
+      output.push("  ".repeat(indent) + trimmed);
+      continue;
+    }
+
+    if (trimmed.startsWith("</")) {
+      indent = Math.max(0, indent - 1);
+      output.push("  ".repeat(indent) + trimmed);
+      continue;
+    }
+
+    if (trimmed.startsWith("<")) {
+      const tagMatch = trimmed.match(/^<([a-zA-Z0-9:-]+)/);
+      const tagName = tagMatch ? tagMatch[1].toLowerCase() : "";
+      const isSelfClosing = trimmed.endsWith("/>") || HTML_VOID_TAGS.has(tagName);
+
+      output.push("  ".repeat(indent) + trimmed);
+      if (!isSelfClosing && !trimmed.startsWith("<script") && !trimmed.startsWith("<style") && !trimmed.startsWith("<pre")) {
+        const hasMatchingClose = new RegExp(`</${tagName}>$`, "i").test(trimmed);
+        if (!hasMatchingClose) {
+          indent += 1;
+        }
+      }
+      continue;
+    }
+
+    output.push("  ".repeat(indent) + trimmed);
+  }
+
+  const result = output.join("\n");
+  return {
+    output: result,
+    meta: `Formatted HTML locally — ${output.length} lines`,
+  };
+}
+

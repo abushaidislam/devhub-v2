@@ -1,5 +1,30 @@
 # AI handoff
 
+## Latest Popular Tools & Safe Clipboard Handoff
+
+### Scope and objective
+- Implemented 3 widely used popular developer tools into DevHub:
+  - **Lorem Ipsum Generator** (`/tools/lorem-ipsum`): pure deterministic dummy text generator by paragraphs, sentences, or words with Cicero start options.
+  - **Chmod Calculator** (`/tools/chmod-calculator`): bidirectional converter for 3/4-digit octal, symbolic string, binary representation, and chmod terminal commands.
+  - **HTML Formatter & Minifier** (`/tools/html-formatter`): deterministic 2-space HTML formatting with void tags handling, and a fast minification mode.
+- Integrated all 3 tools across:
+  - Typed tool registry (`src/lib/tools.ts`) with `featured: true` and `isNew: true`.
+  - Pure tool engines (`src/lib/engines/generators.ts`, `src/lib/engines/text.ts`, `src/lib/engines/formatters.ts`).
+  - Single-source engine registry (`src/lib/engine-registry.ts`) preserving 1:1 coverage.
+  - Shared client runtime (`src/components/tools/tool-runtime.tsx`) with mode selects, default inputs, and accessible options.
+  - Smart input detector (`src/lib/detection.ts`) detecting HTML tags and chmod octal/symbolic strings.
+  - Next actions tool pairings (`src/lib/next-actions.ts`).
+  - Offline PWA precache contract (`public/sw.js`).
+- Fixed runtime `TypeError: Cannot read properties of undefined (reading 'writeText')`:
+  - Created `src/lib/clipboard.ts` (`copyText`) with automatic fallback to `document.execCommand` when `navigator.clipboard` is undefined (e.g. HTTP, local network IP access, or restricted webviews).
+  - Replaced raw `navigator.clipboard.writeText` across `tool-runtime.tsx`, `dual-workbench.tsx`, `hero-workbench.tsx`, and `landing-bento-grid.tsx`.
+
+### Validation
+- TypeScript check (`npx tsc --noEmit`): Passed (0 errors).
+- ESLint (`npm run lint`): Passed (0 errors).
+- Vitest test suite (`npm test`): 60 test files, 403/403 tests passed.
+- Production build (`npm run build`): All 66 static pages generated successfully.
+
 ## Latest Vercel-Aligned Sidebar Density & Item Polish Handoff
 
 ### Scope and objective

@@ -28,6 +28,18 @@ describe('getTool', () => {
     expect(yamlToJsonTool).toBeDefined();
     expect(yamlToJsonTool?.isNew).toBe(true);
 
+    const loremTool = getTool('lorem-ipsum');
+    expect(loremTool).toBeDefined();
+    expect(loremTool?.isNew).toBe(true);
+
+    const chmodTool = getTool('chmod-calculator');
+    expect(chmodTool).toBeDefined();
+    expect(chmodTool?.isNew).toBe(true);
+
+    const htmlTool = getTool('html-formatter');
+    expect(htmlTool).toBeDefined();
+    expect(htmlTool?.isNew).toBe(true);
+
     const jsonTool = getTool('json-formatter');
     expect(jsonTool).toBeDefined();
     expect(jsonTool?.isNew).toBeFalsy();

@@ -124,6 +124,21 @@ function isCurl(value: string) {
   return /^\s*curl\s+/i.test(value) || /^\s*curl$/i.test(value);
 }
 
+function isHtml(value: string) {
+  if (value.length > 100_000) return false;
+  return (
+    /<!doctype\s+html/i.test(value) ||
+    /<html[\s>]/i.test(value) ||
+    (/<(?:head|body|div|span|p|a|table|section|article|header|footer)[\s>]/i.test(value) &&
+      /<\/(?:head|body|div|span|p|a|table|section|article|header|footer)>/i.test(value))
+  );
+}
+
+function isChmod(value: string) {
+  if (value.length > 20) return false;
+  return /^0?[0-7]{3}$/.test(value) || /^[-d]?[r-][w-][x-][r-][w-][x-][r-][w-][x-]$/i.test(value);
+}
+
 function looksPrintable(value: string) {
   if (value.length < 3) return false;
   let printable = 0;
@@ -151,6 +166,14 @@ export function detectInput(input: string): Detection[] {
 
   if (isCurl(value)) {
     add("curl-converter", 0.99, "cURL command structure with URL, method, or headers");
+  }
+
+  if (isChmod(value)) {
+    add("chmod-calculator", 0.95, "Valid Unix octal or symbolic permission structure");
+  }
+
+  if (isHtml(value)) {
+    add("html-formatter", 0.95, "Recognized HTML document structure or element tags");
   }
 
   if ((value.startsWith("{") || value.startsWith("[")) && isJsonObject(value)) {

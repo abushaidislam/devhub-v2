@@ -10,6 +10,7 @@ import {trackActivationEvent} from "@/lib/analytics";
 import {ToolAiAssist} from "./tool-ai-assist";
 import {Switch} from "../ui/switch";
 import {Select} from "../ui/select";
+import {copyText} from "@/lib/clipboard";
 import styles from "./tool-runtime.module.css";
 
 const MIN_PANEL_PERCENT = 25;
@@ -52,6 +53,9 @@ const defaults: Record<string, string> = {
 		"json-to-typescript": '{\n  "name": "DevHub",\n  "tools": ["json", "yaml"]\n}',
 		"curl-converter": 'curl -X POST https://api.example.com/items \\\n  -H "Content-Type: application/json" \\\n  -H "Authorization: Bearer token123" \\\n  -d \'{"name": "Widget", "price": 42}\'',
 		"yaml-to-json": "name: DevHub\nversion: 2.0\nfeatures:\n  - local-first\n  - privacy\n  - fast\nsettings:\n  offline: true\n  port: 8080",
+		"lorem-ipsum": "3",
+		"chmod-calculator": "755",
+		"html-formatter": '<!DOCTYPE html>\n<html>\n<head>\n<title>DevHub</title>\n</head>\n<body>\n<main>\n<h1>DevHub</h1>\n<p>Fast, local-first developer tools.</p>\n<a href="/tools">Explore tools</a>\n</main>\n</body>\n</html>',
 	};
 
 
@@ -60,7 +64,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [input, setInput] = useState(initial);
 	const [aux, setAux] = useState(slug === "regex-tester" ? "DevHub" : "");
 	const [option, setOption] = useState(
-		slug === "hash-generator" ? "SHA-256" : slug === "curl-converter" ? "fetch" : "encode",
+		slug === "hash-generator" ? "SHA-256" : slug === "curl-converter" ? "fetch" : slug === "html-formatter" ? "format" : slug === "lorem-ipsum" ? "paragraphs" : "encode",
 	);
 	const [output, setOutput] = useState("");
 	const [meta, setMeta] = useState("Ready");
@@ -72,7 +76,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [isResizing, setIsResizing] = useState(false);
 	const panelsRef = useRef<HTMLDivElement>(null);
 
-	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities", "curl-converter"].includes(slug);
+	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities", "curl-converter", "html-formatter", "lorem-ipsum"].includes(slug);
 		const preview = slug === "markdown-preview";
 		const [livePreview, setLivePreview] = useState(preview);
 		const [markdownView, setMarkdownView] = useState<"preview" | "html">("preview");
@@ -80,6 +84,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		if (slug === "regex-tester") return `test the input text against this regular expression pattern: ${aux}`;
 		if (slug === "hash-generator") return `${option} hash`;
 		if (slug === "curl-converter") return `convert cURL command to ${option}`;
+		if (slug === "html-formatter") return `${option} HTML markup locally`;
+		if (slug === "lorem-ipsum") return `generate placeholder dummy text by ${option}`;
+		if (slug === "chmod-calculator") return "calculate Unix file permissions and chmod command";
 		if (slug === "base64" || slug === "url-encoder") return option;
 		const operations: Record<string, string> = {
 			"json-formatter": "format and validate JSON",
@@ -136,9 +143,13 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 				? "Text to test"
 				: slug === "uuid-generator"
 					? "Number of UUIDs"
-					: slug === "curl-converter"
-						? "cURL command (e.g. curl https://api.example.com)"
-						: `${name} input`,
+					: slug === "lorem-ipsum"
+						? "Number of items (e.g. 3)"
+						: slug === "chmod-calculator"
+							? "Octal (e.g. 755) or symbolic (e.g. rwxr-xr-x)"
+							: slug === "curl-converter"
+								? "cURL command (e.g. curl https://api.example.com)"
+								: `${name} input`,
 		[slug, name],
 	);
 
@@ -147,6 +158,8 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		if (slug === "hash-generator") return {algorithm: option};
 		if (slug === "regex-tester") return {pattern: aux, flags: "gi"};
 		if (slug === "curl-converter") return {target: option};
+		if (slug === "html-formatter") return {mode: option};
+		if (slug === "lorem-ipsum") return {units: option};
 		return undefined;
 	}
 
@@ -205,9 +218,11 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 
 		async function copy() {
 		if (!output || image || isRunning) return;
-		await navigator.clipboard.writeText(output);
-		setCopied(true);
-		setTimeout(() => setCopied(false), 1200);
+		const success = await copyText(output);
+		if (success) {
+			setCopied(true);
+			setTimeout(() => setCopied(false), 1200);
+		}
 	}
 
 		function downloadMarkdownHtml() {
@@ -369,6 +384,17 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 															{ value: "go", label: "Go (net/http)" },
 															{ value: "php", label: "PHP (cURL)" },
 														]
+													: slug === "html-formatter"
+														? [
+																{ value: "format", label: "Format / Beautify" },
+																{ value: "minify", label: "Minify" },
+															]
+													: slug === "lorem-ipsum"
+														? [
+																{ value: "paragraphs", label: "Paragraphs" },
+																{ value: "sentences", label: "Sentences" },
+																{ value: "words", label: "Words" },
+															]
 													: [
 															{ value: "encode", label: "Encode" },
 															{ value: "decode", label: "Decode" },

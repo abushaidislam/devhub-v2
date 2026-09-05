@@ -46,6 +46,9 @@ const PRECACHE_PATHS=[
 		"/tools/json-to-typescript",
 		"/tools/curl-converter",
 		"/tools/yaml-to-json",
+		"/tools/lorem-ipsum",
+		"/tools/chmod-calculator",
+		"/tools/html-formatter",
 		"/favicon.png",
 	"/icon.png",
 	"/icon-maskable.png"

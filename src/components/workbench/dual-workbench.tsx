@@ -18,6 +18,7 @@ import { parseCurl } from "@/lib/engines/curl";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Select, type SelectOption } from "../ui/select";
+import { copyText as safeCopyText } from "@/lib/clipboard";
 import styles from "./dual-workbench.module.css";
 
 const TOOL_SELECT_OPTIONS: SelectOption[] = tools.map((t) => {
@@ -375,13 +376,15 @@ export function DualWorkbench() {
 
   async function copyText(text: string, isLeft: boolean) {
     if (!text) return;
-    await navigator.clipboard.writeText(text);
-    if (isLeft) {
-      setLeftCopied(true);
-      setTimeout(() => setLeftCopied(false), 1200);
-    } else {
-      setRightCopied(true);
-      setTimeout(() => setRightCopied(false), 1200);
+    const ok = await safeCopyText(text);
+    if (ok) {
+      if (isLeft) {
+        setLeftCopied(true);
+        setTimeout(() => setLeftCopied(false), 1200);
+      } else {
+        setRightCopied(true);
+        setTimeout(() => setRightCopied(false), 1200);
+      }
     }
   }
 

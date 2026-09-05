@@ -15,6 +15,7 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
+import { copyText } from "@/lib/clipboard";
 import styles from "./landing-bento-grid.module.css";
 
 interface FormatSample {
@@ -124,14 +125,12 @@ export function LandingBentoGrid() {
   const activeFormat = FORMAT_SAMPLES[selectedFormat] || FORMAT_SAMPLES.JWT;
 
   const handleTsCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(
-        `interface UserResponse {\n  id: number;\n  email: string;\n  verified: boolean;\n}`
-      );
+    const ok = await copyText(
+      `interface UserResponse {\n  id: number;\n  email: string;\n  verified: boolean;\n}`
+    );
+    if (ok) {
       setTsCopied(true);
       setTimeout(() => setTsCopied(false), 2000);
-    } catch {
-      // Fallback
     }
   };
 

@@ -12,6 +12,7 @@ import {
   Terminal,
   Zap,
 } from "lucide-react";
+import { copyText } from "@/lib/clipboard";
 import styles from "./hero-workbench.module.css";
 
 interface SampleItem {
@@ -113,12 +114,10 @@ export function HeroWorkbench() {
     SAMPLES.find((s) => s.id === activeTabId) || SAMPLES[0];
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(activeSample.outputContent);
+    const ok = await copyText(activeSample.outputContent);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Fallback or ignore
     }
   };
 
