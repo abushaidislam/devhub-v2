@@ -1,5 +1,18 @@
 # AI handoff
 
+## Latest Vercel-Aligned Sidebar Density & Item Polish Handoff
+
+### Scope and objective
+- Aligned sidebar navigation item density, padding, height, and active pill styling directly with Vercel's official dashboard specifications.
+- Reduced primary navigation item height from 40px to 34px (`.primary a`) with 8px horizontal padding and 8px icon-label gap.
+- Reduced tool category accordion header height from 40px to 34px (`.scroll summary`) and tool sub-items from 36px to 30px (`.toolChildren a`).
+- Removed harsh left tick marker (`::before`) and inset box-shadow from active state, replacing it with Vercel's clean, soft rounded pill background (`var(--surface-active)` / `rgba(255,255,255,0.08)`).
+- Removed jarring `translateX(2px)` hover jumps in favor of instant, smooth background color transitions.
+- Compacted sidebar footer height to 54px and refined count badge pill styling.
+
+### Validation
+- Vitest unit tests: 3/3 passed in `src/components/dashboard/__tests__/dashboard-shell.test.tsx`.
+
 ## Latest Sidebar Split Resizer Handoff
 
 ### Scope and objective
