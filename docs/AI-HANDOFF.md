@@ -9,15 +9,17 @@
 - Re-architected the Smart Input Detector as a lean, compact Omnibar (`src/components/tools/smart-input-detector.tsx` & `smart-input-detector.module.css`):
   - Replaced the bulky 5-row card widget with a single-frame, Raycast/Linear-inspired command bar.
   - Idle height reduced from ~280px to ~78px, immediately bringing the tools grid into the primary viewport.
-  - Integrated search icon, auto-fitting/compact input, 1-click `Paste` button, and glowing `Local` status dot into a single inline row.
+  - Fixed click-to-focus: clicking anywhere on the input row container now immediately transfers focus to the textarea.
+  - Fixed keyboard submission: pressing `Enter` directly opens the top detected tool without requiring `⌘/Ctrl + Enter`.
+  - Added clipboard permission feedback: if browser security blocks `navigator.clipboard.readText()`, a graceful prompt `Press Ctrl+V / ⌘V to paste` displays immediately.
   - Compact sub-bar with ghost sample chips (`JSON`, `JWT`, `SQL`, `Cron`), privacy disclaimer, and keyboard shortcut badges.
-  - Dynamic results drop menu when input is provided, allowing instant navigation with `⌘/Ctrl + Enter`.
   - Maintained 100% test contract compatibility (`aria-label="Input to detect"`, `Clear detected input`, shortcuts, and handoff).
 
 ### Validation
 - TypeScript check (`npm run typecheck`): Passed (0 errors).
 - ESLint (`npm run lint`): Passed (0 errors).
 - Vitest test suite (`npx vitest run src/components/tools/__tests__/smart-input-detector.test.tsx`): 8/8 passed.
+- End-to-end browser verification via DevTools: tested click-to-focus, clipboard pasting, sample chips, and Enter key navigation to tools.
 
 ## Latest Popular Tools & Safe Clipboard Handoff
 

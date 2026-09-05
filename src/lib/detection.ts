@@ -166,6 +166,28 @@ function isChmod(value: string) {
   return /^0?[0-7]{3}$/.test(value) || /^[-d]?[r-][w-][x-][r-][w-][x-][r-][w-][x-]$/i.test(value);
 }
 
+function isUuid(value: string) {
+  if (value.length !== 36 && value.length !== 38) return false;
+  const clean = value.startsWith("{") && value.endsWith("}") ? value.slice(1, -1) : value;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(clean);
+}
+
+function isUnixTimestamp(value: string) {
+  if (value.length !== 10 && value.length !== 13) return false;
+  if (!/^\d+$/.test(value)) return false;
+  const num = Number(value);
+  return (num >= 946684800 && num <= 4102444800) || (num >= 946684800000 && num <= 4102444800000);
+}
+
+function isCsv(value: string) {
+  if (!value.includes(",") || !value.includes("\n") || value.length > 100_000) return false;
+  const lines = value.split("\n").map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 2) return false;
+  const firstCount = lines[0].split(",").length;
+  if (firstCount < 2) return false;
+  return lines.slice(0, 5).every((line) => line.split(",").length === firstCount);
+}
+
 function looksPrintable(value: string) {
   if (value.length < 3) return false;
   let printable = 0;
@@ -197,6 +219,18 @@ export function detectInput(input: string): Detection[] {
 
   if (isChmod(value)) {
     add("chmod-calculator", 0.95, "Valid Unix octal or symbolic permission structure");
+  }
+
+  if (isUuid(value)) {
+    add("uuid-generator", 0.95, "Valid UUID structure");
+  }
+
+  if (isUnixTimestamp(value)) {
+    add("timestamp-converter", 0.95, "Unix epoch timestamp in seconds or milliseconds");
+  }
+
+  if (isCsv(value)) {
+    add("csv-to-json", 0.92, "CSV tabular data with comma-separated values");
   }
 
   if (isHtml(value)) {

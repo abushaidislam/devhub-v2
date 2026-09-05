@@ -29,6 +29,9 @@ describe("smart input detection", () => {
     ["# Title\n\n- one\n- two", "markdown-linter"],
     ["RGV2SHVi", "base64"],
     ["curl -X POST https://api.devhub.tools/items -H 'Content-Type: application/json'", "curl-converter"],
+    ["c35d5b0e-35de-46a7-be7c-501add2d169f", "uuid-generator"],
+    ["1735689600", "timestamp-converter"],
+    ["id,name\n1,dev\n2,user", "csv-to-json"],
   ])("detects %s", (input, slug) => {
     expect(detectInput(input).some((result) => result.slug === slug)).toBe(true);
   });
