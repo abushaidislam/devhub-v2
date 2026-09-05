@@ -396,12 +396,12 @@ export function DashboardShell({
                         onClick={() => setMobileOpen(false)}
                       >
                         <span className={styles.toolIcon}>
-                          <Icon size={14} />
+                          <Icon size={15} />
                         </span>
                         <span className={styles.toolName}>{tool.name}</span>
                         {tool.isNew && <span className={styles.newBadge}>New</span>}
                         {favoriteSet.has(tool.slug) && (
-                          <Heart className={styles.favoriteMark} size={11} fill="currentColor" />
+                          <Heart className={styles.favoriteMark} size={13} fill="currentColor" />
                         )}
                       </Link>
                     );

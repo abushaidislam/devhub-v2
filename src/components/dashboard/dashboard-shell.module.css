@@ -68,8 +68,8 @@
 :global([data-theme="dark"]) .scroll summary:hover .chevron{color:rgba(255,255,255,0.75)}
 .scroll details[open] .chevron{transform:rotate(90deg)}
 
-.toolChildren{display:grid;gap:1px;padding:2px 0 4px 8px;border-left:1px solid var(--hairline);margin:2px 0 6px 16px}
-.toolChildren a{position:relative;height:30px;display:flex;align-items:center;gap:8px;padding:0 8px;border-radius:6px;color:var(--text-secondary);font-size:13.5px;line-height:18px;font-weight:500;letter-spacing:-0.28px;transition:color var(--duration-quick) var(--ease-smooth-out),background-color var(--duration-quick) var(--ease-smooth-out)}
+.toolChildren{display:grid;gap:2px;padding:2px 0 4px 8px;border-left:1px solid var(--hairline);margin:2px 0 6px 16px}
+.toolChildren a{position:relative;height:32px;display:flex;align-items:center;gap:8px;padding:0 8px;border-radius:6px;color:var(--text-secondary);font-size:13px;line-height:18px;font-weight:400;letter-spacing:-0.2px;transition:color var(--duration-quick) var(--ease-smooth-out),background-color var(--duration-quick) var(--ease-smooth-out)}
 :global([data-theme="dark"]) .toolChildren a{color:rgba(255,255,255,0.65)}
 .toolChildren a:hover{background:var(--surface-hover);color:var(--text-primary)}
 :global([data-theme="dark"]) .toolChildren a:hover{background:rgba(255,255,255,0.06);color:#ededed}
@@ -81,9 +81,14 @@
 :global([data-theme="dark"]) .toolChildren a:hover .toolIcon{color:#ededed}
 .toolChildren a[data-active=true] .toolIcon{color:var(--text-primary)}
 :global([data-theme="dark"]) .toolChildren a[data-active=true] .toolIcon{color:#ffffff}
-.toolChildren a span:nth-child(2),.toolName{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.favoriteMark{margin-left:auto;flex:none;color:var(--ink)}
-.newBadge{height:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;border-radius:999px;background:rgba(0,112,243,0.1);color:var(--link);font-size:11px;font-weight:500;line-height:1;letter-spacing:-0.2px;box-shadow:inset 0 0 0 1px rgba(0,112,243,0.25);flex:none;transition:color var(--duration-quick) var(--ease-smooth-out),background-color var(--duration-quick) var(--ease-smooth-out),box-shadow var(--duration-quick) var(--ease-smooth-out)}
+.toolChildren a span:nth-child(2),.toolName{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.favoriteMark{margin-left:auto;flex:none;color:var(--text-tertiary);transition:color var(--duration-quick) var(--ease-smooth-out)}
+:global([data-theme="dark"]) .favoriteMark{color:rgba(255,255,255,0.45)}
+.toolChildren a:hover .favoriteMark{color:var(--text-secondary)}
+:global([data-theme="dark"]) .toolChildren a:hover .favoriteMark{color:rgba(255,255,255,0.75)}
+.toolChildren a[data-active=true] .favoriteMark{color:var(--text-primary)}
+:global([data-theme="dark"]) .toolChildren a[data-active=true] .favoriteMark{color:#ffffff}
+.newBadge{height:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;border-radius:999px;background:rgba(0,112,243,0.1);color:var(--link);font-size:11px;font-weight:500;line-height:1;letter-spacing:-0.2px;box-shadow:inset 0 0 0 1px rgba(0,112,243,0.25);flex:none;margin-left:auto;transition:color var(--duration-quick) var(--ease-smooth-out),background-color var(--duration-quick) var(--ease-smooth-out),box-shadow var(--duration-quick) var(--ease-smooth-out)}
 :global([data-theme="dark"]) .newBadge{background:rgba(0,112,243,0.15);color:#3291ff;box-shadow:inset 0 0 0 1px rgba(0,112,243,0.35)}
 .toolChildren a:hover .newBadge{background:rgba(0,112,243,0.18);box-shadow:inset 0 0 0 1px rgba(0,112,243,0.4)}
 :global([data-theme="dark"]) .toolChildren a:hover .newBadge{background:rgba(0,112,243,0.24);box-shadow:inset 0 0 0 1px rgba(0,112,243,0.5)}

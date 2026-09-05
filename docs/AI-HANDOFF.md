@@ -1,5 +1,23 @@
 # AI handoff
 
+## Latest Category Dropdown Tool Links Polish Handoff
+
+### Scope and objective
+- Polished the category accordion tool child links (`.toolChildren a` in `src/components/dashboard/dashboard-shell.module.css` and `dashboard-shell.tsx`) to match the visual fidelity, optical weight, and sizing of the primary navigation links while preserving visual hierarchy:
+  - Refined typography to 13px font size with regular weight (`font-size: 13px; line-height: 18px; font-weight: 400; letter-spacing: -0.2px`), ensuring child links remain subordinate and don't visually overpower the parent category names ("Formatters", "Converters" at 14px / font-weight: 500).
+  - Set active link font weight to 500 (`font-weight: 500; color: #ffffff`) with the clean subtle pill background.
+  - Set tool link height to 32px (`height: 32px`) for a comfortable, balanced vertical rhythm.
+  - Adjusted tool icons to crisp 15px rendering in a 16x16px container (`<Icon size={15} />`), perfectly balanced with the 13px text and subordinate to the 18px category header icons.
+  - Adjusted vertical spacing in `.toolChildren` to `gap: 2px`.
+  - Aligned right-side elements (`.toolName` with `flex: 1`, smooth `.favoriteMark` opacity matching primary state, and clean `[New]` badge alignment).
+  - Tested in both dark and light themes with 100% aesthetic consistency and contrast adherence.
+
+### Validation
+- TypeScript check (`npm run typecheck`): Passed (0 errors).
+- ESLint (`npm run lint`): Passed (0 errors).
+- Vitest test suite (`npm run test`): 60/60 test files passed (406/406 tests passed).
+- Chrome DevTools visual check: Verified sidebar category dropdown links rendering across dark and light modes.
+
 ## Latest Lean Omnibar & Minimal Dashboard Header Polish Handoff
 
 ### Scope and objective
