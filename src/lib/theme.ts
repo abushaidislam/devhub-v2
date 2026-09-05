@@ -31,6 +31,18 @@ export function writeThemePreference(preference: ThemePreference): void {
 }
 
 export function applyTheme(theme: Theme): void {
+  if (typeof document === "undefined") return;
+
+  const prevTheme = document.documentElement.dataset.theme;
+  if (prevTheme && prevTheme !== theme) {
+    document.documentElement.classList.add("theme-transitioning");
+    const win = window as unknown as { _themeTimer?: ReturnType<typeof setTimeout> };
+    if (win._themeTimer) clearTimeout(win._themeTimer);
+    win._themeTimer = setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 280);
+  }
+
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
   const meta = document.querySelector('meta[name="theme-color"]');

@@ -7,6 +7,8 @@
 - Reduced primary navigation item height from 40px to 34px (`.primary a`) with 8px horizontal padding and 8px icon-label gap.
 - Reduced tool category accordion header height from 40px to 34px (`.scroll summary`) and tool sub-items from 36px to 30px (`.toolChildren a`).
 - Removed harsh left tick marker (`::before`) and inset box-shadow from active state, replacing it with Vercel's clean, soft rounded pill background (`var(--surface-active)` / `rgba(255,255,255,0.08)`).
+- Implemented buttery-smooth theme switching: added 250ms cross-fade transition on background, borders, text, and surfaces via `html.theme-transitioning` in `globals.css` and `applyTheme`, avoiding flash on initial page load while providing smooth fluidity on toggle.
+- Added animated icon morphing in `ThemeToggle` with cubic-bezier rotation and scale transitions for Sun and Moon icons, creating a state-of-the-art Vercel/Raycast-grade micro-interaction.
 - Fully aligned sidebar typography and luminance to Vercel's official design system (`label-sm`: 14px, `font-weight: 500`, `-0.28px` tracking).
 - Implemented Vercel's exact dark-mode contrast & opacity ladder: inactive items at `rgba(255,255,255,0.65)` with `0.50` opacity icons, hover at `rgba(255,255,255,0.06)` fill with `#ededed` text, and active item at `rgba(255,255,255,0.08)` pill fill with `#ffffff` (100% white peak contrast).
 - Redesigned the topbar search input button and theme toggle to match Vercel Geist chrome: clean 1px border (`rgba(255,255,255,0.12)`), solid dark background, readable 13px placeholder with refined `kbd` badge, and sleek ghost theme toggle without awkward box-shadows or bouncy hover translations.
