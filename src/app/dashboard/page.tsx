@@ -17,11 +17,14 @@ export default function DashboardPage() {
   return (
     <DashboardShell>
       <header className={styles.intro}>
-        <div>
+        <div className={styles.introLeft}>
           <span className="label">Developer toolkit</span>
-          <p>Paste structured data for a local match, or browse {tools.length} focused utilities.</p>
+          <span className={styles.dot} aria-hidden="true">·</span>
+          <p className={styles.desc}>{tools.length} offline-first developer utilities</p>
         </div>
-        <Badge className={styles.total} variant="gray" size="md">{tools.length} tools</Badge>
+        <Badge className={styles.total} variant="gray" size="sm">
+          {tools.length} tools
+        </Badge>
       </header>
       <SmartInputDetector />
       <DashboardToolGrid />

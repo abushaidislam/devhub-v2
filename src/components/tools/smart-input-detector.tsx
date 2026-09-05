@@ -2,12 +2,12 @@
 import {useCallback,useDeferredValue,useEffect,useMemo,useRef,useState,type KeyboardEvent as ReactKeyboardEvent} from "react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {ArrowUpRight,ScanSearch,ShieldCheck,X} from "lucide-react";
+import {ArrowUpRight,ClipboardPaste,ScanSearch,X} from "lucide-react";
 import {detectInput,DETECTION_INPUT_LIMIT} from "@/lib/detection";
 import {setDetectionHandoff} from "@/lib/detection-handoff";
 import {getTool} from "@/lib/tools";
 import styles from "./smart-input-detector.module.css";
-import { Badge, StatusDot } from "../ui/badge";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 
 const sampleInputs=[
@@ -39,6 +39,22 @@ export function SmartInputDetector(){
 		textareaRef.current?.focus();
 	},[]);
 
+	const handlePaste=useCallback(async()=>{
+		try{
+			if(typeof navigator!=="undefined"&&navigator.clipboard?.readText){
+				const text=await navigator.clipboard.readText();
+				if(text){
+					applyInput(text);
+					textareaRef.current?.focus();
+					return;
+				}
+			}
+		}catch{
+			// Clipboard read blocked or unsupported
+		}
+		textareaRef.current?.focus();
+	},[applyInput]);
+
 	useEffect(()=>{
 		function onGlobalKeyDown(event:KeyboardEvent){
 			if(event.key!=="/"||event.metaKey||event.ctrlKey||event.altKey)return;
@@ -68,39 +84,135 @@ export function SmartInputDetector(){
 		}
 	}
 
-	return <section className={styles.panel} aria-labelledby="smart-detect-title">
-		<header>
-			<div className={styles.icon} aria-hidden="true"><ScanSearch size={18}/></div>
-			<div>
-				<h2 id="smart-detect-title">Smart input detection</h2>
-				<p>Paste data to find the best matching local tool.</p>
+	const rows=input?Math.min(5,Math.max(2,input.split("\n").length)):1;
+
+	return <section className={styles.omnibar} aria-labelledby="smart-detect-title">
+		<h2 id="smart-detect-title" className={styles.srOnly}>Smart input detection</h2>
+		<label htmlFor="smart-detect-input" className={styles.srOnly}>Input to detect</label>
+
+		<div className={styles.inputRow}>
+			<div className={styles.searchIcon} aria-hidden="true">
+				<ScanSearch size={16} />
 			</div>
-			<Badge className={styles.localBadge} variant="teal" size="sm" icon={<StatusDot status="success" />}><ShieldCheck size={13} aria-hidden="true" />Local only</Badge>
-		</header>
-		<div className={styles.inputWrap}>
-			<label htmlFor="smart-detect-input">Input to detect</label>
-			<div className={styles.field}>
-				<textarea id="smart-detect-input" ref={textareaRef} value={input} onChange={event=>applyInput(event.target.value)} onKeyDown={onTextareaKeyDown} placeholder="Paste JSON, JWT, URL, Base64, SQL, cron, HEX, or Markdown…"/>
-				<small>{input.length.toLocaleString("en-US")} / {DETECTION_INPUT_LIMIT.toLocaleString("en-US")}</small>
-				{input&&<Button className={styles.clearButton} type="button" variant="tertiary" size="tiny" shape="square" aria-label="Clear detected input" onClick={clearInput} prefix={<X size={14}/>} />}
+			<textarea
+				id="smart-detect-input"
+				ref={textareaRef}
+				value={input}
+				onChange={event=>applyInput(event.target.value)}
+				onKeyDown={onTextareaKeyDown}
+				rows={rows}
+				placeholder="Paste JSON, JWT, SQL, Cron, URL, Base64 to detect matching tool…"
+				aria-label="Input to detect"
+				className={styles.textarea}
+			/>
+			<div className={styles.actions}>
+				{input?(
+					<>
+						<span className={styles.charCount}>{input.length.toLocaleString("en-US")} / {DETECTION_INPUT_LIMIT.toLocaleString("en-US")}</span>
+						<Button
+							className={styles.clearBtn}
+							type="button"
+							variant="tertiary"
+							size="tiny"
+							shape="square"
+							aria-label="Clear detected input"
+							onClick={clearInput}
+							prefix={<X size={13} />}
+						/>
+					</>
+				):(
+					<>
+						<button
+							type="button"
+							className={styles.pasteBtn}
+							onClick={handlePaste}
+							title="Paste from clipboard"
+						>
+							<ClipboardPaste size={12} aria-hidden="true" />
+							<span>Paste</span>
+						</button>
+						<span className={styles.localTag} title="Runs locally in browser">
+							<span className={styles.dot} />
+							Local
+						</span>
+					</>
+				)}
 			</div>
-			<div className={styles.footerRow}>
-				{input?(trimmed?<p className={styles.warning} role="status">Input was trimmed to {DETECTION_INPUT_LIMIT.toLocaleString("en-US")} characters.</p>:null):<div className={styles.samples} role="group" aria-label="Example inputs">
-					<span className={styles.samplesLabel}>Try</span>
-					{sampleInputs.map(sample=><Button key={sample.label} type="button" className={styles.sampleChip} variant="secondary" size="small" shape="rounded" onClick={()=>{applyInput(sample.value);textareaRef.current?.focus()}}>{sample.label}</Button>)}
-				</div>}
-				<div className={styles.hints} role="group" aria-label="Keyboard shortcuts">
-					<span className={styles.hintItem}><kbd>/</kbd> <span className={styles.hintAction}>focus</span></span>
-					<span className={styles.hintDivider} aria-hidden="true">·</span>
-					<span className={styles.hintItem}><kbd>Esc</kbd> <span className={styles.hintAction}>clear</span></span>
-					<span className={styles.hintDivider} aria-hidden="true">·</span>
-					<span className={styles.hintItem}><kbd>⌘/Ctrl</kbd><span className={styles.hintPlus}>+</span><kbd>Enter</kbd> <span className={styles.hintAction}>top match</span></span>
+		</div>
+
+		<div className={styles.footer}>
+			<div className={styles.samples} role="group" aria-label="Example inputs">
+				<span className={styles.tryLabel}>Try:</span>
+				{sampleInputs.map(sample=>(
+					<button
+						key={sample.label}
+						type="button"
+						className={styles.chip}
+						onClick={()=>{applyInput(sample.value);textareaRef.current?.focus()}}
+					>
+						{sample.label}
+					</button>
+				))}
+			</div>
+
+			<div className={styles.footerRight}>
+				{trimmed&&(
+					<span className={styles.warning} role="status">
+						Input was trimmed to {DETECTION_INPUT_LIMIT.toLocaleString("en-US")} characters.
+					</span>
+				)}
+				<span className={styles.privacy}>Nothing is stored or sent. Detection runs as you type.</span>
+				<div className={styles.hints} aria-hidden="true">
+					<span><kbd>/</kbd> focus</span>
+					<span><kbd>Esc</kbd> clear</span>
+					<span><kbd>⌘↵</kbd> open</span>
 				</div>
 			</div>
 		</div>
+
 		<p className={styles.srOnly} role="status">{matchSummary}</p>
-		<div className={styles.results}>
-			{hasQuery?detections.length?<ul>{detections.slice(0,4).map(detection=>{const tool=getTool(detection.slug);if(!tool)return null;const Icon=tool.icon;return <li key={detection.slug}><Link href={`/tools/${tool.slug}`} onClick={()=>handOff(detection.slug)}><span className={styles.toolIcon}><Icon size={16}/></span><span><strong>{tool.name}</strong><small>{detection.reason}</small></span><Badge variant={detection.confidence >= .8 ? "green" : "gray"} size="sm" title="Heuristic match, not validation">{Math.round(detection.confidence*100)}%</Badge><ArrowUpRight size={14}/></Link></li>})}</ul>:<p className={styles.empty}>No confident match. Try a larger or more structured sample.</p>:<p className={styles.empty}>Nothing is stored or sent. Detection runs as you type.</p>}
-		</div>
+
+		{hasQuery&&(
+			<div className={styles.resultsDrop}>
+				{detections.length?(
+					<div className={styles.matchWrap}>
+						<div className={styles.matchHeader}>
+							<span className={styles.matchCount}>
+								{detections.length===1?"1 matching tool found":`${detections.length} matching tools found`}
+							</span>
+							<span className={styles.matchHint}>Press ⌘/Ctrl + Enter to open top match</span>
+						</div>
+						<ul className={styles.matchList}>
+							{detections.slice(0,4).map(detection=>{
+								const tool=getTool(detection.slug);
+								if(!tool)return null;
+								const Icon=tool.icon;
+								return (
+									<li key={detection.slug}>
+										<Link
+											href={`/tools/${tool.slug}`}
+											onClick={()=>handOff(detection.slug)}
+											className={styles.matchLink}
+										>
+											<span className={styles.toolIcon}><Icon size={15} /></span>
+											<span className={styles.toolMeta}>
+												<strong>{tool.name}</strong>
+												<small>{detection.reason}</small>
+											</span>
+											<Badge variant={detection.confidence >= .8 ? "green" : "gray"} size="sm">
+												{Math.round(detection.confidence*100)}%
+											</Badge>
+											<ArrowUpRight size={13} className={styles.arrow} />
+										</Link>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
+				):(
+					<p className={styles.empty}>No confident match. Try a larger or more structured sample.</p>
+				)}
+			</div>
+		)}
 	</section>;
 }

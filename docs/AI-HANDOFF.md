@@ -1,5 +1,24 @@
 # AI handoff
 
+## Latest Lean Omnibar & Minimal Dashboard Header Polish Handoff
+
+### Scope and objective
+- Streamlined the All Tools dashboard intro header (`src/app/dashboard/page.tsx` & `dashboard.module.css`):
+  - Removed bloated card containers and stacked boxes.
+  - Formatted as a single, quiet typographic strip with `Developer toolkit · {count} offline-first developer utilities` and a small count badge.
+- Re-architected the Smart Input Detector as a lean, compact Omnibar (`src/components/tools/smart-input-detector.tsx` & `smart-input-detector.module.css`):
+  - Replaced the bulky 5-row card widget with a single-frame, Raycast/Linear-inspired command bar.
+  - Idle height reduced from ~280px to ~78px, immediately bringing the tools grid into the primary viewport.
+  - Integrated search icon, auto-fitting/compact input, 1-click `Paste` button, and glowing `Local` status dot into a single inline row.
+  - Compact sub-bar with ghost sample chips (`JSON`, `JWT`, `SQL`, `Cron`), privacy disclaimer, and keyboard shortcut badges.
+  - Dynamic results drop menu when input is provided, allowing instant navigation with `⌘/Ctrl + Enter`.
+  - Maintained 100% test contract compatibility (`aria-label="Input to detect"`, `Clear detected input`, shortcuts, and handoff).
+
+### Validation
+- TypeScript check (`npm run typecheck`): Passed (0 errors).
+- ESLint (`npm run lint`): Passed (0 errors).
+- Vitest test suite (`npx vitest run src/components/tools/__tests__/smart-input-detector.test.tsx`): 8/8 passed.
+
 ## Latest Popular Tools & Safe Clipboard Handoff
 
 ### Scope and objective
