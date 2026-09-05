@@ -9,6 +9,7 @@
 - Removed harsh left tick marker (`::before`) and inset box-shadow from active state, replacing it with Vercel's clean, soft rounded pill background (`var(--surface-active)` / `rgba(255,255,255,0.08)`).
 - Fully aligned sidebar typography and luminance to Vercel's official design system (`label-sm`: 14px, `font-weight: 500`, `-0.28px` tracking).
 - Implemented Vercel's exact dark-mode contrast & opacity ladder: inactive items at `rgba(255,255,255,0.65)` with `0.50` opacity icons, hover at `rgba(255,255,255,0.06)` fill with `#ededed` text, and active item at `rgba(255,255,255,0.08)` pill fill with `#ffffff` (100% white peak contrast).
+- Redesigned the topbar search input button and theme toggle to match Vercel Geist chrome: clean 1px border (`rgba(255,255,255,0.12)`), solid dark background, readable 13px placeholder with refined `kbd` badge, and sleek ghost theme toggle without awkward box-shadows or bouncy hover translations.
 - Applied subtle `0.42`–`0.45` opacity to metadata counts, chevrons, and uppercase section labels for a calm, distraction-free visual hierarchy.
 - Removed jarring `translateX(2px)` hover jumps in favor of instant, smooth background color transitions.
 - Compacted sidebar footer height to 54px and refined count badge pill styling.
