@@ -6,10 +6,32 @@
 .contextLine p{min-width:0;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-secondary);font-size:var(--font-size-copy-sm);font-weight:var(--font-weight-medium);line-height:var(--line-height-copy-tight);letter-spacing:-.006em}
 @media(max-width:620px){.context{align-items:flex-start;gap:14px;margin-bottom:16px;padding:10px 0}.contextLine{align-items:flex-start;flex-wrap:wrap;gap:7px}.contextLine p{flex-basis:100%;overflow:visible;text-overflow:clip;white-space:normal;line-height:var(--line-height-copy-tight)}}
 
-.seoContent{margin:24px 0 0;padding:24px;border:1px solid var(--border-subtle);background:var(--surface-subtle);border-radius:var(--radius-md)}
-.seoContent h2{margin:0 0 10px;color:var(--text-primary);font-size:18px;line-height:1.25;letter-spacing:-.03em}
-.seoContent p{max-width:760px;margin:0;color:var(--text-secondary);font-size:14px;line-height:1.435;letter-spacing:-.006em}
-.seoContent h3{margin:20px 0 8px;color:var(--text-primary);font-size: 14px;line-height:1.35;letter-spacing:-.018em}
-.seoContent ul{display:grid;gap:7px;margin:0;padding-left:20px;color:var(--text-secondary);font-size: 14px;line-height:1.43}
-.seoContent li::marker{color:var(--text-tertiary)}
-@media(max-width:620px){.seoContent{margin-top:18px;padding:18px}.seoContent h2{font-size:17px}}
+.seoContent{margin:28px 0 0;padding:24px;border:1px solid var(--border-subtle);background:var(--surface-subtle);border-radius:var(--radius-md)}
+.guideHeader{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.seoContent h2{margin:0;color:var(--text-primary);font-size:18px;line-height:1.25;letter-spacing:-.03em}
+.guideBadge{display:inline-flex;align-items:center;padding:3px 8px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text-secondary);background:var(--surface-default);border:1px solid var(--border-subtle);border-radius:var(--radius-full);letter-spacing:0.02em}
+.summaryLead{max-width:800px;margin:0 0 20px;color:var(--text-secondary);font-size:14px;line-height:1.5;letter-spacing:-.006em}
+
+.guideGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0}
+.guideCard{padding:16px 18px;background:var(--surface-default);border:1px solid var(--border-subtle);border-radius:var(--radius-sm)}
+.guideCard h3{margin:0 0 10px;color:var(--text-primary);font-size:13px;font-weight:600;letter-spacing:-.01em;text-transform:uppercase}
+.guideCard ul{display:grid;gap:8px;margin:0;padding-left:18px;color:var(--text-secondary);font-size:13px;line-height:1.45}
+.guideCard li::marker{color:var(--text-tertiary)}
+
+.howToSection{margin:24px 0 0;padding-top:20px;border-top:1px solid var(--border-subtle)}
+.howToSection h3{margin:0 0 12px;color:var(--text-primary);font-size:15px;line-height:1.35;letter-spacing:-.018em}
+.stepsList{display:grid;gap:10px;margin:0;padding-left:20px;color:var(--text-secondary);font-size:13px;line-height:1.5}
+.stepsList li::marker{font-family:var(--mono);font-weight:600;color:var(--text-tertiary)}
+
+.faqSection{margin:24px 0 0;padding-top:20px;border-top:1px solid var(--border-subtle)}
+.faqSection h3{margin:0 0 14px;color:var(--text-primary);font-size:15px;line-height:1.35;letter-spacing:-.018em}
+.faqList{display:grid;gap:12px}
+.faqItem{padding:14px 16px;background:var(--surface-default);border:1px solid var(--border-subtle);border-radius:var(--radius-sm)}
+.faqQuestion{margin:0 0 6px;color:var(--text-primary);font-size:13px;font-weight:600;line-height:1.35;letter-spacing:-.01em}
+.faqAnswer{margin:0;color:var(--text-secondary);font-size:13px;line-height:1.5}
+
+@media(max-width:620px){
+  .seoContent{margin-top:20px;padding:16px}
+  .seoContent h2{font-size:17px}
+  .guideGrid{grid-template-columns:1fr}
+}

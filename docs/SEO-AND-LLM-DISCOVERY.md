@@ -40,16 +40,22 @@ Root layout emits:
 - `WebSite`
 - `WebApplication`
 
-Individual tool pages emit `SoftwareApplication`. JSON-LD must reflect shipped behavior and must not claim reviews, ratings, downloads, AI, security, or pricing evidence that does not exist.
+Individual tool pages emit:
+
+- `SoftwareApplication` — application identity, category, and pricing ($0 / free).
+- `BreadcrumbList` — hierarchically scoped breadcrumbs (`Home > Tools > Category > Tool Name`).
+- `FAQPage` — dynamic question-and-answer pairs sourced from `src/lib/tool-knowledge.ts` for Google rich snippet eligibility and LLM citation clarity.
+
+JSON-LD must reflect shipped behavior and must not claim reviews, ratings, downloads, AI, security, or pricing evidence that does not exist.
 
 ## LLM discovery files
 
 Canonical paths:
 
-- `/llms.txt` — concise product summary and canonical tool links
-- `/llms-full.txt` — expanded product, architecture, privacy, strategy, and per-tool context
+- `/llms.txt` — concise product summary, categories, and canonical tool links.
+- `/llms-full.txt` — expanded product architecture, privacy doctrine, and deep per-tool context (canonical URLs, 100% client-side execution boundaries, key capabilities, developer use cases, step-by-step instructions, technical FAQs, and recommended tool chaining).
 
-The files are generated from `src/lib/tools.ts`, so tool inventory must not be duplicated manually. They use `text/plain; charset=utf-8` and can be cached at the edge.
+The files are generated dynamically from `src/lib/tools.ts` and `src/lib/tool-knowledge.ts`, so tool inventory is never manually duplicated. They use `text/plain; charset=utf-8` and are statically pre-rendered (`export const dynamic = "force-static"`).
 
 Important: `llms.txt` is an emerging convention, not a guaranteed ranking factor or universal crawler standard. It supplements—but never replaces—semantic HTML, metadata, structured data, sitemap, robots, documentation, and authoritative content.
 
