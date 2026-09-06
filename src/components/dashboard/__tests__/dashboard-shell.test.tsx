@@ -6,8 +6,10 @@ import {
   _resetDashboardShellCacheForTests,
 } from "@/components/dashboard/dashboard-shell";
 
+import { usePathname } from "next/navigation";
+
 vi.mock("next/navigation", () => ({
-  usePathname: () => "/dashboard",
+  usePathname: vi.fn(() => "/dashboard"),
   useRouter: () => ({ push: vi.fn() }),
 }));
 
@@ -20,6 +22,7 @@ vi.mock("next/image", () => ({
 
 describe("DashboardShell", () => {
   beforeEach(() => {
+    vi.mocked(usePathname).mockReturnValue("/dashboard");
     _resetDashboardShellCacheForTests();
     localStorage.clear();
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
@@ -120,9 +123,10 @@ describe("DashboardShell", () => {
   });
 
   it("preserves open categories across navigations and renders without collapsing existing ones", () => {
+    vi.mocked(usePathname).mockReturnValue("/tools/json-formatter");
     // First render with Formatters open by default
     const { unmount, container } = render(
-      <DashboardShell activeSlug="json-formatter">
+      <DashboardShell>
         <div>Page 1</div>
       </DashboardShell>
     );
@@ -146,9 +150,11 @@ describe("DashboardShell", () => {
 
     unmount();
 
+    vi.mocked(usePathname).mockReturnValue("/tools/jwt-decoder");
+
     // Now navigate to a Security tool (e.g. jwt-decoder)
     const { container: container2 } = render(
-      <DashboardShell activeSlug="jwt-decoder">
+      <DashboardShell>
         <div>Page 2</div>
       </DashboardShell>
     );
@@ -189,9 +195,11 @@ describe("DashboardShell", () => {
 
     unmount();
 
+    vi.mocked(usePathname).mockReturnValue("/tools/jwt-decoder");
+
     // Re-mount on a new page (simulating navigation)
     const { container: container2 } = render(
-      <DashboardShell activeSlug="jwt-decoder">
+      <DashboardShell>
         <div>Page 2</div>
       </DashboardShell>
     );

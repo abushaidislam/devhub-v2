@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+
 import { DashboardToolGrid } from "@/components/dashboard/dashboard-tool-grid";
 import { SmartInputDetector } from "@/components/tools/smart-input-detector";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <DashboardShell>
+    <>
       <header className={styles.intro}>
         <div className={styles.introLeft}>
           <span className="label">Developer toolkit</span>
@@ -28,6 +28,6 @@ export default function DashboardPage() {
       </header>
       <SmartInputDetector />
       <DashboardToolGrid />
-    </DashboardShell>
+    </>
   );
 }

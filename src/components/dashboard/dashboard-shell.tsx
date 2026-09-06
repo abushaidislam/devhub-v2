@@ -134,10 +134,8 @@ const categoryIcons = {
 
 export function DashboardShell({
   children,
-  activeSlug,
 }: {
   children: ReactNode;
-  activeSlug?: string;
 }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -151,13 +149,12 @@ export function DashboardShell({
   const collapseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const effectiveSlug = useMemo(() => {
-    if (activeSlug) return activeSlug;
     if (pathname?.startsWith("/tools/")) {
       const segment = pathname.split("/")[2];
       return segment || undefined;
     }
     return undefined;
-  }, [activeSlug, pathname]);
+  }, [pathname]);
 
   const activeTool = useMemo(
     () => (effectiveSlug ? getTool(effectiveSlug) : undefined),

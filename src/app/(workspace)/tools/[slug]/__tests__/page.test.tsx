@@ -10,11 +10,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 // Mock subcomponents
-vi.mock("@/components/dashboard/dashboard-shell", () => ({
-  DashboardShell: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="dashboard-shell">{children}</div>
-  ),
-}));
+
 vi.mock("@/components/dashboard/favorite-button", () => ({
   FavoriteButton: () => <button data-testid="fav-btn">Favorite</button>,
 }));
