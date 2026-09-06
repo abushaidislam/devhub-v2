@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.23.0](https://github.com/abushaidislam/devhub-v2/compare/v0.22.0...v0.23.0) (2026-09-05)
+
+
+### Features
+
+* add CSS modules for dual workbench layout and responsiveness ([2d4f379](https://github.com/abushaidislam/devhub-v2/commit/2d4f37902a6257a15fadeecd3f2a5ac4c3e349f2))
+* add dual split workbench and reusable custom select component ([0237f64](https://github.com/abushaidislam/devhub-v2/commit/0237f6455549b5dd57abf1bce957f389666edd7c))
+* add three new dev tools and improve clipboard handling ([4d5622a](https://github.com/abushaidislam/devhub-v2/commit/4d5622a8052697ab48fdab42d2ec1729b3607267))
+* **ai,ui,keyboard:** add streaming AI responses, request cancellation, and keyboard-first UX ([60fbf42](https://github.com/abushaidislam/devhub-v2/commit/60fbf42cac9aeb6dd16b90a3207bfe75163c1e63))
+* **curl-converter:** add tool to convert curl commands to client code ([818de53](https://github.com/abushaidislam/devhub-v2/commit/818de5325f9a8e790e7c2b5091fa0d18ee990607))
+* **curl:** add cookie handling and advanced flag detection for curl-to-fetch ([eaf3f01](https://github.com/abushaidislam/devhub-v2/commit/eaf3f01f959c3eb7784465885a1866dcd2298a29))
+* **dashboard:** add sidebar new tool badge for recently added tools ([be3667a](https://github.com/abushaidislam/devhub-v2/commit/be3667ab945b4cd453a2e008a39d1337035b44ab))
+* **dual-workbench:** add smart JSON payload extraction, fix layout and responsive styling ([7bf079e](https://github.com/abushaidislam/devhub-v2/commit/7bf079e3ccb4463a7ed807f87bd180ab101e7831))
+* implement dashboard shell component and document design system standards ([59c22ba](https://github.com/abushaidislam/devhub-v2/commit/59c22ba0020d927f03803c7ca29e43f0320cb8ed))
+* implement resizable dashboard sidebar layout and add project documentation ([074858b](https://github.com/abushaidislam/devhub-v2/commit/074858ba7f86d625abfa5078e90035ae118ae220))
+* implement responsive dashboard shell with resizable sidebar and add documentation for design system and AI handoff ([bc54dc7](https://github.com/abushaidislam/devhub-v2/commit/bc54dc7448232ccfafc9e2bf0f95612c2601d0ab))
+* improve site SEO, accessibility and metadata structure ([496ebcd](https://github.com/abushaidislam/devhub-v2/commit/496ebcd0cc254baa1d73fab8c673a6eff108016a))
+* initialize global CSS variables and base dashboard component modules ([872e821](https://github.com/abushaidislam/devhub-v2/commit/872e8214ad73c979a09f939302ae4335dd5c7b2e))
+* optimize command palette performance and align styling with Vercel Geist design system specifications. ([7ed6683](https://github.com/abushaidislam/devhub-v2/commit/7ed66833c19451381bed557ea771fcf4d516bb84))
+* **smart-input-detector:** add new detections and refine UI/UX ([f8db033](https://github.com/abushaidislam/devhub-v2/commit/f8db033cfd6f20ebae51fa14b9fae85ab9fdee20))
+* **theme:** implement buttery-smooth cross-fade transition and animated icon morphing ([316161a](https://github.com/abushaidislam/devhub-v2/commit/316161a41c1ca39375beb93d4ab8d6e2140fd955))
+* **tools:** add local-first YAML to JSON converter engine and workbench integration ([1cce573](https://github.com/abushaidislam/devhub-v2/commit/1cce5732f58aeaa3dc15ed75442495edf73b2b4f))
+
+
+### Performance Improvements
+
+* **detection:** add fast guards for isGitignore, isYaml, and isCurl ([#125](https://github.com/abushaidislam/devhub-v2/issues/125)) ([23791c7](https://github.com/abushaidislam/devhub-v2/commit/23791c7e95bd220ef65f0ab192d471b30f53ebca))
+* **engines:** optimize generateGitignore input parsing to single pass ([#119](https://github.com/abushaidislam/devhub-v2/issues/119)) ([874b538](https://github.com/abushaidislam/devhub-v2/commit/874b538b9930acfada5bcdb678b0f49d8a2e21f1))
+* **text:** precompile regular expressions in markdown linting ([#120](https://github.com/abushaidislam/devhub-v2/issues/120)) ([47ec26e](https://github.com/abushaidislam/devhub-v2/commit/47ec26e7993f8f311f0e7bc2f0af678fa7c69ebd))
+
 ## [0.22.0](https://github.com/abushaidislam/devhub-v2/compare/v0.21.1...v0.22.0) (2026-09-04)
 
 
