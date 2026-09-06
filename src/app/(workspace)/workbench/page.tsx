@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+
 import { DualWorkbench } from "@/components/workbench/dual-workbench";
 
 export const metadata: Metadata = {
@@ -11,9 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function WorkbenchPage() {
-  return (
-    <DashboardShell>
-      <DualWorkbench />
-    </DashboardShell>
-  );
+  return <DualWorkbench />;
 }

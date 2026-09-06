@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+
 import { FavoriteButton } from "@/components/dashboard/favorite-button";
 import { JsonLd } from "@/components/core/json-ld";
 import { NextActions } from "@/components/tools/next-actions";
@@ -107,7 +107,7 @@ export default async function ToolPage({
   };
 
   return (
-    <DashboardShell activeSlug={tool.slug}>
+    <>
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={faqJsonLd} />
@@ -176,6 +176,6 @@ export default async function ToolPage({
         </div>
       </section>
       <NextActions currentSlug={tool.slug} />
-    </DashboardShell>
+    </>
   );
 }

@@ -1,0 +1,1 @@
+import type {Metadata} from "next";import {RecentWorkspace} from "@/components/dashboard/recent-workspace";export const metadata:Metadata={title:"Recent Tools",description:"Optional local-only recent tool history.",alternates:{canonical:"/recent"},robots:{index:false,follow:true}};export default function RecentPage(){return <RecentWorkspace/>}

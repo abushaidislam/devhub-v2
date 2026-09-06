@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+
 import { SavedRecipeWorkspace } from "@/components/workflows/saved-recipe-workspace";
 
 export const metadata: Metadata = {
@@ -10,9 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function RecipesPage() {
-  return (
-    <DashboardShell>
-      <SavedRecipeWorkspace />
-    </DashboardShell>
-  );
+  return <SavedRecipeWorkspace />;
 }
