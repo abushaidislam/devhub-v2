@@ -98,6 +98,50 @@ describe("RecentWorkspace", () => {
     expect(screen.getByText("1h ago")).toBeInTheDocument();
   });
 
+  it("renders correct relative time strings for minutes and days", () => {
+    mockUseHistory.mockReturnValue({
+      entries: [
+        { id: "1", slug: "jwt-decoder", visitedAt: Date.now() - 60000 }, // 1 min ago
+        { id: "2", slug: "json-formatter", visitedAt: Date.now() - 86400000 }, // 1 day ago
+        { id: "3", slug: "url-parser", visitedAt: Date.now() - 172800000 }, // 2 days ago
+      ],
+      enabled: true,
+      available: true,
+      loading: false,
+      setEnabled: vi.fn(),
+      clear: vi.fn(),
+    });
+
+    render(<RecentWorkspace />);
+
+    expect(screen.getByText("1m ago")).toBeInTheDocument();
+    expect(screen.getByText("1d ago")).toBeInTheDocument();
+    expect(screen.getByText("2d ago")).toBeInTheDocument();
+  });
+
+  it("filters tools based on search query matching slug", async () => {
+    const user = userEvent.setup();
+    mockUseHistory.mockReturnValue({
+      entries: [
+        { id: "1", slug: "jwt-decoder", visitedAt: Date.now() },
+        { id: "2", slug: "json-formatter", visitedAt: Date.now() },
+      ],
+      enabled: true,
+      available: true,
+      loading: false,
+      setEnabled: vi.fn(),
+      clear: vi.fn(),
+    });
+
+    render(<RecentWorkspace />);
+
+    const searchInput = screen.getByPlaceholderText("Filter tools…");
+    await user.type(searchInput, "decoder");
+
+    expect(screen.queryByText("JSON Formatter")).not.toBeInTheDocument();
+    expect(screen.getByText("JWT Decoder")).toBeInTheDocument();
+  });
+
   it("filters tools based on search query", async () => {
     const user = userEvent.setup();
     mockUseHistory.mockReturnValue({
@@ -188,5 +232,46 @@ describe("RecentWorkspace", () => {
     // Ensure unknown tool isn't throwing errors and isn't rendered
     const listItems = screen.getAllByRole("listitem");
     expect(listItems).toHaveLength(1);
+  });
+
+  it("returns null if tool is not found during render", () => {
+    mockUseHistory.mockReturnValue({
+      entries: [
+        { id: "1", slug: "jwt-decoder", visitedAt: Date.now() },
+        { id: "2", slug: "unknown-tool", visitedAt: Date.now() }, // This should not render
+      ],
+      enabled: true,
+      available: true,
+      loading: false,
+      setEnabled: vi.fn(),
+      clear: vi.fn(),
+    });
+
+    render(<RecentWorkspace />);
+    expect(screen.getByText("JWT Decoder")).toBeInTheDocument();
+    expect(screen.queryByText("Unknown Tool")).not.toBeInTheDocument();
+    const listItems = screen.getAllByRole("listitem");
+    expect(listItems).toHaveLength(1);
+  });
+
+  it("handles trailing spaces and varying cases in search query", async () => {
+    const user = userEvent.setup();
+    mockUseHistory.mockReturnValue({
+      entries: [
+        { id: "1", slug: "jwt-decoder", visitedAt: Date.now() },
+      ],
+      enabled: true,
+      available: true,
+      loading: false,
+      setEnabled: vi.fn(),
+      clear: vi.fn(),
+    });
+
+    render(<RecentWorkspace />);
+
+    const searchInput = screen.getByPlaceholderText("Filter tools…");
+    await user.type(searchInput, "  JwT  ");
+
+    expect(screen.getByText("JWT Decoder")).toBeInTheDocument();
   });
 });
