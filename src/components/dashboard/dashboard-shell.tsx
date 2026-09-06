@@ -327,6 +327,7 @@ export function DashboardShell({
             size="medium"
             shape="square"
             aria-label="Close navigation"
+            title="Close navigation"
             onClick={() => setMobileOpen(false)}
             prefix={<X size={17} />}
           />
@@ -423,6 +424,7 @@ export function DashboardShell({
             size="small"
             shape="circle"
             aria-label="GitHub repository"
+            title="GitHub repository"
             prefix={<Github size={15} />}
           />
         </footer>
@@ -462,6 +464,7 @@ export function DashboardShell({
               size="medium"
               shape="square"
               aria-label="Open navigation"
+              title="Open navigation"
               onClick={() => setMobileOpen(true)}
               prefix={<Menu size={18} />}
             />
@@ -471,6 +474,7 @@ export function DashboardShell({
               size="medium"
               shape="square"
               aria-label={sidebarOpen ? "Hide navigation" : "Show navigation"}
+              title={sidebarOpen ? "Hide navigation" : "Show navigation"}
               onClick={() => setSidebarOpen((value) => !value)}
               prefix={sidebarOpen ? <PanelLeftClose size={17} /> : <PanelLeftOpen size={17} />}
             />

@@ -60,7 +60,7 @@ export function SearchInput({
           aria-describedby={error && id ? `${id}-error` : undefined}
         />
         {clearable && hasValue && onClear ? (
-          <button className={styles.clear} type="button" aria-label="Clear search" onClick={onClear}>
+          <button className={styles.clear} type="button" aria-label="Clear search" title="Clear search" onClick={onClear}>
             <X size={15} aria-hidden="true" />
           </button>
         ) : null}
