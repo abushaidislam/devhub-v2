@@ -1,7 +1,10 @@
 // @vitest-environment jsdom
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+import {
+  DashboardShell,
+  _resetDashboardShellCacheForTests,
+} from "@/components/dashboard/dashboard-shell";
 
 vi.mock("next/navigation", () => ({
   usePathname: () => "/dashboard",
@@ -17,6 +20,8 @@ vi.mock("next/image", () => ({
 
 describe("DashboardShell", () => {
   beforeEach(() => {
+    _resetDashboardShellCacheForTests();
+    localStorage.clear();
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
       matches: false,
       media: query,
@@ -112,5 +117,87 @@ describe("DashboardShell", () => {
     fireEvent.keyDown(resizer, { key: "ArrowLeft" });
     const finalCls = (container.firstChild as HTMLElement)?.className || "";
     expect(finalCls).toContain("noSidebar");
+  });
+
+  it("preserves open categories across navigations and renders without collapsing existing ones", () => {
+    // First render with Formatters open by default
+    const { unmount, container } = render(
+      <DashboardShell activeSlug="json-formatter">
+        <div>Page 1</div>
+      </DashboardShell>
+    );
+
+    const detailsList = container.querySelectorAll("details");
+    const formatters = Array.from(detailsList).find((d) =>
+      d.querySelector("summary")?.textContent?.includes("Formatters")
+    );
+    const converters = Array.from(detailsList).find((d) =>
+      d.querySelector("summary")?.textContent?.includes("Converters")
+    );
+
+    expect(formatters).toHaveAttribute("open");
+    expect(converters).not.toHaveAttribute("open");
+
+    // User toggles Converters open
+    if (converters) {
+      converters.open = true;
+      fireEvent(converters, new Event("toggle"));
+    }
+
+    unmount();
+
+    // Now navigate to a Security tool (e.g. jwt-decoder)
+    const { container: container2 } = render(
+      <DashboardShell activeSlug="jwt-decoder">
+        <div>Page 2</div>
+      </DashboardShell>
+    );
+
+    const detailsList2 = container2.querySelectorAll("details");
+    const formatters2 = Array.from(detailsList2).find((d) =>
+      d.querySelector("summary")?.textContent?.includes("Formatters")
+    );
+    const converters2 = Array.from(detailsList2).find((d) =>
+      d.querySelector("summary")?.textContent?.includes("Converters")
+    );
+    const security2 = Array.from(detailsList2).find((d) =>
+      d.querySelector("summary")?.textContent?.includes("Security")
+    );
+
+    // Active tool's category (Security) is open
+    expect(security2).toHaveAttribute("open");
+    // Previously open categories (Formatters, Converters) STAY open (no jumping/collapsing!)
+    expect(formatters2).toHaveAttribute("open");
+    expect(converters2).toHaveAttribute("open");
+  });
+
+  it("preserves sidebar collapsed state across re-renders/navigations", async () => {
+    const { waitFor } = await import("@testing-library/react");
+    const { unmount, container } = render(
+      <DashboardShell>
+        <div>Page 1</div>
+      </DashboardShell>
+    );
+
+    const collapseBtn = screen.getByRole("button", { name: /Hide navigation/i });
+    fireEvent.click(collapseBtn);
+
+    await waitFor(() => {
+      const cls = (container.firstChild as HTMLElement)?.className || "";
+      expect(cls).toContain("noSidebar");
+    });
+
+    unmount();
+
+    // Re-mount on a new page (simulating navigation)
+    const { container: container2 } = render(
+      <DashboardShell activeSlug="jwt-decoder">
+        <div>Page 2</div>
+      </DashboardShell>
+    );
+
+    // Should remain collapsed!
+    const cls2 = (container2.firstChild as HTMLElement)?.className || "";
+    expect(cls2).toContain("noSidebar");
   });
 });

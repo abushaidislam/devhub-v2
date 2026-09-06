@@ -1,9 +1,12 @@
 /* Dashboard Shell — consolidated single-pass using SSOT tokens */
-.app{min-height:100vh;display:grid;grid-template-columns:var(--sidebar-width,256px) minmax(0,1fr);background:var(--bg);transition:grid-template-columns var(--duration-fast) var(--ease-smooth-out)}
+.app{min-height:100vh;display:grid;grid-template-columns:var(--sidebar-width,256px) minmax(0,1fr);background:var(--bg)}
+.app[data-collapsing="true"]{transition:grid-template-columns var(--duration-fast) var(--ease-smooth-out)}
 .app[data-resizing="true"]{transition:none!important}
 .app.noSidebar{grid-template-columns:0 minmax(0,1fr)}
 
-.sidebar{position:sticky;top:0;height:100vh;width:var(--sidebar-width,256px);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;border-right:1px solid var(--hairline);background:var(--bg);z-index:50;transition:transform var(--duration-fast) var(--ease-smooth-out),opacity var(--duration-fast) var(--ease-smooth-out);-webkit-font-smoothing:antialiased}
+.sidebar{position:sticky;top:0;height:100vh;width:var(--sidebar-width,256px);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;border-right:1px solid var(--hairline);background:var(--bg);z-index:50;-webkit-font-smoothing:antialiased}
+.app[data-collapsing="true"] .sidebar,
+.sidebar.open{transition:transform var(--duration-fast) var(--ease-smooth-out),opacity var(--duration-fast) var(--ease-smooth-out)}
 .noSidebar .sidebar{transform:translateX(-100%);opacity:0;pointer-events:none}
 
 .sidebar[data-will-collapse="true"]{opacity:0.45;transition:opacity var(--duration-fast) var(--ease-smooth-out)}

@@ -1,6 +1,32 @@
 # AI handoff
 
-## Latest Full-Site SEO Audit and Optimization Handoff
+## Latest Dashboard Sidebar Navigation Stability & Jitter Elimination Handoff
+
+### Scope and objective
+- Resolved the sidebar reload, flicker, and shaking/jitter ("kape") issue when navigating between sidebar links in DevHub v2:
+  - **Root Cause Identified**:
+    1. Next.js App Router unmounts leaf `page.tsx` on navigation. Because `DashboardShell` was rendered in individual pages, each route change re-instantiated `DashboardShell`, causing CSS layout recalculations and DOM reconstruction.
+    2. `.app` had unconditional `transition: grid-template-columns`, causing the sidebar width to visibly animate/shake whenever the browser recalculated columns or hydrated `sidebarWidth`.
+    3. `.sidebar` had unconditional `transition: transform, opacity`, triggering visibility and transform flickers on navigation.
+    4. Accordions used `open={activeCategory ? activeCategory === category : index === 0}`, causing categories the user had opened to violently snap shut, creating 100-200px sudden vertical layout jumps when navigating to tools in other categories or to dashboard pages.
+    5. The `.scroll` container's scroll position reset to 0 on every page navigation, disorienting users when clicking tools located further down the sidebar.
+    6. Collapsed sidebar state (`sidebarOpen === false`) reset back to `true` on page transitions.
+  - **Surgical, Zero-Regression Fix Implemented**:
+    - **Module-Scoped State Preservation**: Added persistent in-memory caching for `cachedSidebarWidth`, `cachedSidebarOpen`, `cachedScrollTop`, and `cachedOpenCategories` surviving SPA navigations across route changes.
+    - **Smooth Accordion Category Tracking**: Converted category `<details>` from a destructive single-active-only state to an additive `openCategories` Set. Navigating to any tool ensures its category is opened while keeping previously opened categories intact.
+    - **Subpixel Scroll Restoration**: Added instantaneous and `requestAnimationFrame`-backed scroll restoration to `scrollRef.current.scrollTop` so the sidebar never jumps to the top on navigation.
+    - **Scoped CSS Transitions**: Confined `grid-template-columns` and `transform`/`opacity` transitions to `data-collapsing="true"` (explicit collapse toggle) and `.sidebar.open` (mobile drawer), eliminating all layout jitter during page navigation.
+    - **Effective Slug Fallback**: Auto-derived active tool slug from `pathname` when `activeSlug` prop is not explicitly passed.
+    - **Collapse Preference Persistence**: Persisted `sidebarOpen` to `localStorage` under `devhub:sidebar-open` and restored synchronously.
+
+### Validation
+- Vitest suite (`npm test`): 63/63 test files passed (417/417 tests passed).
+- Next.js production build (`npm run build`): Clean pass, 66/66 static & SSG pages generated.
+- Live browser validation via Chrome DevTools:
+  - Verified scroll position is accurately preserved across navigations without jitter.
+  - Verified open categories remain open when switching between tools.
+  - Verified collapsed sidebar state stays collapsed across page transitions.
+  - Verified sidebar width resizing and keyboard accessibility are preserved.
 
 ### Scope and objective
 - Performed a comprehensive full-site technical SEO and metadata audit across DevHub v2.

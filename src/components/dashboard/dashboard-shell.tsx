@@ -51,6 +51,75 @@ const MAX_SIDEBAR_WIDTH = 420;
 const SNAP_COLLAPSE_THRESHOLD = 150;
 const SIDEBAR_STEP = 10;
 const SIDEBAR_STORAGE_KEY = "devhub:sidebar-width";
+const SIDEBAR_OPEN_STORAGE_KEY = "devhub:sidebar-open";
+
+// Module-level persistent state across SPA navigations within the session
+let cachedSidebarWidth: number | null = null;
+let cachedSidebarOpen: boolean | null = null;
+let cachedScrollTop = 0;
+let cachedOpenCategories: Set<string> | null = null;
+
+export function _resetDashboardShellCacheForTests() {
+  cachedSidebarWidth = null;
+  cachedSidebarOpen = null;
+  cachedScrollTop = 0;
+  cachedOpenCategories = null;
+}
+
+function getInitialSidebarWidth(): number {
+  if (cachedSidebarWidth !== null) {
+    return cachedSidebarWidth;
+  }
+  if (typeof window !== "undefined") {
+    try {
+      const saved = localStorage.getItem(SIDEBAR_STORAGE_KEY);
+      if (saved) {
+        const parsed = Number(saved);
+        if (!Number.isNaN(parsed) && parsed >= MIN_SIDEBAR_WIDTH && parsed <= MAX_SIDEBAR_WIDTH) {
+          cachedSidebarWidth = parsed;
+          return parsed;
+        }
+      }
+    } catch {}
+  }
+  cachedSidebarWidth = DEFAULT_SIDEBAR_WIDTH;
+  return DEFAULT_SIDEBAR_WIDTH;
+}
+
+function getInitialSidebarOpen(): boolean {
+  if (cachedSidebarOpen !== null) {
+    return cachedSidebarOpen;
+  }
+  if (typeof window !== "undefined") {
+    try {
+      const saved = localStorage.getItem(SIDEBAR_OPEN_STORAGE_KEY);
+      if (saved !== null) {
+        const isOpen = saved === "true";
+        cachedSidebarOpen = isOpen;
+        return isOpen;
+      }
+    } catch {}
+  }
+  cachedSidebarOpen = true;
+  return true;
+}
+
+function getInitialOpenCategories(activeCategory?: string): Set<string> {
+  if (cachedOpenCategories !== null) {
+    if (activeCategory && !cachedOpenCategories.has(activeCategory)) {
+      cachedOpenCategories.add(activeCategory);
+    }
+    return new Set(cachedOpenCategories);
+  }
+  const initial = new Set<string>();
+  if (activeCategory) {
+    initial.add(activeCategory);
+  } else {
+    initial.add(categories[0]);
+  }
+  cachedOpenCategories = new Set(initial);
+  return initial;
+}
 
 const categoryIcons = {
   Formatters: Braces,
@@ -72,12 +141,33 @@ export function DashboardShell({
 }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_SIDEBAR_WIDTH);
+  const [sidebarOpen, setSidebarOpen] = useState(getInitialSidebarOpen);
+  const [sidebarWidth, setSidebarWidth] = useState(getInitialSidebarWidth);
   const [isResizing, setIsResizing] = useState(false);
+  const [isCollapsing, setIsCollapsing] = useState(false);
   const [willCollapse, setWillCollapse] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const collapseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const effectiveSlug = useMemo(() => {
+    if (activeSlug) return activeSlug;
+    if (pathname?.startsWith("/tools/")) {
+      const segment = pathname.split("/")[2];
+      return segment || undefined;
+    }
+    return undefined;
+  }, [activeSlug, pathname]);
+
+  const activeTool = useMemo(
+    () => (effectiveSlug ? getTool(effectiveSlug) : undefined),
+    [effectiveSlug]
+  );
+  const activeCategory = activeTool?.category;
+
+  const [openCategories, setOpenCategories] = useState<Set<string>>(() =>
+    getInitialOpenCategories(activeCategory)
+  );
 
   const widthRef = useRef(DEFAULT_SIDEBAR_WIDTH);
   widthRef.current = sidebarWidth;
@@ -87,6 +177,7 @@ export function DashboardShell({
 
   const mainRef = useRef<HTMLElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const searchButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -94,8 +185,6 @@ export function DashboardShell({
 
   const { favorites } = useFavorites();
   const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
-  const activeTool = useMemo(() => (activeSlug ? getTool(activeSlug) : undefined), [activeSlug]);
-  const activeCategory = activeTool?.category;
 
   const pageTitle =
     pathname === "/favorites"
@@ -108,9 +197,50 @@ export function DashboardShell({
       ? "AI assistant"
       : pathname === "/workbench"
       ? "Dual Workbench"
-      : activeSlug
+      : effectiveSlug
       ? (activeTool?.name ?? "Tool")
       : "All tools";
+
+  useEffect(() => {
+    if (activeCategory) {
+      setOpenCategories((prev) => {
+        if (prev.has(activeCategory)) return prev;
+        const next = new Set(prev);
+        next.add(activeCategory);
+        cachedOpenCategories = next;
+        return next;
+      });
+    }
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (cachedScrollTop > 0) {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = cachedScrollTop;
+      }
+      const raf = requestAnimationFrame(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTop = cachedScrollTop;
+        }
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [pathname]);
+
+  function handleNavClick() {
+    if (scrollRef.current) {
+      cachedScrollTop = scrollRef.current.scrollTop;
+    }
+    setMobileOpen(false);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (collapseTimeoutRef.current) {
+        clearTimeout(collapseTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     try {
@@ -119,7 +249,14 @@ export function DashboardShell({
         const parsed = Number(saved);
         if (!Number.isNaN(parsed) && parsed >= MIN_SIDEBAR_WIDTH && parsed <= MAX_SIDEBAR_WIDTH) {
           setSidebarWidth(parsed);
+          cachedSidebarWidth = parsed;
         }
+      }
+      const savedOpen = localStorage.getItem(SIDEBAR_OPEN_STORAGE_KEY);
+      if (savedOpen !== null) {
+        const isOpen = savedOpen === "true";
+        setSidebarOpen(isOpen);
+        cachedSidebarOpen = isOpen;
       }
     } catch {}
   }, []);
@@ -131,8 +268,8 @@ export function DashboardShell({
   }, []);
 
   useEffect(() => {
-    if (activeSlug) void recordHistory(activeSlug);
-  }, [activeSlug]);
+    if (effectiveSlug) void recordHistory(effectiveSlug);
+  }, [effectiveSlug]);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -230,9 +367,14 @@ export function DashboardShell({
     setWillCollapse(false);
     if (shouldCollapse) {
       setSidebarOpen(false);
+      cachedSidebarOpen = false;
+      try {
+        localStorage.setItem(SIDEBAR_OPEN_STORAGE_KEY, "false");
+      } catch {}
       const restored = Math.max(MIN_SIDEBAR_WIDTH, preDragWidthRef.current);
       setSidebarWidth(restored);
       widthRef.current = restored;
+      cachedSidebarWidth = restored;
       try {
         localStorage.setItem(SIDEBAR_STORAGE_KEY, String(restored));
       } catch {}
@@ -243,6 +385,7 @@ export function DashboardShell({
       );
       setSidebarWidth(finalWidth);
       widthRef.current = finalWidth;
+      cachedSidebarWidth = finalWidth;
       try {
         localStorage.setItem(SIDEBAR_STORAGE_KEY, String(finalWidth));
       } catch {}
@@ -252,6 +395,7 @@ export function DashboardShell({
   function handleResizerDoubleClick() {
     setSidebarWidth(DEFAULT_SIDEBAR_WIDTH);
     widthRef.current = DEFAULT_SIDEBAR_WIDTH;
+    cachedSidebarWidth = DEFAULT_SIDEBAR_WIDTH;
     try {
       localStorage.setItem(SIDEBAR_STORAGE_KEY, String(DEFAULT_SIDEBAR_WIDTH));
     } catch {}
@@ -262,10 +406,15 @@ export function DashboardShell({
       event.preventDefault();
       if (sidebarWidth <= MIN_SIDEBAR_WIDTH) {
         setSidebarOpen(false);
+        cachedSidebarOpen = false;
+        try {
+          localStorage.setItem(SIDEBAR_OPEN_STORAGE_KEY, "false");
+        } catch {}
       } else {
         const next = Math.max(MIN_SIDEBAR_WIDTH, sidebarWidth - SIDEBAR_STEP);
         setSidebarWidth(next);
         widthRef.current = next;
+        cachedSidebarWidth = next;
         try {
           localStorage.setItem(SIDEBAR_STORAGE_KEY, String(next));
         } catch {}
@@ -275,6 +424,7 @@ export function DashboardShell({
       const next = Math.min(MAX_SIDEBAR_WIDTH, sidebarWidth + SIDEBAR_STEP);
       setSidebarWidth(next);
       widthRef.current = next;
+      cachedSidebarWidth = next;
       try {
         localStorage.setItem(SIDEBAR_STORAGE_KEY, String(next));
       } catch {}
@@ -282,6 +432,7 @@ export function DashboardShell({
       event.preventDefault();
       setSidebarWidth(MIN_SIDEBAR_WIDTH);
       widthRef.current = MIN_SIDEBAR_WIDTH;
+      cachedSidebarWidth = MIN_SIDEBAR_WIDTH;
       try {
         localStorage.setItem(SIDEBAR_STORAGE_KEY, String(MIN_SIDEBAR_WIDTH));
       } catch {}
@@ -289,16 +440,40 @@ export function DashboardShell({
       event.preventDefault();
       setSidebarWidth(MAX_SIDEBAR_WIDTH);
       widthRef.current = MAX_SIDEBAR_WIDTH;
+      cachedSidebarWidth = MAX_SIDEBAR_WIDTH;
       try {
         localStorage.setItem(SIDEBAR_STORAGE_KEY, String(MAX_SIDEBAR_WIDTH));
       } catch {}
     }
   }
 
+  function handleToggleSidebar() {
+    setIsCollapsing(true);
+    if (collapseTimeoutRef.current) clearTimeout(collapseTimeoutRef.current);
+    collapseTimeoutRef.current = setTimeout(() => {
+      setIsCollapsing(false);
+    }, 250);
+
+    setSidebarOpen((value) => {
+      const next = !value;
+      cachedSidebarOpen = next;
+      try {
+        localStorage.setItem(SIDEBAR_OPEN_STORAGE_KEY, String(next));
+      } catch {}
+      return next;
+    });
+  }
+
+  function handleScroll(event: React.UIEvent<HTMLDivElement>) {
+    cachedScrollTop = event.currentTarget.scrollTop;
+  }
+
   return (
     <div
       className={`${styles.app} ${!sidebarOpen ? styles.noSidebar : ""}`}
       data-resizing={isResizing}
+      data-collapsing={isCollapsing}
+      suppressHydrationWarning
       style={{ "--sidebar-width": `${sidebarWidth}px` } as CSSProperties}
     >
       <aside
@@ -331,39 +506,39 @@ export function DashboardShell({
             prefix={<X size={17} />}
           />
         </div>
-        <div className={styles.scroll}>
+        <div ref={scrollRef} className={styles.scroll} onScroll={handleScroll}>
           <nav className={styles.primary} aria-label="Workspace navigation">
-            <Link href="/dashboard" data-active={pathname === "/dashboard"}>
+            <Link href="/dashboard" data-active={pathname === "/dashboard"} onClick={handleNavClick}>
               <span className={styles.primaryIcon}>
                 <Grid2X2 size={18} />
               </span>
               All tools<small>{tools.length}</small>
             </Link>
-            <Link href="/favorites" data-active={pathname === "/favorites"}>
+            <Link href="/favorites" data-active={pathname === "/favorites"} onClick={handleNavClick}>
               <span className={styles.primaryIcon}>
                 <Heart size={18} fill={pathname === "/favorites" ? "currentColor" : "none"} />
               </span>
               Favorites<small>{favorites.length}</small>
             </Link>
-            <Link href="/workbench" data-active={pathname === "/workbench"} onClick={() => setMobileOpen(false)}>
+            <Link href="/workbench" data-active={pathname === "/workbench"} onClick={handleNavClick}>
               <span className={styles.primaryIcon}>
                 <Columns2 size={18} />
               </span>
               Workbench
             </Link>
-            <Link href="/recipes" data-active={pathname === "/recipes"} onClick={() => setMobileOpen(false)}>
+            <Link href="/recipes" data-active={pathname === "/recipes"} onClick={handleNavClick}>
               <span className={styles.primaryIcon}>
                 <Workflow size={18} />
               </span>
               Recipes
             </Link>
-            <Link href="/assistant" data-active={pathname === "/assistant"} onClick={() => setMobileOpen(false)}>
+            <Link href="/assistant" data-active={pathname === "/assistant"} onClick={handleNavClick}>
               <span className={styles.primaryIcon}>
                 <Sparkles size={18} />
               </span>
               Assistant
             </Link>
-            <Link href="/recent" data-active={pathname === "/recent"} onClick={() => setMobileOpen(false)}>
+            <Link href="/recent" data-active={pathname === "/recent"} onClick={handleNavClick}>
               <span className={styles.primaryIcon}>
                 <Clock3 size={18} />
               </span>
@@ -372,11 +547,29 @@ export function DashboardShell({
           </nav>
           <div className={styles.divider} />
           <div className={styles.sectionLabel}>Tool categories</div>
-          {categories.map((category, index) => {
+          {categories.map((category) => {
             const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] ?? Shapes;
             const categoryTools = toolsByCategory[category] ?? [];
+            const isOpen = openCategories.has(category);
             return (
-              <details key={category} open={activeCategory ? activeCategory === category : index === 0}>
+              <details
+                key={category}
+                open={isOpen}
+                onToggle={(event) => {
+                  const nowOpen = event.currentTarget.open;
+                  setOpenCategories((prev) => {
+                    if (prev.has(category) === nowOpen) return prev;
+                    const next = new Set(prev);
+                    if (nowOpen) {
+                      next.add(category);
+                    } else {
+                      next.delete(category);
+                    }
+                    cachedOpenCategories = next;
+                    return next;
+                  });
+                }}
+              >
                 <summary>
                   <span className={styles.primaryIcon}>
                     <CategoryIcon size={18} />
@@ -392,8 +585,8 @@ export function DashboardShell({
                       <Link
                         key={tool.slug}
                         href={`/tools/${tool.slug}`}
-                        data-active={activeSlug === tool.slug}
-                        onClick={() => setMobileOpen(false)}
+                        data-active={effectiveSlug === tool.slug}
+                        onClick={handleNavClick}
                       >
                         <span className={styles.toolIcon}>
                           <Icon size={15} />
@@ -471,7 +664,7 @@ export function DashboardShell({
               size="medium"
               shape="square"
               aria-label={sidebarOpen ? "Hide navigation" : "Show navigation"}
-              onClick={() => setSidebarOpen((value) => !value)}
+              onClick={handleToggleSidebar}
               prefix={sidebarOpen ? <PanelLeftClose size={17} /> : <PanelLeftOpen size={17} />}
             />
             <Link href="/dashboard" className={styles.crumb}>
