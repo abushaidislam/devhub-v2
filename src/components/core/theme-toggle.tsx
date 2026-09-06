@@ -21,6 +21,7 @@ export function ThemeToggle({className, size = "medium"}: ThemeToggleProps) {
       size={size}
       shape="square"
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      title={isDark ? "Switch to light theme" : "Switch to dark theme"}
       aria-pressed={isDark}
       onClick={toggleTheme}
       prefix={isDark ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}

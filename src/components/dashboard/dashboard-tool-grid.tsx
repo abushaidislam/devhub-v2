@@ -60,6 +60,7 @@ export function DashboardToolGrid({ favoritesOnly = false }: { favoritesOnly?: b
               data-active={active}
               aria-pressed={active}
               aria-label={active ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
+              title={active ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
               onClick={() => toggle(tool.slug)}
               prefix={<AnimatedHeart filled={active} size={17} />}
             />
