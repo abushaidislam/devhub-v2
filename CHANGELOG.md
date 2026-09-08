@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.0](https://github.com/abushaidislam/devhub-v2/compare/v0.23.0...v0.24.0) (2026-09-08)
+
+
+### Features
+
+* implement 3-day expiration logic for New badge and fix truncation ([#131](https://github.com/abushaidislam/devhub-v2/issues/131)) ([6684259](https://github.com/abushaidislam/devhub-v2/commit/66842596567f58775ad3c36967e6df063a18e667))
+
 ## [0.23.0](https://github.com/abushaidislam/devhub-v2/compare/v0.22.0...v0.23.0) (2026-09-05)
 
 
