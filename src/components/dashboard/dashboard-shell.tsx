@@ -145,6 +145,8 @@ export function DashboardShell({
   const [isCollapsing, setIsCollapsing] = useState(false);
   const [willCollapse, setWillCollapse] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
+  const [expiredTools, setExpiredTools] = useState<Set<string>>(new Set());
+
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const collapseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -465,6 +467,39 @@ export function DashboardShell({
     cachedScrollTop = event.currentTarget.scrollTop;
   }
 
+
+  useEffect(() => {
+    try {
+      const STORAGE_KEY = 'sidebar_new_tools_status';
+      const EXPIRATION_TIME = 3 * 24 * 60 * 60 * 1000;
+      const storedData = localStorage.getItem(STORAGE_KEY);
+      const statuses = storedData ? JSON.parse(storedData) : {};
+      let updated = false;
+      const newExpired = new Set<string>();
+
+      tools.forEach(tool => {
+        if (!tool.isNew) return;
+
+        const firstOpenedAt = statuses[tool.slug];
+        if (firstOpenedAt) {
+          if (Date.now() - firstOpenedAt > EXPIRATION_TIME) {
+            newExpired.add(tool.slug);
+          }
+        } else if (effectiveSlug === tool.slug) {
+          statuses[tool.slug] = Date.now();
+          updated = true;
+        }
+      });
+
+      if (updated) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(statuses));
+      }
+      setExpiredTools(newExpired);
+    } catch (error) {
+      console.error('Error reading badge visibility', error);
+    }
+  }, [effectiveSlug]);
+
   return (
     <div
       className={`${styles.app} ${!sidebarOpen ? styles.noSidebar : ""}`}
@@ -584,14 +619,15 @@ export function DashboardShell({
                         href={`/tools/${tool.slug}`}
                         data-active={effectiveSlug === tool.slug}
                         onClick={handleNavClick}
+                        className="min-w-0"
                       >
                         <span className={styles.toolIcon}>
                           <Icon size={15} />
                         </span>
-                        <span className={styles.toolName}>{tool.name}</span>
-                        {tool.isNew && <span className={styles.newBadge}>New</span>}
+                        <span className={`${styles.toolName} truncate flex-1 min-w-0`}>{tool.name}</span>
+                        {(tool.isNew && !expiredTools.has(tool.slug)) && <span className={`${styles.newBadge} shrink-0`}>New</span>}
                         {favoriteSet.has(tool.slug) && (
-                          <Heart className={styles.favoriteMark} size={13} fill="currentColor" />
+                          <Heart className={`${styles.favoriteMark} shrink-0`} size={13} fill="currentColor" />
                         )}
                       </Link>
                     );
