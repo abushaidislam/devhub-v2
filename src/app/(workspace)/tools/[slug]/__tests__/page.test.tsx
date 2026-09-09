@@ -12,7 +12,7 @@ vi.mock("next/navigation", () => ({
 // Mock subcomponents
 
 vi.mock("@/components/dashboard/favorite-button", () => ({
-  FavoriteButton: () => <button data-testid="fav-btn">Favorite</button>,
+  FavoriteButton: () => <button type="button" data-testid="fav-btn">Favorite</button>,
 }));
 vi.mock("@/components/tools/tool-runtime", () => ({
   ToolRuntime: () => <div data-testid="tool-runtime">Runtime</div>,

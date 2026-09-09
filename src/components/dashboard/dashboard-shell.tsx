@@ -673,6 +673,7 @@ export function DashboardShell({
       </aside>
       {mobileOpen && (
         <button
+          type="button"
           className={styles.backdrop}
           aria-label="Close navigation"
           onClick={() => setMobileOpen(false)}
