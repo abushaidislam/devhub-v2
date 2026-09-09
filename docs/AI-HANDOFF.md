@@ -1,5 +1,11 @@
 # AI handoff
 
+## Latest Tool Runtime Visual Refinement
+
+- Refined only the shared tool runtime surface and AI assistance footer styling.
+- Improved panel hierarchy, separator contrast, control sizing, editor readability, spacing, and contemporary surface treatment without changing runtime behavior.
+- Validation: focused ToolRuntime tests passed (8/8); TypeScript check passed; browser screenshot verified at `/tools/json-formatter` in dark mode.
+
 ## Latest Dashboard Sidebar Navigation Stability & Jitter Elimination Handoff
 
 ### Scope and objective
