@@ -764,13 +764,19 @@
 
 .toolbar {
   min-height: 64px;
-  gap: 16px;
+  gap: 18px;
   padding: 12px 18px;
+  border-bottom-color: var(--border-strong);
   background: var(--surface-0);
 }
 
 .toolbar > div:first-child {
-  gap: 6px;
+  min-width: 160px;
+  gap: 5px;
+}
+
+.toolbar > div:last-child {
+  gap: 8px;
 }
 
 .toolbar small {
@@ -779,25 +785,26 @@
   color: var(--text-secondary);
 }
 
-.toolbar button:not([role="switch"]):not([class*="control"]),
-.pattern input,
-.select {
-  min-height: 36px;
-  height: 36px;
+.toolbar button:not([role="switch"]):not([class*="control"]) {
+  min-width: 80px;
+  min-height: 38px;
+  height: 38px;
   border-color: var(--border-strong);
   background: var(--control-fill);
   box-shadow: none;
 }
 
-.toolbar button:not([role="switch"]):not([class*="control"]):hover:not(:disabled),
-.pattern input:hover,
-.select:hover:not(:disabled) {
+.toolbar button:not([role="switch"]):not([class*="control"]):hover:not(:disabled) {
   background: var(--control-fill-hover);
+  border-color: var(--border-hover);
   box-shadow: var(--shadow-whisper);
 }
 
 .toolbar .run {
-  min-width: 104px;
+  min-width: 112px;
+  background: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-border) !important;
+  box-shadow: var(--shadow-whisper);
 }
 
 .panels {
