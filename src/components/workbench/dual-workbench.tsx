@@ -579,6 +579,7 @@ export function DualWorkbench() {
                     disabled={!leftOutput}
                     onClick={() => void copyText(leftOutput, true)}
                     prefix={leftCopied ? <Check size={12} /> : <Copy size={12} />}
+                    aria-label={leftCopied ? "Copied output to clipboard" : "Copy output to clipboard"}
                   >
                     {leftCopied ? "Copied" : "Copy"}
                   </Button>
@@ -729,6 +730,7 @@ export function DualWorkbench() {
                   disabled={!rightOutput}
                   onClick={() => void copyText(rightOutput, false)}
                   prefix={rightCopied ? <Check size={12} /> : <Copy size={12} />}
+                  aria-label={rightCopied ? "Copied output to clipboard" : "Copy output to clipboard"}
                 >
                   {rightCopied ? "Copied" : "Copy"}
                 </Button>
