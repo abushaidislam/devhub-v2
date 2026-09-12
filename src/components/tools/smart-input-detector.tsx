@@ -144,6 +144,7 @@ export function SmartInputDetector(){
 				placeholder="Paste JSON, JWT, SQL, Cron, URL, Base64 to detect matching tool…"
 				aria-label="Input to detect"
 				className={styles.textarea}
+				spellCheck={false}
 			/>
 			<div className={styles.actions} onClick={e=>e.stopPropagation()}>
 				{input?(
