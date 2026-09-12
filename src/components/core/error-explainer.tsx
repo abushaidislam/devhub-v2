@@ -128,6 +128,7 @@ export function ErrorExplainer() {
             disabled={!configured}
             placeholder="Unexpected token } in JSON at position 42"
             onChange={(event) => setMessage(event.target.value)}
+            spellCheck={false}
           />
         </label>
         <p className={styles.counter}>
