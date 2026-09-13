@@ -134,7 +134,7 @@ export function SiteFooter() {
               <Cpu size={12} />
               <span>All Systems Local</span>
             </span>
-            <a href="https://github.com/abushaidislam/devhub-v2" target="_blank" rel="noreferrer" className={styles.githubLink}>
+            <a href="https://github.com/abushaidislam/devhub-v2" target="_blank" rel="noopener noreferrer" className={styles.githubLink}>
               <Github size={13} aria-hidden="true" />
               <span>GitHub</span>
             </a>
