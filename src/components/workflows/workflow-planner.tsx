@@ -130,6 +130,7 @@ export function WorkflowPlanner() {
               setGoal(event.target.value);
               setSavedId(false);
             }}
+            spellCheck={false}
           />
         </label>
         <p className={styles.counter}>

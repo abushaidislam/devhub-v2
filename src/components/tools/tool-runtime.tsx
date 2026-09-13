@@ -478,6 +478,7 @@ value={input}
 							disabled={isRunning}
 							onChange={(event) => setInput(event.target.value)}
 						placeholder={placeholder}
+						spellCheck={false}
 					/>
 					</section>
 					<div

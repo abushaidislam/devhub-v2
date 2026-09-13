@@ -565,6 +565,7 @@ export function DualWorkbench() {
                 placeholder={`Enter ${leftTool?.name ?? "input"} here…`}
                 onChange={(e) => setLeftInput(e.target.value)}
                 aria-label="Left tool input"
+                spellCheck={false}
               />
             </div>
 
@@ -716,6 +717,7 @@ export function DualWorkbench() {
                   if (autoSync) void executeRight(val, rightOption);
                 }}
                 aria-label="Right tool input"
+                spellCheck={false}
               />
             </div>
 

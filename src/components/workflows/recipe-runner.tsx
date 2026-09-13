@@ -96,6 +96,7 @@ export function RecipeRunnerPanel({
         maxLength={RECIPE_RUN_INPUT_LIMIT}
         placeholder="Enter input for this run"
         disabled={running}
+        spellCheck={false}
       />
       <p className={styles.disclosure}>
         Input, step results, and output stay in memory and are cleared when this panel closes.
