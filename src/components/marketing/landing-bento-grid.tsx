@@ -328,7 +328,7 @@ export function LandingBentoGrid() {
                     type="button"
                     className={`${styles.miniCopyBtn} ${tsCopied ? styles.miniCopyBtnCopied : ""}`}
                     onClick={handleTsCopy}
-                    aria-label="Copy TypeScript interface"
+                    aria-label={tsCopied ? "Copied TypeScript interface" : "Copy TypeScript interface"}
                   >
                     {tsCopied ? <Check size={11} className={styles.checkIcon} /> : <Copy size={11} />}
                     <span>{tsCopied ? "Copied" : "Copy"}</span>

@@ -256,7 +256,7 @@ export function HeroWorkbench() {
                   type="button"
                   className={`${styles.copyBtn} ${copied ? styles.copyBtnCopied : ""}`}
                   onClick={handleCopy}
-                  aria-label="Copy output to clipboard"
+                  aria-label={copied ? "Copied output to clipboard" : "Copy output to clipboard"}
                 >
                   {copied ? <Check size={12} className={styles.checkIcon} /> : <Copy size={12} />}
                   <span>{copied ? "Copied" : "Copy"}</span>
