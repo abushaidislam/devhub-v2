@@ -43,4 +43,38 @@ describe("history storage", () => {
       });
     }
   });
+
+  it("returns false if indexedDB is undefined", () => {
+    const originalIndexedDB = globalThis.indexedDB;
+    Object.defineProperty(globalThis, "indexedDB", {
+      value: undefined,
+      configurable: true,
+    });
+
+    try {
+      expect(historySupported()).toBe(false);
+    } finally {
+      Object.defineProperty(globalThis, "indexedDB", {
+        value: originalIndexedDB,
+        configurable: true,
+      });
+    }
+  });
+
+  it("returns false if localStorage is undefined", () => {
+    const originalLocalStorage = globalThis.localStorage;
+    Object.defineProperty(globalThis, "localStorage", {
+      value: undefined,
+      configurable: true,
+    });
+
+    try {
+      expect(historySupported()).toBe(false);
+    } finally {
+      Object.defineProperty(globalThis, "localStorage", {
+        value: originalLocalStorage,
+        configurable: true,
+      });
+    }
+  });
 });
