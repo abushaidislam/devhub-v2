@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.0](https://github.com/abushaidislam/devhub-v2/compare/v0.24.0...v0.25.0) (2026-09-13)
+
+
+### Features
+
+* disable spellcheck on code and data inputs\n\nDisable browser spellchecking on textareas used for structured data\n(JSON, JWTs, SQL, Regex, code) to remove false-positive visual noise\n(red squiggly lines) which degrade the developer experience.\n\nChanges apply to:\n- Smart input detector\n- Tool runtime input\n- Dual workbench panes\n- Recipe runner inputs\n- Workflow planner goals\n- Error explainer input ([#137](https://github.com/abushaidislam/devhub-v2/issues/137)) ([7a81c79](https://github.com/abushaidislam/devhub-v2/commit/7a81c7929d477faa76c22ddfc1a299f5a8c723f0))
+
 ## [0.24.0](https://github.com/abushaidislam/devhub-v2/compare/v0.23.0...v0.24.0) (2026-09-08)
 
 
