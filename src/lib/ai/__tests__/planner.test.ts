@@ -35,6 +35,16 @@ describe("workflow planner", () => {
     expect(parsePlannerResponse("I cannot help").ok).toBe(false);
   });
 
+
+  it("rejects invalid or malformed JSON payloads", () => {
+    // Missing closing brace
+    expect(parsePlannerResponse('```json\n{"name":"Format JSON"').ok).toBe(false);
+    // Invalid JSON inside braces
+    expect(parsePlannerResponse('```json\n{name: "Format JSON"}\n```').ok).toBe(false);
+    // Closing brace before opening brace
+    expect(parsePlannerResponse('}{').ok).toBe(false);
+  });
+
   it("rejects plans using unknown engines", () => {
     const result = parsePlannerResponse(
       '{"name":"x","inputType":"text","steps":[{"engineId":"not-a-tool"}]}',
