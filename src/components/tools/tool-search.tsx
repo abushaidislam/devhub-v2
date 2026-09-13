@@ -39,6 +39,7 @@ export function ToolSearch() {
         {["All", ...categories].map((item) => (
           <button
             key={item}
+            type="button"
             role="tab"
             aria-selected={category === item}
             onClick={() => setCategory(item)}

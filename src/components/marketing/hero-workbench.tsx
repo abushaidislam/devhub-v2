@@ -138,13 +138,13 @@ export function HeroWorkbench() {
             return (
               <button
                 key={tab.id}
+                type="button"
                 role="tab"
                 aria-selected={isActive}
                 aria-controls={`panel-${tab.id}`}
                 id={`tab-${tab.id}`}
                 className={`${styles.tabBtn} ${isActive ? styles.tabBtnActive : ""}`}
                 onClick={() => setActiveTabId(tab.id)}
-                type="button"
               >
                 {tab.label}
               </button>
