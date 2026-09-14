@@ -456,6 +456,7 @@ value={aux}
 							disabled={isRunning}
 							onChange={(event) => setAux(event.target.value)}
 						placeholder="Regular expression"
+						spellCheck={false}
 					/>
 				</label>
 			)}
