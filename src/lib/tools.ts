@@ -59,6 +59,8 @@ export const categories=[...new Set(tools.map(tool=>tool.category))];
 // Pre-computed map for O(1) slug lookup instead of O(N) array scanning via tools.find()
 const toolMap = new Map<string, Tool>(tools.map((tool) => [tool.slug, tool]));
 
+export const toolSlugs = new Set<string>(toolMap.keys());
+
 // Performance Optimization:
 // Pre-grouped tools by category to avoid repeated filtering of the tools array during component renders
 export const toolsByCategory: Record<string, Tool[]> = categories.reduce<Record<string, Tool[]>>((acc, category) => {
