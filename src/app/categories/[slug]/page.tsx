@@ -3,7 +3,7 @@ import {notFound} from "next/navigation";
 import {SiteHeader} from "@/components/core/site-header";
 import {SiteFooter} from "@/components/core/site-footer";
 import {ToolCard} from "@/components/tools/tool-card";
-import {categories,categoryDescriptions,tools} from "@/lib/tools";
+import {categories,categoryDescriptions,toolsByCategory} from "@/lib/tools";
 
 export function generateStaticParams(){return categories.map(slug=>({slug:slug.toLowerCase()}))}
 
@@ -11,7 +11,7 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   const {slug}=await params;
   const category=categories.find(item=>item.toLowerCase()===slug);
   if(!category)return {};
-  const items=tools.filter(tool=>tool.category===category);
+  const items=toolsByCategory[category] ?? [];
   const description=`Browse ${items.length} free ${category.toLowerCase()} developer tools for focused, browser-based workflows.`;
   return {
     title:`${category} Developer Tools`,
@@ -37,7 +37,7 @@ export default async function CategoryPage({params}:{params:Promise<{slug:string
   const {slug}=await params;
   const category=categories.find(c=>c.toLowerCase()===slug);
   if(!category)notFound();
-  const items=tools.filter(t=>t.category===category);
+  const items=toolsByCategory[category] ?? [];
   const categoryDescription=categoryDescriptions[category]??`Explore ${category.toLowerCase()} utilities for recurring developer workflows.`;
   return (
     <main>
