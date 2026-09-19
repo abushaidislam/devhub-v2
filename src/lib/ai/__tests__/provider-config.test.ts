@@ -40,12 +40,12 @@ describe("ai provider config", () => {
     expect(createDefaultAiConfig("gemini")).toMatchObject({
       providerId: "gemini",
       baseUrl: "https://generativelanguage.googleapis.com/v1beta",
-      model: "gemini-flash-latest",
+      model: "gemini-2.5-flash-lite",
     });
     expect(validateAiConfig({
       providerId: "gemini",
       baseUrl: "https://generativelanguage.googleapis.com/v1beta",
-      model: "gemini-flash-latest",
+      model: "gemini-2.5-flash-lite",
       apiKey: "gemini-test-key",
     }).ok).toBe(true);
   });
@@ -59,7 +59,7 @@ describe("ai provider config", () => {
       apiKey: "gemini-test-key",
     };
     localStorage.setItem(AI_CONFIG_STORAGE_KEY, JSON.stringify(stored));
-    expect(readAiConfig()?.model).toBe("gemini-flash-latest");
+    expect(readAiConfig()?.model).toBe("gemini-2.5-flash-lite");
   });
 
   it("allows keyless local providers and trims trailing slashes", () => {

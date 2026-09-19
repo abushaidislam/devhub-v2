@@ -54,8 +54,8 @@ export async function requestCompletion({
   const geminiBaseUrl = baseUrl.replace(/\/openai$/, "");
   const endpoint = isGemini
     ? onChunk
-      ? `${geminiBaseUrl}/models/${encodeURIComponent(config.model)}:streamGenerateContent?alt=sse`
-      : `${geminiBaseUrl}/models/${encodeURIComponent(config.model)}:generateContent`
+      ? `${geminiBaseUrl}/models/${encodeURIComponent(config.model)}:streamGenerateContent?alt=sse${config.apiKey ? `&key=${encodeURIComponent(config.apiKey)}` : ""}`
+      : `${geminiBaseUrl}/models/${encodeURIComponent(config.model)}:generateContent${config.apiKey ? `?key=${encodeURIComponent(config.apiKey)}` : ""}`
     : `${baseUrl}/chat/completions`;
   const headers: Record<string, string> = {
     "content-type": "application/json",
