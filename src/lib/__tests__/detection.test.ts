@@ -15,6 +15,7 @@ describe("smart input detection", () => {
     [`${segment({ alg: "HS256" })}.${segment({ sub: "devhub" })}.signature`, "jwt-decoder"],
     ["https://devhub.tools/path?q=json", "url-encoder"],
     ["https://devhub.tools/path?q=json", "url-parser"],
+    ["hello%20world", "url-encoder"],
     ["name: DevHub\nfeatures:\n  - local\n  - fast", "yaml-formatter"],
     ["name: DevHub\nfeatures:\n  - local\n  - fast", "yaml-to-json"],
     ["<root><item>DevHub</item></root>", "xml-formatter"],
@@ -56,5 +57,13 @@ describe("smart input detection", () => {
 
   it("rejects oversized input", () => {
     expect(() => detectInput("x".repeat(DETECTION_INPUT_LIMIT + 1))).toThrow(/100,000/);
+  });
+
+  it("handles malformed percent-encoded strings gracefully", () => {
+    // A malformed percent-encoded string will throw a URIError if passed to decodeURIComponent
+    expect(() => detectInput("%E0")).not.toThrow();
+    // It should not detect as url-encoder when decoding fails
+    const detections = detectInput("%E0");
+    expect(detections.some((d) => d.slug === "url-encoder")).toBe(false);
   });
 });
