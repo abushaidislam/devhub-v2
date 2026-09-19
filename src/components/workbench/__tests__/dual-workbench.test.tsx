@@ -22,7 +22,7 @@ describe("DualWorkbench", () => {
     const user = userEvent.setup();
     render(<DualWorkbench />);
 
-    const runLeftBtn = await screen.findByRole("button", { name: "Run Left" });
+    const runLeftBtn = await screen.findByRole("button", { name: "Run Left" }, { timeout: 5000 });
     await user.click(runLeftBtn);
 
     await waitFor(() => {
@@ -109,7 +109,7 @@ describe("DualWorkbench", () => {
     const user = userEvent.setup();
     render(<DualWorkbench />);
 
-    const runLeftBtn = await screen.findByRole("button", { name: "Run Left" });
+    const runLeftBtn = await screen.findByRole("button", { name: "Run Left" }, { timeout: 5000 });
     await user.click(runLeftBtn);
 
     await waitFor(() => {

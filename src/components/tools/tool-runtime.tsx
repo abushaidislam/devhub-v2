@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import {useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent} from "react";
-import {ArrowLeftRight, Check, Copy, Download, Play, RotateCcw} from "lucide-react";
+import {ArrowLeftRight, Check, Copy, Download, Play, RotateCcw, Sparkles, Square} from "lucide-react";
+import Link from "next/link";
 import {Badge, StatusDot} from "../ui/badge";
 import {Button} from "../ui/button";
 import {consumeDetectionHandoff} from "@/lib/detection-handoff";
@@ -11,6 +12,9 @@ import {ToolAiAssist} from "./tool-ai-assist";
 import {Switch} from "../ui/switch";
 import {Select} from "../ui/select";
 import {copyText} from "@/lib/clipboard";
+import {useAiConfig} from "@/lib/ai/use-ai-config";
+import {describeDestination} from "@/lib/ai/provider-config";
+import {formatBlogContent, BLOG_STYLE_LABELS, type BlogStyle} from "@/lib/ai/format-blog";
 import styles from "./tool-runtime.module.css";
 
 const MIN_PANEL_PERCENT = 25;
@@ -56,7 +60,9 @@ const defaults: Record<string, string> = {
 		"lorem-ipsum": "3",
 		"chmod-calculator": "755",
 		"html-formatter": '<!DOCTYPE html>\n<html>\n<head>\n<title>DevHub</title>\n</head>\n<body>\n<main>\n<h1>DevHub</h1>\n<p>Fast, local-first developer tools.</p>\n<a href="/tools">Explore tools</a>\n</main>\n</body>\n</html>',
+		"blog-formatter": "Getting Started with DevHub\n\nDevHub is a free local-first developer workflow workspace. It provides a collection of everyday developer tools that run entirely in your browser. No data is ever sent to a server unless you explicitly use an AI-powered feature with your own API key.\n\nThe key features include JSON formatting and validation, Base64 encoding and decoding, JWT token inspection, UUID generation, regex testing with live match details, QR code generation, and many more. All processing happens locally using Web Crypto and standard browser APIs.\n\nWhy local-first matters: Privacy is not just a feature, it is a fundamental design principle. When you paste a JWT token or an API response into DevHub, that data never leaves your browser. There are no analytics on your input, no server-side processing, and no third-party tracking of what you transform.\n\nDevHub also supports workflow chaining where you can connect multiple tools together. For example you could decode a Base64 string, format the resulting JSON, and then convert it to YAML — all in one saved recipe that you can reuse.\n\nThe AI assistance is entirely optional and uses a bring-your-own-key model. You configure your preferred provider (OpenAI, Gemini, Ollama, or any OpenAI-compatible endpoint) and the requests go directly from your browser to that provider. DevHub never sees your API key or your prompts.",
 	};
+
 
 
 export function ToolRuntime({slug, name}: {slug: string; name: string}) {
@@ -64,7 +70,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [input, setInput] = useState(initial);
 	const [aux, setAux] = useState(slug === "regex-tester" ? "DevHub" : "");
 	const [option, setOption] = useState(
-		slug === "hash-generator" ? "SHA-256" : slug === "curl-converter" ? "fetch" : slug === "html-formatter" ? "format" : slug === "lorem-ipsum" ? "paragraphs" : "encode",
+		slug === "hash-generator" ? "SHA-256" : slug === "curl-converter" ? "fetch" : slug === "html-formatter" ? "format" : slug === "lorem-ipsum" ? "paragraphs" : slug === "blog-formatter" ? "smart" : "encode",
 	);
 	const [output, setOutput] = useState("");
 	const [meta, setMeta] = useState("Ready");
@@ -76,11 +82,35 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const [isResizing, setIsResizing] = useState(false);
 	const panelsRef = useRef<HTMLDivElement>(null);
 
-	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities", "curl-converter", "html-formatter", "lorem-ipsum"].includes(slug);
+	const isAiTool = slug === "blog-formatter";
+	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities", "curl-converter", "html-formatter", "lorem-ipsum", "blog-formatter"].includes(slug);
 		const preview = slug === "markdown-preview";
 		const [livePreview, setLivePreview] = useState(preview);
 		const [markdownView, setMarkdownView] = useState<"preview" | "html">("preview");
+
+		// AI tool state (blog-formatter)
+		const { config: aiConfig, configured: aiConfigured } = useAiConfig();
+		const [aiConsent, setAiConsent] = useState(false);
+		const abortRef = useRef<AbortController | null>(null);
+		const aiDestination = aiConfig ? describeDestination(aiConfig) : undefined;
+
+		useEffect(() => {
+			// Reset AI consent when provider changes or tool changes
+			setAiConsent(false);
+			if (abortRef.current) {
+				abortRef.current.abort();
+				abortRef.current = null;
+			}
+		}, [aiConfig, slug]);
+
+		useEffect(() => {
+			return () => {
+				abortRef.current?.abort();
+			};
+		}, []);
+
 		const operation = useMemo(() => {
+		if (slug === "blog-formatter") return `format raw content into structured MDX blog post using AI (${BLOG_STYLE_LABELS[option as BlogStyle] ?? "Smart"} style)`;
 		if (slug === "regex-tester") return `test the input text against this regular expression pattern: ${aux}`;
 		if (slug === "hash-generator") return `${option} hash`;
 		if (slug === "curl-converter") return `convert cURL command to ${option}`;
@@ -149,7 +179,9 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 							? "Octal (e.g. 755) or symbolic (e.g. rwxr-xr-x)"
 							: slug === "curl-converter"
 								? "cURL command (e.g. curl https://api.example.com)"
-								: `${name} input`,
+								: slug === "blog-formatter"
+									? "Paste your article, notes, or raw text here (1200+ words recommended)"
+									: `${name} input`,
 		[slug, name],
 	);
 
@@ -163,8 +195,82 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		return undefined;
 	}
 
+		function stopAiRequest() {
+			if (abortRef.current) {
+				abortRef.current.abort();
+				abortRef.current = null;
+			}
+			setIsRunning(false);
+			setMeta(output ? "Stopped — partial output available" : "Stopped");
+		}
+
+		function downloadMdx() {
+			if (!output) return;
+			const href = URL.createObjectURL(new Blob([output], {type: "text/markdown;charset=utf-8"}));
+			const link = document.createElement("a");
+			link.href = href;
+			link.download = "blog-post.mdx";
+			link.click();
+			URL.revokeObjectURL(href);
+		}
+
 		async function run({silent = false}: {silent?: boolean} = {}) {
 			if (isRunning) return;
+
+			// AI tool path (blog-formatter)
+			if (isAiTool) {
+				if (!aiConfig) {
+					setError("Configure an AI provider in AI settings before formatting.");
+					setMeta("AI not configured");
+					return;
+				}
+				if (!aiConsent) {
+					setError("Enable the consent checkbox to allow AI processing.");
+					setMeta("Consent required");
+					return;
+				}
+				if (!input.trim()) {
+					setError("Paste or type some content before formatting.");
+					setMeta("Empty input");
+					return;
+				}
+
+				setIsRunning(true);
+				setError("");
+				setOutput("");
+				setMeta("Formatting with AI…");
+
+				const controller = new AbortController();
+				abortRef.current = controller;
+
+				const result = await formatBlogContent({
+					content: input,
+					style: option as BlogStyle,
+					config: aiConfig,
+					signal: controller.signal,
+					onChunk: (_delta, accumulated) => {
+						setOutput(accumulated);
+					},
+				});
+
+				if (abortRef.current === controller) {
+					abortRef.current = null;
+					setIsRunning(false);
+					setAiConsent(false);
+					if (result.ok) {
+						setOutput(result.mdx);
+						setMeta("Formatted — copy or download the MDX output");
+						trackActivationEvent({name: "tool_run_succeeded", tool: slug});
+					} else if (result.error !== "Request cancelled.") {
+						setError(result.error);
+						setMeta("AI formatting failed");
+						trackActivationEvent({name: "tool_run_failed", tool: slug});
+					}
+				}
+				return;
+			}
+
+			// Local tool path (all other tools)
 		setIsRunning(true);
 		setError("");
 		setImage("");
@@ -349,8 +455,17 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		<div className={styles.runtime} aria-busy={isRunning}>
 			<div className={styles.toolbar}>
 				<div>
-					<Badge className={styles.localBadge} variant="teal" size="sm" icon={<StatusDot status={isRunning ? "warning" : "success"} />}><span className={styles.local}>{isRunning ? "Processing locally…" : "Local processing"}</span></Badge>
-					<small>{isRunning ? "Working on this input…" : "No input is sent to a server."}</small>
+					{isAiTool ? (
+						<>
+							<Badge className={styles.localBadge} variant="purple" size="sm" icon={<Sparkles size={12} />}><span className={styles.local}>{isRunning ? "AI formatting…" : "AI processing (BYOK)"}</span></Badge>
+							<small>{aiConfigured ? `Requests go from this browser to ${aiDestination}.` : "Configure your own AI provider to use this tool."}</small>
+						</>
+					) : (
+						<>
+							<Badge className={styles.localBadge} variant="teal" size="sm" icon={<StatusDot status={isRunning ? "warning" : "success"} />}><span className={styles.local}>{isRunning ? "Processing locally…" : "Local processing"}</span></Badge>
+							<small>{isRunning ? "Working on this input…" : "No input is sent to a server."}</small>
+						</>
+					)}
 				</div>
 				<div>
 						{preview && (
@@ -395,6 +510,14 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 																{ value: "sentences", label: "Sentences" },
 																{ value: "words", label: "Words" },
 															]
+													: slug === "blog-formatter"
+														? [
+																{ value: "smart", label: "Smart (auto-detect)" },
+																{ value: "technical", label: "Technical Blog" },
+																{ value: "personal", label: "Personal Blog" },
+																{ value: "documentation", label: "Documentation" },
+																{ value: "tutorial", label: "Tutorial" },
+															]
 													: [
 															{ value: "encode", label: "Encode" },
 															{ value: "decode", label: "Decode" },
@@ -404,9 +527,19 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 									/>
 								</div>
 							)}
-<Button type="button" onClick={reset} disabled={isRunning} variant="secondary" size="small" prefix={<RotateCcw size={14} />}>
-							Reset
-						</Button>
+							{isAiTool && output && !isRunning && (
+								<Button type="button" onClick={downloadMdx} variant="secondary" size="small" prefix={<Download size={14} />}>
+									Download .mdx
+								</Button>
+							)}
+							{isAiTool && isRunning && (
+								<Button type="button" onClick={stopAiRequest} variant="secondary" size="small" prefix={<Square size={13} fill="currentColor" />}>
+									Stop
+								</Button>
+							)}
+							<Button type="button" onClick={reset} disabled={isRunning} variant="secondary" size="small" prefix={<RotateCcw size={14} />}>
+								Reset
+							</Button>
 						<Button
 							type="button"
 							onClick={useOutputAsInput}
@@ -432,19 +565,19 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 								{preview ? "Copy HTML" : "Copy"}
 							</Button>
 <Button
-							type="button"
-							className={styles.run}
-							onClick={() => void run()}
-							disabled={isRunning}
-							aria-busy={isRunning}
-							title={isMac ? "Run tool (⌘↵)" : "Run tool (Ctrl+↵)"}
-							variant="default"
-							size="small"
-							loading={isRunning}
-							prefix={<Play size={14} />}
-						>
-								Run <kbd className={styles.kbd}>{isMac ? "⌘↵" : "Ctrl+↵"}</kbd>
-							</Button>
+						type="button"
+						className={styles.run}
+						onClick={() => void run()}
+						disabled={isAiTool ? (isRunning || !aiConfigured || !aiConsent) : isRunning}
+						aria-busy={isRunning}
+						title={isMac ? (isAiTool ? "Format with AI (⌘↵)" : "Run tool (⌘↵)") : (isAiTool ? "Format with AI (Ctrl+↵)" : "Run tool (Ctrl+↵)")}
+						variant="default"
+						size="small"
+						loading={isRunning}
+						prefix={isAiTool ? <Sparkles size={14} /> : <Play size={14} />}
+					>
+							{isAiTool ? "Format" : "Run"} <kbd className={styles.kbd}>{isMac ? "⌘↵" : "Ctrl+↵"}</kbd>
+						</Button>
 				</div>
 			</div>
 
@@ -459,6 +592,31 @@ value={aux}
 						spellCheck={false}
 					/>
 				</label>
+			)}
+
+			{isAiTool && (
+				<div className={styles.aiConsent}>
+					{!aiConfigured ? (
+						<p className={styles.aiGate}>
+							<Sparkles size={14} />
+							Add your own AI provider in{" "}
+							<Link href="/assistant">AI settings</Link> to enable this tool. Nothing is sent until a key is configured.
+						</p>
+					) : (
+						<label className={styles.aiConsentLabel}>
+							<input
+								type="checkbox"
+								checked={aiConsent}
+								onChange={(event) => setAiConsent(event.target.checked)}
+								disabled={isRunning}
+							/>
+							<span>
+								Your <strong>entire input text</strong> will be sent to{" "}
+								{aiDestination} for formatting. Nothing is sent until you click Format.
+							</span>
+						</label>
+					)}
+				</div>
 			)}
 
 				<div
@@ -504,8 +662,8 @@ value={input}
 						title="Drag to resize. Use arrow keys for precise adjustments. Double-click to reset."
 					/>
 					<section>
-							<header className={preview ? styles.previewHeader : ""}>
-							<span>{preview ? "Markdown preview" : "Output"}</span>
+						<header className={preview ? styles.previewHeader : ""}>
+							<span>{preview ? "Markdown preview" : isAiTool ? "MDX Output" : "Output"}</span>
 							{preview && !error && output && (
 								<div className={styles.previewModes} role="tablist" aria-label="Markdown output view">
 									<button type="button" role="tab" aria-selected={markdownView === "preview"} className={markdownView === "preview" ? styles.activeTab : ""} onClick={() => setMarkdownView("preview")}>Preview</button>
@@ -513,7 +671,7 @@ value={input}
 								</div>
 							)}
 						<small className={error ? styles.errorText : ""}>
-							{isRunning ? "Processing locally…" : error || meta}
+							{isRunning ? (isAiTool ? "Formatting with AI…" : "Processing locally…") : error || meta}
 						</small>
 					</header>
 					<div className={styles.output}>
@@ -542,18 +700,20 @@ value={input}
 							) : preview && output ? (
 								<pre className={styles.htmlOutput}>{output}</pre>
 							) : (
-							<pre>{isRunning ? "Processing locally…" : output || "Add an input and run this tool to see the output."}</pre>
+							<pre>{isRunning ? (isAiTool && output ? output : isAiTool ? "Waiting for AI response…" : "Processing locally…") : output || (isAiTool ? "Paste your content and click Format to generate structured MDX." : "Add an input and run this tool to see the output.")}{isAiTool && isRunning && output ? <span className={styles.aiCursor} aria-hidden="true">▍</span> : null}</pre>
 						)}
 					</div>
 				</section>
 			</div>
 
-			<ToolAiAssist
-				slug={slug}
-				input={input}
-				error={error || undefined}
-				operation={operation}
-			/>
+			{!isAiTool && (
+				<ToolAiAssist
+					slug={slug}
+					input={input}
+					error={error || undefined}
+					operation={operation}
+				/>
+			)}
 		</div>
 	);
 }

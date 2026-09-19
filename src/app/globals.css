@@ -382,6 +382,7 @@ button,
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
   box-shadow: var(--focus-glow);
+  transition: outline-color var(--duration-micro) var(--ease), box-shadow var(--duration-micro) var(--ease);
 }
 
 /* Skip link */
@@ -413,11 +414,7 @@ button,
   box-shadow: none !important;
 }
 
-/* Focus Indicator Contract */
-:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
+
 
 /* Scroll progress */
 .scroll-progress {
@@ -706,6 +703,7 @@ footer a:hover {
   filter: blur(42px);
   opacity: 0.9;
   animation: dh-glow 8s var(--ease) infinite alternate;
+  will-change: transform, opacity;
 }
 
 [data-theme="dark"] .hero:after {

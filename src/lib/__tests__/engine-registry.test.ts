@@ -39,9 +39,14 @@ describe("ToolEngine contract invariants", () => {
 	const validTypes = new Set(["text", "json", "binary", "image"]);
 	const validSensitivity = new Set(["local", "network", "ai"]);
 
-	it("every engine declares local sensitivity (all current tools are local-first)", () => {
+	it("every engine declares valid sensitivity (blog-formatter is ai, others are local)", () => {
 		for (const engine of engines) {
-			expect(engine.sensitivity, engine.id).toBe("local");
+			expect(validSensitivity.has(engine.sensitivity), `${engine.id} has invalid sensitivity "${engine.sensitivity}"`).toBe(true);
+			if (engine.id === "blog-formatter") {
+				expect(engine.sensitivity, engine.id).toBe("ai");
+			} else {
+				expect(engine.sensitivity, engine.id).toBe("local");
+			}
 		}
 	});
 

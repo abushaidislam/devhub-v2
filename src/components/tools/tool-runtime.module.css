@@ -878,7 +878,68 @@
 @media (prefers-reduced-motion: reduce) {
   .splitter,
   .splitter::after,
-  .previewModes button {
+  .previewModes button,
+  .aiCursor {
     transition: none !important;
+    animation: none !important;
   }
 }
+
+.aiConsent {
+  padding: 10px 16px;
+  background: var(--surface-1, var(--canvas-elevated));
+  border-bottom: 1px solid var(--hairline);
+}
+
+.aiGate {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--body-copy, var(--text-secondary));
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.aiGate a {
+  color: var(--ink, var(--text-primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.aiConsentLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--body-copy, var(--text-secondary));
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.aiConsentLabel input {
+  margin-top: 2px;
+  accent-color: var(--ink, #000);
+}
+
+.aiConsentLabel strong {
+  color: var(--text-primary);
+}
+
+.aiCursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--ink, var(--text-primary));
+  animation: aiBlink 1s steps(1) infinite;
+}
+
+@keyframes aiBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
