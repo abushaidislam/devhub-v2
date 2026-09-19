@@ -1,6 +1,32 @@
 # AI handoff
 
-## Latest Dashboard Sidebar Navigation Stability & Jitter Elimination Handoff
+## Latest AI Blog Formatter Tool Handoff
+
+### Scope and objective
+- Implemented **Blog Formatter** (`/tools/blog-formatter`), DevHub's first `sensitivity: "ai"` tool:
+  - **Core Purpose**: Transforms raw or loosely formatted text (1,200+ words up to 100,000 characters) into clean, publish-ready MDX with structured headings (H1 through H3), semantic emphasis (bold/italic), lists, blockquotes, code blocks, and YAML frontmatter.
+  - **AI Formatting Engine (`src/lib/ai/format-blog.ts`)**:
+    - `BLOG_FORMATTER_SYSTEM_PROMPT`: Expert MDX system prompt enforcing semantic content hierarchy, single H1 matching frontmatter title, proper list/quote formatting, and strict non-rewriting of author intent.
+    - Style presets: `smart` (auto-detect), `technical` (admonitions, definitions), `personal` (conversational flow), `documentation` (reference hierarchy), and `tutorial` (step-by-step).
+    - `formatBlogContent`: Validates input length (≤100,000 chars), connects to configured BYOK provider via `requestCompletion`, supports streaming SSE callbacks, and strips accidental outer code-fence wrappers.
+  - **Tool Registry (`src/lib/tools.ts`)**: Registered as the 36th tool in `Editors` category with `icon: Sparkles`, `featured: true`, `isNew: true`, and complete SEO metadata.
+  - **Engine Registry (`src/lib/engine-registry.ts`)**: Registered `blog-formatter` as the first engine with `sensitivity: "ai"`.
+  - **Runtime & Consent UI (`src/components/tools/tool-runtime.tsx` & `.module.css`)**:
+    - Purple `AI processing (BYOK)` badge replacing local badge when active.
+    - AI consent checkbox with explicit disclosure naming the destination model and host before any payload is transmitted.
+    - Direct link to `/assistant` when no AI provider is configured.
+    - Streaming output rendering with blinking cursor and instant `Stop` button via `AbortController`.
+    - Dedicated `Download .mdx` action button for direct blog exporting.
+  - **Repository Invariants**:
+    - Updated `public/sw.js` with `"/tools/blog-formatter"` in precache paths.
+    - Added comprehensive knowledge entry in `src/lib/tool-knowledge.ts` (features, use cases, how-to, privacy FAQs).
+    - Updated `src/lib/__tests__/engine-registry.test.ts` sensitivity invariant test to validate `ai` sensitivity.
+
+### Validation
+- **Unit Tests (`npm run test`)**: 64/64 test suites passed, 424/424 unit tests passed (including 7/7 in `src/lib/ai/__tests__/format-blog.test.ts`).
+- **TypeScript (`npm run typecheck`)**: Passed with 0 errors.
+- **ESLint (`npm run lint`)**: Passed with 0 errors.
+- **Production Build (`npm run build`)**: Passed with 0 errors, 67/67 static & SSG routes generated.
 
 ### Scope and objective
 - Resolved the sidebar reload, flicker, and shaking/jitter ("kape") issue when navigating between sidebar links in DevHub v2:

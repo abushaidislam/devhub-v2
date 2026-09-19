@@ -447,6 +447,15 @@ const engineList: ToolEngine[] = [
 				return makeText(r.output, r.meta);
 			},
 		},
+		{
+			id: "blog-formatter",
+			accepts: ["text"],
+			produces: "text",
+			sensitivity: "ai",
+			async run() {
+				throw new Error("Blog Formatter requires AI configuration. Use the tool interface to format content.");
+			},
+		},
 	];
 
 

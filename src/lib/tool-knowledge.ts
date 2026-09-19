@@ -900,6 +900,41 @@ export const toolKnowledgeBase: Record<string, ToolKnowledge> = {
         answer: "Script tags, style tags, and SVG blocks are preserved while maintaining clean outer document indentation."
       }
     ]
+  },
+  "blog-formatter": {
+    features: [
+      "Semantic content analysis to establish proper heading hierarchies (H1 through H3)",
+      "Automatic frontmatter generation with title, description, date, and categorized tags",
+      "Multiple publication style presets (Smart, Technical, Personal, Documentation, Tutorial)",
+      "Generates valid MDX with code blocks, callouts, lists, and formatted typography",
+      "Streaming real-time output preview with instant .mdx download support"
+    ],
+    useCases: [
+      "Transforming raw brainstorming notes or unformatted drafts into publish-ready blog articles",
+      "Formatting documentation and tutorials with step-by-step structures and admonitions",
+      "Converting messy long-form markdown into structured MDX for Next.js, Astro, or Gatsby blogs"
+    ],
+    howTo: [
+      "Configure your AI provider key (OpenAI, Gemini, OpenRouter, or Ollama) in AI settings",
+      "Paste your raw notes, draft, or article (1200+ words recommended) into the input panel",
+      "Select your desired formatting style preset (Smart, Technical, Personal, Documentation, Tutorial)",
+      "Review the destination disclosure, check the consent box, and click Format",
+      "Copy the formatted MDX or click Download .mdx to save the file for your blog"
+    ],
+    faqs: [
+      {
+        question: "Is my blog content sent to DevHub servers?",
+        answer: "No. Requests are sent directly from your browser to your configured AI provider using Bring Your Own Key (BYOK). DevHub has no intermediate server and stores none of your content."
+      },
+      {
+        question: "Does this tool work offline?",
+        answer: "No, AI formatting requires connecting to your chosen AI provider API (e.g. OpenAI, Gemini, or a local Ollama instance running on your machine)."
+      },
+      {
+        question: "What length of content is supported?",
+        answer: "The tool supports up to 100,000 characters (~20,000 words) per formatting run, making it suitable for long-form essays, comprehensive guides, and multi-part tutorials."
+      }
+    ]
   }
 };
 

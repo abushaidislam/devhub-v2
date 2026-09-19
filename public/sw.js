@@ -49,6 +49,7 @@ const PRECACHE_PATHS=[
 		"/tools/lorem-ipsum",
 		"/tools/chmod-calculator",
 		"/tools/html-formatter",
+		"/tools/blog-formatter",
 		"/favicon.png",
 	"/icon.png",
 	"/icon-maskable.png"
