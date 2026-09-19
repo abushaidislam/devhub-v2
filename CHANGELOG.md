@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.0](https://github.com/abushaidislam/devhub-v2/compare/v0.25.0...v0.26.0) (2026-09-19)
+
+
+### Features
+
+* add AI blog formatter tool with BYOK streaming and MDX export ([0ed32c5](https://github.com/abushaidislam/devhub-v2/commit/0ed32c58a0985634256618145fdb9177ad87354b))
+
 ## [0.25.0](https://github.com/abushaidislam/devhub-v2/compare/v0.24.0...v0.25.0) (2026-09-13)
 
 
