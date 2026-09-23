@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Github, Search } from "lucide-react";
 import { Logo } from "./logo";
+import { OfflineBadge } from "./offline-badge";
 import { ThemeToggle } from "./theme-toggle";
 import { ButtonLink } from "../ui/button";
 import styles from "./site-header.module.css";
@@ -13,6 +14,7 @@ export function SiteHeader() {
       <div className={`${styles.headerInner} container nav-wrap`}>
         <div className={styles.brandGroup}>
           <Logo />
+          <OfflineBadge />
           <nav className={`${styles.nav} desktop-nav`} aria-label="Primary navigation">
             <Link href="/dashboard" className={styles.navLink}>
               Dashboard
