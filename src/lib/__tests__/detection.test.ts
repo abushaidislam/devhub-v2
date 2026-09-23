@@ -50,8 +50,18 @@ describe("smart input detection", () => {
     expect(detectInput(largePlainText)).toEqual([]);
 
     const largeMarkdown = "# Large Document\n\n" + "- Item\n".repeat(2000);
-    const detections = detectInput(largeMarkdown);
+    let detections = detectInput(largeMarkdown);
     expect(detections.some((d) => d.slug === "markdown-preview")).toBe(true);
+
+    const largeCsvRow = "id,name,value\n";
+    const largeCsv = largeCsvRow + "1,test,100\n".repeat(8000); // ~88k chars
+    detections = detectInput(largeCsv);
+    expect(detections.some((d) => d.slug === "csv-to-json")).toBe(true);
+
+    const largeJsonArray = "[" + '{"id":1,"name":"test"},'.repeat(3000).slice(0, -1) + "]"; // ~66k chars
+    detections = detectInput(largeJsonArray);
+    expect(detections.some((d) => d.slug === "json-formatter")).toBe(true);
+    expect(detections.some((d) => d.slug === "json-to-typescript")).toBe(true);
   });
 
   it("rejects oversized input", () => {
