@@ -339,7 +339,7 @@ export function parseCurl(command: string): ParsedCurl {
 	};
 }
 
-function isJsonData(data: string | null): boolean {
+export function isJsonData(data: string | null): boolean {
 	if (!data) return false;
 	const trimmed = data.trim();
 	if (!trimmed.startsWith("{") && !trimmed.startsWith("[")) return false;
