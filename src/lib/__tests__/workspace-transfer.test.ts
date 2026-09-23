@@ -1,6 +1,6 @@
 import {describe,expect,it} from "vitest";
 import {buildWorkspaceExport,parseWorkspaceImport,serializeWorkspaceExport,WORKSPACE_IMPORT_LIMIT,WORKSPACE_VERSION} from "@/lib/workspace-transfer";
-const known=["json-formatter","base64","cron-parser"];
+const known=new Set(["json-formatter","base64","cron-parser"]);
 describe("workspace transfer",()=>{
 	it("round-trips favorites through export and import",()=>{
 		const raw=serializeWorkspaceExport(buildWorkspaceExport(["json-formatter","cron-parser"],known));
