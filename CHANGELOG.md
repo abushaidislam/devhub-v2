@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.26.1](https://github.com/abushaidislam/devhub-v2/compare/v0.26.0...v0.26.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **ai:** update Gemini default model to gemini-2.5-flash-lite and include key query param ([43fc94a](https://github.com/abushaidislam/devhub-v2/commit/43fc94a29b82f82bdfa2b46469437002c653bf20))
+
+
+### Performance Improvements
+
+* replace O(N) array filter with O(1) toolsByCategory lookup ([4d4a645](https://github.com/abushaidislam/devhub-v2/commit/4d4a6459d3336529a4f12b9ceac476e8640743a0))
+* **workspace:** optimize workspace transfer by precomputing slug set ([c507d80](https://github.com/abushaidislam/devhub-v2/commit/c507d800c2c4f4e9c19fdbc7e0975dc50f1e784b))
+
 ## [0.26.0](https://github.com/abushaidislam/devhub-v2/compare/v0.25.0...v0.26.0) (2026-09-19)
 
 
