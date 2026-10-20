@@ -15,6 +15,8 @@ import {copyText} from "@/lib/clipboard";
 import {useAiConfig} from "@/lib/ai/use-ai-config";
 import {describeDestination} from "@/lib/ai/provider-config";
 import {formatBlogContent, BLOG_STYLE_LABELS, type BlogStyle} from "@/lib/ai/format-blog";
+import {FLOWCHART_TEMPLATES, parseAndLayoutFlowchart} from "@/lib/engines/flowchart";
+import {FlowchartEditorView} from "./flowchart-editor";
 import styles from "./tool-runtime.module.css";
 
 const MIN_PANEL_PERCENT = 25;
@@ -61,6 +63,7 @@ const defaults: Record<string, string> = {
 		"chmod-calculator": "755",
 		"html-formatter": '<!DOCTYPE html>\n<html>\n<head>\n<title>DevHub</title>\n</head>\n<body>\n<main>\n<h1>DevHub</h1>\n<p>Fast, local-first developer tools.</p>\n<a href="/tools">Explore tools</a>\n</main>\n</body>\n</html>',
 		"blog-formatter": "Getting Started with DevHub\n\nDevHub is a free local-first developer workflow workspace. It provides a collection of everyday developer tools that run entirely in your browser. No data is ever sent to a server unless you explicitly use an AI-powered feature with your own API key.\n\nThe key features include JSON formatting and validation, Base64 encoding and decoding, JWT token inspection, UUID generation, regex testing with live match details, QR code generation, and many more. All processing happens locally using Web Crypto and standard browser APIs.\n\nWhy local-first matters: Privacy is not just a feature, it is a fundamental design principle. When you paste a JWT token or an API response into DevHub, that data never leaves your browser. There are no analytics on your input, no server-side processing, and no third-party tracking of what you transform.\n\nDevHub also supports workflow chaining where you can connect multiple tools together. For example you could decode a Base64 string, format the resulting JSON, and then convert it to YAML — all in one saved recipe that you can reuse.\n\nThe AI assistance is entirely optional and uses a bring-your-own-key model. You configure your preferred provider (OpenAI, Gemini, Ollama, or any OpenAI-compatible endpoint) and the requests go directly from your browser to that provider. DevHub never sees your API key or your prompts.",
+		"flowchart-editor": JSON.stringify(FLOWCHART_TEMPLATES["simple-process"], null, 2),
 	};
 
 
@@ -83,10 +86,20 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 	const panelsRef = useRef<HTMLDivElement>(null);
 
 	const isAiTool = slug === "blog-formatter";
+	const isFlowchart = slug === "flowchart-editor";
 	const needsMode = ["base64", "url-encoder", "hash-generator", "html-entities", "curl-converter", "html-formatter", "lorem-ipsum", "blog-formatter"].includes(slug);
 		const preview = slug === "markdown-preview";
 		const [livePreview, setLivePreview] = useState(preview);
 		const [markdownView, setMarkdownView] = useState<"preview" | "html">("preview");
+
+		const flowchartLayout = useMemo(() => {
+			if (!isFlowchart || !input.trim()) return null;
+			try {
+				return parseAndLayoutFlowchart(input).layout;
+			} catch {
+				return null;
+			}
+		}, [isFlowchart, input]);
 
 		// AI tool state (blog-formatter)
 		const { config: aiConfig, configured: aiConfigured } = useAiConfig();
@@ -117,6 +130,7 @@ export function ToolRuntime({slug, name}: {slug: string; name: string}) {
 		if (slug === "html-formatter") return `${option} HTML markup locally`;
 		if (slug === "lorem-ipsum") return `generate placeholder dummy text by ${option}`;
 		if (slug === "chmod-calculator") return "calculate Unix file permissions and chmod command";
+		if (slug === "flowchart-editor") return "render interactive visual flowchart from JSON";
 		if (slug === "base64" || slug === "url-encoder") return option;
 		const operations: Record<string, string> = {
 			"json-formatter": "format and validate JSON",
@@ -699,6 +713,16 @@ value={input}
 								/>
 							) : preview && output ? (
 								<pre className={styles.htmlOutput}>{output}</pre>
+							) : isFlowchart && flowchartLayout ? (
+								<FlowchartEditorView
+									layout={flowchartLayout}
+									rawJson={input}
+									onImportJson={(newJson) => setInput(newJson)}
+									onSelectTemplate={(key) => {
+										const template = FLOWCHART_TEMPLATES[key];
+										if (template) setInput(JSON.stringify(template, null, 2));
+									}}
+								/>
 							) : (
 							<pre>{isRunning ? (isAiTool && output ? output : isAiTool ? "Waiting for AI response…" : "Processing locally…") : output || (isAiTool ? "Paste your content and click Format to generate structured MDX." : "Add an input and run this tool to see the output.")}{isAiTool && isRunning && output ? <span className={styles.aiCursor} aria-hidden="true">▍</span> : null}</pre>
 						)}

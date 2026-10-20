@@ -48,6 +48,7 @@ const PRECACHE_PATHS=[
 	"/tools/chmod-calculator",
 	"/tools/html-formatter",
 	"/tools/blog-formatter",
+	"/tools/flowchart-editor",
 	"/favicon.png",
 	"/icon.png",
 	"/icon-maskable.png"
