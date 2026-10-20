@@ -44,6 +44,7 @@ import {
 		calculateChmod,
 		formatHtml,
 		generateLoremIpsum,
+		parseAndLayoutFlowchart,
 	} from "./tool-engines";
 import type {ToolEngine, ToolResult} from "./engine-types";
 
@@ -454,6 +455,16 @@ const engineList: ToolEngine[] = [
 			sensitivity: "ai",
 			async run() {
 				throw new Error("Blog Formatter requires AI configuration. Use the tool interface to format content.");
+			},
+		},
+		{
+			id: "flowchart-editor",
+			accepts: ["text"],
+			produces: "json",
+			sensitivity: "local",
+			async run(input) {
+				const { result } = parseAndLayoutFlowchart(input.value);
+				return makeJson(result.output, result.meta);
 			},
 		},
 	];

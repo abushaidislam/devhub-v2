@@ -935,6 +935,40 @@ export const toolKnowledgeBase: Record<string, ToolKnowledge> = {
         answer: "The tool supports up to 100,000 characters (~20,000 words) per formatting run, making it suitable for long-form essays, comprehensive guides, and multi-part tutorials."
       }
     ]
+  },
+  "flowchart-editor": {
+    features: [
+      "Real-time visual rendering of node-and-edge flowcharts from structured JSON",
+      "Interactive node selection with highlight and inspection controls",
+      "Includes template presets for Simple Process, Decision Tree, and System Architecture",
+      "File upload for .json flowcharts and export options for SVG, PNG, and formatted JSON",
+      "100% local, browser-based rendering without third-party server dependencies"
+    ],
+    useCases: [
+      "Visualizing decision workflows, state machines, and system architecture diagrams",
+      "Quickly editing or converting JSON workflow definitions into presentation-ready diagrams",
+      "Designing algorithmic logic or software execution flows during planning"
+    ],
+    howTo: [
+      "Paste your JSON flowchart or load a built-in template preset (e.g., Simple Process or Decision Tree)",
+      "Upload an existing .json file or edit the JSON structure directly in the input editor",
+      "Inspect the live interactive flowchart in the preview panel and select nodes to view details",
+      "Export your completed diagram as an SVG, high-res PNG, or save the updated JSON"
+    ],
+    faqs: [
+      {
+        question: "What JSON structure is required for the flowchart editor?",
+        answer: "The editor expects a JSON object containing `nodes` (with `id`, `label`, and optional `shape` or `color`) and `edges` (with `from`, `to`, and optional `label`). Preset templates are provided as examples."
+      },
+      {
+        question: "Is my flowchart data uploaded to any server?",
+        answer: "No. All rendering, layout calculations, and file exports happen completely inside your browser locally."
+      },
+      {
+        question: "Can I export the flowchart for documentation or slides?",
+        answer: "Yes. You can export the flowchart as an SVG vector image, a PNG picture, or as a JSON file."
+      }
+    ]
   }
 };
 

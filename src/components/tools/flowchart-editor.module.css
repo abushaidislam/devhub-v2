@@ -1,0 +1,159 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+}
+
+.controlsGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.uploadButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.fileInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.canvasWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  max-height: 600px;
+  overflow: auto;
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.svgCanvas {
+  width: 100%;
+  height: 100%;
+  min-width: 800px;
+  min-height: 480px;
+  user-select: none;
+}
+
+.nodeGroup {
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.nodeGroup:hover {
+  filter: brightness(1.2);
+}
+
+.nodeGroup[data-selected="true"] {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+}
+
+.nodeText {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  fill: #f3f4f6;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.edgeLine {
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 2;
+  transition: stroke 0.15s ease;
+}
+
+.edgeLine[data-dashed="true"] {
+  stroke-dasharray: 6 4;
+}
+
+.edgeLine[data-highlighted="true"] {
+  stroke: #3b82f6;
+  stroke-width: 2.5;
+}
+
+.edgeLabel {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  fill: #9ca3af;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.edgeLabelBg {
+  fill: #0f172a;
+  rx: 4px;
+}
+
+.inspector {
+  padding: 0.875rem 1rem;
+  background: rgba(15, 23, 42, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+.inspectorContent {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.inspectorBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.inspectorMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.inspectorMeta strong {
+  color: #f3f4f6;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: #64748b;
+}
